@@ -1,0 +1,269 @@
+*  RELEASE NOTE                                 		  
+
+*  Calibre DRC runset
+*  40nm Logic Salicide 0.9/1.1/1.2/1.8/2.5V Low leakage and Generic Calibre DRC runset
+*  License require:calibredrc calibrehdrc
+   Licensed Products
+   Base products running on 1 core:
+   - DRC (Flat)
+   - DFM PROPERTY
+   - DFM SPACE
+ 
+*  --- SMIC TD DRC Group ---
+
+Release Date 2013-05-07    
+DRC package:SmicDR3R_cal40_log_ll_sali_V1.0_3R_DRC.tar.gz
+***********************************************************************************
+[Leon Tang] Following Files are officially released:
+------------------------------------------------------
+1.SmicDR3R_cal40_log_ll_sali_p1mx_2tm_121825.drc
+2.SmicDR3R_cal40_log_ll_sali_p1mx_1tm_121825.drc
+3.SmicDR3R_cal40_log_sali_p1mtx_2tm_101825.esd
+4.SmicDR3R_cal40_log_sali_p1mtx_1tm_101825.esd
+5.SmicDR3R_cal40_log_sali_p1mtM_Ttm_mtt_12182533_V1.0_1R.ant
+------------------------------------------------------
+What's updated:
+Update MTT2_5/7b,SP.3a/3b/4/15,SN.3a/3b/4/15,SRSN.3a/3b
+V1.17,Vn.17,MTT2.7b
+***********************************************************************************
+
+
+Release Date 2013-08-23    
+DRC package:SmicDR3R_cal40_log_ll_sali_V1.0_4R_DRC.tar.gz
+***********************************************************************************
+[Leon Tang] Following Files are officially released:
+------------------------------------------------------
+1.SmicDR3R_cal40_log_ll_sali_p1mx_2tm_121825.drc
+2.SmicDR3R_cal40_log_ll_sali_p1mx_1tm_121825.drc
+3.SmicDR3R_cal40_log_sali_p1mtx_2tm_101825.esd
+4.SmicDR3R_cal40_log_sali_p1mtx_1tm_101825.esd
+5.SmicDR3R_cal40_log_sali_p1mtM_Ttm_mtt_12182533_V1.0_1R.ant
+------------------------------------------------------
+What's updated:
+Update TG.3/4/5/6/11,ULVT.4,ULVT.6,Mn.6a,Mn.6c,DG.3/4/5/6/11,GT.3c,GT.6,GT.6a 
+RESAA.5,RESAA.6,AA.4d,DNW.7,PSUB.7,RESP1.5/6/11,SP.14,SN.14,SAB.4/6/7/8/11/15,
+TM2.9,DUMC.6/16/20/26/26a/28,MTT2.2
+Change Mn.12,NW.11,NW.12,AA.C.5 to recommend rule,and set default status in design rule check as off, 
+GT.2b_R,GT.6a_R MD.4_R MD.6_R ESD.9a_R change default status in design rule check as off,
+Delete ULVT.3,ULVT.5,CT.19,DFM.5,ALPA.11
+***********************************************************************************
+
+
+Release Date 2014-01-23    
+DRC package:SmicDR3R_cal40_log_ll_sali_V1.0_5R_DRC.tar.gz
+***********************************************************************************
+[Leon Tang] Following Files are officially released:
+------------------------------------------------------
+1.SmicDR3R_cal40_log_ll_sali_p1mx_2tm_121825.drc
+2.SmicDR3R_cal40_log_ll_sali_p1mx_1tm_121825.drc
+3.SmicDR3R_cal40_log_sali_p1mtx_2tm_101825.esd
+4.SmicDR3R_cal40_log_sali_p1mtx_1tm_101825.esd
+5.SmicDR3R_cal40_log_sali_p1mtM_Ttm_mtt_12182533_V1.0_1R.ant
+------------------------------------------------------
+What's updated:
+Add DNW.2a,DNW.4a due to DR update.
+***********************************************************************************
+
+
+Release Date 2015-08-20    
+DRC package:SmicDR4_cal40_log_ll_sali_p1mx_xtm_V1.10_0_6.tar.gz
+***********************************************************************************
+[Penny Hua] Following Files are officially released:
+------------------------------------------------------
+1.SmicDR4_cal40_log_ll_sali_p1mx_1tm_V1.10_0_6.drc
+2.SmicDR4_cal40_log_ll_sali_p1mx_2tm_V1.10_0_6.drc
+3.SmicDR4_cal40_log_ll_sali_p1mx_xtm_mtt_V1.10_0_6.ant
+4.UserGuide
+5.Release_Note
+------------------------------------------------------
+What's updated:
+for SmicDR4_cal40_log_ll_sali_p1mx_1tm_V1.10_0_6.drc
+Add switch #DEFINE MOM_5_6_CHECK
+Add rules MOM_4_G,MOM_5_G,MOM_6_G
+Update below density rule:
+GT_31_density，M1_15_density，M2_14_density，M3_14_density，M3_16_M1M2M3_density，M4_14_density，M4_16_M2M3M4_density，
+M5_14_density，M5_16_M3M4M5_density，M6_14_density，M6_16_M4M5M6_density，M7_14_density，M7_16_M5M6M7_density，
+M8_14_density，M8_16_M6M7M8_density，IND_R_9_G_l_TM2_density，IND_R_9_G_h_TM2_density，IND_R_9_G_l_MTT2_density，
+IND_R_9_G_h_MTT2_density             
+Update DNW_8,ALPA_1.
+
+for SmicDR4_cal40_log_ll_sali_p1mx_2tm_V1.10_0_6.drc
+Add switch #DEFINE MOM_5_6_CHECK
+Add rules MOM_4_G,MOM_5_G,MOM_6_G
+Update below density rules:
+GT_31_density，M1_15_density，M2_14_density，M3_14_density，M3_16_M1M2M3_density，M4_14_density，M4_16_M2M3M4_density，
+M5_14_density，M5_16_M3M4M5_density，M6_14_density，M6_16_M4M5M6_density，M7_14_density，M7_16_M5M6M7_density，
+M8_14_density，M8_16_M6M7M8_density，IND_R_9_G_l_TM1_density，IND_R_9_G_h_TM1_density，IND_R_9_G_l_TM2_density，
+IND_R_9_G_h_TM2_density，IND_R_9_G_l_MTT2_density，IND_R_9_G_h_MTT2_density
+Update DNW_8,ALPA_1.
+
+for SmicDR4_cal40_log_ll_sali_p1mx_xtm_mtt_V1.10_0_6.ant
+Update  <Choice 4>ALPA thickness from 1.45*1.1 to 1.45,2.8*1.1 to 2.8
+
+Update by Leon_Tang
+What's updated:
+Update LU rules,MTT2_13,BD_6,GT_20b    
+AA_C_5,Mn_12,Mn_13,GT_33 downgrate to [R]
+Add DUMC_34a,DUMC_35a,SAB_16_R,NW_1a, 
+TG_16a,GRC_7~GRC_12,LD_10,LD_11        
+Delete ULVT_3,ULVT_5                   
+Update DUMC_34,DUMC_35,Mn_2,SRDOP_15,  
+NW_3,ULVT_4,ULVT_6,SAB_5,SAB_6,SAB_8,  
+SAB_11,TG_16,GT_5a,TG_11_R,DUMC_26     
+Update CT_1,CT_8,CT_13,DNW_8           
+Move DG_15~DG_19 to TG_16~TG_20        
+Update AA_19,GT_20b,SAB_5,Convention_2,
+DG_16,DG_3,DG_4,TG_3,TG_4              
+Update GT_28,GT_32,GT_33,CT_21,SP_8c,  
+SN_7c,SN_8c                            
+Delete AA_9b,M1_4a,Mn_4a               
+Update AA_20,DG_18,DG_19,SP_7c,SN_7c   
+LU_3_3a/b/c/d                          
+Update AA_15a_R,AA_15b_R,GT_20b,IND_R_8
+GT_31                                  
+Update AA_9b,AA_13a,DIFRES_6,DNW_9,    
+NW_11_R,NW_12_R,NW_17_R,RESNWST_6,     
+RESNWAA_9,RESNWAA_11,DG_16,DG_17,DG_18,
+DG_19,GT_3e,GT_5,GT_5a,SRGT_5,GT_9,    
+SRGT_10,GT_21,GT_28,GT_32,GT_33,PLRES_6,
+LVT_4,LVT_4a,LVT_5,LVT_5a,HVT_4,HVT_4a, 
+HVT_5,HVT_5a,SP_6,SP_7a/b/c,SN_6,SN_7a/b,
+CT_5,CT_5_R,CT_20,M1_4a,Mn_4a,V1_19,Vn_19,
+Vn_23_R,PA_11,ESD_5,MTT2_11,SRAM device rule,
+LOGO_1,LU_3,                           
+Delete LVT_15,HVT_15,ULVT_10,SP_22,SN_23,
+SAB_8a/b,                              
+Update switch follow 4R Design rule.   
+Add DFM priority for recommended rules.
+Update connect follow net definition.  
+Implement ESD and Latch up rules       
+Update AA_1,AA_4a,AA_4b_4c,AA_9a,AA_11,
+AA_13,AA_14,AA_14a,AA_15a,AA_15b,AA_16,
+AA_17,AA_18,AA_19,RESAA_7,RESAA_12,RESAA_13,
+AA_C_1,AA_C_4,AA_C_5,DIFRES_6,DIFRES_7,
+DIFRES_11,DIFRES_12,DNW_1,DNW_2,DNW_2a,
+DNW_7,NW_1,SRNW_1,NW_3,NW_7,NW_11_R,NW_12_R,
+SRNW_14,NW_13,NW_14,NW_15,NW_16,RESNWST_6,
+RESNWST_7,RESNWST_9,RESNWAA_7,RESNWAA_9,
+RESNWAA_10,RESNWAA_11,PSUB_1,PSUB_4,PSUB_12,
+TG_1,TG_2,TG_13,TG_14,TG_15,DG_1,DG_2, 
+DG_12,DG_13,DG_14,BORDER_1,GT_2a,GT_3,GT_3c,
+SRGT_3,GT_4,SRGT_5,SRGT_6,SRGT_7,GT_8a,
+GT_17,GT_18,GT_20b,GT_21,GT_27,GT_28,  
+RESP1_7,PLRES_6,PLRES_7,PLRES_8,PLRES_9,
+PLRES_10,LVT_1,LVT_13,HVT_1,HVT_13,SP_9,
+SRSP_10,SP_15,SP_20a,SN_7b,SN_9,SN_15, 
+SAB_5,SAB_6,SAB_8,SAB_11,CT_1,CT_3,CT_3a,
+CT_8,CT_10,M1_1,M1_2,M1_3,SRM1_3sa,M1_4,
+M1_5,M1_6/6a/b/c,M1_7a,M1_7bc,M1_7e,M1_8/8a,
+M1_9,M1_10,M1_14,V1_2,V1_5/5a,V1_6abc,V1_7abc,
+V1_9,Mn_1,Mn_2,Mn_3,Mn_4,Mn_5,Mn_6/6a/b/c,
+Mn_7/7a,Mn_8.Mn_9,Mn_12,Vn_2,Vn_5/5a,Vn_6abc,
+Vn_7abc,Vn_9,TV1_4_5,TM1_1,TM1_2,TM1_5,TM1_7,
+TM1_8,TM1_9,TM1_10,TM1_13,TV2_4_5,TM2_1,TM2_2,
+TM2_5,TM2_7,TM2_8,TM2_9,TM2_10,TM2_12, 
+ALPA_1,ALPA_2,PA_1,PA_2,PA_4,MD_5,HRP_9,
+MTT2_1,MTT2_2,MTT2_3,MTT2_6,MTT2_7,MTT2_11,
+EFU rules,ULVT_3,ULVT_4,ULVT_6,ULVT_9,BUMP_4_G,
+BUMP_5_G,BUMP_7_G,Convention rules,DUMC_2,
+DUMC_12,DUMC_18,DUMC_22,               
+Add AA_9b,AA_13a,AA_20,AA_21,AA_22,DNW_8a,
+DNW_8b,DNW_9,PSUB_14,PSUB_15,DG_15,DG_16,
+DG_17,DG_18,DG_19,BORDER_6,GT_3d/e,GT_17a,
+GT_18a,GT_29,GT_30,GT_31,GT_32,GT_33,LVT_15,
+HVT_15,SP_22,SN_20a,sn_23,SAB_8a/b,CT_13,
+CT_20,M1_4a,M1_15,M1_16,V1_17a/b,V1_18,V1_19,
+V1_20,V1_21,Mn_4a,Mn_13,Mn_14,Mn_15,Mn_16,
+Vn_17a/b,Vn_18,Vn_19,Vn_20,Vn_21,TV1_14,TV1_15,
+TV1_16,TV1_17,TV2_15,TV2_16,TV2_17,TV2_18,
+PA_11,MTT2_6a,MTT2_13,ULVT_5,ULVT_10,  
+Inductor rules,LOGO rules,DUMC_40~DUMC_51,
+Delete GT_20c/d,SAB_15,CT_9,CT_11,M1_11a/b,
+ALPA_5,ALPA_11,ESD_8,DUMCN rules
+***********************************************************************************
+
+
+Release Date 2017-02-23    
+DRC package:SMIC_CalDRC_40GELGLL_0911121825_V1.11_0.tar.gz
+***********************************************************************************
+[Lilian Li] Following Files are officially released:
+------------------------------------------------------
+1.SMIC_CalDRC_40GELGLL_0911121825_2TM_V1.11_0.drc
+2.SMIC_CalDRC_40GELGLL_0911121825_1TM_V1.11_0.drc
+3.SMIC_CalDRC_40GELGLL_0911121825_V1.11_0.ant
+4.UserGuide
+5.Release_Note
+------------------------------------------------------
+What's updated:
+For DRC main deck:
+modify GT_32_R/add CT_5b
+For ANT deck:
+only version up to follow DR version up
+
+
+
+Release Date 2017-04-21    
+DRC package:SMIC_CalDRC_40GELGLL_0911121825_V1.12_0.tar.gz
+***********************************************************************************
+[Lilian Li] Following Files are officially released:
+------------------------------------------------------
+1.SMIC_CalDRC_40GELGLL_0911121825_2TM_V1.12_0.drc
+2.SMIC_CalDRC_40GELGLL_0911121825_1TM_V1.12_0.drc
+3.SMIC_CalDRC_40GELGLL_0911121825_V1.12_0.ant
+4.UserGuide
+5.Release_Note
+------------------------------------------------------
+What's updated:
+For DRC main deck:
+Add LD_12/RESWAA_14/M1_3a/M1_3b/M1_17/M1_18/M1_19/M1_20/Mn_3a/Mn_3b/Mn_17/Mn_18/Mn_19/Mn_20
+LU_3d/LU_3g/V1_2a/V1_2b/Vn_2a/Vn_2b/ESDLO_17a/ESDLO_17b/WBPAD_1/WBPAD_2/WBPAD_3/WBPAD_4/WBPAD_5/
+WBPAD_6/WBPAD_7/WBPAD_8_R/WBPAD_9WBPAD_10/GRC_13/
+Modify GT_31/TM1_7/TM1_10/TM2_7/TM2_10/DGR_3/M1_3/M1_3_R/M1_16/Mn_3/Mn_3_R/Mn_15/Mn_16/MOM_4_G/
+ESDLO_7/LU_1/LU_2/MTT2_5/MTT2_7/IND_R_9_G/AA_2/TG_5/TG_11_R/RESAA_12/RESAA_13/DG_5/GT_9/
+DNW_3/AA_2/RESNWST_6/CORN_1/BORDER_6/GT_24b_R/GT_24c_R/GT_25b_R/GT_25c_R/GT_33/
+GT_34_R_OFF/GT_35_R_OFF/PLRES_6/SP_3a/GRC_1/GRC_3/Convention_1/Convention_2/Convention_3
+ESDLO_3a_G/ESDLO_3b_G/all DFM_OFF except EXDFM layer
+For ANT deck:
+only version up to follow DR version up
+
+Release Date 2017-08-10    
+DRC package:SMIC_CalDRC_40GELGLL_0911121825_V1.12_1.tar.gz
+***********************************************************************************
+[Angela Yu] Following Files are officially released:
+------------------------------------------------------
+1.SMIC_CalDRC_40GELGLL_0911121825_2TM_V1.12_1.drc
+2.SMIC_CalDRC_40GELGLL_0911121825_1TM_V1.12_1.drc
+3.SMIC_CalDRC_40GELGLL_0911121825_V1.12_1.ant
+4.UserGuide
+5.Release_Note
+------------------------------------------------------
+What's updated:
+For DRC main deck:
+a)Update M1_3a,M1_3b,Mn_3a and Mn_3b(n=2~8).
+b)Delete switch for GESD1.
+c)Update calibre tool version from 2016.2_18.12 to 2016.3_19.12.
+d)Update switch comment per standard request.
+For ANT deck:
+a)Only version up.
+
+Release Date 2018-08-13    
+DRC package:SMIC_CalDRC_40GELGLL_0911121825_V1.12.1_0.tar.gz
+***********************************************************************************
+[Angela Yu] Following Files are officially released:
+------------------------------------------------------
+1.SMIC_CalDRC_40GELGLL_0911121825_2TM_V1.12.1_0.drc
+2.SMIC_CalDRC_40GELGLL_0911121825_1TM_V1.12.1_0.drc
+3.SMIC_CalDRC_40GELGLL_0911121825_V1.12.1_0.ant
+4.UserGuide
+5.Release_Note
+------------------------------------------------------
+What's updated:
+For DRC main deck:
+1) Update AA_2,AA_4 and LD_11_G.
+2) Update resistor definition for LU_?.
+For ANT deck:
+a)Only version up.
+
+
+
+
