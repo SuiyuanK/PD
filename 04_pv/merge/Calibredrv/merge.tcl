@@ -10,6 +10,6 @@ layout filemerge -mode append -precision 1000.0 -verbose -topcell top \
     -in /mnt/hgfs/Em/PD/04_pv/data/layout_files/RAMSP4096X16.gds2 \
     -in /mnt/hgfs/Em/PD/04_pv/data/layout_files/RAMTP1024X16.gds2 \
     -in /mnt/hgfs/Em/PD/04_pv/data/layout_files/RAMTP128X16.gds2 \
--out /mnt/hgfs/Em/PD/04_pv/merge/Calibredrv/top_merge.gds
+-out ./top_merge.gds
 
 

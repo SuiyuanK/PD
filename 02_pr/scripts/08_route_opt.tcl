@@ -60,6 +60,7 @@ set_app_options -name route.track.timing_driven -value true
 
 set_app_options -name route.detail.antenna -value true
 set_app_options -name route.detail.antenna_fixing_preference -value use_diodes
+# 线太长 积累电荷 跳线 二极管
 set_app_options -name route.detail.diode_libcell_names -value */*DIO*TL* ; # 一些库叫*ANT*
 set_app_options -name route.detail.timing_driven -value true
 # set_app_options -name route.detail.save_after_iterations -value 2  ;# 到设置的轮数save一个数据出来 再继续跑

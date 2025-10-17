@@ -16,12 +16,12 @@ add_via_mapping -from_icc_file data/techfile/milkyway/1P8M_2TM_ALPA2/icc_route_o
 
 set_user_units -type time -value 1ns
 
-set_attribute [get_site_defs unit] symmetry Y
-set_attribute [get_site_defs unit] is_default true
+# set_attribute [get_site_defs unit] symmetry Y
+# set_attribute [get_site_defs unit] is_default true
 
 get_layers -filter "is_routing_layer==true"
-set_attribute [get_layers {M1 M3 M5 TM1 ALPA}] routing_direction horizontal
-set_attribute [get_layers {GT M2 M4 M6 TM2}] routing_direction vertical 
+set_attribute [get_layers {M1 M3 M5 TM1 ALPA}] routing_direction vertical
+set_attribute [get_layers {GT M2 M4 M6 TM2}] routing_direction horizontal
 get_attribute [get_layers {GT M? TM? ALPA}] routing_direction
 
 set_ignored_layers -max_routing_layer M6

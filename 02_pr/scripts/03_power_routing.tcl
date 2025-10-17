@@ -40,18 +40,7 @@ foreach_in_collection _macro $macro_col {
 }
 
 ### basic pattern
-set macro_pgregions0 [get_pg_regions *]
 
-create_pg_region -polygon {{678.3770 1258.2590} {824.9570 1475.2190}} User_MEMORY_REGION_0
-create_pg_region -polygon {{492.7970 1258.2590} {639.3770 1475.2190}} User_MEMORY_REGION_1
-create_pg_region -polygon {{307.2170 1258.2590} {453.7970 1475.2190}} User_MEMORY_REGION_2
-create_pg_region -polygon {{1049.5370 1258.2590} {1196.1170 1475.2190}} User_MEMORY_REGION_3
-create_pg_region -polygon {{307.2170 21.7120} {453.7970 238.6720}} User_MEMORY_REGION_4
-create_pg_region -polygon {{492.7970 21.7120} {639.3770 238.6720}} User_MEMORY_REGION_5
-create_pg_region -polygon {{678.3770 21.7120} {824.9570 238.6720}} User_MEMORY_REGION_6
-create_pg_region -polygon {{863.9570 21.7120} {1010.5370 238.6720}} User_MEMORY_REGION_7
-create_pg_region -polygon {{1049.5370 21.7120} {1196.1170 238.6720}} User_MEMORY_REGION_8
-create_pg_region -polygon {{863.9570 1258.2590} {1010.5370 1475.2190}} User_MEMORY_REGION_9
 set macro_pgregions [get_pg_regions *]
 
 remove_routes -net_types {power ground} -ring -stripe -macro_pin_connect -lib_cell_pin_connect
@@ -62,7 +51,7 @@ create_pg_std_cell_conn_pattern pattern_pg_rail -layers M2 -rail_width {@w} -par
 set_pg_strategy strategy_pg_rail \
     -voltage_areas DEFAULT_VA \
     -pattern "{name : pattern_pg_rail} {nets : VDD VSS} {parameters : 0.2}" \
-    -blockage {{pg_regions : $macro_pgregions0} {placement_blockages : all}}
+    -blockage {{pg_regions : $macro_pgregions} {placement_blockages : all}}
 
 # stripe
 create_pg_wire_pattern pattern_wire_based_on_track -direction @d -layer @l -width @w -spacing @s -pitch @p -parameters {d l w s p} -track_alignment track
@@ -71,34 +60,21 @@ create_pg_composite_pattern pattern_core_TM2_mesh -net {VDD VSS} \
     -add_patterns {{{pattern: pattern_wire_based_on_track}{nets : {VDD VSS}} {parameters : {horizontal TM2 7.2 interleaving 40 }}{offset : 1.68 1.68}}}
 create_pg_composite_pattern pattern_core_TM1_mesh -net {VDD VSS} \
     -add_patterns {{{pattern: pattern_wire_based_on_track}{nets : {VDD VSS}} {parameters : {vertical TM1 7.2 interleaving 40 }}{offset : 1.68 1.68}}}
-create_pg_composite_pattern pattern_core_M6_mesh -net {VDD VSS} \
-    -add_patterns {{{pattern: pattern_wire_based_on_track}{nets : {VDD VSS}} {parameters : {horizontal M6 1.6 interleaving 40 }}{offset : 0.95 0.95}}}
 
-set_pg_strategy strategy_M6_pg_mesh -pattern "{name : pattern_core_M6_mesh} {nets : VDD VSS}" -voltage_areas DEFAULT_VA -blockage {{pg_regions : $macro_pgregions} {placement_blockages : all}}
-# macro also need
-create_pg_region -polygon {{683.0770 1260.2590} {820.2570 1473.2190}} user_pg_region_0
-create_pg_region -polygon {{497.4970 1260.2590} {634.6770 1473.2190}} user_pg_region_1
-create_pg_region -polygon {{311.9170 1260.2590} {449.0970 1473.2190}} user_pg_region_2
-create_pg_region -polygon {{1054.2370 1260.2590} {1191.4170 1473.2190}} user_pg_region_3
-create_pg_region -polygon {{311.9170 23.7120} {449.0970 236.6720}} user_pg_region_4
-create_pg_region -polygon {{497.4970 23.7120} {634.6770 236.6720}} user_pg_region_5
-create_pg_region -polygon {{683.0770 23.7120} {820.2570 236.6720}} user_pg_region_6
-create_pg_region -polygon {{868.6570 23.7120} {1005.8370 236.6720}} user_pg_region_7
-create_pg_region -polygon {{1054.2370 23.7120} {1191.4170 236.6720}} user_pg_region_8
-create_pg_region -polygon {{868.6570 1260.2590} {1005.8370 1473.2190}} user_pg_region_9
-set user_pgregions [get_pg_regions user_pg_region_*]
-set_pg_strategy strategy_TM1_pg_mesh -pattern "{name : pattern_core_TM1_mesh} {nets : VDD VSS}" -voltage_areas DEFAULT_VA -blockage {{pg_regions : $user_pgregions}}
+
+
+
+set_pg_strategy strategy_TM1_pg_mesh -pattern "{name : pattern_core_TM1_mesh} {nets : VDD VSS}" -voltage_areas DEFAULT_VA -blockage {{pg_regions : $macro_pgregions} {placement_blockages : all}}
+# macro also need 手动连
 set_pg_strategy strategy_TM2_pg_mesh -pattern "{name : pattern_core_TM2_mesh} {nets : VDD VSS}" -voltage_areas DEFAULT_VA -blockage {{pg_regions : $macro_pgregions} {placement_blockages : all}}
+
 
 ### via rules
 set_pg_strategy_via_rule via_pg_core -via_rule { \
     {{{strategies: strategy_TM2_pg_mesh} {layers: TM2}} {{strategies: strategy_TM1_pg_mesh} {layers: TM1}} {via_master: default}} \
-    {{{strategies: strategy_TM1_pg_mesh} {layers: TM1}} {{strategies: strategy_M6_pg_mesh} {layers: M6}} {via_master: default}} \
-    {{{existing: std_conn}}                             {{strategies: strategy_M6_pg_mesh} {layers: M6}} {via_master: default}} \
+    {{{strategies: strategy_TM1_pg_mesh} {layers: TM1}}  {{existing: std_conn}}} \
     {{intersection: adjacent} {via_master: default}}
 }
-
-
 
 
 
@@ -110,6 +86,8 @@ set_pg_strategy strategy_memory_ring_top -macro $memory_top -pattern {{pattern: 
 set_pg_strategy_via_rule strategy_memory_ring_via -via_rule { \
     {{{strategies: strategy_memory_ring_top} {layers: M6}} {existing: strap} {via_master: default}} \
     {{{strategies: strategy_memory_ring_top} {layers: M5}} {existing: strap} {via_master: default}} \
+    {{{strategies: strategy_TM2_pg_mesh} {layers: TM2}} {{strategies: strategy_memory_ring_top} {layers: M6}}} \
+    { {intersection: undefined}{via_master: NIL} }
 }
 
 
@@ -122,7 +100,7 @@ set_pg_strategy strap_top_pins -macros $memory_top -pattern {{pattern: pattern_m
 ### compile_pg
 # compile_pg
 compile_pg -strategies {strategy_pg_rail} -tag pattern_pg_rail  -ignore_via_drc
-compile_pg -strategies {strategy_TM2_pg_mesh strategy_TM1_pg_mesh strategy_M6_pg_mesh} -tag pg_stripes  -via_rule {via_pg_core}
+compile_pg -strategies {strategy_TM2_pg_mesh strategy_TM1_pg_mesh} -tag pg_stripes  -via_rule {via_pg_core}
 compile_pg -strategies {strategy_memory_ring_top} -tag pg_ring -via_rule {strategy_memory_ring_via} 
 compile_pg -strategies {strap_top_pins} -tag macro_pins 
 

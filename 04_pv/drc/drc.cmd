@@ -2,7 +2,7 @@
 LAYOUT ERROR ON INPUT NO
 
 LAYOUT PRIMARY "top"
-LAYOUT PATH "/home/master/Desktop/04_pv/merge/Calibredrv/top_merged.gds"
+LAYOUT PATH "/home/master/Desktop/04_pv/merge/Calibredrv/top_merge.gds"
 LAYOUT SYSTEM GDSII
 
 DRC RESULTS DATABASE "./drc.db"

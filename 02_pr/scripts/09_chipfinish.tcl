@@ -95,5 +95,5 @@ check_lvs > $report_dir/check_lvs.rpt ;#net
 check_pg_connectivity > $report_dir/check_pg_connectivity.rpt
 
 
-# read_drc_error_file -error_data cali -file ../drc/drc.db
+# read_drc_error_file -error_data cali -file ../04_pv/drc/drc.db
 

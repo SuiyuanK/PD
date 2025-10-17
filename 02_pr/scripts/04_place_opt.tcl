@@ -38,8 +38,8 @@ set_app_options -name place.coarse.continue_on_missing_scandef -value "true"
 set_app_options -name place.coarse.congestion_driven_max_util -value 0.70
 set_app_options -name place.coarse.max_density -value 0.50
 # under 16nm need true
-set_app_options -name place.legalize.enable_advanced_legalizer -value "false"
-set_app_options -name place.legalize.enable_advanced_legalizer_cellmap -value "false"
+set_app_options -name place.legalize.enable_advanced_legalizer -value "true"
+set_app_options -name place.legalize.enable_advanced_legalizer_cellmap -value "true"
 
 set_app_options -name opt.area.effort -value "high"
 set_app_options -name opt.common.enable_rde -value "high"

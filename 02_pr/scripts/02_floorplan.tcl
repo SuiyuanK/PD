@@ -26,8 +26,8 @@ initialize_floorplan -boundary {{0 0} {1499.86 1495.2}} -core_offset {0 1.6800}
 ### place port
 remove_individual_pin_constraints
 #-allowed_layers {M5 M7} 
-set_individual_pin_constraints -port [all_inputs] -side 1 -offset {500 1000} -allowed_layers {M3 M4 M5 M6}
-set_individual_pin_constraints -port [all_outputs] -side 1 -offset {500 1000} -allowed_layers {M3 M4 M5 M6}
+set_individual_pin_constraints -ports [all_inputs] -sides 1 -pin_spacing 45 -offset {300 1200} -allowed_layers {M3 M4 M5 M6}
+set_individual_pin_constraints -ports [all_outputs] -sides 1 -pin_spacing  45 -offset {300 1200} -allowed_layers {M3 M4 M5 M6}
 place_pins -self -ports [get_ports *]
 
 ### create voltage area
@@ -44,6 +44,7 @@ place_pins -self -ports [get_ports *]
 # change_selection [get_flat_cells * -filter is_hard_macro==true]
 # write_floorplan -objects [get_selection ] -force -nosplit
 # cp floorplan/fp.tcl scripts/place_hard_macro.tcl
+# 小的5 大的20
 source scripts/place_hard_macro.tcl
 create_keepout_margin -outer {5 5 5 5} [get_flat_cells * -filter is_hard_macro==true]
 
@@ -51,23 +52,28 @@ create_keepout_margin -outer {5 5 5 5} [get_flat_cells * -filter is_hard_macro==
 ### blockage(gui) copy from fp.tcl
 # change_selection [get_placement_blockages *]
 # write_floorplan -objects [get_selection ] -force -nosplit (-nosplit No line break)
-create_placement_blockage -name pb_0 -type allow_buffer_only -blocked_percentage 100 -boundary { {307.7170 23.7120} {1195.6170 236.6720} }
-create_placement_blockage -name pb_1 -type allow_buffer_only -blocked_percentage 0 -boundary { {307.7170 1260.2590} {1195.6170 1473.2190} }
 
-
+create_placement_blockage -name pb_0 -type allow_buffer_only -blocked_percentage 100 -boundary { {307.7170 23.7120} {1035.6170 236.6720} }
+create_placement_blockage -name pb_1 -type allow_buffer_only -blocked_percentage 100 -boundary { {307.7170 1260.2590} {1035.6170 1473.2190} }
 
 
 # get_voltage_areas  ------>>>  {DEFAULT_VA PD_RISC_CORE}
 # Each voltage_area needs to set these cells.
 
 ### boundary cell         Around the perimeter of the standard cells
+# 40nm 只打左右
 remove_boundary_cell_rules -all
 remove_cells [get_cells -physical_context *boundarycell* -quiet]
-set_boundary_cell_rules -left_boundary_cell $endcap_left -right_boundary_cell $endcap_right -top_boundary_cells $endcap_top -bottom_boundary_cells $endcap_bottom
-compile_advanced_boundary_cells -voltage_area "DEFAULT_VA" -target_objects [get_flat_cells * -filter is_hard_macro==true]
+# -top_boundary_cells $endcap_top -bottom_boundary_cells $endcap_bottom
+set_boundary_cell_rules -left_boundary_cell $endcap_left -right_boundary_cell $endcap_right 
+# -target_objects [get_flat_cells * -filter is_hard_macro==true]
+compile_advanced_boundary_cells -voltage_area "DEFAULT_VA" 
 ### tap cell
-# power routing阶段加
 
+create_tap_cells -lib_cell $tapcell_ref -pattern stagger -distance 30 -skip_fixed_cells -voltage_area DEFAULT_VA
+
+set_fixed_objects [get_ports *]
+set_fixed_objects[get_flat_cells * -filter is_hard_macro==true]
 
 ### connect pg
 connect_pg_net -all_blocks -automatic
