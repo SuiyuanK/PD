@@ -57,24 +57,27 @@ set_pg_strategy strategy_pg_rail \
 create_pg_wire_pattern pattern_wire_based_on_track -direction @d -layer @l -width @w -spacing @s -pitch @p -parameters {d l w s p} -track_alignment track
 # pitch 0.84 0.14 线宽 = 2 * 节距 - 4 * 最小间距
 create_pg_composite_pattern pattern_core_TM2_mesh -net {VDD VSS} \
-    -add_patterns {{{pattern: pattern_wire_based_on_track}{nets : {VDD VSS}} {parameters : {horizontal TM2 7.2 interleaving 40 }}{offset : 1.68 1.68}}}
+    -add_patterns {{{pattern: pattern_wire_based_on_track}{nets : {VDD VSS}} {parameters : {vertical TM2 7.2 interleaving 40 }}{offset : 1.68 1.68}}}
 create_pg_composite_pattern pattern_core_TM1_mesh -net {VDD VSS} \
-    -add_patterns {{{pattern: pattern_wire_based_on_track}{nets : {VDD VSS}} {parameters : {vertical TM1 7.2 interleaving 40 }}{offset : 1.68 1.68}}}
+    -add_patterns {{{pattern: pattern_wire_based_on_track}{nets : {VDD VSS}} {parameters : {horizontal TM1 7.2 interleaving 40 }}{offset : 1.68 1.68}}}
+create_pg_composite_pattern pattern_core_M7_mesh -net {VDD VSS} \
+    -add_patterns {{{pattern: pattern_wire_based_on_track}{nets : {VDD VSS}} {parameters : {vertical M7 1.4 interleaving 21}}{offset : 1.68 1.68}}}
 
 
-
-
-set_pg_strategy strategy_TM1_pg_mesh -pattern "{name : pattern_core_TM1_mesh} {nets : VDD VSS}" -voltage_areas DEFAULT_VA -blockage {{pg_regions : $macro_pgregions} {placement_blockages : all}}
+set_pg_strategy strategy_M7_pg_mesh -pattern "{name : pattern_core_M7_mesh} {nets : VDD VSS}" -voltage_areas DEFAULT_VA -blockage {{pg_regions : $macro_pgregions} {placement_blockages : all}}
 # macro also need 手动连
-set_pg_strategy strategy_TM2_pg_mesh -pattern "{name : pattern_core_TM2_mesh} {nets : VDD VSS}" -voltage_areas DEFAULT_VA -blockage {{pg_regions : $macro_pgregions} {placement_blockages : all}}
+set_pg_strategy strategy_TM1_pg_mesh -pattern "{name : pattern_core_TM1_mesh} {nets : VDD VSS}" -voltage_areas DEFAULT_VA
+set_pg_strategy strategy_TM2_pg_mesh -pattern "{name : pattern_core_TM2_mesh} {nets : VDD VSS}" -voltage_areas DEFAULT_VA 
 
 
 ### via rules
-set_pg_strategy_via_rule via_pg_core -via_rule { \
-    {{{strategies: strategy_TM2_pg_mesh} {layers: TM2}} {{strategies: strategy_TM1_pg_mesh} {layers: TM1}} {via_master: default}} \
-    {{{strategies: strategy_TM1_pg_mesh} {layers: TM1}}  {{existing: std_conn}}} \
-    {{intersection: adjacent} {via_master: default}}
-}
+# set_pg_strategy_via_rule via_pg_core -via_rule { \
+#     {{{strategies: strategy_TM2_pg_mesh} {layers: TM2}} {{strategies: strategy_TM1_pg_mesh} {layers: TM1}} {via_master: default}} \
+#     {{{strategies: strategy_TM1_pg_mesh} {layers: TM2}} {{strategies: strategy_M7_pg_mesh} {layers: M7}} {via_master: default}} \
+#     {{{strategies: strategy_M7_pg_mesh} {layers: M7}}  {{existing: std_conn}}} \
+#     {{{strategies: strategy_memory_ring_top} {layers: M6}} {{strategies: strategy_TM1_pg_mesh} {layers: TM1}} {via_master: default}} \
+#     {{intersection: undefined} {via_master: NIL}}
+# }
 
 
 
@@ -83,12 +86,11 @@ set_pg_strategy_via_rule via_pg_core -via_rule { \
 # width 可宽一点 
 create_pg_ring_pattern pattern_memory_ring -horizontal_layer M5 -horizontal_width 1.6 -vertical_layer M6 -vertical_width 1.6 -corner_bridge true -via_rule {{intersection: all} {via_master: V5_8_XX_F0}}
 set_pg_strategy strategy_memory_ring_top -macro $memory_top -pattern {{pattern: pattern_memory_ring} {nets: {VDD VSS}} {offset : {0.8 0.8}}}
-set_pg_strategy_via_rule strategy_memory_ring_via -via_rule { \
-    {{{strategies: strategy_memory_ring_top} {layers: M6}} {existing: strap} {via_master: default}} \
-    {{{strategies: strategy_memory_ring_top} {layers: M5}} {existing: strap} {via_master: default}} \
-    {{{strategies: strategy_TM2_pg_mesh} {layers: TM2}} {{strategies: strategy_memory_ring_top} {layers: M6}}} \
-    { {intersection: undefined}{via_master: NIL} }
-}
+# set_pg_strategy_via_rule strategy_memory_ring_via -via_rule { \
+#     {{{strategies: strategy_memory_ring_top} {layers: M6}} {{strategies: strategy_TM1_pg_mesh} {layers: TM1}} {via_master: default}} \
+#     {{{strategies: strategy_memory_ring_top} {layers: M5}} {existing: strap} {via_master: default}} \
+#     {{intersection: undefined} {via_master: NIL}}
+# }
 
 
 ### macro pin connection
@@ -99,11 +101,19 @@ set_pg_strategy strap_top_pins -macros $memory_top -pattern {{pattern: pattern_m
 
 ### compile_pg
 # compile_pg
-compile_pg -strategies {strategy_pg_rail} -tag pattern_pg_rail  -ignore_via_drc
-compile_pg -strategies {strategy_TM2_pg_mesh strategy_TM1_pg_mesh} -tag pg_stripes  -via_rule {via_pg_core}
-compile_pg -strategies {strategy_memory_ring_top} -tag pg_ring -via_rule {strategy_memory_ring_via} 
+compile_pg -strategies {strategy_pg_rail} -tag pattern_pg_rail 
+compile_pg -strategies {strategy_memory_ring_top} -tag pg_ring  
 compile_pg -strategies {strap_top_pins} -tag macro_pins 
+set_app_options -name plan.pgroute.disable_via_creation -value true
+compile_pg -strategies {strategy_TM2_pg_mesh strategy_TM1_pg_mesh strategy_M7_pg_mesh} -tag pg_stripes 
 
+#  -ignore_via_drc
+### pg via
+set die_box [get_attribute [current_block] boundary_bbox ]
+create_pg_vias -nets {VDD VSS} -from_types stripe -to_types lib_cell_pin_connect -from_layers M7 -to_layers M2 -mark_as strap -allow_parallel_objects
+create_pg_vias -nets {VDD VSS} -from_types stripe -to_types stripe -from_layers M7 -to_layers TM1 -mark_as strap -allow_parallel_objects
+create_pg_vias -nets {VDD VSS} -from_types stripe -to_types stripe -from_layers TM1 -to_layers TM2 -mark_as strap -allow_parallel_objects
+create_pg_vias -nets {VDD VSS} -from_types ring -to_types stripe -from_layers M6 -to_layers TM1 -mark_as strap -allow_parallel_objects
 
 
 ### connect pg 
@@ -123,4 +133,4 @@ check_pg_drc -ignore_std_cells > $report_dir/check_pg_drc.rpt
 check_pg_connectivity -check_std_cell_pins none > $report_dir/check_pg_connectivity.rpt
 check_lvs > $report_dir/check_lvs.rpt ;#net
 check_legality -verbose > $report_dir/check_legality.rpt
-# gui_start
+gui_start

@@ -35,7 +35,7 @@ set_clock_tree_options -clocks [get_clocks $all_master_clocks] -target_latency 0
 ### CTS NDR(Non-Default-Rules)
 create_routing_rule ndr_2w2s -default_reference_rule -multiplier_width 2 -multiplier_spacing 2
 
-set_clock_routing_rules -min_routing_layer M4 -max_routing_layer M6 -clocks $all_master_clocks -rules ndr_2w2s
+set_clock_routing_rules -min_routing_layer M5 -max_routing_layer M7 -clocks $all_master_clocks -rules ndr_2w2s
 
 ### fix remained setup
 set_clock_tree_balance_point -modes [all_modes] -clock $all_real_clocks  -delay 0.43246 -balance_points [get_pin u_sram_array_u_sram_0/CLK]

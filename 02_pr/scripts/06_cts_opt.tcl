@@ -40,7 +40,7 @@ set all_real_clocks [get_clocks -filter "is_virtual==false"]
 if { [get_routing_rule ndr_2w2s -quiet] == "" } {
     create_routing_rule ndr_2w2s -default_reference_rule -multiplier_width 2 -multiplier_spacing 2
 }
-set_clock_routing_rules -min_routing_layer M4 -max_routing_layer M6 -clocks $all_master_clocks -rules ndr_2w2s
+set_clock_routing_rules -min_routing_layer M5 -max_routing_layer M7 -clocks $all_master_clocks -rules ndr_2w2s
 
 ### post cts app options
 set_app_options -name clock_opt.flow.enable_ccd -value false

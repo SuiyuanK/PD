@@ -11,21 +11,17 @@ source scripts/initialization_settings.tcl
 # mode = SDC 
 # corner = lib_corner(PVT) + rc_coner(rc_variation + temp)
 # mode_libcorner_rcconer
-remove_scenarios -all
-remove_modes -all
-remove_corners -all
 
-create_mode func
-create_corner ss0p99v125c_cmax
-create_scenario -mode func -corner ss0p99v125c_cmax -name func_ss0p99v125c_cmax
+create_corner ff1p21vm40c_cmin
+create_scenario -mode func -corner ff1p21vm40c_cmin -name func_ff1p21vm40c_cmin
 
 current_mode func
-current_corner ss0p99v125c_cmax
-current_scenario func_ss0p99v125c_cmax
+current_corner ff1p21vm40c_cmin
+current_scenario func_ff1p21vm40c_cmin
 
 ### rc tech
 # name 
-read_parasitic_tech -tlup $icc2rc_tech(cmax) -layermap $itf_tluplus_map -name maxTLU
+read_parasitic_tech -tlup $icc2rc_tech(cmin) -layermap $itf_tluplus_map -name minTLU
 ### SDC
 remove_sdc -scenario [current_scenario]
 source $import_sdc
@@ -33,12 +29,12 @@ source $import_sdc
 ### PVT conditions
 # get_libs report_lib XXXX
 # get_nets -physical_context -filter net_type==power||net_type==ground  ------>>>>> {VDD VSS}
-set_process_number -corners [current_corner] 0.99
-set_process_label  -corners [current_corner] ss
-set_voltage -object_list {VDD} 0.99
+set_process_number -corners [current_corner] 1.21
+set_process_label  -corners [current_corner] ff
+set_voltage -object_list {VDD} 1.21
 set_voltage -object_list {VSS} 0
-set_temperature -corners [current_corner] 125
-set_parasitic_parameters -corners [current_corner] -late_spec maxTLU  -early_spec maxTLU
+set_temperature -corners [current_corner] -40
+set_parasitic_parameters -corners [current_corner] -late_spec minTLU  -early_spec minTLU
 
 
 ### boundary constraints
@@ -74,7 +70,7 @@ set_timing_derate -late  1.05 -cell_delay -net_delay
 set_clock_uncertainty 0.2 [get_clocks *]
 
 #### scenario status
-set_scenario_status func_ss0p99v125c_cmax -active true -setup true -hold false -leakage_power false -dynamic_power false -max_transition true -max_capacitance true -min_capacitance true
+set_scenario_status func_ff1p21vm40c_cmin -active true -setup true -hold true -max_capacitance true -max_transition true -min_capacitance true -leakage_power false -dynamic_power false
 
 ### report
 # no warning

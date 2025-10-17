@@ -11,6 +11,8 @@ open_block ${design}
 source scripts/initialization_settings.tcl
 ### scenario ;  不用像CTS_OPT用那么多   
 source scripts/scenario_setup.tcl
+source scripts/scenario_hold.tcl
+current_scenario func_ss0p99v125c_cmax
 
 # 告诉工具CTS已经做好了
 foreach scenario [get_attribute [all_scenarios] name] {
@@ -39,7 +41,7 @@ set all_real_clocks [get_clocks -filter "is_virtual==false"]
 if { [get_routing_rule ndr_2w2s -quiet] == "" } {
     create_routing_rule ndr_2w2s -default_reference_rule -multiplier_width 2 -multiplier_spacing 2
 }
-set_clock_routing_rules -min_routing_layer M3 -max_routing_layer M6 -clocks $all_master_clocks -rules ndr_2w2s
+set_clock_routing_rules -min_routing_layer M5 -max_routing_layer M7 -clocks $all_master_clocks -rules ndr_2w2s
 
 ### post cts app options
 set_app_options -name clock_opt.flow.enable_ccd -value false
