@@ -1,10 +1,10 @@
 set_mismatch_message_filter -warn FMR_ELAB-147
 set_app_var synopsys_auto_setup true
 set_app_var verification_set_undriven_signals 0:X
+# 启用8核（需系统支持，不超过许可证上限）
+set_host_options -max_cores 8
 
-
-
-set topModuleName       top
+set topModuleName       image_process
 set rtl_path            "../../../RTL"   
 
 set_svf ../data/${topModuleName}.svf

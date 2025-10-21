@@ -1,5 +1,5 @@
 ###set syn env###
-set topModuleName           top                                                      
+set topModuleName           image_process                                                      
 set data_path               "../data"                                      
 set rtl_path                "../../../RTL"
 set run_dir                 "../"
@@ -107,7 +107,7 @@ link
 
 ## 设置约束文件
 #读入设计约束
-read_sdc $data_path/$topModuleName.sdc
+source $data_path/$topModuleName.tcl
 
 
 #过滤源的类型为端口的clk

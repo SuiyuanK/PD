@@ -898,3 +898,4 @@ others/scripts/lib/ndm_mcmm/1P7M_1TM_ALPA2/SP40NLLD2RN_3P3V_V0p4_physical_only.n
 others/scripts/lib/ndm_mcmm/1P7M_1TM_ALPA2/SP40NLLD2RN_3P3V_V0p4_ss_V0p99_125C.ndm
 04_pv/drc/drc.db
 04_pv/drc/drc.rpt
+02_pr/rpts/chipfinish/check_pg_connectivity.rpt
