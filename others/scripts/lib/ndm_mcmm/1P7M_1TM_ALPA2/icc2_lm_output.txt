@@ -1,0 +1,395 @@
+
+Loading user preference file /home2/bx/hdd/.synopsys_icc2_lm_gui/preferences.tcl
+set metal_stack         1P7M_1TM_ALPA2
+1P7M_1TM_ALPA2
+set lef_metal_stack     7MT_1TM
+7MT_1TM
+set if_trim_blkg        0
+0
+set if_involk_tlef      0
+0
+set if_preserve_blkg    1
+1
+set if_no_tech          0       
+0
+set if_mcmm             0
+0
+set if_specific_vol     0
+0
+set track_num           9
+9
+set poly_pitch          96
+96
+set lib_dir_name        SP40NLLD2RN_3P3V_V0p4   
+SP40NLLD2RN_3P3V_V0p4
+set lib_dir_ver         r0p0    
+r0p0
+set lef_ver             100d
+100d
+set db_ver              100c
+100c
+set lef_site_name       sc9mc_logic0040ll
+sc9mc_logic0040ll
+set mdb_site_name       unit
+unit
+set GFVAR_ICC2LM_TECH_INFO "   {M1 vertical 0.0}   {M3 vertical 0.0}   {M5 vertical 0.0}   {TM2 vertical 0.0}   {M2 horizontal 0.0}   {M4 horizontal 0.0}   {M6 horizontal 0.0}   {ALPA horizontal 0.0} "
+   {M1 vertical 0.0}   {M3 vertical 0.0}   {M5 vertical 0.0}   {TM2 vertical 0.0}   {M2 horizontal 0.0}   {M4 horizontal 0.0}   {M6 horizontal 0.0}   {ALPA horizontal 0.0} 
+set mem_lib_dir         /home/projects/techlib/SMIC/40LL/lib/io/bakup/SP40NLLD2RN_3P3V_V0p4 
+/home/projects/techlib/SMIC/40LL/lib/io/bakup/SP40NLLD2RN_3P3V_V0p4
+set tech_file           /home/projects/techlib/SMIC/40LL/tech/pr_tech/arm/smic/logic0040ll/arm_tech/r3p4/milkyway/${metal_stack}/sc${track_num}mc_tech.tf
+/home/projects/techlib/SMIC/40LL/tech/pr_tech/arm/smic/logic0040ll/arm_tech/r3p4/milkyway/1P7M_1TM_ALPA2/sc9mc_tech.tf
+set tech_lef            ""      
+set lib_name            $lib_dir_name
+SP40NLLD2RN_3P3V_V0p4
+set db_lib_dir_name     ""      
+set lef_lib_dir_name    ""
+set oper_cond_wc        ss_V0p99_125C. 
+ss_V0p99_125C.
+set oper_cond_wcl       ss_V0p99_-40C.
+ss_V0p99_-40C.
+set oper_cond           _wc
+_wc
+if {$if_specific_vol > 0} {
+  set oper_cond_wc      ss_*${if_specific_vol}*_125c
+  set oper_cond_wcl     ss_*${if_specific_vol}*_m40c
+  set oper_cond         ss_*${if_specific_vol}*c
+}
+create_workspace $lib_name   -flow exploration   -technology $tech_file
+Warning: Skipped duplicate layer purpose number '2' definition for layerNumber = 60. (TECH-017)
+Warning: Skipped duplicate layer purpose number '1' definition for layerNumber = 30. (TECH-017)
+Warning: line 3798, unsupported syntax 'endOfLineEnc3NeighborMinLength' in 'DesignRule' section. It will be ignored. (TECH-002)
+Warning: line 3815, unsupported syntax 'endOfLineEnc3NeighborMinLength' in 'DesignRule' section. It will be ignored. (TECH-002)
+Warning: line 3832, unsupported syntax 'endOfLineEnc3NeighborMinLength' in 'DesignRule' section. It will be ignored. (TECH-002)
+Warning: line 3849, unsupported syntax 'endOfLineEnc3NeighborMinLength' in 'DesignRule' section. It will be ignored. (TECH-002)
+Warning: line 3866, unsupported syntax 'endOfLineEnc3NeighborMinLength' in 'DesignRule' section. It will be ignored. (TECH-002)
+Information: Loading technology file '/home/projects/techlib/SMIC/40LL/tech/pr_tech/arm/smic/logic0040ll/arm_tech/r3p4/milkyway/1P7M_1TM_ALPA2/sc9mc_tech.tf' (FILE-007)
+... created workspace SP40NLLD2RN_3P3V_V0p4 in exploration flow
+set if_tech_lef 0
+0
+if {$if_involk_tlef && [info exist tech_lef] && [file exist $tech_lef]} {
+  puts  "INFO: read tech lef $tech_lef ..."
+  read_lef $tech_lef -convert_sites {{${lef_site_name} ${mdb_site_name}} }
+  set if_tech_lef 1
+} 
+if {$if_no_tech} {
+  read_lef -include cell  [glob ${mem_lib_dir}/lef/*${lef_metal_stack}*.lef ] -convert_sites {{ ${lef_site_name} ${mdb_site_name}} }
+} else {
+  read_lef  [glob ${mem_lib_dir}/lef/*${lef_metal_stack}*.lef ] -convert_sites {{ ${lef_site_name} ${mdb_site_name}}}
+}
+Information: Loading LEF file '/home/projects/techlib/SMIC/40LL/lib/io/bakup/SP40NLLD2RN_33PV_V0p4/lef/SP40NLLD2RN_3P3V_V0p1_7MT_1TM.lef' (FILE-007)
+Information: Read LEF into a new library 'SP40NLLD2RN_3P3V_V0p1_7MT_1TM'. (LEFR-022)
+Information: Set is_zero_spacing for 6/6 non-real cut OBS in macro PISRN. (LEFR-062)
+Information: Set is_zero_spacing for 6/6 non-real cut OBS in macro PX3RN. (LEFR-062)
+Information: Set is_zero_spacing for 6/6 non-real cut OBS in macro PICDRN. (LEFR-062)
+Information: Set is_zero_spacing for 6/6 non-real cut OBS in macro PICURN. (LEFR-062)
+Information: Set is_zero_spacing for 6/6 non-real cut OBS in macro PISDRN. (LEFR-062)
+Information: Set is_zero_spacing for 6/6 non-real cut OBS in macro PISURN. (LEFR-062)
+Information: Set is_zero_spacing for 6/6 non-real cut OBS in macro PBS2RN. (LEFR-062)
+Information: Set is_zero_spacing for 6/6 non-real cut OBS in macro PBS4RN. (LEFR-062)
+Information: Set is_zero_spacing for 6/6 non-real cut OBS in macro PBS8RN. (LEFR-062)
+Information: Set is_zero_spacing for 6/6 non-real cut OBS in macro PBCU8RN. (LEFR-062)
+Information: Set is_zero_spacing for 6/6 non-real cut OBS in macro PBCU4RN. (LEFR-062)
+Information: Set is_zero_spacing for 6/6 non-real cut OBS in macro PBCU2RN. (LEFR-062)
+Information: Set is_zero_spacing for 6/6 non-real cut OBS in macro PBS24RN. (LEFR-062)
+Information: Set is_zero_spacing for 6/6 non-real cut OBS in macro PBCD8RN. (LEFR-062)
+Information: Set is_zero_spacing for 6/6 non-real cut OBS in macro PBCD4RN. (LEFR-062)
+Information: Set is_zero_spacing for 6/6 non-real cut OBS in macro PBCD2RN. (LEFR-062)
+Information: Set is_zero_spacing for 6/6 non-real cut OBS in macro PBS16RN. (LEFR-062)
+Information: Set is_zero_spacing for 6/6 non-real cut OBS in macro PBS12RN. (LEFR-062)
+Information: Set is_zero_spacing for 6/6 non-real cut OBS in macro PBSD8RN. (LEFR-062)
+Information: Set is_zero_spacing for 6/6 non-real cut OBS in macro PBSD4RN. (LEFR-062)
+Information: Set is_zero_spacing for 6/6 non-real cut OBS in macro PBSD2RN. (LEFR-062)
+Information: Set is_zero_spacing for 6/6 non-real cut OBS in macro PBSU8RN. (LEFR-062)
+Information: Set is_zero_spacing for 6/6 non-real cut OBS in macro PBSU4RN. (LEFR-062)
+Information: Set is_zero_spacing for 6/6 non-real cut OBS in macro PBSU2RN. (LEFR-062)
+Information: Set is_zero_spacing for 6/6 non-real cut OBS in macro PXWE3RN. (LEFR-062)
+Information: Set is_zero_spacing for 6/6 non-real cut OBS in macro PVDD2RN. (LEFR-062)
+Information: Set is_zero_spacing for 6/6 non-real cut OBS in macro PVDD1RN. (LEFR-062)
+Information: Set is_zero_spacing for 6/6 non-real cut OBS in macro PVSS1RN. (LEFR-062)
+Information: Set is_zero_spacing for 6/6 non-real cut OBS in macro PVSS2RN. (LEFR-062)
+Information: Set is_zero_spacing for 6/6 non-real cut OBS in macro PVSS3RN. (LEFR-062)
+Information: Set is_zero_spacing for 6/6 non-real cut OBS in macro PADO30RN. (LEFR-062)
+Information: Set is_zero_spacing for 6/6 non-real cut OBS in macro PBCU24RN. (LEFR-062)
+Information: Set is_zero_spacing for 6/6 non-real cut OBS in macro PFILL5RN. (LEFR-062)
+Information: Set is_zero_spacing for 6/6 non-real cut OBS in macro PFILL2RN. (LEFR-062)
+Information: Set is_zero_spacing for 6/6 non-real cut OBS in macro PFILL1RN. (LEFR-062)
+Information: Set is_zero_spacing for 6/6 non-real cut OBS in macro PBCU16RN. (LEFR-062)
+Information: Set is_zero_spacing for 6/6 non-real cut OBS in macro PBCU12RN. (LEFR-062)
+Information: Set is_zero_spacing for 6/6 non-real cut OBS in macro PBCD24RN. (LEFR-062)
+Information: Set is_zero_spacing for 6/6 non-real cut OBS in macro PBSD24RN. (LEFR-062)
+Information: Set is_zero_spacing for 6/6 non-real cut OBS in macro PBSU24RN. (LEFR-062)
+Information: Set is_zero_spacing for 6/6 non-real cut OBS in macro PBCD16RN. (LEFR-062)
+Information: Set is_zero_spacing for 6/6 non-real cut OBS in macro PBCD12RN. (LEFR-062)
+Information: Set is_zero_spacing for 6/6 non-real cut OBS in macro PBSD16RN. (LEFR-062)
+Information: Set is_zero_spacing for 6/6 non-real cut OBS in macro PBSD12RN. (LEFR-062)
+Information: Set is_zero_spacing for 6/6 non-real cut OBS in macro PBSU16RN. (LEFR-062)
+Information: Set is_zero_spacing for 6/6 non-real cut OBS in macro PBSU12RN. (LEFR-062)
+Information: Set is_zero_spacing for 6/6 non-real cut OBS in macro PDIODERN. (LEFR-062)
+Information: Set is_zero_spacing for 6/6 non-real cut OBS in macro PADI30RN. (LEFR-062)
+Information: Set is_zero_spacing for 6/6 non-real cut OBS in macro PADI55RN. (LEFR-062)
+Information: Set is_zero_spacing for 6/6 non-real cut OBS in macro PADI50RN. (LEFR-062)
+Information: Set is_zero_spacing for 6/6 non-real cut OBS in macro PFILL20RN. (LEFR-062)
+Information: Set is_zero_spacing for 6/6 non-real cut OBS in macro PFILL10RN. (LEFR-062)
+Information: Set is_zero_spacing for 6/6 non-real cut OBS in macro PFILL01RN. (LEFR-062)
+Information: Set is_zero_spacing for 6/6 non-real cut OBS in macro PVSS1APRN. (LEFR-062)
+Information: Set is_zero_spacing for 6/6 non-real cut OBS in macro PVDD1APRN. (LEFR-062)
+Information: Set is_zero_spacing for 6/6 non-real cut OBS in macro PVSS3APRN. (LEFR-062)
+Information: Set is_zero_spacing for 6/6 non-real cut OBS in macro PVDD3APRN. (LEFR-062)
+Information: Set is_zero_spacing for 6/6 non-real cut OBS in macro PANA1APRN. (LEFR-062)
+Information: Set is_zero_spacing for 6/6 non-real cut OBS in macro PDIODE8RN. (LEFR-062)
+Information: Set is_zero_spacing for 6/6 non-real cut OBS in macro P1DIODERN. (LEFR-062)
+Information: Set is_zero_spacing for 6/6 non-real cut OBS in macro PVDD2CERN. (LEFR-062)
+Information: Set is_zero_spacing for 6/6 non-real cut OBS in macro PVDD1CERN. (LEFR-062)
+Information: Set is_zero_spacing for 6/6 non-real cut OBS in macro PFILL1ARN. (LEFR-062)
+Information: Set is_zero_spacing for 6/6 non-real cut OBS in macro PFILL2ARN. (LEFR-062)
+Information: Set is_zero_spacing for 6/6 non-real cut OBS in macro PFILL5ARN. (LEFR-062)
+Information: Set is_zero_spacing for 6/6 non-real cut OBS in macro PCORNERRN. (LEFR-062)
+Information: Set is_zero_spacing for 6/6 non-real cut OBS in macro PFILL001RN. (LEFR-062)
+Information: Set is_zero_spacing for 6/6 non-real cut OBS in macro PVDD1CAPRN. (LEFR-062)
+Information: Set is_zero_spacing for 6/6 non-real cut OBS in macro PVSS1CAPRN. (LEFR-062)
+Information: Set is_zero_spacing for 6/6 non-real cut OBS in macro PANA1CAPRN. (LEFR-062)
+Information: Set is_zero_spacing for 6/6 non-real cut OBS in macro PVSS1ANPRN. (LEFR-062)
+Information: Set is_zero_spacing for 6/6 non-real cut OBS in macro PVDD1ANPRN. (LEFR-062)
+Information: Set is_zero_spacing for 6/6 non-real cut OBS in macro PVSS3CAPRN. (LEFR-062)
+Information: Set is_zero_spacing for 6/6 non-real cut OBS in macro PVDD3CAPRN. (LEFR-062)
+Information: Set is_zero_spacing for 6/6 non-real cut OBS in macro PANA1ANPRN. (LEFR-062)
+Information: Set is_zero_spacing for 6/6 non-real cut OBS in macro P1DIODE8RN. (LEFR-062)
+Information: Set is_zero_spacing for 6/6 non-real cut OBS in macro PDIODE8SRN. (LEFR-062)
+Information: Set is_zero_spacing for 6/6 non-real cut OBS in macro PFILL20ARN. (LEFR-062)
+Information: Set is_zero_spacing for 6/6 non-real cut OBS in macro PFILL10ARN. (LEFR-062)
+Information: Set is_zero_spacing for 6/6 non-real cut OBS in macro PFILL01ARN. (LEFR-062)
+Information: Set is_zero_spacing for 6/6 non-real cut OBS in macro PVDD1CANPRN. (LEFR-062)
+Information: Set is_zero_spacing for 6/6 non-real cut OBS in macro PVSS1CANPRN. (LEFR-062)
+Information: Set is_zero_spacing for 6/6 non-real cut OBS in macro PANA1CANPRN. (LEFR-062)
+Information: Set is_zero_spacing for 6/6 non-real cut OBS in macro PFILL001ARN. (LEFR-062)
+{SP40NLLD2RN_3P3V_V0p1_7MT_1TM}
+### blockage
+if {$if_trim_blkg} {
+  set_app_options -as_user_default -name lib.physical_model.trim_metal_blockage_around_pin -value true
+} 
+set db_list  [glob ${mem_lib_dir}/syn/3p3v/*${oper_cond_wc}db]
+/home/projects/techlib/SMIC/40LL/lib/io/bakup/SP40NLLD2RN_3P3V_V0p4/syn/3p3v/SP40NLLD2RN_3P3V_V0p4_ss_V0p99_125C.db
+if {$if_mcmm} {
+  foreach db_name [glob ${mem_lib_dir}/syn/3p3v/*${oper_cond_wcl}db] {
+    lappend db_list $db_name
+  }
+}
+read_db $db_list
+Information: Loading db file '/home/projects/techlib/SMIC/40LL/lib/io/bakup/SP40NLLD2RN_3P3V_V0p4/syn/3p3v/SP40NLLD2RN_3P3V_V0p4_ss_V0p99_125C.db' (FILE-007)
+{SP40NLLD2RN_3P3V_V0p4_ss_V0p99_125C}
+set_app_options -list [list lib.logic_model.auto_remove_timing_only_designs true]
+lib.logic_model.auto_remove_timing_only_designs true
+group_libs
+...Created 2 lib groups
+...Created sub-workspace SP40NLLD2RN_3P3V_V0p4_ss_V0p99_125C with type normal: 1 logical lib, 1 physical lib, 0 scaling groups.
+...Created sub-workspace SP40NLLD2RN_3P3V_V0p4_physical_only with type physical_only.
+...Created 2 sub-workspaces
+foreach layer_list $GFVAR_ICC2LM_TECH_INFO {
+  set layer             [lindex $layer_list 0]
+  set direction         [lindex $layer_list 1]
+  set offset            [lindex $layer_list 2]
+  set_attribute   [get_layers $layer ] routing_direction $direction
+  puts " set_attribute   \[get_layers $layer \] routing_direction $direction"
+  set_attribute   [get_layers $layer ] track_offset $offset
+  puts " set_attribute   \[get_layers $layer \] track_offset $offset"
+}
+ set_attribute   [get_layers M1 ] routing_direction vertical
+ set_attribute   [get_layers M1 ] track_offset 0.0
+ set_attribute   [get_layers M3 ] routing_direction vertical
+ set_attribute   [get_layers M3 ] track_offset 0.0
+ set_attribute   [get_layers M5 ] routing_direction vertical
+ set_attribute   [get_layers M5 ] track_offset 0.0
+ set_attribute   [get_layers TM2 ] routing_direction vertical
+ set_attribute   [get_layers TM2 ] track_offset 0.0
+ set_attribute   [get_layers M2 ] routing_direction horizontal
+ set_attribute   [get_layers M2 ] track_offset 0.0
+ set_attribute   [get_layers M4 ] routing_direction horizontal
+ set_attribute   [get_layers M4 ] track_offset 0.0
+ set_attribute   [get_layers M6 ] routing_direction horizontal
+ set_attribute   [get_layers M6 ] track_offset 0.0
+ set_attribute   [get_layers ALPA ] routing_direction horizontal
+ set_attribute   [get_layers ALPA ] track_offset 0.0
+set_app_options -list [list lib.workspace.allow_missing_related_pg_pins true]
+lib.workspace.allow_missing_related_pg_pins true
+write_workspace -file lib_template.tcl
+check_workspace
+
+Checking workspace SP40NLLD2RN_3P3V_V0p4_ss_V0p99_125C ...
+Checking libraries...
+Information: Only one logical library loaded - internal checks only (LM-005)
+Using SP40NLLD2RN_3P3V_V0p4_ss_V0p99_125C as the base library.
+Search for missing cells...
+Base Logical lib 1 (SP40NLLD2RN_3P3V_V0p4_ss_V0p99_125C)
+...verifying arcs for SP40NLLD2RN_3P3V_V0p4_ss_V0p99_125C
+--> Arcs and Checks are OK
+--> No leakage power issues
+--> No dynamic power issues
+--> No cell em issues
+--> No receiver cap issues
+--> No ccsn issues
+Combining physical data into workspace ...
+Warning: Port PVDD1ANPRN/SVDD1ANP changed from signal to power.
+        Deleting all arcs and checks at this port (LM-047)
+Warning: Port PVDD1APRN/SVDD1AP changed from signal to power.
+        Deleting all arcs and checks at this port (LM-047)
+Warning: Port PVDD1CANPRN/SVDD1CANP changed from signal to power.
+        Deleting all arcs and checks at this port (LM-047)
+Warning: Port PVDD1CAPRN/SVDD1CAP changed from signal to power.
+        Deleting all arcs and checks at this port (LM-047)
+Warning: Port PVDD1CERN/VDD changed from signal to power.
+        Deleting all arcs and checks at this port (LM-047)
+Warning: Port PVDD1RN/VDD changed from signal to power.
+        Deleting all arcs and checks at this port (LM-047)
+Warning: Port PVDD3APRN/SAVDD changed from signal to power.
+        Deleting all arcs and checks at this port (LM-047)
+Warning: Port PVDD3CAPRN/SAVDD changed from signal to power.
+        Deleting all arcs and checks at this port (LM-047)
+Warning: Port PVSS1ANPRN/SVSS1ANP changed from signal to ground.
+        Deleting all arcs and checks at this port (LM-047)
+Warning: Port PVSS1APRN/SVSS1AP changed from signal to ground.
+        Deleting all arcs and checks at this port (LM-047)
+Warning: Port PVSS1CANPRN/SVSS1CANP changed from signal to ground.
+        Deleting all arcs and checks at this port (LM-047)
+Warning: Port PVSS1CAPRN/SVSS1CAP changed from signal to ground.
+        Deleting all arcs and checks at this port (LM-047)
+Warning: Port PVSS1RN/VSS changed from signal to ground.
+        Deleting all arcs and checks at this port (LM-047)
+Warning: Port PVSS3APRN/SAVSS changed from signal to ground.
+        Deleting all arcs and checks at this port (LM-047)
+Warning: Port PVSS3CAPRN/SAVSS changed from signal to ground.
+        Deleting all arcs and checks at this port (LM-047)
+Warning: Port PVSS3RN/VSS changed from signal to ground.
+        Deleting all arcs and checks at this port (LM-047)
+Information: Combined 65 physical designs:65 with a design view (41 had ports reordered); (LM-034)
+Information: Skipped 19 physical designs (LM-052)
+... copying operating conditions...
+... combining file history...
+... merging NLDM data panes...
+... creating frames for SP40NLLD2RN_3P3V_V0p4_ss_V0p99_125C
+Warning: Starting with the M-2016.12 release, the default value of frame option color_based_dpt_flow will be changed from 'false' to 'auto'. (FRAM-052)
+Information: Block P1DIODE8RN.frame, the feature of blockage trimming by pin is set to 'touch' on specific layers. All metal shapes and routing blockages touch pins in design view are trimmed on layers: GT M1 M2 M3 M4 M5 M6 TM2 ALPA. (FRAM-046)
+Information: Block P1DIODERN.frame, the feature of blockage trimming by pin is set to 'touch' on specific layers. All metal shapes and routing blockages touch pins in design view are trimmed on layers: GT M1 M2 M3 M4 M5 M6 TM2 ALPA. (FRAM-046)
+Information: Block PANA1ANPRN.frame, the feature of blockage trimming by pin is set to 'touch' on specific layers. All metal shapes and routing blockages touch pins in design view are trimmed on layers: GT M1 M2 M3 M4 M5 M6 TM2 ALPA. (FRAM-046)
+Information: Block PANA1APRN.frame, the feature of blockage trimming by pin is set to 'touch' on specific layers. All metal shapes and routing blockages touch pins in design view are trimmed on layers: GT M1 M2 M3 M4 M5 M6 TM2 ALPA. (FRAM-046)
+Information: Block PANA1CANPRN.frame, the feature of blockage trimming by pin is set to 'touch' on specific layers. All metal shapes and routing blockages touch pins in design view are trimmed on layers: GT M1 M2 M3 M4 M5 M6 TM2 ALPA. (FRAM-046)
+Information: Block PANA1CAPRN.frame, the feature of blockage trimming by pin is set to 'touch' on specific layers. All metal shapes and routing blockages touch pins in design view are trimmed on layers: GT M1 M2 M3 M4 M5 M6 TM2 ALPA. (FRAM-046)
+Information: Block PBCD12RN.frame, the feature of blockage trimming by pin is set to 'touch' on specific layers. All metal shapes and routing blockages touch pins in design view are trimmed on layers: GT M1 M2 M3 M4 M5 M6 TM2 ALPA. (FRAM-046)
+Information: Block PBCD16RN.frame, the feature of blockage trimming by pin is set to 'touch' on specific layers. All metal shapes and routing blockages touch pins in design view are trimmed on layers: GT M1 M2 M3 M4 M5 M6 TM2 ALPA. (FRAM-046)
+Information: Block PBCD24RN.frame, the feature of blockage trimming by pin is set to 'touch' on specific layers. All metal shapes and routing blockages touch pins in design view are trimmed on layers: GT M1 M2 M3 M4 M5 M6 TM2 ALPA. (FRAM-046)
+Information: Block PBCD2RN.frame, the feature of blockage trimming by pin is set to 'touch' on specific layers. All metal shapes and routing blockages touch pins in design view are trimmed on layers: GT M1 M2 M3 M4 M5 M6 TM2 ALPA. (FRAM-046)
+Information: Block PBCD4RN.frame, the feature of blockage trimming by pin is set to 'touch' on specific layers. All metal shapes and routing blockages touch pins in design view are trimmed on layers: GT M1 M2 M3 M4 M5 M6 TM2 ALPA. (FRAM-046)
+Information: Block PBCD8RN.frame, the feature of blockage trimming by pin is set to 'touch' on specific layers. All metal shapes and routing blockages touch pins in design view are trimmed on layers: GT M1 M2 M3 M4 M5 M6 TM2 ALPA. (FRAM-046)
+Information: Block PBCU12RN.frame, the feature of blockage trimming by pin is set to 'touch' on specific layers. All metal shapes and routing blockages touch pins in design view are trimmed on layers: GT M1 M2 M3 M4 M5 M6 TM2 ALPA. (FRAM-046)
+Information: Block PBCU16RN.frame, the feature of blockage trimming by pin is set to 'touch' on specific layers. All metal shapes and routing blockages touch pins in design view are trimmed on layers: GT M1 M2 M3 M4 M5 M6 TM2 ALPA. (FRAM-046)
+Information: Block PBCU24RN.frame, the feature of blockage trimming by pin is set to 'touch' on specific layers. All metal shapes and routing blockages touch pins in design view are trimmed on layers: GT M1 M2 M3 M4 M5 M6 TM2 ALPA. (FRAM-046)
+Information: Block PBCU2RN.frame, the feature of blockage trimming by pin is set to 'touch' on specific layers. All metal shapes and routing blockages touch pins in design view are trimmed on layers: GT M1 M2 M3 M4 M5 M6 TM2 ALPA. (FRAM-046)
+Information: Block PBCU4RN.frame, the feature of blockage trimming by pin is set to 'touch' on specific layers. All metal shapes and routing blockages touch pins in design view are trimmed on layers: GT M1 M2 M3 M4 M5 M6 TM2 ALPA. (FRAM-046)
+Information: Block PBCU8RN.frame, the feature of blockage trimming by pin is set to 'touch' on specific layers. All metal shapes and routing blockages touch pins in design view are trimmed on layers: GT M1 M2 M3 M4 M5 M6 TM2 ALPA. (FRAM-046)
+Information: Block PBS12RN.frame, the feature of blockage trimming by pin is set to 'touch' on specific layers. All metal shapes and routing blockages touch pins in design view are trimmed on layers: GT M1 M2 M3 M4 M5 M6 TM2 ALPA. (FRAM-046)
+Information: Block PBS16RN.frame, the feature of blockage trimming by pin is set to 'touch' on specific layers. All metal shapes and routing blockages touch pins in design view are trimmed on layers: GT M1 M2 M3 M4 M5 M6 TM2 ALPA. (FRAM-046)
+Information: Block PBS24RN.frame, the feature of blockage trimming by pin is set to 'touch' on specific layers. All metal shapes and routing blockages touch pins in design view are trimmed on layers: GT M1 M2 M3 M4 M5 M6 TM2 ALPA. (FRAM-046)
+Information: Block PBS2RN.frame, the feature of blockage trimming by pin is set to 'touch' on specific layers. All metal shapes and routing blockages touch pins in design view are trimmed on layers: GT M1 M2 M3 M4 M5 M6 TM2 ALPA. (FRAM-046)
+Information: Block PBS4RN.frame, the feature of blockage trimming by pin is set to 'touch' on specific layers. All metal shapes and routing blockages touch pins in design view are trimmed on layers: GT M1 M2 M3 M4 M5 M6 TM2 ALPA. (FRAM-046)
+Information: Block PBS8RN.frame, the feature of blockage trimming by pin is set to 'touch' on specific layers. All metal shapes and routing blockages touch pins in design view are trimmed on layers: GT M1 M2 M3 M4 M5 M6 TM2 ALPA. (FRAM-046)
+Information: Block PBSD12RN.frame, the feature of blockage trimming by pin is set to 'touch' on specific layers. All metal shapes and routing blockages touch pins in design view are trimmed on layers: GT M1 M2 M3 M4 M5 M6 TM2 ALPA. (FRAM-046)
+Information: Block PBSD16RN.frame, the feature of blockage trimming by pin is set to 'touch' on specific layers. All metal shapes and routing blockages touch pins in design view are trimmed on layers: GT M1 M2 M3 M4 M5 M6 TM2 ALPA. (FRAM-046)
+Information: Block PBSD24RN.frame, the feature of blockage trimming by pin is set to 'touch' on specific layers. All metal shapes and routing blockages touch pins in design view are trimmed on layers: GT M1 M2 M3 M4 M5 M6 TM2 ALPA. (FRAM-046)
+Information: Block PBSD2RN.frame, the feature of blockage trimming by pin is set to 'touch' on specific layers. All metal shapes and routing blockages touch pins in design view are trimmed on layers: GT M1 M2 M3 M4 M5 M6 TM2 ALPA. (FRAM-046)
+Information: Block PBSD4RN.frame, the feature of blockage trimming by pin is set to 'touch' on specific layers. All metal shapes and routing blockages touch pins in design view are trimmed on layers: GT M1 M2 M3 M4 M5 M6 TM2 ALPA. (FRAM-046)
+Information: Block PBSD8RN.frame, the feature of blockage trimming by pin is set to 'touch' on specific layers. All metal shapes and routing blockages touch pins in design view are trimmed on layers: GT M1 M2 M3 M4 M5 M6 TM2 ALPA. (FRAM-046)
+Information: Block PBSU12RN.frame, the feature of blockage trimming by pin is set to 'touch' on specific layers. All metal shapes and routing blockages touch pins in design view are trimmed on layers: GT M1 M2 M3 M4 M5 M6 TM2 ALPA. (FRAM-046)
+Information: Block PBSU16RN.frame, the feature of blockage trimming by pin is set to 'touch' on specific layers. All metal shapes and routing blockages touch pins in design view are trimmed on layers: GT M1 M2 M3 M4 M5 M6 TM2 ALPA. (FRAM-046)
+Information: Block PBSU24RN.frame, the feature of blockage trimming by pin is set to 'touch' on specific layers. All metal shapes and routing blockages touch pins in design view are trimmed on layers: GT M1 M2 M3 M4 M5 M6 TM2 ALPA. (FRAM-046)
+Information: Block PBSU2RN.frame, the feature of blockage trimming by pin is set to 'touch' on specific layers. All metal shapes and routing blockages touch pins in design view are trimmed on layers: GT M1 M2 M3 M4 M5 M6 TM2 ALPA. (FRAM-046)
+Information: Block PBSU4RN.frame, the feature of blockage trimming by pin is set to 'touch' on specific layers. All metal shapes and routing blockages touch pins in design view are trimmed on layers: GT M1 M2 M3 M4 M5 M6 TM2 ALPA. (FRAM-046)
+Information: Block PBSU8RN.frame, the feature of blockage trimming by pin is set to 'touch' on specific layers. All metal shapes and routing blockages touch pins in design view are trimmed on layers: GT M1 M2 M3 M4 M5 M6 TM2 ALPA. (FRAM-046)
+Information: Block PDIODE8RN.frame, the feature of blockage trimming by pin is set to 'touch' on specific layers. All metal shapes and routing blockages touch pins in design view are trimmed on layers: GT M1 M2 M3 M4 M5 M6 TM2 ALPA. (FRAM-046)
+Information: Block PDIODE8SRN.frame, the feature of blockage trimming by pin is set to 'touch' on specific layers. All metal shapes and routing blockages touch pins in design view are trimmed on layers: GT M1 M2 M3 M4 M5 M6 TM2 ALPA. (FRAM-046)
+Information: Block PDIODERN.frame, the feature of blockage trimming by pin is set to 'touch' on specific layers. All metal shapes and routing blockages touch pins in design view are trimmed on layers: GT M1 M2 M3 M4 M5 M6 TM2 ALPA. (FRAM-046)
+Information: Block PICDRN.frame, the feature of blockage trimming by pin is set to 'touch' on specific layers. All metal shapes and routing blockages touch pins in design view are trimmed on layers: GT M1 M2 M3 M4 M5 M6 TM2 ALPA. (FRAM-046)
+Information: Block PICURN.frame, the feature of blockage trimming by pin is set to 'touch' on specific layers. All metal shapes and routing blockages touch pins in design view are trimmed on layers: GT M1 M2 M3 M4 M5 M6 TM2 ALPA. (FRAM-046)
+Information: Block PISDRN.frame, the feature of blockage trimming by pin is set to 'touch' on specific layers. All metal shapes and routing blockages touch pins in design view are trimmed on layers: GT M1 M2 M3 M4 M5 M6 TM2 ALPA. (FRAM-046)
+Information: Block PISRN.frame, the feature of blockage trimming by pin is set to 'touch' on specific layers. All metal shapes and routing blockages touch pins in design view are trimmed on layers: GT M1 M2 M3 M4 M5 M6 TM2 ALPA. (FRAM-046)
+Information: Block PISURN.frame, the feature of blockage trimming by pin is set to 'touch' on specific layers. All metal shapes and routing blockages touch pins in design view are trimmed on layers: GT M1 M2 M3 M4 M5 M6 TM2 ALPA. (FRAM-046)
+Information: Block PVDD1ANPRN.frame, the feature of blockage trimming by pin is set to 'touch' on specific layers. All metal shapes and routing blockages touch pins in design view are trimmed on layers: GT M1 M2 M3 M4 M5 M6 TM2 ALPA. (FRAM-046)
+Information: Block PVDD1APRN.frame, the feature of blockage trimming by pin is set to 'touch' on specific layers. All metal shapes and routing blockages touch pins in design view are trimmed on layers: GT M1 M2 M3 M4 M5 M6 TM2 ALPA. (FRAM-046)
+Information: Block PVDD1CANPRN.frame, the feature of blockage trimming by pin is set to 'touch' on specific layers. All metal shapes and routing blockages touch pins in design view are trimmed on layers: GT M1 M2 M3 M4 M5 M6 TM2 ALPA. (FRAM-046)
+Information: Block PVDD1CAPRN.frame, the feature of blockage trimming by pin is set to 'touch' on specific layers. All metal shapes and routing blockages touch pins in design view are trimmed on layers: GT M1 M2 M3 M4 M5 M6 TM2 ALPA. (FRAM-046)
+Information: Block PVDD1CERN.frame, the feature of blockage trimming by pin is set to 'touch' on specific layers. All metal shapes and routing blockages touch pins in design view are trimmed on layers: GT M1 M2 M3 M4 M5 M6 TM2 ALPA. (FRAM-046)
+Information: Block PVDD1RN.frame, the feature of blockage trimming by pin is set to 'touch' on specific layers. All metal shapes and routing blockages touch pins in design view are trimmed on layers: GT M1 M2 M3 M4 M5 M6 TM2 ALPA. (FRAM-046)
+Information: Block PVDD2CERN.frame, the feature of blockage trimming by pin is set to 'touch' on specific layers. All metal shapes and routing blockages touch pins in design view are trimmed on layers: GT M1 M2 M3 M4 M5 M6 TM2 ALPA. (FRAM-046)
+Information: Block PVDD2RN.frame, the feature of blockage trimming by pin is set to 'touch' on specific layers. All metal shapes and routing blockages touch pins in design view are trimmed on layers: GT M1 M2 M3 M4 M5 M6 TM2 ALPA. (FRAM-046)
+Information: Block PVDD3APRN.frame, the feature of blockage trimming by pin is set to 'touch' on specific layers. All metal shapes and routing blockages touch pins in design view are trimmed on layers: GT M1 M2 M3 M4 M5 M6 TM2 ALPA. (FRAM-046)
+Information: Block PVDD3CAPRN.frame, the feature of blockage trimming by pin is set to 'touch' on specific layers. All metal shapes and routing blockages touch pins in design view are trimmed on layers: GT M1 M2 M3 M4 M5 M6 TM2 ALPA. (FRAM-046)
+Information: Block PVSS1ANPRN.frame, the feature of blockage trimming by pin is set to 'touch' on specific layers. All metal shapes and routing blockages touch pins in design view are trimmed on layers: GT M1 M2 M3 M4 M5 M6 TM2 ALPA. (FRAM-046)
+Information: Block PVSS1APRN.frame, the feature of blockage trimming by pin is set to 'touch' on specific layers. All metal shapes and routing blockages touch pins in design view are trimmed on layers: GT M1 M2 M3 M4 M5 M6 TM2 ALPA. (FRAM-046)
+Information: Block PVSS1CANPRN.frame, the feature of blockage trimming by pin is set to 'touch' on specific layers. All metal shapes and routing blockages touch pins in design view are trimmed on layers: GT M1 M2 M3 M4 M5 M6 TM2 ALPA. (FRAM-046)
+Information: Block PVSS1CAPRN.frame, the feature of blockage trimming by pin is set to 'touch' on specific layers. All metal shapes and routing blockages touch pins in design view are trimmed on layers: GT M1 M2 M3 M4 M5 M6 TM2 ALPA. (FRAM-046)
+Information: Block PVSS1RN.frame, the feature of blockage trimming by pin is set to 'touch' on specific layers. All metal shapes and routing blockages touch pins in design view are trimmed on layers: GT M1 M2 M3 M4 M5 M6 TM2 ALPA. (FRAM-046)
+Information: Block PVSS2RN.frame, the feature of blockage trimming by pin is set to 'touch' on specific layers. All metal shapes and routing blockages touch pins in design view are trimmed on layers: GT M1 M2 M3 M4 M5 M6 TM2 ALPA. (FRAM-046)
+Information: Block PVSS3APRN.frame, the feature of blockage trimming by pin is set to 'touch' on specific layers. All metal shapes and routing blockages touch pins in design view are trimmed on layers: GT M1 M2 M3 M4 M5 M6 TM2 ALPA. (FRAM-046)
+Information: Block PVSS3CAPRN.frame, the feature of blockage trimming by pin is set to 'touch' on specific layers. All metal shapes and routing blockages touch pins in design view are trimmed on layers: GT M1 M2 M3 M4 M5 M6 TM2 ALPA. (FRAM-046)
+Information: Block PVSS3RN.frame, the feature of blockage trimming by pin is set to 'touch' on specific layers. All metal shapes and routing blockages touch pins in design view are trimmed on layers: GT M1 M2 M3 M4 M5 M6 TM2 ALPA. (FRAM-046)
+Information: Block PX3RN.frame, the feature of blockage trimming by pin is set to 'touch' on specific layers. All metal shapes and routing blockages touch pins in design view are trimmed on layers: GT M1 M2 M3 M4 M5 M6 TM2 ALPA. (FRAM-046)
+Information: Block PXWE3RN.frame, the feature of blockage trimming by pin is set to 'touch' on specific layers. All metal shapes and routing blockages touch pins in design view are trimmed on layers: GT M1 M2 M3 M4 M5 M6 TM2 ALPA. (FRAM-046)
+... created 65 frames
+
+Workspace check succeeded!
+
+Checking workspace SP40NLLD2RN_3P3V_V0p4_physical_only ...
+Checking libraries...
+Building a physical-only workspace...
+Using SP40NLLD2RN_3P3V_V0p4_ss_V0p99_125C as the base library.
+... looking for physical-only designs ...
+Information: Copied 19 physical designs (LM-050)
+Information: Skipped 65 physical designs (LM-052)
+... creating frames for SP40NLLD2RN_3P3V_V0p4_physical_only
+Warning: Starting with the M-2016.12 release, the default value of frame option color_based_dpt_flow will be changed from 'false' to 'auto'. (FRAM-052)
+Information: Block PADO30RN.frame, the feature of blockage trimming by pin is set to 'touch' on specific layers. All metal shapes and routing blockages touch pins in design view are trimmed on layers: GT M1 M2 M3 M4 M5 M6 TM2 ALPA. (FRAM-046)
+Information: Block PFILL5RN.frame, the feature of blockage trimming by pin is set to 'touch' on specific layers. All metal shapes and routing blockages touch pins in design view are trimmed on layers: GT M1 M2 M3 M4 M5 M6 TM2 ALPA. (FRAM-046)
+Information: Block PFILL2RN.frame, the feature of blockage trimming by pin is set to 'touch' on specific layers. All metal shapes and routing blockages touch pins in design view are trimmed on layers: GT M1 M2 M3 M4 M5 M6 TM2 ALPA. (FRAM-046)
+Information: Block PFILL1RN.frame, the feature of blockage trimming by pin is set to 'touch' on specific layers. All metal shapes and routing blockages touch pins in design view are trimmed on layers: GT M1 M2 M3 M4 M5 M6 TM2 ALPA. (FRAM-046)
+Information: Block PADI30RN.frame, the feature of blockage trimming by pin is set to 'touch' on specific layers. All metal shapes and routing blockages touch pins in design view are trimmed on layers: GT M1 M2 M3 M4 M5 M6 TM2 ALPA. (FRAM-046)
+Information: Block PADI55RN.frame, the feature of blockage trimming by pin is set to 'touch' on specific layers. All metal shapes and routing blockages touch pins in design view are trimmed on layers: GT M1 M2 M3 M4 M5 M6 TM2 ALPA. (FRAM-046)
+Information: Block PADI50RN.frame, the feature of blockage trimming by pin is set to 'touch' on specific layers. All metal shapes and routing blockages touch pins in design view are trimmed on layers: GT M1 M2 M3 M4 M5 M6 TM2 ALPA. (FRAM-046)
+Information: Block PFILL20RN.frame, the feature of blockage trimming by pin is set to 'touch' on specific layers. All metal shapes and routing blockages touch pins in design view are trimmed on layers: GT M1 M2 M3 M4 M5 M6 TM2 ALPA. (FRAM-046)
+Information: Block PFILL10RN.frame, the feature of blockage trimming by pin is set to 'touch' on specific layers. All metal shapes and routing blockages touch pins in design view are trimmed on layers: GT M1 M2 M3 M4 M5 M6 TM2 ALPA. (FRAM-046)
+Information: Block PFILL01RN.frame, the feature of blockage trimming by pin is set to 'touch' on specific layers. All metal shapes and routing blockages touch pins in design view are trimmed on layers: GT M1 M2 M3 M4 M5 M6 TM2 ALPA. (FRAM-046)
+Information: Block PFILL1ARN.frame, the feature of blockage trimming by pin is set to 'touch' on specific layers. All metal shapes and routing blockages touch pins in design view are trimmed on layers: GT M1 M2 M3 M4 M5 M6 TM2 ALPA. (FRAM-046)
+Information: Block PFILL2ARN.frame, the feature of blockage trimming by pin is set to 'touch' on specific layers. All metal shapes and routing blockages touch pins in design view are trimmed on layers: GT M1 M2 M3 M4 M5 M6 TM2 ALPA. (FRAM-046)
+Information: Block PFILL5ARN.frame, the feature of blockage trimming by pin is set to 'touch' on specific layers. All metal shapes and routing blockages touch pins in design view are trimmed on layers: GT M1 M2 M3 M4 M5 M6 TM2 ALPA. (FRAM-046)
+Information: Block PCORNERRN.frame, the feature of blockage trimming by pin is set to 'touch' on specific layers. All metal shapes and routing blockages touch pins in design view are trimmed on layers: GT M1 M2 M3 M4 M5 M6 TM2 ALPA. (FRAM-046)
+Information: Block PFILL001RN.frame, the feature of blockage trimming by pin is set to 'touch' on specific layers. All metal shapes and routing blockages touch pins in design view are trimmed on layers: GT M1 M2 M3 M4 M5 M6 TM2 ALPA. (FRAM-046)
+Information: Block PFILL20ARN.frame, the feature of blockage trimming by pin is set to 'touch' on specific layers. All metal shapes and routing blockages touch pins in design view are trimmed on layers: GT M1 M2 M3 M4 M5 M6 TM2 ALPA. (FRAM-046)
+Information: Block PFILL10ARN.frame, the feature of blockage trimming by pin is set to 'touch' on specific layers. All metal shapes and routing blockages touch pins in design view are trimmed on layers: GT M1 M2 M3 M4 M5 M6 TM2 ALPA. (FRAM-046)
+Information: Block PFILL01ARN.frame, the feature of blockage trimming by pin is set to 'touch' on specific layers. All metal shapes and routing blockages touch pins in design view are trimmed on layers: GT M1 M2 M3 M4 M5 M6 TM2 ALPA. (FRAM-046)
+Information: Block PFILL001ARN.frame, the feature of blockage trimming by pin is set to 'touch' on specific layers. All metal shapes and routing blockages touch pins in design view are trimmed on layers: GT M1 M2 M3 M4 M5 M6 TM2 ALPA. (FRAM-046)
+... created 19 frames
+
+Workspace check succeeded!
+Information: 2/2 workspaces checked successfully (LMUI-044)
+commit_workspace
+
+Preparing to commit workspace SP40NLLD2RN_3P3V_V0p4_ss_V0p99_125C ...
+... final checks...
+... final optimizations...
+... removed design views
+... wrote SP40NLLD2RN_3P3V_V0p4_ss_V0p99_125C.ndm
+... removing library 'SP40NLLD2RN_3P3V_V0p4_ss_V0p99_125C'
+... removing library 'SP40NLLD2RN_3P3V_V0p1_7MT_1TM'
+... lib workspace removed!
+
+Preparing to commit workspace SP40NLLD2RN_3P3V_V0p4_physical_only ...
+... final checks...
+... removed design views
+... wrote SP40NLLD2RN_3P3V_V0p4_physical_only.ndm
+... removing library 'SP40NLLD2RN_3P3V_V0p4_ss_V0p99_125C'
+... removing library 'SP40NLLD2RN_3P3V_V0p1_7MT_1TM'
+... lib workspace removed!
+Information: 2/2 workspaces committed successfully (LMUI-044)
+exit 1
+Maximum memory usage for this session: 111.14 MB
+CPU usage for this session:      1 seconds (  0.00 hours)
+Elapsed time for this session:      2 seconds (  0.00 hours)
+Thank you for using IC Compiler II Library Manager.
+

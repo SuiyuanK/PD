@@ -1,0 +1,7 @@
+#@ # 
+#@ # Running icc2_lm_shell Version L-2016.03-SP5-2 for linux64 -- Mar 09, 2017
+#@ # Date:   Wed Oct 20 22:07:49 2021
+#@ # Run by: hdd@bx-asic23
+#@ 
+
+source -echo -verbose ../../scripts/gen_ndm_mcmm.1P7M_1TM_ALPA2.tcl

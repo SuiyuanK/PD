@@ -1,0 +1,39 @@
+<Database>
+Name/projects2/techlib/SMIC/40LL/lib/io/SP40NLLD2RN_3P3V_V0p4/ndm_mcmm/1P7M_1TM_ALPA2.io/check_workspace.ems
+Creation TimeThu Nov  4 18:01:09 2021
+Modified TimeThu Nov  4 18:01:10 2021
+Design Name
+Library Name
+</Database>
+<RuleCount>
+LM-0051
+LM-0341
+LM-04716
+LM-0501
+LM-0522
+</RuleCount>
+<UserDefinedRules>
+</UserDefinedRules>
+<Messages>
+LM-005
+LM-047para1PVDD1ANPRN10para2SVDD1ANP10para3signal10para4power10
+LM-047para1PVDD1APRN10para2SVDD1AP10para3signal10para4power10
+LM-047para1PVDD1CANPRN10para2SVDD1CANP10para3signal10para4power10
+LM-047para1PVDD1CAPRN10para2SVDD1CAP10para3signal10para4power10
+LM-047para1PVDD1CERN10para2VDD10para3signal10para4power10
+LM-047para1PVDD1RN10para2VDD10para3signal10para4power10
+LM-047para1PVDD3APRN10para2SAVDD10para3signal10para4power10
+LM-047para1PVDD3CAPRN10para2SAVDD10para3signal10para4power10
+LM-047para1PVSS1ANPRN10para2SVSS1ANP10para3signal10para4ground10
+LM-047para1PVSS1APRN10para2SVSS1AP10para3signal10para4ground10
+LM-047para1PVSS1CANPRN10para2SVSS1CANP10para3signal10para4ground10
+LM-047para1PVSS1CAPRN10para2SVSS1CAP10para3signal10para4ground10
+LM-047para1PVSS1RN10para2VSS10para3signal10para4ground10
+LM-047para1PVSS3APRN10para2SAVSS10para3signal10para4ground10
+LM-047para1PVSS3CAPRN10para2SAVSS10para3signal10para4ground10
+LM-047para1PVSS3RN10para2VSS10para3signal10para4ground10
+LM-034para16510para2s10para365 with a design view (41 had ports reordered);10
+LM-052para11910para2s10
+LM-050para11910para2s10
+LM-052para16510para2s10
+</Messages>
