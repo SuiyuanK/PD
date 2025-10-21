@@ -1,5 +1,5 @@
 ### design information
-set design              "top"
+set design              "image_process"
 
 ### gate level netlist files
 set import_netlist      ""
@@ -31,38 +31,7 @@ lappend ndm_files       "data/lib/ndm/sram/RAMSP4096X16.ndm"
 lappend ndm_files       "data/lib/ndm/sram/RAMTP128X16.ndm"
 lappend ndm_files       "data/lib/ndm/sram/RAMTP1024X16.ndm"
 
-# lappend ndm_files       "data/lib/ndm/scc40nll_vhsc40_hvt_ff_v1p21_c_ccs.ndm"
-# lappend ndm_files       "data/lib/ndm/scc40nll_vhsc40_lvt_ff_v1p21_c_ccs.ndm"
-# lappend ndm_files       "data/lib/ndm/scc40nll_vhsc40_rvt_ff_v1p21_c_ccs.ndm"
-# lappend ndm_files       "data/lib/ndm/SP40NLLD2RN_3P3V_V0p4_ff_V1p21_C.ndm"
-# lappend ndm_files       "data/lib/ndm/sram/RAMSP128X16_ff_1p_c.ndm"
-# lappend ndm_files       "data/lib/ndm/sram/RAMSP1024X16_ff_1p_c.ndm"
-# lappend ndm_files       "data/lib/ndm/sram/RAMSP2048X16_ff_1p_c.ndm"
-# lappend ndm_files       "data/lib/ndm/sram/RAMSP4096X16_ff_1p_c.ndm"
-# lappend ndm_files       "data/lib/ndm/sram/RAMTP128X16_ff_1p_c.ndm"
-# lappend ndm_files       "data/lib/ndm/sram/RAMTP1024X16_ff_1p_c.ndm"
 
-# lappend ndm_files       "data/lib/ndm/scc40nll_vhsc40_hvt_ss_v0p99_c_ccs.ndm"
-# lappend ndm_files       "data/lib/ndm/scc40nll_vhsc40_lvt_ss_v0p99_c_ccs.ndm"
-# lappend ndm_files       "data/lib/ndm/scc40nll_vhsc40_rvt_ss_v0p99_c_ccs.ndm"
-# lappend ndm_files       "data/lib/ndm/SP40NLLD2RN_3P3V_V0p4_ss_V0p99_C.ndm"
-# lappend ndm_files       "data/lib/ndm/sram/RAMSP128X16_ss_c.ndm"
-# lappend ndm_files       "data/lib/ndm/sram/RAMSP1024X16_ss_c.ndm"
-# lappend ndm_files       "data/lib/ndm/sram/RAMSP2048X16_ss_c.ndm"
-# lappend ndm_files       "data/lib/ndm/sram/RAMSP4096X16_ss_c.ndm"
-# lappend ndm_files       "data/lib/ndm/sram/RAMTP128X16_ss_c.ndm"
-# lappend ndm_files       "data/lib/ndm/sram/RAMTP1024X16_ss_c.ndm"
-
-# lappend ndm_files       "data/lib/ndm/scc40nll_vhsc40_hvt_tt_v1p1_25c_ccs.ndm"
-# lappend ndm_files       "data/lib/ndm/scc40nll_vhsc40_lvt_tt_v1p1_25c_ccs.ndm"
-# lappend ndm_files       "data/lib/ndm/scc40nll_vhsc40_rvt_tt_v1p1_25c_ccs.ndm"
-# lappend ndm_files       "data/lib/ndm/SP40NLLD2RN_3P3V_V0p4_tt_V1p10_25C.ndm"
-# lappend ndm_files       "data/lib/ndm/sram/RAMSP128X16_tt_1p_25c.ndm"
-# lappend ndm_files       "data/lib/ndm/sram/RAMSP1024X16_tt_1p_25c.ndm"
-# lappend ndm_files       "data/lib/ndm/sram/RAMSP2048X16_tt_1p_25c.ndm"
-# lappend ndm_files       "data/lib/ndm/sram/RAMSP4096X16_tt_1p_25c.ndm"
-# lappend ndm_files       "data/lib/ndm/sram/RAMTP128X16_tt_1p_25c.ndm"
-# lappend ndm_files       "data/lib/ndm/sram/RAMTP1024X16_tt_1p_25c.ndm"
 
 
 ### lef files

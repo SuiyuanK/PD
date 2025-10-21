@@ -871,7 +871,7 @@ tvf::VERBATIM {
 //==================================================================================
 //*OPTION 1a: Define total number of Metal.The value can be 10~4. Default value is 10.
 
-#DEFINE TOPMETAL 8
+#DEFINE TOPMETAL 9
 //===================================================================================
 //*OPTION 1b: Define type of top metal.The value can be single or double.  
 //*If use double top metal process, set this option to double(Lower Case).

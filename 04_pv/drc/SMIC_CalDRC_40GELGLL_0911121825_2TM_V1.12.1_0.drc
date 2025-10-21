@@ -11,7 +11,7 @@ namespace import tvf::*
 
 #TOP Metal select. The value can be 10,9,8,7,6,5(include double top metals(TM1,TM2/MTT2)).
 #Default value is 10.
-set TOPMETAL 8              ;#valid value is: {10,9,8,7,6,5}
+set TOPMETAL 9              ;#valid value is: {10,9,8,7,6,5}
 
 VERBATIM {
 #DEFINE CONNECT_ALL_RESISTOR 0  //;#valid value is: {0,1}   

@@ -42,7 +42,7 @@ set_parasitic_parameters -corners [current_corner] -late_spec minTLU  -early_spe
 set input_ports [all_inputs]
 set data_inputs [remove_from_collection $input_ports [get_ports [get_attribute [get_clocks] sources -quiet]]]
 set_input_delay 3.6 -max $data_inputs
-set_input_delay 3.0 -max $data_inputs
+set_input_delay 3.0 -min $data_inputs
 
 # no output clk
 set output_ports [all_outputs]

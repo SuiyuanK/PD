@@ -21,8 +21,8 @@ set_user_units -type time -value 1ns
 
 get_layers -filter "is_routing_layer==true"
 set_attribute [get_layers {M1 M3 M5 M7 TM2}] routing_direction vertical
-set_attribute [get_layers {GT M2 M4 M6 TM1}] routing_direction horizontal
-get_attribute [get_layers {GT M? TM?}] routing_direction
+set_attribute [get_layers {GT M2 M4 M6 TM1 ALPA}] routing_direction horizontal
+get_attribute [get_layers {GT M? TM? ALPA}] routing_direction
 
 set_ignored_layers -max_routing_layer M7
 set_ignored_layers -min_routing_layer M1

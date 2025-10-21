@@ -38,16 +38,22 @@ create_routing_rule ndr_2w2s -default_reference_rule -multiplier_width 2 -multip
 set_clock_routing_rules -min_routing_layer M5 -max_routing_layer M7 -clocks $all_master_clocks -rules ndr_2w2s
 
 ### fix remained setup
-set_clock_tree_balance_point -modes [all_modes] -clock $all_real_clocks  -delay 0.43246 -balance_points [get_pin u_sram_array_u_sram_0/CLK]
-set_clock_tree_balance_point -modes [all_modes] -clock $all_real_clocks  -delay 0.43246 -balance_points [get_pin u_sram_array_u_sram_1/CLK]
-set_clock_tree_balance_point -modes [all_modes] -clock $all_real_clocks  -delay 0.43246 -balance_points [get_pin u_sram_array_u_sram_2/CLK]
-set_clock_tree_balance_point -modes [all_modes] -clock $all_real_clocks  -delay 0.43246 -balance_points [get_pin u_sram_array_u_sram_3/CLK]
-set_clock_tree_balance_point -modes [all_modes] -clock $all_real_clocks  -delay 0.43246 -balance_points [get_pin u_sram_array_u_sram_4/CLK]
-set_clock_tree_balance_point -modes [all_modes] -clock $all_real_clocks  -delay 0.43246 -balance_points [get_pin u_sram_array_u_sram_5/CLK]
-set_clock_tree_balance_point -modes [all_modes] -clock $all_real_clocks  -delay 0.43246 -balance_points [get_pin u_sram_array_u_sram_6/CLK]
-set_clock_tree_balance_point -modes [all_modes] -clock $all_real_clocks  -delay 0.43246 -balance_points [get_pin u_sram_array_u_sram_7/CLK]
-set_clock_tree_balance_point -modes [all_modes] -clock $all_real_clocks  -delay 0.43246 -balance_points [get_pin u_sram_array_u_sram_8/CLK]
-set_clock_tree_balance_point -modes [all_modes] -clock $all_real_clocks  -delay 0.43246 -balance_points [get_pin u_sram_array_u_sram_9/CLK]
+# set_clock_tree_balance_point -modes [all_modes] -clock $all_real_clocks  -delay 0.43246 -balance_points [get_pin u_sram_array_u_sram_0/CLK]
+# set_clock_tree_balance_point -modes [all_modes] -clock $all_real_clocks  -delay 0.43246 -balance_points [get_pin u_sram_array_u_sram_1/CLK]
+
+set_clock_tree_balance_point   -modes [all_modes] -clock $all_real_clocks  -delay 0.310889 -balance_points [get_pin u_VIP_Char_Divide_u_VIP_Bit_Erosion_Detector_red_u_matrix_generate_3x3_1bit_u_line_shift_ram_8bit_u_ram_1024x8_0/CLK]
+set_clock_tree_balance_point   -modes [all_modes] -clock $all_real_clocks  -delay 0.310889 -balance_points [get_pin u_VIP_Char_Divide_u_VIP_Bit_Erosion_Detector_red_u_matrix_generate_3x3_1bit_u_line_shift_ram_8bit_u_ram_1024x8_1/CLK]
+set_clock_tree_balance_point   -modes [all_modes] -clock $all_real_clocks  -delay 0.310889 -balance_points [get_pin u_VIP_Plate_Locate_u_VIP_Bit_Dilation_Detector_u_matrix_generate_3x3_1bit_u_line_shift_ram_8bit_u_ram_1024x8_0/CLK]
+set_clock_tree_balance_point   -modes [all_modes] -clock $all_real_clocks  -delay 0.310889 -balance_points [get_pin u_VIP_Plate_Locate_u_VIP_Bit_Dilation_Detector_u_matrix_generate_3x3_1bit_u_line_shift_ram_8bit_u_ram_1024x8_1/CLK]
+set_clock_tree_balance_point   -modes [all_modes] -clock $all_real_clocks  -delay 0.310889 -balance_points [get_pin u_VIP_Plate_Locate_u_VIP_Bit_Erosion_Detector_u_matrix_generate_3x3_1bit_u_line_shift_ram_8bit_u_ram_1024x8_0/CLK]
+set_clock_tree_balance_point   -modes [all_modes] -clock $all_real_clocks  -delay 0.310889 -balance_points [get_pin u_VIP_Plate_Locate_u_VIP_Bit_Erosion_Detector_u_matrix_generate_3x3_1bit_u_line_shift_ram_8bit_u_ram_1024x8_1/CLK]
+set_clock_tree_balance_point   -modes [all_modes] -clock $all_real_clocks  -delay 0.310889 -balance_points [get_pin u_VIP_Plate_Locate_u_Sobel_Edge_Detector_u_matrix_generate_3x3_8bit_u_line_shift_ram_8bit_u_ram_1024x8_0/CLK]
+set_clock_tree_balance_point   -modes [all_modes] -clock $all_real_clocks  -delay 0.310889 -balance_points [get_pin u_VIP_Plate_Locate_u_Sobel_Edge_Detector_u_matrix_generate_3x3_8bit_u_line_shift_ram_8bit_u_ram_1024x8_1/CLK]
+set_clock_tree_balance_point   -modes [all_modes] -clock $all_real_clocks  -delay 0.310889 -balance_points [get_pin u_VIP_Char_Divide_u_VIP_Bit_Dilation_Detector_red_u_matrix_generate_3x3_1bit_u_line_shift_ram_8bit_u_ram_1024x8_0/CLK]
+set_clock_tree_balance_point   -modes [all_modes] -clock $all_real_clocks  -delay 0.310889 -balance_points [get_pin u_VIP_Char_Divide_u_VIP_Bit_Dilation_Detector_red_u_matrix_generate_3x3_1bit_u_line_shift_ram_8bit_u_ram_1024x8_1/CLK]
+set_clock_tree_balance_point   -modes [all_modes] -clock $all_real_clocks  -delay 0.310889 -balance_points [get_pin u_VIP_Char_Divide_u_VIP_vertical_projection_char_u_projection_ram/CLK]
+set_clock_tree_balance_point   -modes [all_modes] -clock $all_real_clocks  -delay 0.310889 -balance_points [get_pin u_VIP_Plate_Locate_u_VIP_vertical_projection_u_projection_ram/CLK]
+set_clock_tree_balance_point   -modes [all_modes] -clock $all_real_clocks  -delay 0.310889 -balance_points [get_pin u_VIP_Plate_Locate_u_VIP_horizon_projection_u_projection_ram/CLK]
 
 
 ### app options
