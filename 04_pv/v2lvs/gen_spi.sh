@@ -1,11 +1,12 @@
 # awk '{ gsub(/^PLCORNER/,"\/\/PLCORNER"); print $0 }' aes_ASIC_sim.vg > aes_ASIC.vg
 
 
+# 有只读cdl的 
 
-
-v2lvs -v ../data/pr_outputs/top.lvs.v.gz \
-      -l ./verilog/RAMSP4096X16.v -l ./verilog/scc40nll_vhsc40_hvt_pg.v -l ./verilog/scc40nll_vhsc40_lvt_pg.v -l ./verilog/scc40nll_vhsc40_rvt_pg.v \
-      -s ./cdl/RAMSP4096X16.cdl -s ./cdl/scc40nll_vhsc40_hvt.cdl -s ./cdl/scc40nll_vhsc40_lvt.cdl -s ./cdl/scc40nll_vhsc40_rvt.cdl\
+v2lvs -64 -v ../data/pr_outputs/image_process.pg.v.gz \
+      -l ./verilog/RAMSP1024X16.v -l ./verilog/scc40nll_vhsc40_hvt_pg.v -l ./verilog/scc40nll_vhsc40_lvt_pg.v -l ./verilog/scc40nll_vhsc40_rvt_pg.v \
+      -s ./cdl/RAMSP1024X16.cdl -s ./cdl/scc40nll_vhsc40_hvt.cdl -s ./cdl/scc40nll_vhsc40_lvt.cdl -s ./cdl/scc40nll_vhsc40_rvt.cdl\
+      -s ./cdl/empty_subckt.sp \
       -o top.spi -s0 GND -s1 VDD
 
 

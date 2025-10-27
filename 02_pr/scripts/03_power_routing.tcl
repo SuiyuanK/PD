@@ -84,7 +84,7 @@ set_pg_strategy strategy_TM2_pg_mesh -pattern "{name : pattern_core_TM2_mesh} {n
 ### macro ring connection
 #  -via_rule {{intersection: adjacent} {via_master: default}}
 # width 可宽一点 
-create_pg_ring_pattern pattern_memory_ring -horizontal_layer M6 -horizontal_width 1.6 -vertical_layer M5 -vertical_width 1.6 -corner_bridge true -via_rule {{intersection: all} {via_master: V5_8_XX_F0}}
+create_pg_ring_pattern pattern_memory_ring -horizontal_layer M6 -horizontal_width 1.4 -vertical_layer M5 -vertical_width 1.4 -corner_bridge true -via_rule {{intersection: all} {via_master: V5_8_XX_F0}}
 set_pg_strategy strategy_memory_ring_top -macro $memory_top -pattern {{pattern: pattern_memory_ring} {nets: {VDD VSS}} {offset : {0.8 0.8}}}
 # set_pg_strategy_via_rule strategy_memory_ring_via -via_rule { \
 #     {{{strategies: strategy_memory_ring_top} {layers: M6}} {{strategies: strategy_TM1_pg_mesh} {layers: TM1}} {via_master: default}} \

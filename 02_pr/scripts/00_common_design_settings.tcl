@@ -31,7 +31,8 @@ lappend ndm_files       "data/lib/ndm/sram/RAMSP4096X16.ndm"
 lappend ndm_files       "data/lib/ndm/sram/RAMTP128X16.ndm"
 lappend ndm_files       "data/lib/ndm/sram/RAMTP1024X16.ndm"
 
-
+### mapping files
+set mapping_file        "data/techfile/milkyway/1P9M_2TM/stream_out_layer_map"
 
 
 ### lef files
