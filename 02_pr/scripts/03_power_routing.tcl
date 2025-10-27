@@ -116,6 +116,21 @@ create_pg_vias -nets {VDD VSS} -from_types stripe -to_types stripe -from_layers 
 create_pg_vias -nets {VDD VSS} -from_types ring -to_types stripe -from_layers M6 -to_layers TM2 -mark_as strap -allow_parallel_objects
 
 
+
+# block 不打pad 所以在top VDD VSS 上加 terminal
+# 为 TM2 层上所有 VDD 网络的金属线创建终端
+create_terminal \
+    -of_objects [get_shapes -of_objects [get_layers TM2] -filter {net_type  == "power"}] \
+    -direction {bottom top}
+
+# 为 TM2 层上所有 VSS 网络的金属线创建终端
+create_terminal \
+    -of_objects [get_shapes -of_objects [get_layers TM2] -filter {net_type  == "ground"}] \
+    -direction {bottom top}
+
+
+set_fixed_objects [get_ports *]
+
 ### connect pg 
 connect_pg_net -all_blocks -automatic
 

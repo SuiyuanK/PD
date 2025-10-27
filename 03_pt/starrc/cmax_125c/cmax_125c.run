@@ -1,0 +1,3 @@
+mkdir CMAX
+StarXtract -clean ./cmax_125c.cmd &
+mv *.spef.CMAX.gz *.cmax_125c.spef.gz

@@ -1,0 +1,274 @@
+LIBRARY logic0040ll{
+  LAYER M1{
+    PURPOSE = routing;
+    LIMIT{
+      CURRENT static_limit{
+        MEASUREMENT = static;
+        MAX{
+          HEADER{
+            WIDTH{
+              TABLE{ 0.070000}
+            }
+          }
+          TABLE{ 1.200000}
+        }
+       }
+    }
+  }
+  LAYER V1{
+    PURPOSE = cut;
+    LIMIT{
+      CURRENT static_limit{
+        MEASUREMENT = static;
+        MAX{
+          HEADER{
+            AREA{
+              TABLE{ 0.004900}
+            }
+          }
+          TABLE{ 0.070000}
+        }
+       }
+    }
+  }
+  LAYER M2{
+    PURPOSE = routing;
+    LIMIT{
+      CURRENT static_limit{
+        MEASUREMENT = static;
+        MAX{
+          HEADER{
+            WIDTH{
+              TABLE{ 0.070000}
+            }
+          }
+          TABLE{ 1.300000}
+        }
+       }
+    }
+  }
+  LAYER V2{
+    PURPOSE = cut;
+    LIMIT{
+      CURRENT static_limit{
+        MEASUREMENT = static;
+        MAX{
+          HEADER{
+            AREA{
+              TABLE{ 0.004900}
+            }
+          }
+          TABLE{ 0.070000}
+        }
+       }
+    }
+  }
+  LAYER M3{
+    PURPOSE = routing;
+    LIMIT{
+      CURRENT static_limit{
+        MEASUREMENT = static;
+        MAX{
+          HEADER{
+            WIDTH{
+              TABLE{ 0.070000}
+            }
+          }
+          TABLE{ 1.300000}
+        }
+       }
+    }
+  }
+  LAYER V3{
+    PURPOSE = cut;
+    LIMIT{
+      CURRENT static_limit{
+        MEASUREMENT = static;
+        MAX{
+          HEADER{
+            AREA{
+              TABLE{ 0.004900}
+            }
+          }
+          TABLE{ 0.070000}
+        }
+       }
+    }
+  }
+  LAYER M4{
+    PURPOSE = routing;
+    LIMIT{
+      CURRENT static_limit{
+        MEASUREMENT = static;
+        MAX{
+          HEADER{
+            WIDTH{
+              TABLE{ 0.070000}
+            }
+          }
+          TABLE{ 1.300000}
+        }
+       }
+    }
+  }
+  LAYER V4{
+    PURPOSE = cut;
+    LIMIT{
+      CURRENT static_limit{
+        MEASUREMENT = static;
+        MAX{
+          HEADER{
+            AREA{
+              TABLE{ 0.004900}
+            }
+          }
+          TABLE{ 0.070000}
+        }
+       }
+    }
+  }
+  LAYER M5{
+    PURPOSE = routing;
+    LIMIT{
+      CURRENT static_limit{
+        MEASUREMENT = static;
+        MAX{
+          HEADER{
+            WIDTH{
+              TABLE{ 0.070000}
+            }
+          }
+          TABLE{ 1.300000}
+        }
+       }
+    }
+  }
+  LAYER V5{
+    PURPOSE = cut;
+    LIMIT{
+      CURRENT static_limit{
+        MEASUREMENT = static;
+        MAX{
+          HEADER{
+            AREA{
+              TABLE{ 0.004900}
+            }
+          }
+          TABLE{ 0.070000}
+        }
+       }
+    }
+  }
+  LAYER M6{
+    PURPOSE = routing;
+    LIMIT{
+      CURRENT static_limit{
+        MEASUREMENT = static;
+        MAX{
+          HEADER{
+            WIDTH{
+              TABLE{ 0.070000}
+            }
+          }
+          TABLE{ 1.300000}
+        }
+       }
+    }
+  }
+  LAYER V6{
+    PURPOSE = cut;
+    LIMIT{
+      CURRENT static_limit{
+        MEASUREMENT = static;
+        MAX{
+          HEADER{
+            AREA{
+              TABLE{ 0.004900}
+            }
+          }
+          TABLE{ 0.070000}
+        }
+       }
+    }
+  }
+  LAYER M7{
+    PURPOSE = routing;
+    LIMIT{
+      CURRENT static_limit{
+        MEASUREMENT = static;
+        MAX{
+          HEADER{
+            WIDTH{
+              TABLE{ 0.070000}
+            }
+          }
+          TABLE{ 1.300000}
+        }
+       }
+    }
+  }
+  LAYER TV1{
+    PURPOSE = cut;
+    LIMIT{
+      CURRENT static_limit{
+        MEASUREMENT = static;
+        MAX{
+          HEADER{
+            AREA{
+              TABLE{ 0.129600}
+            }
+          }
+          TABLE{ 3.000000}
+        }
+       }
+    }
+  }
+  LAYER TM1{
+    PURPOSE = routing;
+    LIMIT{
+      CURRENT static_limit{
+        MEASUREMENT = static;
+        MAX{
+          HEADER{
+            WIDTH{
+              TABLE{ 0.400000}
+            }
+          }
+          TABLE{ 8.800000}
+        }
+       }
+    }
+  }
+  LAYER TV2{
+    PURPOSE = cut;
+    LIMIT{
+      CURRENT static_limit{
+        MEASUREMENT = static;
+        MAX{
+          HEADER{
+            AREA{
+              TABLE{ 0.129600}
+            }
+          }
+          TABLE{ 3.000000}
+        }
+       }
+    }
+  }
+  LAYER TM2{
+    PURPOSE = routing;
+    LIMIT{
+      CURRENT static_limit{
+        MEASUREMENT = static;
+        MAX{
+          HEADER{
+            WIDTH{
+              TABLE{ 0.400000}
+            }
+          }
+          TABLE{ 8.800000}
+        }
+       }
+    }
+  }
+}

@@ -8,7 +8,7 @@ set 40NM_dir        /mnt/hgfs/Em/40NM
 set lef_site_name 	sc9mc_logic0040ll
 set mdb_site_name   	unit
 set lib_dir_name  	RAMSP128X16
-create_workspace -technology ${40NM_dir}/techfile/ARM_pr/SM09TF000-FE-00000-r3p4-00eac0/arm/smic/logic0040ll/arm_tech/r3p4/milkyway/1P9M_2TM/sc12mc_tech.tf RAMSP128X16
+create_workspace -technology ${40NM_dir}/techfile/ARM_pr/SM09TF000-FE-00000-r3p4-00eac0/arm/smic/logic0040ll/arm_tech/r3p4/milkyway/1P9M_2TM_ALPA2/sc12mc_tech.tf RAMSP128X16
 read_db ${40NM_dir}/SRAM_Lib/RAMSP128X16/db/RAMSP128X16_ff_1p10v_1p10v_125c.db
 read_db ${40NM_dir}/SRAM_Lib/RAMSP128X16/db/RAMSP128X16_ff_1p21v_1p21v_125c.db
 read_db ${40NM_dir}/SRAM_Lib/RAMSP128X16/db/RAMSP128X16_ff_1p26v_1p26v_125c.db
@@ -61,7 +61,7 @@ remove_workspace
 
 
 set lib_dir_name  	RAMSP1024X16
-create_workspace -technology ${40NM_dir}/techfile/ARM_pr/SM09TF000-FE-00000-r3p4-00eac0/arm/smic/logic0040ll/arm_tech/r3p4/milkyway/1P9M_2TM/sc12mc_tech.tf RAMSP1024X16
+create_workspace -technology ${40NM_dir}/techfile/ARM_pr/SM09TF000-FE-00000-r3p4-00eac0/arm/smic/logic0040ll/arm_tech/r3p4/milkyway/1P9M_2TM_ALPA2/sc12mc_tech.tf RAMSP1024X16
 read_db ${40NM_dir}/SRAM_Lib/RAMSP1024X16/db/RAMSP1024X16_ff_1p10v_1p10v_125c.db
 read_db ${40NM_dir}/SRAM_Lib/RAMSP1024X16/db/RAMSP1024X16_ff_1p21v_1p21v_125c.db
 read_db ${40NM_dir}/SRAM_Lib/RAMSP1024X16/db/RAMSP1024X16_ff_1p26v_1p26v_125c.db
@@ -110,7 +110,7 @@ remove_workspace
 
 
 set lib_dir_name  	RAMSP2048X16
-create_workspace -technology ${40NM_dir}/techfile/ARM_pr/SM09TF000-FE-00000-r3p4-00eac0/arm/smic/logic0040ll/arm_tech/r3p4/milkyway/1P9M_2TM/sc12mc_tech.tf RAMSP2048X16
+create_workspace -technology ${40NM_dir}/techfile/ARM_pr/SM09TF000-FE-00000-r3p4-00eac0/arm/smic/logic0040ll/arm_tech/r3p4/milkyway/1P9M_2TM_ALPA2/sc12mc_tech.tf RAMSP2048X16
 read_db ${40NM_dir}/SRAM_Lib/RAMSP2048X16/db/RAMSP2048X16_ff_1p10v_1p10v_125c.db
 read_db ${40NM_dir}/SRAM_Lib/RAMSP2048X16/db/RAMSP2048X16_ff_1p21v_1p21v_125c.db
 read_db ${40NM_dir}/SRAM_Lib/RAMSP2048X16/db/RAMSP2048X16_ff_1p26v_1p26v_125c.db
@@ -156,7 +156,7 @@ remove_workspace
 
 
 set lib_dir_name  	RAMSP4096X16
-create_workspace -technology ${40NM_dir}/techfile/ARM_pr/SM09TF000-FE-00000-r3p4-00eac0/arm/smic/logic0040ll/arm_tech/r3p4/milkyway/1P9M_2TM/sc12mc_tech.tf RAMSP4096X16
+create_workspace -technology ${40NM_dir}/techfile/ARM_pr/SM09TF000-FE-00000-r3p4-00eac0/arm/smic/logic0040ll/arm_tech/r3p4/milkyway/1P9M_2TM_ALPA2/sc12mc_tech.tf RAMSP4096X16
 read_db ${40NM_dir}/SRAM_Lib/RAMSP4096X16/db/RAMSP4096X16_ff_1p10v_1p10v_125c.db
 read_db ${40NM_dir}/SRAM_Lib/RAMSP4096X16/db/RAMSP4096X16_ff_1p21v_1p21v_125c.db
 read_db ${40NM_dir}/SRAM_Lib/RAMSP4096X16/db/RAMSP4096X16_ff_1p26v_1p26v_125c.db
@@ -208,7 +208,7 @@ remove_workspace
 
 
 set lib_dir_name  	RAMTP128X16
-create_workspace -technology ${40NM_dir}/techfile/ARM_pr/SM09TF000-FE-00000-r3p4-00eac0/arm/smic/logic0040ll/arm_tech/r3p4/milkyway/1P9M_2TM/sc12mc_tech.tf RAMTP128X16
+create_workspace -technology ${40NM_dir}/techfile/ARM_pr/SM09TF000-FE-00000-r3p4-00eac0/arm/smic/logic0040ll/arm_tech/r3p4/milkyway/1P9M_2TM_ALPA2/sc12mc_tech.tf RAMTP128X16
 read_db ${40NM_dir}/SRAM_Lib/RAMTP128X16/db/RAMTP128X16_ff_1p10v_1p10v_125c.db
 read_db ${40NM_dir}/SRAM_Lib/RAMTP128X16/db/RAMTP128X16_ff_1p21v_1p21v_125c.db
 read_db ${40NM_dir}/SRAM_Lib/RAMTP128X16/db/RAMTP128X16_ff_1p26v_1p26v_125c.db
@@ -257,7 +257,7 @@ remove_workspace
 
 
 set lib_dir_name  	RAMTP1024X16
-create_workspace -technology ${40NM_dir}/techfile/ARM_pr/SM09TF000-FE-00000-r3p4-00eac0/arm/smic/logic0040ll/arm_tech/r3p4/milkyway/1P9M_2TM/sc12mc_tech.tf RAMTP1024X16
+create_workspace -technology ${40NM_dir}/techfile/ARM_pr/SM09TF000-FE-00000-r3p4-00eac0/arm/smic/logic0040ll/arm_tech/r3p4/milkyway/1P9M_2TM_ALPA2/sc12mc_tech.tf RAMTP1024X16
 read_db ${40NM_dir}/SRAM_Lib/RAMTP1024X16/db/RAMTP1024X16_ff_1p10v_1p10v_125c.db
 read_db ${40NM_dir}/SRAM_Lib/RAMTP1024X16/db/RAMTP1024X16_ff_1p21v_1p21v_125c.db
 read_db ${40NM_dir}/SRAM_Lib/RAMTP1024X16/db/RAMTP1024X16_ff_1p26v_1p26v_125c.db

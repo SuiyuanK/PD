@@ -68,7 +68,7 @@ write_verilog -compress gzip $lvs_netlist_file -exclude { empty_modules end_cap_
 #     set y [lindex [lindex [get_attribute [get_port $port] bbox] 0] 1]
 #     echo "LAYOUT TEXT ${port} ${x} ${y} 64"
 # }
-# LAYOUT TEXT FILE "../XX.text"加在lvs.cmd里 如果gds没有port信息
+# LAYOUT TEXT FILE "../XX.text"加在lvs.cmd里 
 set pg_netlist_file "${output_dir}/${design}.pg.v.gz"
 write_verilog -compress gzip $pg_netlist_file -exclude { empty_modules flip_chip_pad_cells pad_spacer_cells leaf_module_declarations } -force_no_reference {*/PFILL* */PCORNER*} -split_bus -hierarchy all
 

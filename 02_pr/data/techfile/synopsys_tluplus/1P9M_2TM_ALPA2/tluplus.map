@@ -1,0 +1,22 @@
+conducting_layers
+M1     metal1 
+M2     metal2 
+M3     metal3 
+M4     metal4 
+M5     metal5 
+M6     metal6 
+M7     metal7 
+TM1    metal8 
+TM2    metal9 
+ALPA   alpa
+
+Via_layers
+V1   via1 
+V2   via2 
+V3   via3 
+V4   via4 
+V5   via5 
+V6  via6 
+TV1  via7
+TV2  via8 
+PA   viapa 

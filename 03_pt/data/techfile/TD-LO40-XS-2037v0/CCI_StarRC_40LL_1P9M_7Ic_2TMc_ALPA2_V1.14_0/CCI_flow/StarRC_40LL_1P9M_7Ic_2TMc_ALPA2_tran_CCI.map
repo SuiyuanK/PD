@@ -1,0 +1,296 @@
+
+conducting_layers
+  npoly                 npoly 
+  ngate_core		npoly
+  ngate_IO2		npoly		
+  ngate_IO2_over	npoly		
+  ngate_IO2_under	npoly		
+  ntgate_core		npoly		
+  ntgate_IO2		npoly		
+  ntgate_IO2_over	npoly		
+  ngate_core_hvt	npoly		
+  ngate_core_lvt	npoly		
+  ngate_IO2_spec        npoly
+  dnwngate12            npoly
+  dnwhvtgate12          npoly
+  dnwlvtgate12          npoly
+  dnwulvtgate12         npoly
+  dnwngate25            npoly
+  dnwodgate33           npoly
+  dnwudgate18           npoly
+  ngate_core_spec       npoly
+  ntgate_IO2_under      npoly
+  nld50ll_gate          npoly
+  nld50ll_gate_od       npoly
+  cngate_core           npoly
+  cngate_IO1            npoly
+  cngate_IO2            npoly
+  ngate_core_ulvt       npoly    
+  ppoly                 ppoly
+  pgate_core		npoly		
+  pgate_IO2		ppoly		
+  pgate_IO2_over	ppoly		
+  pgate_IO2_under	ppoly		
+  pgate_core_hvt	ppoly		
+  pgate_core_lvt	ppoly		
+  pgate_IO2_spec        ppoly
+  pgate_core_spec       ppoly
+  pld50ll_gate          ppoly
+  pld50ll_gate_od       ppoly
+  pgate_core_ulvt       ppoly       
+ 
+   
+  dplnfetpd_gate_0.576     npoly         
+  dplnfetwl_gate_0.576     npoly         
+  dplpfetpu_gate_0.576     ppoly         
+  dpcnfetpd_gate_0.589     npoly         
+  dpcnfetwla_gate_0.589    npoly         
+  dpcnfetwlb_gate_0.589    npoly         
+  dpcpfetpu_gate_0.589     ppoly         
+  dslnfetpd_gate_0.299     npoly         
+  dslnfetwl_gate_0.299     npoly         
+  dslpfetpu_gate_0.299     ppoly         
+  lshnfetpd_gate_0.374     npoly         
+  lshnfetwl_gate_0.374     npoly         
+  lshpfetpu_gate_0.374     ppoly         
+  rflnfetpd_gate_0.741     npoly
+  rflnfetwla_gate_0.741    npoly
+  rflnfetwlb_gate_0.741    npoly
+  rflpfetpu_gate_0.741     ppoly
+  
+  efpoly              npoly    RPSQ=0
+  pvar_core_t         npoly    RPSQ=0
+  pvar_core_dnw_t     npoly    RPSQ=0
+  nvar_core_t         ppoly    RPSQ=0
+  nvar_core_dnw_t     ppoly    RPSQ=0
+  pvar_IO1_t          npoly    RPSQ=0
+  pvar_IO1_dnw_t      npoly    RPSQ=0  
+  nvar_IO1_t          ppoly    RPSQ=0
+  nvar_IO1_dnw_t      ppoly    RPSQ=0
+  pvar_IO2_t          npoly    RPSQ=0
+  pvar_IO2_dnw_t      npoly    RPSQ=0 
+  nvar_IO2_t          ppoly    RPSQ=0 
+  nvar_IO2_dnw_t      ppoly    RPSQ=0
+  
+  nld50ll_s           diff     RPSQ=0
+  nld50ll_d           diff     RPSQ=0
+  pld50ll_s           diff     RPSQ=0
+  pld50ll_d           diff     RPSQ=0
+
+  NPNIO1A4		diff   RPSQ=0
+  NPNIO1A25		diff   RPSQ=0
+  NPNIO1A100		diff   RPSQ=0
+  PNPIO1A4		diff   RPSQ=0
+  PNPIO1A25		diff   RPSQ=0
+  PNPIO1A100		diff   RPSQ=0
+  PNPCOREA4		diff   RPSQ=0
+  PNPCOREA25		diff   RPSQ=0
+  PNPCOREA100		diff   RPSQ=0
+  PNPIO2A4		diff   RPSQ=0
+  PNPIO2A25		diff   RPSQ=0
+  PNPIO2A100		diff   RPSQ=0
+  NPNCOREA4		diff   RPSQ=0
+  NPNCOREA25		diff   RPSQ=0
+  NPNCOREA100		diff   RPSQ=0
+  NPNIO2A4		diff   RPSQ=0
+  NPNIO2A25		diff   RPSQ=0
+  NPNIO2A100		diff   RPSQ=0
+  SPNPCOREA100          diff   RPSQ=0
+  SPNPCOREA25           diff   RPSQ=0
+  SPNPCOREA4            diff   RPSQ=0
+  SPNPIO1A100           diff   RPSQ=0
+  SPNPIO1A25            diff   RPSQ=0 
+  SPNPIO1A4             diff   RPSQ=0
+  SPNPIO2A100           diff   RPSQ=0
+  SPNPIO2A25            diff   RPSQ=0
+  SPNPIO2A4             diff   RPSQ=0
+  SNPNCOREA100          diff   RPSQ=0
+  SNPNCOREA25           diff   RPSQ=0
+  SNPNCOREA4            diff   RPSQ=0
+  SNPNIO1A100           diff   RPSQ=0
+  SNPNIO1A25            diff   RPSQ=0
+  SNPNIO1A4             diff   RPSQ=0
+  SNPNIO2A100           diff   RPSQ=0
+  SNPNIO2A25            diff   RPSQ=0
+  SNPNIO2A4             diff   RPSQ=0
+
+  nsd			diff   RPSQ=0
+  psd			diff   RPSQ=0
+  ntd			diff   RPSQ=0
+  ptd			diff   RPSQ=0
+  dio_np                diff   RPSQ=0
+  dio_pn                diff   RPSQ=0
+  
+  metal1                metal1
+  metal2                metal2
+  metal3                metal3
+  metal4                metal4
+  metal5                metal5
+  metal6                metal6
+  metal7                metal7
+  metal8                metal8
+  metal9                metal9
+  ALPA                  alpa
+   
+  MOM_poly		npoly	RPSQ=0
+  mom_terminal12        metal1  rpsq=0
+  mom_terminal13        metal1  rpsq=0
+  mom_terminal14        metal1  rpsq=0
+  mom_terminal15        metal1  rpsq=0
+  mom_terminal16        metal1  rpsq=0
+  mom_terminal17        metal1  rpsq=0
+  mom_terminal23        metal2  rpsq=0
+  mom_terminal24        metal2  rpsq=0
+  mom_terminal25        metal2  rpsq=0
+  mom_terminal26        metal2  rpsq=0
+  mom_terminal27        metal2  rpsq=0
+  mom_terminal34        metal3  rpsq=0
+  mom_terminal35        metal3  rpsq=0
+  mom_terminal36        metal3  rpsq=0
+  mom_terminal37        metal3  rpsq=0
+  mom_terminal45        metal4  rpsq=0
+  mom_terminal46        metal4  rpsq=0
+  mom_terminal47        metal4  rpsq=0
+  mom_terminal56        metal5  rpsq=0
+  mom_terminal57        metal5  rpsq=0
+  mom_terminal67        metal6  rpsq=0
+  mom_terminal12_one        metal1  rpsq=0
+  mom_terminal13_one        metal1  rpsq=0
+  mom_terminal14_one        metal1  rpsq=0
+  mom_terminal15_one        metal1  rpsq=0
+  mom_terminal16_one        metal1  rpsq=0
+  mom_terminal17_one        metal1  rpsq=0 
+  mom_terminal23_one        metal2  rpsq=0
+  mom_terminal24_one        metal2  rpsq=0
+  mom_terminal25_one        metal2  rpsq=0
+  mom_terminal26_one        metal2  rpsq=0
+  mom_terminal27_one        metal2  rpsq=0
+  mom_terminal34_one        metal3  rpsq=0
+  mom_terminal35_one        metal3  rpsq=0
+  mom_terminal36_one        metal3  rpsq=0
+  mom_terminal37_one        metal3  rpsq=0
+  mom_terminal45_one        metal4  rpsq=0
+  mom_terminal46_one        metal4  rpsq=0
+  mom_terminal47_one        metal4  rpsq=0
+  mom_terminal56_one        metal5  rpsq=0
+  mom_terminal57_one        metal5  rpsq=0
+  mom_terminal67_one        metal6  rpsq=0
+  mom_terminal12_two        metal1  rpsq=0
+  mom_terminal13_two        metal1  rpsq=0
+  mom_terminal14_two        metal1  rpsq=0
+  mom_terminal15_two        metal1  rpsq=0
+  mom_terminal16_two        metal1  rpsq=0
+  mom_terminal17_two        metal1  rpsq=0
+  mom_terminal23_two        metal2  rpsq=0
+  mom_terminal24_two        metal2  rpsq=0
+  mom_terminal25_two        metal2  rpsq=0
+  mom_terminal26_two        metal2  rpsq=0
+  mom_terminal27_two        metal2  rpsq=0
+  mom_terminal34_two        metal3  rpsq=0
+  mom_terminal35_two        metal3  rpsq=0
+  mom_terminal36_two        metal3  rpsq=0
+  mom_terminal37_two        metal3  rpsq=0
+  mom_terminal45_two        metal4  rpsq=0
+  mom_terminal46_two        metal4  rpsq=0
+  mom_terminal47_two        metal4  rpsq=0
+  mom_terminal56_two        metal5  rpsq=0
+  mom_terminal57_two        metal5  rpsq=0
+  mom_terminal67_two        metal6  rpsq=0
+
+  RES_RNDIF_3T              diff   RPSQ=0
+  RES_RPDIF_3T              diff   RPSQ=0
+  RES_RNWSTI_3T             SUBSTRATE precedence = 3
+  RES_RNWAA_3T              SUBSTRATE precedence = 3
+  RES_RNDIFSAB_3T           diff   RPSQ=0
+  RES_RPDIFSAB_3T           diff   RPSQ=0
+  RES_RNPO_PW               npoly  RPSQ=0
+  RES_RNPO_NW               npoly  RPSQ=0
+  RES_RPPO_PW               ppoly  RPSQ=0
+  RES_RPPO_NW               ppoly  RPSQ=0
+  RES_RNPOSAB_PW            npoly  RPSQ=0
+  RES_RNPOSAB_NW            npoly  RPSQ=0
+  RES_RPPOSAB_PW            ppoly  RPSQ=0
+  RES_RPPOSAB_NW            ppoly  RPSQ=0
+  RES_RHRPO_3T_PW           ppoly  RPSQ=0
+  RES_RHRPO_3T_NW           ppoly  RPSQ=0
+  RES_RNDIF                 diff   RPSQ=0
+  RES_RPDIF                 diff   RPSQ=0 
+  RES_RNWSTI                SUBSTRATE precedence = 3
+  RES_RNWAA                 SUBSTRATE precedence = 3
+  RES_RNDIFSAB              diff   RPSQ=0 
+  RES_RPDIFSAB              diff   RPSQ=0
+  RES_RNPO                  npoly  RPSQ=0
+  RES_RPPO                  ppoly  RPSQ=0
+  RES_RNPOSAB               npoly  RPSQ=0
+  RES_RPPOSAB               ppoly  RPSQ=0
+  RES_RHRPO                 ppoly  RPSQ=0
+  rm1_2t                    metal1 rpsq=0
+  rm1_3t_nwell              metal1 rpsq=0
+  rm1_3t_pwell              metal1 rpsq=0
+  rm2_2t                    metal2 rpsq=0
+  rm2_3t_nwell              metal2 rpsq=0
+  rm2_3t_pwell              metal2 rpsq=0
+  rm3_2t                    metal3 rpsq=0
+  rm3_3t_nwell              metal3 rpsq=0
+  rm3_3t_pwell              metal3 rpsq=0
+  rm4_2t                    metal4 rpsq=0
+  rm4_3t_nwell              metal4 rpsq=0
+  rm4_3t_pwell              metal4 rpsq=0
+  rm5_2t                    metal5 rpsq=0
+  rm5_3t_nwell              metal5 rpsq=0
+  rm5_3t_pwell              metal5 rpsq=0
+  rm6_2t                    metal6 rpsq=0
+  rm6_3t_nwell              metal6 rpsq=0
+  rm6_3t_pwell              metal6 rpsq=0
+  rm7_2t                    metal7 rpsq=0
+  rm7_3t_nwell              metal7 rpsq=0
+  rm7_3t_pwell              metal7 rpsq=0
+  rm8_2t                    metal8 rpsq=0
+  rm8_3t_nwell              metal8 rpsq=0
+  rm8_3t_pwell              metal8 rpsq=0
+  rm9_2t                    metal9 rpsq=0
+  rm9_3t_nwell              metal9 rpsq=0
+  rm9_3t_pwell              metal9 rpsq=0
+  alpa_res_2t               alpa   rpsq=0          
+  alpa_res_3t_nwell         alpa   rpsq=0
+  alpa_res_3t_pwell         alpa   rpsq=0
+
+  nwell                 SUBSTRATE precedence = 3
+  pwell_nwell           SUBSTRATE precedence = 3
+  pwell                 SUBSTRATE precedence = 1
+  rwell                 SUBSTRATE precedence = 3
+  dnwd_psub             SUBSTRATE precedence = 1
+  pw_nw                 SUBSTRATE precedence = 1
+  dnwell                SUBSTRATE precedence = 3
+  bulk_all              SUBSTRATE precedence = 1
+  psub_all              SUBSTRATE precedence = 1
+  pwell_mom             SUBSTRATE precedence = 1
+  nwell_mom             SUBSTRATE precedence = 3
+  pnpcoll               SUBSTRATE precedence = 1
+
+via_layers
+  ndfcont               dfCont
+  pdfcont               dfCont
+  npolycont             npolyCont
+  ppolycont             ppolyCont
+  ntd_nwell_subcont     subCont
+  ptd_pwell_subcont     subCont
+  ptd_rwell_subcont     subCont
+  ptd_dnwd_psub_subcont subCont
+  ntd_dnwell_subcont    subCont 
+
+  V1                    via1
+  V2                    via2
+  V3                    via3
+  V4                    via4
+  V5                    via5
+  V6                    via6
+  TV1                   via7
+  TV2                   via8
+  PA                    viapa
+
+remove_layers
+  CTREC
+  CTREC_SD
+  CTREC_POLY
+

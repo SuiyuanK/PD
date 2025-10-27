@@ -11,7 +11,7 @@ set_app_options -name lib.logic_model.auto_remove_timing_only_designs -value tru
 set_app_options -name lib.workspace.allow_missing_related_pg_pins -value true
 set_app_options -name lib.workspace.keep_all_physical_cells -value true
 # workspace scc40nll_vhsc40_hvt
-create_workspace -technology ${40NM_dir}/techfile/ARM_pr/SM09TF000-FE-00000-r3p4-00eac0/arm/smic/logic0040ll/arm_tech/r3p4/milkyway/1P9M_2TM/sc12mc_tech.tf scc40nll_vhsc40_hvt
+create_workspace -technology ${40NM_dir}/techfile/ARM_pr/SM09TF000-FE-00000-r3p4-00eac0/arm/smic/logic0040ll/arm_tech/r3p4/milkyway/1P9M_2TM_ALPA2/sc12mc_tech.tf scc40nll_vhsc40_hvt
 read_db ${40NM_dir}/S40/smic/SCC40NLL_VHSC40_HVT_V0.1/SCC40NLL_VHSC40_HVT_V0p1/liberty/1.1v/scc40nll_vhsc40_hvt_ff_v1p21_125c_ccs.db
 read_db ${40NM_dir}/S40/smic/SCC40NLL_VHSC40_HVT_V0.1/SCC40NLL_VHSC40_HVT_V0p1/liberty/1.1v/scc40nll_vhsc40_hvt_ff_v1p21_-40c_ccs.db
 set_process -libraries scc40nll_vhsc40_hvt_ff_v1p21_125c_ccs -label ff -number 1.21
@@ -49,7 +49,7 @@ set_app_options -name lib.logic_model.auto_remove_timing_only_designs -value tru
 set_app_options -name lib.workspace.allow_missing_related_pg_pins -value true
 set_app_options -name lib.workspace.keep_all_physical_cells -value true
 # workspace scc40nll_vhsc40_lvt:
-create_workspace -technology ${40NM_dir}/techfile/ARM_pr/SM09TF000-FE-00000-r3p4-00eac0/arm/smic/logic0040ll/arm_tech/r3p4/milkyway/1P9M_2TM/sc12mc_tech.tf scc40nll_vhsc40_lvt
+create_workspace -technology ${40NM_dir}/techfile/ARM_pr/SM09TF000-FE-00000-r3p4-00eac0/arm/smic/logic0040ll/arm_tech/r3p4/milkyway/1P9M_2TM_ALPA2/sc12mc_tech.tf scc40nll_vhsc40_lvt
 read_db ${40NM_dir}/S40/smic/SCC40NLL_VHSC40_LVT_V0.1/SCC40NLL_VHSC40_LVT_V0p1/liberty/1.1v/scc40nll_vhsc40_lvt_ff_v1p21_125c_ccs.db
 read_db ${40NM_dir}/S40/smic/SCC40NLL_VHSC40_LVT_V0.1/SCC40NLL_VHSC40_LVT_V0p1/liberty/1.1v/scc40nll_vhsc40_lvt_ff_v1p21_-40c_ccs.db
 set_process -libraries scc40nll_vhsc40_lvt_ff_v1p21_125c_ccs -label ff -number 1.21
@@ -84,7 +84,7 @@ set_app_options -name lib.logic_model.auto_remove_timing_only_designs -value tru
 set_app_options -name lib.workspace.allow_missing_related_pg_pins -value true
 set_app_options -name lib.workspace.keep_all_physical_cells -value true
 # workspace scc40nll_vhsc40_rvt:
-create_workspace -technology ${40NM_dir}/techfile/ARM_pr/SM09TF000-FE-00000-r3p4-00eac0/arm/smic/logic0040ll/arm_tech/r3p4/milkyway/1P9M_2TM/sc12mc_tech.tf scc40nll_vhsc40_rvt
+create_workspace -technology ${40NM_dir}/techfile/ARM_pr/SM09TF000-FE-00000-r3p4-00eac0/arm/smic/logic0040ll/arm_tech/r3p4/milkyway/1P9M_2TM_ALPA2/sc12mc_tech.tf scc40nll_vhsc40_rvt
 read_db ${40NM_dir}/S40/smic/SCC40NLL_VHSC40_RVT_V0.1/SCC40NLL_VHSC40_RVT_V0p1/liberty/1.1v/scc40nll_vhsc40_rvt_ff_v1p21_125c_ccs.db
 read_db ${40NM_dir}/S40/smic/SCC40NLL_VHSC40_RVT_V0.1/SCC40NLL_VHSC40_RVT_V0p1/liberty/1.1v/scc40nll_vhsc40_rvt_ff_v1p21_-40c_ccs.db
 set_process -libraries scc40nll_vhsc40_rvt_ff_v1p21_125c_ccs -label ff -number 1.21
@@ -114,7 +114,7 @@ set_app_options -name lib.logic_model.auto_remove_timing_only_designs -value tru
 set_app_options -name lib.workspace.allow_missing_related_pg_pins -value true
 set_app_options -name lib.workspace.keep_all_physical_cells -value true
 # workspace SP40NLLD2RN_3P3V_V0p4:
-create_workspace -technology ${40NM_dir}/techfile/ARM_pr/SM09TF000-FE-00000-r3p4-00eac0/arm/smic/logic0040ll/arm_tech/r3p4/milkyway/1P9M_2TM/sc12mc_tech.tf SP40NLLD2RN_3P3V_V0p4
+create_workspace -technology ${40NM_dir}/techfile/ARM_pr/SM09TF000-FE-00000-r3p4-00eac0/arm/smic/logic0040ll/arm_tech/r3p4/milkyway/1P9M_2TM_ALPA2/sc12mc_tech.tf SP40NLLD2RN_3P3V_V0p4
 read_db ${40NM_dir}/S40/smic/SP40NLLD2RN_3P3V_V0p4/syn/3p3v/SP40NLLD2RN_3P3V_V0p4_ff_V1p21_125C.db
 read_db ${40NM_dir}/S40/smic/SP40NLLD2RN_3P3V_V0p4/syn/3p3v/SP40NLLD2RN_3P3V_V0p4_ff_V1p21_-40C.db
 set_process -libraries SP40NLLD2RN_3P3V_V0p4_ff_V1p21_125C -label ff -number 1.21

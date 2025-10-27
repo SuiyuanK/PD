@@ -1,0 +1,3 @@
+mkdir CMIN
+StarXtract -clean ./cmin_m40c.cmd &
+mv *.spef.CMIN.gz *.cmin_m40c.spef.gz

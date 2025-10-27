@@ -1,9 +1,9 @@
 ### initialization settings for icc2
 ## time unit needs to match with SDC
 
-# source data/techfile/milkyway/1P9M_2TM/icc_route_options.tcl
-# read_tech_lef -merge_action update data/techfile/lef/1P9M_2TM/sc12mc_tech.lef
-source data/techfile/milkyway/1P9M_2TM/antenna_rules.tcl
+# source data/techfile/milkyway/1P9M_2TM_ALPA2/icc_route_options.tcl
+# read_tech_lef -merge_action update data/techfile/lef/1P9M_2TM_ALPA2/sc12mc_tech.lef
+source data/techfile/milkyway/1P9M_2TM_ALPA2/antenna_rules.tcl
 connect_pg_net  -all_blocks -automatic
 set_app_options -list {
   route.common.connect_within_pins_by_layer_name {
@@ -12,7 +12,7 @@ set_app_options -list {
 }
 set_app_options -name route.common.net_min_layer_mode -value allow_pin_connection
 remove_via_mappings -all
-add_via_mapping -from_icc_file data/techfile/milkyway/1P9M_2TM/icc_route_options.tcl
+add_via_mapping -from_icc_file data/techfile/milkyway/1P9M_2TM_ALPA2/icc_route_options.tcl
 
 set_user_units -type time -value 1ns
 

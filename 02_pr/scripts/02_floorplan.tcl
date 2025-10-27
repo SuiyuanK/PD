@@ -46,14 +46,14 @@ place_pins -self -ports [get_ports *]
 # cp floorplan/fp.tcl scripts/place_hard_macro.tcl
 # 小的5 大的20
 source scripts/place_hard_macro.tcl
-create_keepout_margin -outer {4.75 4.75 4.75 4.75} [get_flat_cells * -filter is_hard_macro==true]
+create_keepout_margin -outer {4 4 4.75 4} [get_flat_cells * -filter is_hard_macro==true]
 
 
 ### blockage(gui) copy from fp.tcl
 # change_selection [get_placement_blockages *]
 # write_floorplan -objects [get_selection ] -force -nosplit (-nosplit No line break)
 
-create_placement_blockage -name pb_0 -type hard -boundary { {1379.4150 238.1200} {1499.8600 238.1920} }
+# create_placement_blockage -name pb_0 -type hard -boundary { {1379.4150 238.1200} {1499.8600 238.1920} }
 
 # get_voltage_areas  ------>>>  {DEFAULT_VA PD_RISC_CORE}
 # Each voltage_area needs to set these cells.
@@ -70,7 +70,6 @@ compile_advanced_boundary_cells -voltage_area "DEFAULT_VA"
 
 create_tap_cells -lib_cell $tapcell_ref -pattern stagger -distance 30 -skip_fixed_cells -voltage_area DEFAULT_VA
 
-set_fixed_objects [get_ports *]
 set_fixed_objects [get_flat_cells * -filter is_hard_macro==true]
 
 ### connect pg

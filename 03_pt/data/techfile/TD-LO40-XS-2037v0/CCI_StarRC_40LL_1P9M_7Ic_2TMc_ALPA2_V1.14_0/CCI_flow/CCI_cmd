@@ -1,0 +1,28 @@
+* TechReport
+* Commands below for 40nm process from 45nm's shrinkage.
+MAGNIFICATION_FACTOR:0.9
+MAGNIFY_DEVICE_PARAMS:NO
+MODE:400
+NETLIST_PASSIVE_PARAMS : YES
+EXTRACT_RES_BODY_COUPLING: YES
+EXTRACT_VIA_CAPS:YES 
+BLOCK: TOP_CELL
+CASE_SENSITIVE: NO
+TCAD_GRD_FILE: xxx.nxtgrd
+MAPPING_FILE: xxx.map
+EXTRACTION: RC
+COUPLE_TO_GROUND: NO
+POWER_EXTRACT: YES
+SKIP_CELLS: !*
+SKIP_PCELLS: dnwnvar11ll_ckt* dnwnvar25ll_ckt* dnwpvar11ll_ckt* dnwpvar25ll_ckt* nvar11ll_ckt* nvar25ll_ckt* pvar11ll_ckt* pvar25ll_ckt* mom_2t_ckt* mom_3t_ckt* mom_4t_ckt* mom_5t_ckt* mom_prim2t* mom_prim* mom_prim4t* mom_prim5t*
+NETLIST_FILE: xxx.spf
+NETLIST_FORMAT: SPF
+XREF: YES
+TRANSLATE_RETAIN_BULK_LAYERS:YES
+CALIBRE_RUNSET: Calibre_LVS_DECK
+CALIBRE_QUERY_FILE: query_cmd
+CALIBRE_STRIP_LVS_REPLICATES:YES
+COUPLE_TO_PCELL_PINS: YES
+CALIBRE_LVS_DEVICE_TYPE_MOS: n11ll_ckt n11ll_dnw_ckt p11ll_ckt nt11ll_ckt nhvt11ll_ckt nhvt11ll_dnw_ckt phvt11ll_ckt nlvt11ll_ckt nulvt11ll_ckt nulvt11ll_dnw_ckt nlvt11ll_dnw_ckt plvt11ll_ckt pulvt11ll_ckt n25ll_ckt n25ll_dnw_ckt p25ll_ckt nt25ll_ckt nod33ll_ckt nod33ll_dnw_ckt pod33ll_ckt nud18ll_ckt nud18ll_dnw_ckt pud18ll_ckt ntod33ll_ckt ntud18ll_ckt nld50ll_ckt pld50ll_ckt nld50llod_ckt pld50llod_ckt
+CALIBRE_LVS_DEVICE_TYPE_RES:rndif_3t_ckt rpdif_3t_ckt rnwsti_3t_ckt rnwaa_3t_ckt rndifsab_3t_ckt rpdifsab_3t_ckt rnpo_3t_ckt rppo_3t_ckt rnposab_3t_ckt rpposab_3t_ckt rhrpo_3t_ckt rndif_2t_ckt rpdif_2t_ckt rnwsti_2t_ckt rnwaa_2t_ckt rndifsab_2t_ckt rpdifsab_2t_ckt rnpo_2t_ckt rppo_2t_ckt rnposab_2t_ckt rpposab_2t_ckt rhrpo_2t_ckt rm1_2t_ckt rm1_3t_ckt rm2_2t_ckt rm2_3t_ckt rm3_2t_ckt rm3_3t_ckt ralpa_2p8_2t_ckt ralpa_2p8_3t_ckt rm4_2t_ckt rm4_3t_ckt rm5_2t_ckt rm5_3t_ckt rm6_2t_ckt rm6_3t_ckt rm7_2t_ckt rm7_3t_ckt rtm1_2t_ckt rtm1_3t_ckt rtm2_2t_ckt rtm2_3t_ckt
+

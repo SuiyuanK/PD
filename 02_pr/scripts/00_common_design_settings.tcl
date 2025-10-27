@@ -16,7 +16,7 @@ lappend import_sdc      "data/${design}.sdc"
 set golden_upf          ""
 
 ### tech files
-set tech_tf             "data/techfile/milkyway/1P9M_2TM/sc12mc_tech.tf"
+set tech_tf             "data/techfile/milkyway/1P9M_2TM_ALPA2/sc12mc_tech.tf"
 
 ### ndm files
 set ndm_files           ""
@@ -32,7 +32,7 @@ lappend ndm_files       "data/lib/ndm/sram/RAMTP128X16.ndm"
 lappend ndm_files       "data/lib/ndm/sram/RAMTP1024X16.ndm"
 
 ### mapping files
-set mapping_file        "data/techfile/milkyway/1P9M_2TM/stream_out_layer_map"
+set mapping_file        "data/techfile/milkyway/1P9M_2TM_ALPA2/stream_out_layer_map"
 
 
 ### lef files
@@ -53,10 +53,10 @@ lappend lef_files       "data/lef/sram/RAMTP1024X16.lef"
 set starrc_tech(cmax)       ""
 set starrc_tech(cmin)       ""
 set starrc_tech(normal)     ""
-set icc2rc_tech(cmax)       "data/techfile/synopsys_tluplus/1P9M_2TM/CMAX.tluplus"
-set icc2rc_tech(cmin)       "data/techfile/synopsys_tluplus/1P9M_2TM/CMIN.tluplus"
-set icc2rc_tech(normal)     "data/techfile/synopsys_tluplus/1P9M_2TM/TYP.map"
-set itf_tluplus_map         "data/techfile/synopsys_tluplus/1P9M_2TM/tluplus.map"
+set icc2rc_tech(cmax)       "data/techfile/synopsys_tluplus/1P9M_2TM_ALPA2/CMAX.tluplus"
+set icc2rc_tech(cmin)       "data/techfile/synopsys_tluplus/1P9M_2TM_ALPA2/CMIN.tluplus"
+set icc2rc_tech(normal)     "data/techfile/synopsys_tluplus/1P9M_2TM_ALPA2/TYP.map"
+set itf_tluplus_map         "data/techfile/synopsys_tluplus/1P9M_2TM_ALPA2/tluplus.map"
 
 #### scenarios of each step
 set default_scenarios       "func_ss0p99v125c_cmax"
