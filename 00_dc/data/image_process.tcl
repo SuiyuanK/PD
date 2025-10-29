@@ -20,12 +20,12 @@ set output_ports [all_outputs]
 
 #  Half of the clk cycle (3.3ns)          report_units
 
-set_input_delay 3.6 -max $data_inputs
-set_input_delay 3.0 -min $data_inputs
+set_input_delay 3.6 -max $data_inputs -clock ref_clk
+set_input_delay 3.0 -min $data_inputs -clock ref_clk
 
 # no output clk
-set_output_delay 3.6 -max $output_ports
-set_output_delay 3.3 -min $output_ports
+set_output_delay 3.6 -max $output_ports -clock ref_clk
+set_output_delay 3.3 -min $output_ports -clock ref_clk
 
 # 7-10%
 set_max_transition 0.6 -clock_path [get_clocks ref_clk]
@@ -36,9 +36,9 @@ set_timing_derate -early 0.95 -cell_delay -net_delay
 set_timing_derate -late  1.05 -cell_delay -net_delay 
 
 #对clk与复位信号设置为不被优化，前者视为理想网络
-#set_dont_touch          [get_ports clk]
+set_dont_touch          [get_ports clk]
 set_ideal_network       [get_ports clk]
-#set_dont_touch          [get_ports rst_n]
+set_dont_touch          [get_ports rst_n]
 
 #复位信号到内部逻辑之间的路径被标记为“假路径”，不参与时序分析
 set_false_path -from [get_ports rst_n] -to [all_registers]
