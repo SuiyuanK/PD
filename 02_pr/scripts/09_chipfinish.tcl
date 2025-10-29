@@ -54,11 +54,12 @@ write_oasis -layer_map $mapping_file -design $design -hierarchy design_lib -comp
 
 # netlist
 set netlist_file "${output_dir}/${design}.v.gz"
-write_verilog -compress gzip $netlist_file -exclude { all_physical_cells analog_pg corner_cells cover_cells diode_cells empty_modules end_cap_cells physical_only_cells filler_cells pg_objects well_tap_cells leaf_module_declarations }
+# write_verilog -compress gzip $netlist_file -exclude { all_physical_cells analog_pg corner_cells cover_cells diode_cells empty_modules end_cap_cells physical_only_cells filler_cells pg_objects well_tap_cells leaf_module_declarations }
+write_verilog -compress gzip $netlist_file -hierarchy all -exclude { scalar_wire_declarations pad_spacer_cells empty_modules filler_cells pg_objects end_cap_cells well_tap_cells physical_only_cells cover_cells leaf_module_declarations } 
 
-# lvs netlist
-set lvs_netlist_file "${output_dir}/${design}.lvs.v.gz"
-write_verilog -compress gzip $lvs_netlist_file -exclude { empty_modules end_cap_cells well_tap_cells supply_statements }
+# # lvs netlist
+# set lvs_netlist_file "${output_dir}/${design}.lvs.v.gz"
+# write_verilog -compress gzip $lvs_netlist_file -exclude { empty_modules end_cap_cells well_tap_cells supply_statements }
 
 # pg netlist 如果有些库文件(gds)没有 要先删掉对应的cell
 
