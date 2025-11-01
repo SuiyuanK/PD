@@ -1,0 +1,101 @@
+### File pointers
+## Apache tech File
+TECH_FILE ./tech
+TEMPERATURE 125
+
+## LEF
+LEF_FILES {
+data/techfile/lef/1P9M_2TM_ALPA2/sc12mc_tech.lef
+data/lef/scc40nll_vhsc40_hvt_ant.lef
+data/lef/scc40nll_vhsc40_lvt_ant.lef
+data/lef/scc40nll_vhsc40_rvt_ant.lef
+data/lef/SP40NLLD2RN_3P3V_V0p1_9MT_2TM.lef
+data/lef/sram/RAMSP128X16.lef
+data/lef/sram/RAMSP1024X16.lef
+data/lef/sram/RAMSP2048X16.lef
+data/lef/sram/RAMSP4096X16.lef
+data/lef/sram/RAMTP128X16.lef
+data/lef/sram/RAMTP1024X16.lef
+}
+
+## DEF
+DEF_FILES {
+data/image_process.def.gz top
+}
+
+## lib
+LIB_FILES {
+/mnt/hgfs/Em/40NM/S40/smic/SCC40NLL_VHSC40_HVT_V0.1/SCC40NLL_VHSC40_HVT_V0p1/liberty/1.1v/scc40nll_vhsc40_hvt_ss_v0p99_125c_ccs.lib
+/mnt/hgfs/Em/40NM/S40/smic/SCC40NLL_VHSC40_LVT_V0.1/SCC40NLL_VHSC40_LVT_V0p1/liberty/1.1v/scc40nll_vhsc40_lvt_ss_v0p99_125c_ccs.lib
+/mnt/hgfs/Em/40NM/S40/smic/SCC40NLL_VHSC40_RVT_V0.1/SCC40NLL_VHSC40_RVT_V0p1/liberty/1.1v/scc40nll_vhsc40_rvt_ss_v0p99_125c_ccs.lib
+/mnt/hgfs/Em/40NM/S40/smic/SP40NLLD2RN_3P3V_V0p4/syn/3p3v/SP40NLLD2RN_3P3V_V0p4_ss_V0p99_125C.lib
+/mnt/hgfs/Em/40NM/SRAM_Lib/RAMSP128X16/lib/RAMSP128X16_ss_0p99v_0p99v_125c.lib
+/mnt/hgfs/Em/40NM/SRAM_Lib/RAMSP1024X16/lib/RAMSP1024X16_ss_0p99v_0p99v_125c.lib
+/mnt/hgfs/Em/40NM/SRAM_Lib/RAMSP2048X16/lib/RAMSP2048X16_ss_0p99v_0p99v_125c.lib
+/mnt/hgfs/Em/40NM/SRAM_Lib/RAMSP4096X16/lib/RAMSP4096X16_ss_0p99v_0p99v_125c.lib
+/mnt/hgfs/Em/40NM/SRAM_Lib/RAMTP128X16/lib/RAMTP128X16_ss_0p99v_0p99v_125c.lib
+/mnt/hgfs/Em/40NM/SRAM_Lib/RAMTP1024X16/lib/RAMTP1024X16_ss_0p99v_0p99v_125c.lib
+}
+
+PAD_FILES {
+data/image_process.ploc
+}
+
+
+## timinig file
+STA_FILE {
+    FREQ_OF_MISSING_INSTANCES 1e6
+    image_process data/image_process.timing
+}
+
+
+USE_DEF_VIARULE 1
+
+## APL
+APL_FILES {
+    cell.current current
+    cell.cdev cap
+}
+
+## spef
+CELL_RC_FILE {
+    image_process data/image_process.cmax_125c.spef.gz
+}
+
+### required parameters
+VDD_NETS {
+    VDD 1.1
+}
+
+GND_NETS {
+    VSS 0
+}
+
+FREQ 1e6
+
+
+### optional parameters
+TOGGLE_RATE 0.1 1.2
+
+INPUT_TRANSITION 0.3ns
+
+SWITCH_MODEL_FILES data/switch.model
+
+IGNORE_LEF_DEF_MISMATCH 1
+IGNORE_LIB_CHECK 1
+IGNORE_DEF_ERROR 1
+ADD_LEF_CELL_FOR_POWER 1
+STEINER_TREE_CAP 2.02-4
+
+BLOCK_POWER_FOR_SCALING {
+    FULLCHIP FULLCHIP 0.600
+}
+
+#IGNORE_CELLS {
+#
+#}
+
+
+
+
+
