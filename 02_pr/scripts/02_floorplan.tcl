@@ -22,7 +22,7 @@ source scripts/scenario_setup.tcl
 # get_attribute [get_site_defs] width    40nm 0.1900
 # get_attribute [get_site_defs] height   40nm 1.6800
 # initialize_floorplan -boundary {{0 0} {1499.86 1495.2}} -core_offset {0 1.6800}
-initialize_floorplan -boundary {{0 0} {1352.04 1320.48}} -core_offset {0 1.6800}
+initialize_floorplan -boundary {{0 0} {1352.04 1340.64}} -core_offset {0 1.6800}
 ### place port
 remove_individual_pin_constraints
 #-allowed_layers {M5 M7} 
@@ -46,20 +46,24 @@ place_pins -self -ports [get_ports *]
 # cp floorplan/fp.tcl scripts/place_hard_macro.tcl
 # 小的5 大的20
 source scripts/place_hard_macro.tcl 
-create_keepout_margin -outer {5.02 2.52 5.02 2.52} [get_flat_cells * -filter is_hard_macro==true] ;# 左 下 右 上
+create_keepout_margin -outer {5.02 3.78 5.02 3.78} [get_flat_cells * -filter is_hard_macro==true] ;# 左 下 右 上
 
 
 ### blockage(gui) copy from fp.tcl
 # change_selection [get_placement_blockages *]
 # write_floorplan -objects [get_selection ] -force -nosplit (-nosplit No line break)
 
-create_placement_blockage -name pb_0 -type hard -boundary { {0.0000 -1.6800} {1352.0400 0.8200} }
-create_placement_blockage -name pb_1 -type hard -boundary { {0.0000 1319.6600} {1352.0400 1322.1600} }
-create_placement_blockage -name pb_2 -type allow_buffer_only -blocked_percentage 100 -boundary { {0.0000 825.0950} {1352.0400 1319.6600} }
-create_placement_blockage -name pb_3 -type allow_buffer_only -blocked_percentage 100 -boundary { {0.0000 0.8200} {1352.0400 495.3850} }
-create_placement_blockage -name pb_4 -type allow_buffer_only -blocked_percentage 100 -boundary { {957.5250 495.3850} {1352.0400 825.0950} }
-create_placement_blockage -name pb_5 -type allow_buffer_only -blocked_percentage 100 -boundary { {0.0000 495.3850} {257.9200 825.0950} }
-create_placement_blockage -name pb_6 -type allow_buffer_only -blocked_percentage 100 -boundary { {257.9200 741.6530} {394.6850 825.0950} }
+
+create_placement_blockage -name pb_0 -type hard -boundary { {0.0000 1339.8200} {1352.0400 1342.3200} }
+create_placement_blockage -name pb_1 -type hard -boundary { {0.0000 -1.5800} {1352.0400 0.8200} }
+create_placement_blockage -name pb_2 -type allow_buffer_only -blocked_percentage 100 -boundary { {0.0000 821.5550} {1352.0400 1339.8200} }
+create_placement_blockage -name pb_3 -type allow_buffer_only -blocked_percentage 100 -boundary { {0.0000 0.8200} {394.6850 821.5550} }
+create_placement_blockage -name pb_4 -type allow_buffer_only -blocked_percentage 100 -boundary { {394.6850 0.8200} {1352.0400 502.9450} }
+create_placement_blockage -name pb_5 -type allow_buffer_only -blocked_percentage 100 -boundary { {820.7600 731.5350} {1352.0400 821.5550} }
+create_placement_blockage -name pb_6 -type allow_buffer_only -blocked_percentage 100 -boundary { {957.5250 502.9450} {1352.0400 731.5350} }
+
+
+
 
 # get_voltage_areas  ------>>>  {DEFAULT_VA PD_RISC_CORE}
 # Each voltage_area needs to set these cells.
