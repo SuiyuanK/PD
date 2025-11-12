@@ -1,5 +1,17 @@
+###相设置
+# 低功耗和时钟门控优化设置
+set_app_var pwr_cg_improved_cells_selection_for_remapping true
+set_app_var compile_clock_gating_through_hierarchy true
+set_app_var power_low_power_placement true
+set_app_var power_cg_flatten false
+
+# 动态功耗和漏电优化
+set_dynamic_optimization true
+set_leakage_optimization true
+
+
 ###set syn env###
-set topModuleName           image_process                                                      
+set topModuleName           image_icb                                                      
 set data_path               "../data"                                      
 set rtl_path                "../../../RTL"
 set run_dir                 "../"
@@ -56,6 +68,7 @@ set enable_page_mode false
 
 set_app_var target_library  "$stdcell_libs"
 set_app_var link_library    "* $target_library $memory_libs $iopad_lib"
+
 
 
 # ---------------------------read RTL from rtl.list----------------------------

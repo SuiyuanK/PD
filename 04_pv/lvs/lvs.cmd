@@ -4,12 +4,12 @@ LAYOUT ERROR ON INPUT NO
 LAYOUT CASE YES
 SOURCE CASE YES
 
-LAYOUT PRIMARY "image_process"
+LAYOUT PRIMARY "image_icb"
 LAYOUT PATH "/home/master/Desktop/04_pv/merge/Calibredrv/top_merge.gds"
 LAYOUT SYSTEM GDSII
-LAYOUT TEXT FILE "./image_process.text"
+LAYOUT TEXT FILE "./image_icb.text"
 
-SOURCE PRIMARY "image_process"
+SOURCE PRIMARY "image_icb"
 SOURCE PATH "./top.spi"
 SOURCE SYSTEM SPICE
 LVS ISOLATE SHORTS YES flat //<LVS_REPORT>.shorts

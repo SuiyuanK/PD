@@ -1,5 +1,5 @@
 ### design information
-set design              "image_process"
+set design              "image_icb"
 
 ### gate level netlist files
 set import_netlist      ""
@@ -55,7 +55,7 @@ set starrc_tech(cmin)       ""
 set starrc_tech(normal)     ""
 set icc2rc_tech(cmax)       "data/techfile/synopsys_tluplus/1P9M_2TM_ALPA2/CMAX.tluplus"
 set icc2rc_tech(cmin)       "data/techfile/synopsys_tluplus/1P9M_2TM_ALPA2/CMIN.tluplus"
-set icc2rc_tech(normal)     "data/techfile/synopsys_tluplus/1P9M_2TM_ALPA2/TYP.map"
+set icc2rc_tech(normal)     "data/techfile/synopsys_tluplus/1P9M_2TM_ALPA2/TYP.tluplus"
 set itf_tluplus_map         "data/techfile/synopsys_tluplus/1P9M_2TM_ALPA2/tluplus.map"
 
 #### scenarios of each step

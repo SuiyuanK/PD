@@ -41,20 +41,7 @@ set_clock_routing_rules -min_routing_layer M5 -max_routing_layer M7 -clocks $all
 # set_clock_tree_balance_point -modes [all_modes] -clock $all_real_clocks  -delay 0.43246 -balance_points [get_pin u_sram_array_u_sram_0/CLK]
 # set_clock_tree_balance_point -modes [all_modes] -clock $all_real_clocks  -delay 0.43246 -balance_points [get_pin u_sram_array_u_sram_1/CLK]
 
-set_clock_tree_balance_point   -modes [all_modes] -clock $all_real_clocks  -delay 0.310889 -balance_points [get_pin u_VIP_Char_Divide_u_VIP_Bit_Erosion_Detector_red_u_matrix_generate_3x3_1bit_u_line_shift_ram_8bit_u_ram_1024x8_0/CLK]
-set_clock_tree_balance_point   -modes [all_modes] -clock $all_real_clocks  -delay 0.310889 -balance_points [get_pin u_VIP_Char_Divide_u_VIP_Bit_Erosion_Detector_red_u_matrix_generate_3x3_1bit_u_line_shift_ram_8bit_u_ram_1024x8_1/CLK]
-set_clock_tree_balance_point   -modes [all_modes] -clock $all_real_clocks  -delay 0.310889 -balance_points [get_pin u_VIP_Plate_Locate_u_VIP_Bit_Dilation_Detector_u_matrix_generate_3x3_1bit_u_line_shift_ram_8bit_u_ram_1024x8_0/CLK]
-set_clock_tree_balance_point   -modes [all_modes] -clock $all_real_clocks  -delay 0.310889 -balance_points [get_pin u_VIP_Plate_Locate_u_VIP_Bit_Dilation_Detector_u_matrix_generate_3x3_1bit_u_line_shift_ram_8bit_u_ram_1024x8_1/CLK]
-set_clock_tree_balance_point   -modes [all_modes] -clock $all_real_clocks  -delay 0.310889 -balance_points [get_pin u_VIP_Plate_Locate_u_VIP_Bit_Erosion_Detector_u_matrix_generate_3x3_1bit_u_line_shift_ram_8bit_u_ram_1024x8_0/CLK]
-set_clock_tree_balance_point   -modes [all_modes] -clock $all_real_clocks  -delay 0.310889 -balance_points [get_pin u_VIP_Plate_Locate_u_VIP_Bit_Erosion_Detector_u_matrix_generate_3x3_1bit_u_line_shift_ram_8bit_u_ram_1024x8_1/CLK]
-set_clock_tree_balance_point   -modes [all_modes] -clock $all_real_clocks  -delay 0.310889 -balance_points [get_pin u_VIP_Plate_Locate_u_Sobel_Edge_Detector_u_matrix_generate_3x3_8bit_u_line_shift_ram_8bit_u_ram_1024x8_0/CLK]
-set_clock_tree_balance_point   -modes [all_modes] -clock $all_real_clocks  -delay 0.310889 -balance_points [get_pin u_VIP_Plate_Locate_u_Sobel_Edge_Detector_u_matrix_generate_3x3_8bit_u_line_shift_ram_8bit_u_ram_1024x8_1/CLK]
-set_clock_tree_balance_point   -modes [all_modes] -clock $all_real_clocks  -delay 0.310889 -balance_points [get_pin u_VIP_Char_Divide_u_VIP_Bit_Dilation_Detector_red_u_matrix_generate_3x3_1bit_u_line_shift_ram_8bit_u_ram_1024x8_0/CLK]
-set_clock_tree_balance_point   -modes [all_modes] -clock $all_real_clocks  -delay 0.310889 -balance_points [get_pin u_VIP_Char_Divide_u_VIP_Bit_Dilation_Detector_red_u_matrix_generate_3x3_1bit_u_line_shift_ram_8bit_u_ram_1024x8_1/CLK]
-set_clock_tree_balance_point   -modes [all_modes] -clock $all_real_clocks  -delay 0.310889 -balance_points [get_pin u_VIP_Char_Divide_u_VIP_vertical_projection_char_u_projection_ram/CLK]
-set_clock_tree_balance_point   -modes [all_modes] -clock $all_real_clocks  -delay 0.310889 -balance_points [get_pin u_VIP_Plate_Locate_u_VIP_vertical_projection_u_projection_ram/CLK]
-set_clock_tree_balance_point   -modes [all_modes] -clock $all_real_clocks  -delay 0.310889 -balance_points [get_pin u_VIP_Plate_Locate_u_VIP_horizon_projection_u_projection_ram/CLK]
-
+source scripts/clock_auto_exceptions.tcl
 
 ### app options
 # cts clock_opt  ccd false

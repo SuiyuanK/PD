@@ -54,8 +54,15 @@ USE_DEF_VIARULE 1
 
 ## APL
 APL_FILES {
-    cell.current current
-    cell.cdev cap
+    hvt_ff1p21v125c.cdev cap
+    hvt_ff1p21v125c.pwcdev pwcap
+    hvt_ff1p21v125c.spiprof current
+    lvt_ff1p21v125c.cdev cap
+    lvt_ff1p21v125c.pwcdev pwcap
+    lvt_ff1p21v125c.spiprof current
+    rvt_ff1p21v125c.cdev cap
+    rvt_ff1p21v125c.pwcdev pwcap
+    rvt_ff1p21v125c.spiprof current
 }
 
 ## spef
@@ -76,6 +83,10 @@ FREQ 1e6
 
 
 ### optional parameters
+LIB2AVM 1
+
+CHARACTERIZATION_MODE ACCURATE
+
 TOGGLE_RATE 0.1 1.2
 
 INPUT_TRANSITION 0.3ns

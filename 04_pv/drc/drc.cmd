@@ -1,7 +1,7 @@
 
 LAYOUT ERROR ON INPUT NO
 
-LAYOUT PRIMARY "image_process"
+LAYOUT PRIMARY "image_icb"
 LAYOUT PATH "/home/master/Desktop/04_pv/merge/Calibredrv/top_merge.gds"
 LAYOUT SYSTEM GDSII
 

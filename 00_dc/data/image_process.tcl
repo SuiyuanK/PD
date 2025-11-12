@@ -38,9 +38,9 @@ set_timing_derate -late  1.05 -cell_delay -net_delay
 #对clk与复位信号设置为不被优化，前者视为理想网络
 set_dont_touch          [get_ports clk]
 set_ideal_network       [get_ports clk]
-set_dont_touch          [get_ports rst_n]
+set_dont_touch          [get_ports resetn]
 
 #复位信号到内部逻辑之间的路径被标记为“假路径”，不参与时序分析
-set_false_path -from [get_ports rst_n] -to [all_registers]
+set_false_path -from [get_ports resetn] -to [all_registers]
 
 

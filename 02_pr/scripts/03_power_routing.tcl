@@ -127,6 +127,7 @@ create_terminal \
 create_terminal \
     -of_objects [get_shapes -of_objects [get_layers TM2] -filter {net_type  == "ground"}] \
     -direction {bottom top}
+# analyze_power_plan -voltage 1.1 -nets {VDD VSS} -power_budget 5 -use_terminals_as_pads 
 
 
 set_fixed_objects [get_ports *]

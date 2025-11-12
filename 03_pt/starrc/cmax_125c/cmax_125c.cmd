@@ -1,6 +1,6 @@
-NDM_DATABASE: ../../data/nlib/image_process_09_chipfinish.nlib
+NDM_DATABASE: ../../../eco/nlib/image_icb_09_chipfinish.nlib
 NDM_SEARCH_PATH: 
-BLOCK: image_process
+BLOCK: image_icb
 MAPPING_FILE: ../../data/techfile/TD-LO40-XS-2037v0/CCI_StarRC_40LL_1P9M_7Ic_2TMc_ALPA2_V1.14_0/CCI_flow/StarRC_40LL_1P9M_7Ic_2TMc_ALPA2_cell.map
 GDS_LAYER_MAP_FILE:
 REDUCTION: NO_EXTRA_LOOPS
@@ -23,10 +23,10 @@ NETLIST_COMPRESS_COMMAND: gzip -q
 COUPLING_ABS_THRESHOLD: 1E-16
 COUPLING_REL_THRESHOLD: 0.01
 COUPLING_REPORT_NUMBER: 1000000
-COUPLING_REPORT_FILE: image_process.coupling.rpt
+COUPLING_REPORT_FILE: image_icb.coupling.rpt
 NETLIST_FORMAT: SPEF
-NETLIST_FILE: ./image_process.spef.gz
-SUMMARY_FILE: image_process.star_sum
+NETLIST_FILE: ./image_icb.spef.gz
+SUMMARY_FILE: image_icb.star_sum
 STAR_DIRECTORY: ./CMAX/star
 
 

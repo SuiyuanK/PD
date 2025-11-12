@@ -53,8 +53,15 @@ USE_DEF_VIARULE 1
 
 ## APL
 APL_FILES {
-    cell.current current
-    cell.cdev cap
+    hvt_ss0p99vm40c.cdev cap
+    hvt_ss0p99vm40c.pwcdev pwcap
+    hvt_ss0p99vm40c.spiprof current
+    lvt_ss0p99vm40c.cdev cap
+    lvt_ss0p99vm40c.pwcdev pwcap
+    lvt_ss0p99vm40c.spiprof current
+    rvt_ss0p99vm40c.cdev cap
+    rvt_ss0p99vm40c.pwcdev pwcap
+    rvt_ss0p99vm40c.spiprof current
 }
 
 ## spef
@@ -75,6 +82,10 @@ FREQ 1e6
 
 
 ### optional parameters
+LIB2AVM 1
+
+CHARACTERIZATION_MODE ACCURATE
+
 TOGGLE_RATE 0.1 1.2
 
 INPUT_TRANSITION 0.3ns
