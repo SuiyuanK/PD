@@ -1,3 +1,0 @@
-mkdir CMAX 
-StarXtract -clean ./cmax_m40c.cmd
-mv image_icb.spef.CMAX.gz image_icb.cmax_m40c.spef.gz 
