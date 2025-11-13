@@ -1,0 +1,3 @@
+mkdir RCMAX 
+StarXtract -clean ./rcmax_m40c.cmd
+mv image_icb.spef.RCMAX.gz image_icb.rcmax_m40c.spef.gz 
