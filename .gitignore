@@ -1,12 +1,9 @@
 00_dc/*
 01_fm/*
 02_pr/*
-03_pt/sta/*
-03_pt/starrc/cmax_125c/*
-03_pt/starrc/cmax_m40c/*
 03_pt/*
 04_pv/*
 05_power/*
 others/*
 eco/*
-# !03_pt/starrc/run_starrc.sh
+!03_pt/starrc/*
