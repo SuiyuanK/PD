@@ -25,6 +25,6 @@ set_attribute [get_layers {GT M2 M4 M6 TM1 ALPA}] routing_direction horizontal
 get_attribute [get_layers {GT M? TM? ALPA}] routing_direction
 
 set_ignored_layers -max_routing_layer M7
-set_ignored_layers -min_routing_layer M1
+set_ignored_layers -min_routing_layer M2
 
 

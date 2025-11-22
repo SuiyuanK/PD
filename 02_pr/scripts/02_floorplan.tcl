@@ -26,8 +26,8 @@ initialize_floorplan -boundary {{0 0} {1352.04 1340.64}} -core_offset {0 1.6800}
 ### place port
 remove_individual_pin_constraints
 #-allowed_layers {M5 M7} 
-set_individual_pin_constraints -ports [all_inputs] -sides 1 -pin_spacing 40 -offset {350 1000} -allowed_layers {M3 M4 M5 M6 M7}
-set_individual_pin_constraints -ports [all_outputs] -sides 1 -pin_spacing  40 -offset {350 1000} -allowed_layers {M3 M4 M5 M6 M7}
+set_individual_pin_constraints -ports [all_inputs] -sides 1 -pin_spacing 50 -offset {150 1200} -allowed_layers {M3 M4 M5 M6 M7}
+set_individual_pin_constraints -ports [all_outputs] -sides 1 -pin_spacing  50 -offset {150 1200} -allowed_layers {M3 M4 M5 M6 M7}
 place_pins -self -ports [get_ports *]
 
 ### create voltage area
@@ -54,13 +54,13 @@ create_keepout_margin -outer {5.02 3.78 5.02 3.78} [get_flat_cells * -filter is_
 # write_floorplan -objects [get_selection ] -force -nosplit (-nosplit No line break)
 
 
-create_placement_blockage -name pb_0 -type hard -boundary { {0.0000 1339.8200} {1352.0400 1342.3200} }
-create_placement_blockage -name pb_1 -type hard -boundary { {0.0000 -1.5800} {1352.0400 0.8200} }
-create_placement_blockage -name pb_2 -type allow_buffer_only -blocked_percentage 100 -boundary { {0.0000 821.5550} {1352.0400 1339.8200} }
-create_placement_blockage -name pb_3 -type allow_buffer_only -blocked_percentage 100 -boundary { {0.0000 0.8200} {394.6850 821.5550} }
-create_placement_blockage -name pb_4 -type allow_buffer_only -blocked_percentage 100 -boundary { {394.6850 0.8200} {1352.0400 502.9450} }
+
+create_placement_blockage -name pb_2 -type allow_buffer_only -blocked_percentage 100 -boundary { {0.0000 821.5550} {1352.0400 1342.3200} }
+create_placement_blockage -name pb_3 -type allow_buffer_only -blocked_percentage 100 -boundary { {0.0000 -1.6800} {394.6850 821.5550} }
+create_placement_blockage -name pb_4 -type allow_buffer_only -blocked_percentage 100 -boundary { {394.6850 -1.6800} {1352.0400 502.9450} }
 create_placement_blockage -name pb_5 -type allow_buffer_only -blocked_percentage 100 -boundary { {820.7600 731.5350} {1352.0400 821.5550} }
 create_placement_blockage -name pb_6 -type allow_buffer_only -blocked_percentage 100 -boundary { {957.5250 502.9450} {1352.0400 731.5350} }
+
 
 
 

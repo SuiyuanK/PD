@@ -1,6 +1,6 @@
 #pt设置小一点
-set setup_uncertainty 0.2
-set hold_uncertainty 0.2
+set setup_uncertainty 0.1
+set hold_uncertainty 0.1
 
 set CLOCK_PERIOD_REFCLK [expr 1000 / 150.0 ]
 

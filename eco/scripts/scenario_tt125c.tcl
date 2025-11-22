@@ -78,7 +78,7 @@ report_pvt
 
 
 report_power -scenarios func_tt1p1v125c_typ -nosplit -significant_digits 3
-analyze_power_plan -voltage 1.1 -nets {VDD VSS} -power_budget 5 -use_terminals_as_pads 
+# analyze_power_plan -voltage 1.1 -nets {VDD VSS} -power_budget 5 -use_terminals_as_pads 
 
 # report_power -scenarios func_tt1p1v125c_typ -cell_power -hierarchy
 # report_power -scenarios func_tt1p1v125c_typ -cell_power -net_power -hierarchy -glitch

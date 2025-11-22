@@ -46,9 +46,9 @@ define_design_lib WORK -path $run_dir/tmp_work
 
 # stdcell
 set stdcell_libs "
-$data_path/lib/scc40nll_vhsc40_hvt_ss_v0p99_125c_basic.db
-$data_path/lib/scc40nll_vhsc40_lvt_ss_v0p99_125c_basic.db
-$data_path/lib/scc40nll_vhsc40_rvt_ss_v0p99_125c_basic.db"
+$data_path/lib/scc40nll_vhsc40_hvt_ss_v0p99_125c_basic.db"
+# $data_path/lib/scc40nll_vhsc40_lvt_ss_v0p99_125c_basic.db
+# $data_path/lib/scc40nll_vhsc40_rvt_ss_v0p99_125c_basic.db"
 
 # memory
 set memory_libs "

@@ -6,7 +6,7 @@ open_lib nlib/${design}_09_chipfinish.nlib
 open_block ${design}
 
 ### initialize setting
-source scripts/initialization_settings.tcl  
+source scripts/initialization_settings.tcl
 
 ### remove filler
 remove_cells xofiller*
@@ -48,19 +48,18 @@ file delete -force $output_dir
 file mkdir $output_dir
 # gds/oasis
 
-if { [get_routing_blockages * -quiet] != "" } {
-    remove_routing_blockages *
-}
+
+
 set gds_file "${output_dir}/${design}.gds"
 set_app_options -name file.gds.contact_prefix -value "${design}_"
 
-write_gds -layer_map $mapping_file -long_names -design $design -hierarchy design_lib -compress -lib_cell_view frame -keep_data_type -fill include $gds_file
+write_gds -layer_map $mapping_file -long_names -design $design -compress -keep_data_type -output_pin all -fill include -layer_map_format icc_default $gds_file
 
 set oasis_file "${output_dir}/${design}.oasis"
 set_app_options -name file.oasis.contact_prefix -value "${design}_"
 # maybe need map -layer_map 
-write_oasis -layer_map $mapping_file -design $design -hierarchy design_lib -compress 9 -lib_cell_view frame -keep_data_type -fill include $oasis_file
-
+write_oasis -layer_map $mapping_file -design $design -compress 9 -keep_data_type -output_pin all -fill include -layer_map_format icc_default $oasis_file
+    
 # netlist
 set netlist_file "${output_dir}/${design}.v.gz"
 # write_verilog -compress gzip $netlist_file -exclude { all_physical_cells analog_pg corner_cells cover_cells diode_cells empty_modules end_cap_cells physical_only_cells filler_cells pg_objects well_tap_cells leaf_module_declarations }
@@ -79,9 +78,38 @@ write_verilog -compress gzip $netlist_file -hierarchy all -exclude { scalar_wire
 #     echo "LAYOUT TEXT ${port} ${x} ${y} 64" ;#注意VDD VSS的label不是64  其它也不一定 看实际port的layer
 # }
 # LAYOUT TEXT FILE "../XX.text"加在lvs.cmd里 
+# set i 0
+# set shapes [get_shapes -of_objects [get_layers TM2] -filter {net_type  == "power"}]
+# foreach_in_collection shape $shapes {
+#     set x [lindex [lindex [get_attribute -objects $shape -name bbox -class shape] 0] 0]
+#     set y [lindex [lindex [get_attribute -objects $shape -name bbox -class shape] 0] 1]
+#     echo "VDD:${i} ${x} ${y} TM2 POWER 1.1" 
+#     incr i
+# }
+# foreach_in_collection shape $shapes {
+#     set x [lindex [lindex [get_attribute -objects $shape -name bbox -class shape] 1] 0]
+#     set y [lindex [lindex [get_attribute -objects $shape -name bbox -class shape] 1] 1]
+#     echo "VDD:${i} ${x} ${y} TM2 POWER 1.1" 
+#     incr i
+# }
+# set i 0
+# set shapes [get_shapes -of_objects [get_layers TM2] -filter {net_type  == "ground"}]
+# foreach_in_collection shape $shapes {
+#     set x [lindex [lindex [get_attribute -objects $shape -name bbox -class shape] 0] 0]
+#     set y [lindex [lindex [get_attribute -objects $shape -name bbox -class shape] 0] 1]
+#     echo "VSS:${i} ${x} ${y} TM2 GROUND 0.0" 
+#     incr i
+# }
+# foreach_in_collection shape $shapes {
+#     set x [lindex [lindex [get_attribute -objects $shape -name bbox -class shape] 1] 0]
+#     set y [lindex [lindex [get_attribute -objects $shape -name bbox -class shape] 1] 1]
+#     echo "VSS:${i} ${x} ${y} TM2 GROUND 0.0" 
+#     incr i
+# }
+
 set pg_netlist_file "${output_dir}/${design}.pg.v.gz"
+# write_verilog -compress gzip $pg_netlist_file -include all -split_bus -hierarchy all
 write_verilog -compress gzip $pg_netlist_file -exclude { empty_modules flip_chip_pad_cells pad_spacer_cells leaf_module_declarations } -force_no_reference {*/PFILL* */PCORNER*} -split_bus -hierarchy all
-# write_verilog -compress gzip $pg_netlist_file -split_bus -hierarchy all
 
 # def
 set def_file "${output_dir}/${design}.def.gz"
@@ -126,5 +154,5 @@ check_pg_connectivity > $report_dir/check_pg_connectivity.rpt
 
 report_utilization > $report_dir/report_utilization.rpt
 report_congestion > $report_dir/report_congestion.rpt ;#gui Global Route Congestion > blue is good    cell desnsity   hierarchy
-# read_drc_error_file -error_data cali -file ../04_pv/drc/drc.db
+# read_drc_error_file -error_data cali -file drc.db
 

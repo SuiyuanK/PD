@@ -1,5 +1,5 @@
 ### import data
-import gsr ./image_process.gsr
+import gsr ./image_icb.gsr
 setup design
 setup analysis_mode static
 

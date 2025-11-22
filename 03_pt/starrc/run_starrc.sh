@@ -16,7 +16,35 @@ cd ../rcmax_m40c
 cd ../rcmin_125c
 ./rcmin_125c.run &
 cd ../rcmin_m40c
-./rcmin_m40c.run 
+./rcmin_m40c.run &
 
-exit
+cd ../typ_25c
+./typ_25c.run &
+cd ../typ_125c
+./typ_125c.run &
+cd ../typ_m40c
+./typ_m40c.run &
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 

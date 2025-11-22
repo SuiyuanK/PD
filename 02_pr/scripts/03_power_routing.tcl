@@ -61,12 +61,12 @@ create_pg_composite_pattern pattern_core_TM2_mesh -net {VDD VSS} \
 create_pg_composite_pattern pattern_core_TM1_mesh -net {VDD VSS} \
     -add_patterns {{{pattern: pattern_wire_based_on_track}{nets : {VDD VSS}} {parameters : {horizontal TM1 7.2 interleaving 40 }}{offset : 1.68 1.68}}}
 create_pg_composite_pattern pattern_core_M7_mesh -net {VDD VSS} \
-    -add_patterns {{{pattern: pattern_wire_based_on_track}{nets : {VDD VSS}} {parameters : {vertical M7 1.4 interleaving 21}}{offset : 1.68 1.68}}}
+    -add_patterns {{{pattern: pattern_wire_based_on_track}{nets : {VDD VSS}} {parameters : {vertical M7 1.4 interleaving 14}}{offset : 1.68 1.68}}}
 
 
 set_pg_strategy strategy_M7_pg_mesh -pattern "{name : pattern_core_M7_mesh} {nets : VDD VSS}" -voltage_areas DEFAULT_VA -blockage {{pg_regions : $macro_pgregions} {placement_blockages : all}}
-# macro also need 手动连
-set_pg_strategy strategy_TM1_pg_mesh -pattern "{name : pattern_core_TM1_mesh} {nets : VDD VSS}" -voltage_areas DEFAULT_VA -blockage {{pg_regions : $macro_pgregions} {placement_blockages : all}}
+# macro also need 手动连 -blockage {{pg_regions : $macro_pgregions} {placement_blockages : all}}
+set_pg_strategy strategy_TM1_pg_mesh -pattern "{name : pattern_core_TM1_mesh} {nets : VDD VSS}" -voltage_areas DEFAULT_VA
 set_pg_strategy strategy_TM2_pg_mesh -pattern "{name : pattern_core_TM2_mesh} {nets : VDD VSS}" -voltage_areas DEFAULT_VA 
 
 
@@ -84,7 +84,7 @@ set_pg_strategy strategy_TM2_pg_mesh -pattern "{name : pattern_core_TM2_mesh} {n
 ### macro ring connection
 #  -via_rule {{intersection: adjacent} {via_master: default}}
 # width 可宽一点 
-create_pg_ring_pattern pattern_memory_ring -horizontal_layer M6 -horizontal_width 1.2 -vertical_layer M5 -vertical_width 1.2 -corner_bridge true -via_rule {{intersection: all} {via_master: V5_8_XX_F0}}
+create_pg_ring_pattern pattern_memory_ring -horizontal_layer M6 -horizontal_width 0.8 -vertical_layer M5 -vertical_width 0.8 -corner_bridge true -via_rule {{intersection: all} {via_master: default}}
 set_pg_strategy strategy_memory_ring_top -macro $memory_top -pattern {{pattern: pattern_memory_ring} {nets: {VDD VSS}} {offset : {0.8 0.8}}}
 # set_pg_strategy_via_rule strategy_memory_ring_via -via_rule { \
 #     {{{strategies: strategy_memory_ring_top} {layers: M6}} {{strategies: strategy_TM1_pg_mesh} {layers: TM1}} {via_master: default}} \
@@ -112,8 +112,8 @@ compile_pg -strategies {strategy_TM2_pg_mesh strategy_TM1_pg_mesh strategy_M7_pg
 set die_box [get_attribute [current_block] boundary_bbox ]
 create_pg_vias -nets {VDD VSS} -from_types stripe -to_types lib_cell_pin_connect -from_layers M7 -to_layers M2 -mark_as strap -allow_parallel_objects
 create_pg_vias -nets {VDD VSS} -from_types stripe -to_types stripe -from_layers M7 -to_layers TM1 -mark_as strap -allow_parallel_objects
-create_pg_vias -nets {VDD VSS} -from_types stripe -to_types stripe -from_layers TM1 -to_layers TM2 -mark_as strap -allow_parallel_objects
 create_pg_vias -nets {VDD VSS} -from_types ring -to_types stripe -from_layers M6 -to_layers TM2 -mark_as strap -allow_parallel_objects
+create_pg_vias -nets {VDD VSS} -from_types stripe -to_types stripe -from_layers TM1 -to_layers TM2 -mark_as strap -allow_parallel_objects
 
 
 
@@ -127,7 +127,7 @@ create_terminal \
 create_terminal \
     -of_objects [get_shapes -of_objects [get_layers TM2] -filter {net_type  == "ground"}] \
     -direction {bottom top}
-analyze_power_plan -voltage 1.1 -nets {VDD VSS} -power_budget 5 -use_terminals_as_pads 
+# analyze_power_plan -voltage 1.1 -nets {VDD VSS} -power_budget 5 -use_terminals_as_pads 
 
 
 set_fixed_objects [get_ports *]
