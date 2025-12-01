@@ -1,0 +1,13 @@
+# workspace scc40nll_vhsc40_rvt_ff_v1p21_c_ccs:
+create_workspace -flow aggregate SP40NLLD2RN_3P3V_V0p4
+
+read_ndm ./SP40NLLD2RN_3P3V_V0p4_ff_V1p21_C.ndm
+read_ndm ./SP40NLLD2RN_3P3V_V0p4_ss_V0p99_C.ndm
+read_ndm ./SP40NLLD2RN_3P3V_V0p4_tt_V1p10_25C.ndm
+get_libs
+
+set_lib_order {SP40NLLD2RN_3P3V_V0p4_tt_V1p10_25C SP40NLLD2RN_3P3V_V0p4_ff_V1p21_C SP40NLLD2RN_3P3V_V0p4_ss_V0p99_C}
+
+check_workspace
+commit_workspace 
+remove_workspace
