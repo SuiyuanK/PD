@@ -1,0 +1,3 @@
+mkdir -p RCMIN
+StarXtract -clean ./rcmin_m40c.cmd
+mv image_icb.spef.rcmin.gz image_icb.rcmin_m40c.spef.gz 

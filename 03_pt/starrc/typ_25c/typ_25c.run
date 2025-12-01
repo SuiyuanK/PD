@@ -1,0 +1,3 @@
+mkdir -p TYP
+StarXtract -clean ./typ_25c.cmd
+mv image_icb.spef.typ.gz image_icb.typ_25c.spef.gz 
