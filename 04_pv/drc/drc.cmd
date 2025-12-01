@@ -1,8 +1,8 @@
 
 LAYOUT ERROR ON INPUT NO
 
-LAYOUT PRIMARY "image_icb"
-LAYOUT PATH "/home/master/Desktop/04_pv/merge/Calibredrv/top_merge.gds"
+LAYOUT PRIMARY "TOP"
+LAYOUT PATH "/home/master/Desktop/04_pv/merge/Calibredrv/top_merge_dummy.gds"
 LAYOUT SYSTEM GDSII
 
 DRC RESULTS DATABASE "./drc.db"

@@ -83,6 +83,11 @@ create_tap_cells -lib_cell $tapcell_ref -pattern stagger -distance 30 -skip_fixe
 set_fixed_objects [get_flat_cells * -filter is_hard_macro==true]
 
 ### connect pg
+connect_pg_net -net VDD [get_pins */VNW -hierarchical]
+connect_pg_net -net VSS [get_pins */VPW -hierarchical]
+connect_pg_net -net VDD [get_pins */VDDCE -hierarchical] 
+connect_pg_net -net VDD [get_pins */VDDPE -hierarchical] 
+connect_pg_net -net VSS [get_pins */VSSE -hierarchical] 
 connect_pg_net -all_blocks -automatic
 
 ### save & quit

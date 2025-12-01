@@ -94,6 +94,11 @@ route_opt
 ## pt power recovery
 
 ### connect pg 
+connect_pg_net -net VDD [get_pins */VNW -hierarchical]
+connect_pg_net -net VSS [get_pins */VPW -hierarchical]
+connect_pg_net -net VDD [get_pins */VDDCE -hierarchical] 
+connect_pg_net -net VDD [get_pins */VDDPE -hierarchical] 
+connect_pg_net -net VSS [get_pins */VSSE -hierarchical] 
 connect_pg_net -all_blocks -automatic
 
 ### save & quit

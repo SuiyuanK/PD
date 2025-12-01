@@ -1,17 +1,12 @@
-###相设置
+###环境设置
 # 低功耗和时钟门控优化设置
 set_app_var pwr_cg_improved_cells_selection_for_remapping true
 set_app_var compile_clock_gating_through_hierarchy true
 set_app_var power_low_power_placement true
 set_app_var power_cg_flatten false
 
-# 动态功耗和漏电优化
-set_dynamic_optimization true
-set_leakage_optimization true
-
-
 ###set syn env###
-set topModuleName           image_icb                                                      
+set topModuleName           image_top1                                                      
 set data_path               "../data"                                      
 set rtl_path                "../../../RTL"
 set run_dir                 "../"
@@ -46,9 +41,9 @@ define_design_lib WORK -path $run_dir/tmp_work
 
 # stdcell
 set stdcell_libs "
-$data_path/lib/scc40nll_vhsc40_hvt_ss_v0p99_125c_basic.db"
-# $data_path/lib/scc40nll_vhsc40_lvt_ss_v0p99_125c_basic.db
-# $data_path/lib/scc40nll_vhsc40_rvt_ss_v0p99_125c_basic.db"
+$data_path/lib/scc40nll_vhsc40_hvt_ss_v0p99_125c_basic.db
+$data_path/lib/scc40nll_vhsc40_lvt_ss_v0p99_125c_basic.db
+$data_path/lib/scc40nll_vhsc40_rvt_ss_v0p99_125c_basic.db"
 
 # memory
 set memory_libs "
@@ -133,6 +128,9 @@ group_path -name in2reg -from [remove_from_collection [all_inputs] $ports_clock_
 group_path -name in2out -from [remove_from_collection [all_inputs] $ports_clock_root] \
 -to [all_outputs]
 
+# 动态功耗和漏电优化
+set_dynamic_optimization true
+set_leakage_optimization true
 
 
 #综合并插入门控时钟单元

@@ -14,7 +14,14 @@ remove_cells xofiller*
 ### eco 
 source -e ./scripts/fix_ecotiming.tcl
 ### connect pg 
-connect_pg_net -all_blocks -automatic
+connect_pg_net -net VDD [get_pins */VNW -hierarchical]
+connect_pg_net -net VSS [get_pins */VPW -hierarchical]
+connect_pg_net -net VDD [get_pins */VDDCE -hierarchical] 
+connect_pg_net -net VDD [get_pins */VDDPE -hierarchical] 
+connect_pg_net -net VSS [get_pins */VSSE -hierarchical] 
+connect_pg_net -all_blocks -automatic 
+
+
 ### leglize eco_cells 位置调整
 legalize_placement -incremental -post_route 
 
@@ -35,6 +42,11 @@ create_stdcell_fillers -lib_cells $fillers_ref -continue_on_error
 route_eco
 
 ### connect pg 
+connect_pg_net -net VDD [get_pins */VNW -hierarchical]
+connect_pg_net -net VSS [get_pins */VPW -hierarchical]
+connect_pg_net -net VDD [get_pins */VDDCE -hierarchical] 
+connect_pg_net -net VDD [get_pins */VDDPE -hierarchical] 
+connect_pg_net -net VSS [get_pins */VSSE -hierarchical] 
 connect_pg_net -all_blocks -automatic
 
 ### save & quit
@@ -52,13 +64,12 @@ file mkdir $output_dir
 
 set gds_file "${output_dir}/${design}.gds"
 set_app_options -name file.gds.contact_prefix -value "${design}_"
-
-write_gds -layer_map $mapping_file -long_names -design $design -compress -keep_data_type -output_pin all -fill include -layer_map_format icc_default $gds_file
+# -keep_data_type 
+write_gds -layer_map $mapping_file -long_names -design $design -compress -hierarchy all -verbose -output_pin all -fill include -layer_map_format icc_default $gds_file
 
 set oasis_file "${output_dir}/${design}.oasis"
 set_app_options -name file.oasis.contact_prefix -value "${design}_"
-# maybe need map -layer_map 
-write_oasis -layer_map $mapping_file -design $design -compress 9 -keep_data_type -output_pin all -fill include -layer_map_format icc_default $oasis_file
+write_oasis -layer_map $mapping_file -design $design -compress 9 -hierarchy all -verbose -output_pin all -fill include -layer_map_format icc_default $oasis_file
     
 # netlist
 set netlist_file "${output_dir}/${design}.v.gz"
@@ -75,7 +86,7 @@ write_verilog -compress gzip $netlist_file -hierarchy all -exclude { scalar_wire
 # foreach port $ports {
 #     set x [lindex [lindex [get_attribute [get_port $port] bbox] 0] 0]
 #     set y [lindex [lindex [get_attribute [get_port $port] bbox] 0] 1]
-#     echo "LAYOUT TEXT ${port} ${x} ${y} 64" ;#注意VDD VSS的label不是64  其它也不一定 看实际port的layer
+#     echo "LAYOUT TEXT ${port} ${x} ${y} XX" ;#注意VDD VSS的label不是  其它也不一定 看实际port的layer SIMC看TXT层
 # }
 # LAYOUT TEXT FILE "../XX.text"加在lvs.cmd里 
 # set i 0
@@ -108,10 +119,11 @@ write_verilog -compress gzip $netlist_file -hierarchy all -exclude { scalar_wire
 # }
 
 set pg_netlist_file "${output_dir}/${design}.pg.v.gz"
-# write_verilog -compress gzip $pg_netlist_file -include all -split_bus -hierarchy all
-write_verilog -compress gzip $pg_netlist_file -exclude { empty_modules flip_chip_pad_cells pad_spacer_cells leaf_module_declarations } -force_no_reference {*/PFILL* */PCORNER*} -split_bus -hierarchy all
+# write_verilog -compress gzip -hierarchy all $pg_netlist_file -exclude {physical_only_cells filler_cells }  \
+#                     -force_reference  {*/DCAP*}  -split_bus -hierarchy all  -force_no_reference  {*/F_FILL* */FILLTIE*} 
+write_verilog -compress gzip -hierarchy all  -exclude { leaf_module_declarations } -force_no_reference {*/F_FILL* */FILLTIE*} $pg_netlist_file  -split_bus
 
-# def
+# def 
 set def_file "${output_dir}/${design}.def.gz"
 write_def -design $design -compress gzip -include_tech_via_definitions -include { blockages bounds cells nets ports routing_rules rows_tracks specialnets vias } $def_file 
 # or -include_tech_via_definitions   -version 5.8
@@ -154,5 +166,17 @@ check_pg_connectivity > $report_dir/check_pg_connectivity.rpt
 
 report_utilization > $report_dir/report_utilization.rpt
 report_congestion > $report_dir/report_congestion.rpt ;#gui Global Route Congestion > blue is good    cell desnsity   hierarchy
-# read_drc_error_file -error_data cali -file drc.db
+# read_drc_error_file -file drc.db
 
+# set nets [get_object_name [get_nets * -physical_context]]
+
+# foreach net $nets {
+#     set type [get_attr [get_nets $net] net_type]
+#     set length [get_attr [get_nets $net] dr_length]
+#     if {$type == "clock" && $length > 600 } {
+#         echo "$type $length $net" >> ./rpts/clock_length.rpt
+#     } elseif {$type == "signal" && $length > 600 } {
+#         echo "$type $length $net" >> ./rpts/signal_length.rpt
+#     }
+    
+# }

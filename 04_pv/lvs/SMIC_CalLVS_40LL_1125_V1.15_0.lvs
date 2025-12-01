@@ -892,7 +892,7 @@ tvf::VERBATIM {
 //*THIN:  ALPA thickness is 14.5K,the model name is ralpa_2t_ckt or ralpa_3t_ckt. 
 //*THICK: ALPA thickness is 28K, the model name is ralpa_2p8_2t_ckt or ralpa_2p8_3t_ckt.
 
-#DEFINE ALPA_THICK THIN
+#DEFINE ALPA_THICK THICK
 //===================================================================================
 //*OPTION 2a: Define RC RUN or not.The value can be TRUE or FALSE(Upper Case) .
 //*If LVS RUN, please set this option to FALSE. 
@@ -906,12 +906,12 @@ tvf::VERBATIM {
 //*1: extrview flow, LVS will reserve some extra parameters for back-annotation.
 //*2: netlist flow, LVS will not reserve the back-annotation parameters.
 
-#DEFINE BACK_ANNOTATION_FLOW 2
+#DEFINE BACK_ANNOTATION_FLOW 1
 //===================================================================================
 //*OPTION 3a: Define ERC Check or Not. The value can be TRUE or FALSE(Upper Case).
 //*Default value is TRUE.
 
-#DEFINE ERCCHECK FALSE
+#DEFINE ERCCHECK TRUE
 //===================================================================================
 //*OPTION 3b: Turn on nwell floating check or not. The value can be TRUE or FALSE(Upper Case).
 //*Nwell resistor and BJT are not checked.
@@ -923,12 +923,12 @@ tvf::VERBATIM {
 //*Nwell resistor and BJT are not checked.
 //*Default value is FALSE.
 
-#DEFINE NWELL_NOT_TO_POWER_CHECK TRUE
+#DEFINE NWELL_NOT_TO_POWER_CHECK FALSE
 //===================================================================================
 //*OPTION 3d: Turn on pwell not connecting to ground check or not. The value can be TRUE or FALSE(Upper Case).
 //*Default value is FALSE.
 
-#DEFINE PWELL_NOT_TO_GROUND_CHECK TRUE
+#DEFINE PWELL_NOT_TO_GROUND_CHECK FALSE
 //====================================================================================
 //*OPTION 4a: Compare diode number and connectivity or not for parasitic DIODE.The value can be TRUE or FALSE(Upper Case).
 //*Default value is FALSE.
@@ -1022,7 +1022,7 @@ tvf::VERBATIM {
 //*The value can be TRUE or FALSE(Upper Case).
 //*Default value is FALSE. 
 
-#DEFINE CASE_SENSITIVITY FALSE
+#DEFINE CASE_SENSITIVITY TRUE
 //===================================================================================
 //*OPTION 7: Define whether to extract special loigc mos as a capacitor with holes on gates.
 //*The value can be TRUE or FALSE(Upper Case).
@@ -1058,12 +1058,12 @@ VARIABLE ldmos_err  5
 VARIABLE sram_err   5
 //==============================
 
-SOURCE PATH "/home/master/Desktop/04_pv/v2lvs/top.spi"
-SOURCE PRIMARY "top" 
+SOURCE PATH "xxx.sp"
+SOURCE PRIMARY "xxx" 
 SOURCE SYSTEM SPICE
 
-LAYOUT PATH "/home/master/Desktop/04_pv/merge/Calibredrv/top_merged.gds"
-LAYOUT PRIMARY "top" 
+LAYOUT PATH "xxx.gds"
+LAYOUT PRIMARY "xxx" 
 LAYOUT SYSTEM GDSII
 
 

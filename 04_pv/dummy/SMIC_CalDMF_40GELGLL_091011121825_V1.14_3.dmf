@@ -31,7 +31,7 @@ VERBATIM {
 #DEFINE V6_insert YES
 #DEFINE M7_insert YES
 #DEFINE V7_insert YES
-#DEFINE M8_insert YES
+#DEFINE M8_insert NO
 #DEFINE TM1_insert YES
 
 #DEFINE TM2_insert YES
