@@ -1,0 +1,29 @@
+###########################################################
+README for plotSwitchVoltageWaveformForRampup.tcl
+###########################################################
+
+Introduction: 
+
+This Tcl procedure "plotSwitchVoltageWaveforms" is intended to be used for plotting switch voltage waveforms for a RedHawk Rampup analysis run. 
+The procedure takes as input a file specifying the switch cell masters, one on each line,and plots the external and internal node voltage waveforms for all the instances of those masters. The default input filename that the user looks for is switchCellList
+The user can also specify the output directory using the -o option. Default directory name is "switchVoltageWaveformsForRampup". The waveforms will be dumped in this directory for each instance with waveform file name as <instance_name>.ext.tao , <instance_name>.int.tao for ta0 format or as <instance_name>.<switch_type>.ext, <instance_name>.<switch_type>.int for text format.
+The output waveform format can be controlled using the -sv switch. When this is 1, th script will dump the waveforms in ta0 format, which can be viewed with SignalViewer utility. When -sv is 0, waveforms are dumped as text which can be viewed with xgraph utility. Default : 1
+You can also enable display of the waveforms on the fly , in addition to just saving the waveform , by turning off the -nograph switch. Default is -nograph is 1 ,ie, the waveforms will not be displayed,  only saved.
+You also have the option to dump out only the internal net waveform of the switch by enabling the option -internalNetOnly. Default : 0.
+
+Usage:
+
+In your rampup analysis run command file, add these two lines after "perform analysis -lowpower":
+
+source plotSwitchWaveformsForRampup.tcl
+plotSwitchVoltageWaveforms -switchCellListFile <switch_cell_list> -o switch_waves_dir 
+
+You can get detailed help regarding the options using the -help switch as follows:
+plotSwitchVoltageWaveforms -help 1
+
+
+For queries/support, contact :
+
+Author : Vinayakam Subramanian  
+email : vinayakam@apache-da.com
+Version : 1.5

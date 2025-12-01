@@ -1,0 +1,12 @@
+This directory should contain only Perl modules. 
+All files should have .pm extension (module.pm).
+
+To use module.pm in a script, you will need something like:
+
+BEGIN {
+  $script_installation_dir = dirname($0) . "/pm";
+  push(@INC,$script_installation_dir);
+}
+use File::Basename;
+use module;
+

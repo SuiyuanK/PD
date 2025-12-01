@@ -1,0 +1,1181 @@
+This directory contains scripts providing functions deemed useful across a broad 
+spectrum of customers.
+
+Although Apache Design Solutions, Inc., provides these scripts at no charge as an 
+aid to our customers, there is no guarantee for support in resolving customer issues 
+found running the scripts nor any guarantee for continuation of these scripts in 
+future releases of RedHawk(TM).
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
++
++ rh_setup.pl  quick setup utility for RedHawk
++
+
+
+SYNOPSIS
+
+  Helps to setup necessary input files for static and dynamic runs of RedHawk
+
+DESCRIPTION
+
+  rh_setup.pl creates all the files needed to launch Redhawk simulation, either
+  static or dynamic:
+
+  <design>.gsr     - global settings
+  run_static.tcl   - static run script
+  run_dynamic.tcl  - dynamic run script
+  run_setupApl.tcl - script for setting up design dependent APL run
+
+  Every parameter value in generated <design>.gsr can come from 4 sources in the 
+  following precedence:
+   a. From rh_setup.pl command line parameters
+   b. From parameters of previous invocation of rh_setup.pl saved in rh_setup.init
+      file
+   c. From template gsr pointed by variable $APACHEDA_TEMPLATE_GSR, if this
+      file exists
+   d. From default value preset by Apache
+
+  Input to the script is incremental. You can invoke the script with one or more 
+  command line arguments. Script will prompt you if any of the required arguments
+  are missing (for ex. power net name) Re-invoke the script adding/changing the 
+  arguments, until all required information is complete.
+
+  Unix wildcards are accepted for options which specify file names. For example
+  '-def *def */*def */*/*def' will match all the def files up to 2 levels down
+  If the file with the same name is found more than once in the search pattern,
+  the first occurance will be picked.
+
+  Then rh_setup.pl checks, that all input files exist and creates all configuration
+  files listed above.
+
+  To launch simulation run:
+  'redhawk -f run_static.tcl' or 'redhawk -f run_dynamic.tcl'
+
+
+  Required parameters:
+  ---------------------------------
+  -top_cell 
+	Top module of design hierarchy for this analysis
+	Ex: TOP    Default: none
+  -vdd_nets 
+	Names of power nets used in this analysis along with nominal voltages
+	Ex: VDD 1.1 VDDO 2.0    Default: none
+  -vss_nets 
+	Names of ground nets used in this analysis
+	Ex: VSS VSSO    Default: none
+  -frequency 
+	Primary operating frequency of this design (Hz)
+	Ex: 100e6    Default: none
+  -tech_file 
+	Apache tech file with dielectrics, metal layers
+	Ex: apache.tech    Default: ../design_data/tech/*.tech ../../data/tech/apache.tech
+  -lef_files 
+	LEF files for technology,library cells, hierarchical and IP blocks
+	Ex: stdlib/*.lef macros/{A,B}.lef    Default: none
+  -def_files 
+	DEF files for top module, hierarchical and IP blocks
+	Ex: def/*def    Default: none
+  -lib_files 
+	Synopsys Liberty format (.lib) timing libraries
+	Ex: /home/libs/*lib    Default: none
+  -pad_files 
+	Apache PLOC file that gives X,Y of ideal Voltage sources
+	For block level analysis you can use keyword 'def_pins'. This forces Redhawk
+	to place one pad in the center of every VDD/VSS pin described in top-level
+	def file.  
+	Ex: top.ploc or def_pins keyword    Default: none
+
+  Optional parameters:
+  ---------------------------------
+  -spf_files 
+	Hierarchical SPEF or DSPF files of post-layout parasitics
+	Ex: top.spef block.dspf    Default: none
+  -sta_files 
+	Timing files from STA
+	Ex: timing/top.timing    Default: none
+  -pgarc_file 
+	Custom PGARC definition file. Defines VDD to VSS paths 
+	if you have multiple grounds
+	Ex: custom_cell.pgarc    Default: none
+  -apl_files 
+	Apache cell.current file of current profiles from apl run
+	Ex: apl/cell.current    Default: 
+  -aplcap_files 
+	Apache cell.cdev decap file from apl -c run
+	Ex: apl/cell.cdev    Default: none
+  -gds_dirs 
+	Load all lef/def/lib files created by gds2def/gdsmem in specified directories
+	Ex: data/gdsmem data/gdsdef    Default: {
+}
+  -avm_conf 
+	Config file for 'on the fly' rule-based memory characterization
+	Ex: ram64x15.conf    Default: none
+  -avg_pwr 
+	Average chip power (watt). If defined, all instance toggle rates are
+	scaled to bring the total chip power to a requested level
+	Ex: 0.8    Default: none
+  -input_slew 
+	Default input slew of all cells
+	Ex: 20ps    Default: 200ps
+  -toggle_rate 
+	Default uniform activity level of this design
+	Ex: 0.3    Default: none
+  -iosso 
+	Create iosso teplate and run_iosso.tcl
+	Ex: on, off    Default: off
+  -all_in_gsr 
+	If 'on', all input lef/def/lib files are listed directly in GSR. If 'off'
+	, <design>.{lefs,defs,libs} list files will be created and GSR will
+	point to these files
+	Ex: on, off    Default: on
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
++
++apl_std_setup.pl   Performs setup for APL and APLCAP characterization of std. cells in the design
++
+
+DESCRIPTION
+ apl_std_setup.pl generates the configuration file required for APL 
+ and runs APL to generate cell.current and cell.cdev
+
+ Script accepts user options from 2 sources:
+ a. from $cwd/apl_std_setup.init file
+ b. from command line arguments, which are saved as well in extract_gds.init by the script
+
+ Input to the script is incremental. The user may invoke the script with one or more options, then re-invoke 
+the script adding more information, until all required information is complete. The user may add optional 
+information at any time.
+
+OPTIONS
+  -vdd_value
+    Value of supply voltage
+  -vdd_pin
+    Name of the VDD pin in SPICE netlist
+  -vss_pin
+    Name of the VSS pin in SPICE netlist
+  -temperature
+    Analysis temperature in C
+  -spice_netlist
+    List of SPICE netlist files
+  -device_model
+    File containing device model library
+  -corner
+    Analysis corner
+  -rise_slew_threshold
+    Rise slew thresholds used in STA
+  -fall_slew_threshold
+    Rise slew thresholds used in STA
+  -gsr_file
+    GSR file used for analysis
+  -apl_setup_dir
+    
+  -cell_list
+    List of cells to be characterized
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
++
++avm_setup.pl   Generates configuration file for running AVM for all memories used in design
++ Read the file AVM_Primer.txt for a technical discussion of the AVM parameters.)
++
+
+DESCRIPTION
+ avm_setup.pl generates the configuration file required for AVM
+
+ Script accepts user options from 2 sources:
+ a. from $cwd/avm_setup.init file
+ b. from command line arguments, which are saved as well in avm_setup.init by the script
+
+ Input to the script is incremental. The user may invoke the script with one or more options, then 
+re-invoke the script adding more information, until all required information is complete. The user 
+may add optional information at any time.
+
+OPTIONS
+  -vdd_value
+    Value of supply voltage
+  -apl_setup_dir
+    RedHawk run directory with APL setup
+  -libs_file
+    List of memory .lib files used in analysis
+  -mcf_file
+    apache.mcf file from Redhawk run directory
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
++
++vds2avm.pl   Virage memory compiler datasheet to AVM conversion
++
+
+Usage:
+    perl vds2avm.pl [options] arguments
+
+    Options: -h, -help, -man, -l output_load, -tr output_rise_time, -tf
+    output_fall_time, -s, -f
+
+    Arguments: -i data_sheet, -d working_dir, -pvt pvt_corner, -o
+    config_file, -t memory_type, -typ|-wst
+
+Options:
+    -h  Prints a short synopsis.
+
+    -help
+        Prints a synopsis and a description of program options and
+        arguments.
+
+    -man
+        Prints the entire man page.
+
+    -s  Prints a summary of the infomation found in the datasheet allowing
+        the user to verify that the script is properly parsing the data
+        sheet (highly recommended). Also, lists the PVT corners used in the
+        datasheet which is a required input for generating an AVM config
+        file.
+
+    -l  Used to specify an optional output load capacitance (in
+        femto-farads) for the memory. Necessary only if the memory is not
+        found in the RedHawk database.
+
+    -tr, -tf
+        Used to specify the output rise (-tr) and fall (-tf) time (in
+        nano-seconds) for the memory. Necessary only if the memory is not
+        found in the RedHawk database.
+
+    -f  Used to specify the standby power in the event it can't be
+        determined from the data sheet. This option specifies the fraction
+        of the average of the READ and WRITE power that will be assigned as
+        the standby power. In other words, the option "-f 0.3" specifies
+        that the STANDBY power will be computed as 30% of the average of the
+        READ and WRITE power. Necessary only if the STANDBY power is not
+        found in the memory data sheet.
+
+Arguments:
+    -i data_sheet
+        The path to the Virage data sheet file. This file is the standard
+        ascii data sheet typically distributed with Virage memories (i.e., a
+        ".ds" or "cds" file).
+
+    -d apache_dir
+        The path to the RedHawk working directory (the directory where the
+        design is being analyzed with RedHawk).
+
+    -pvt corner
+        The PVT corner to use to generate the AVM config file. This
+        parameter is case sensitive and should be entered exactly as shown
+        with the -s option.
+
+    -t memory_type
+        The type of memory that is being modeled. Valid types are SRAM,
+        DRAM, CAM, ROM, RegFile, MSRAM, and IP.
+
+    -typ|-wst
+        Virage specifies both a worst case power cycle (all inputs/outputs
+        switching) and a typical power cycle (some inputs/outputs
+        switching). The user specifies which type power cycle (-typ or -wst)
+        should be used to compute Cpd. See the Virage data sheet for the
+        definition of a worst case vs. a typical case power cycle.
+
+    -o config_file
+        The path to the output AVM config file. This file is an input to the
+        Apache Virtual Memory tool and is used to create current profiles
+        for memories based on data sheet specifications.
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
++
++checkDefLefLib.pl print cells that exist in DEF but miss in LEF or LIB
++
+
+Usage: perl checkDefLefLib.pl [-h] [-c tcl_cmd] [-g gsr_latest_format]
+
+           -h:  Print this help message.
+           -c:  static/dynamic.tcl
+           -g:  gsr in 5.x or latest format
+
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
++
++create_spi_ploc.pl  
++
+
+Usage:
+ perl create_spi_ploc.pl -ploc <ploc file> -Rhigh -Rmed -Rlow -Chigh -Cmed -Clow \
+    -wbpwr <Rw> <Lw> <Cw> -wbgnd <Rw> <Lw> <Cw> -pkgpwr <Rpkg> <Lpkg> <Cpkg> \
+    -pkggnd <Rpkg> <Lpkg> <Cpkg> -vdd -vss -volts
+
+ Available options 
+ PLEASE ENTER THE R,L,C in Ohm,Henry,Farad respectively
+-ploc	ploc file(REQUIRED)
+-Rmed	default ( 1e-3 ohms)
+-Rhigh	default ( 0.1 ohms)
+-Rlow	default ( 1e-5 ohms) 
+-Cmed	default ( 1pF)
+-Chigh	default ( 5pF)
+-Clow	default (0.1pF)
+-wbpwr	 <Rw> <Lw> <Cw>
+-wbgnd	 <Rw> <Lw> <Cw>
+-pkgpwr	 <Rpkg> <Lpkg> <Cpkg>
+-pkggnd	 <Rpkg> <Lpkg> <Cpkg>
+Default Rpkg=1e-3,Cpkg=10e-12,Lpkg=10e-9
+Default Rw=1e-3, Cpkg=10e-12,Lpkg=10e-9
+-vdd	default VDD
+-volts	defaut(VDD=1.0V)
+-vss	default VSS
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
++
++decap2eco.pl  Apache decap ECO to Synopsys Scheme translation
++
+
+USAGE: decap2eco.pl [ -h ] <decap_file> <cellsize_file>
+       -h     - show this help message and exit
+
+**** IMPORTANT NOTES ****
+1.   The cellsize file is needed so that the correct placement command
+     in scheme can be created.  The cell size file should have this format:
+
+     <cellname> <xsize_in_um> <ysize_in_um>
+
+     For example:
+
+     decap1 8.8 4.6
+
+2.   The default output files will be decap.eco and decap.scm.
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
++
++gds_setup.pl   Generates configuration files and runs gds2def extraction for multiple cells
++
+
+
+DESCRIPTION
+
+ Script accepts user options from 2 sources:
+ a. from $cwd/gds_setup.init file
+ b. from command line arguments, which are saved as well in gds_setup.init by the script
+
+ Input to the script is incremental. The user may invoke the script with one or more options, 
+then re-invoke the script adding more information, until all required information is complete. 
+The user may add optional information at any time.
+
+Script examines lef and gds files first to ensure that cells being extracted have both gds 
+and lef description
+
+ Example:
+
+ perl gds_setup.pl -vdd VDD vdd vddx vddy, VDD_SOC \
+              -vss VSS gnd vss \
+              -map gds_layer.map \
+              -cell MEM22x64 MEM22x32 \
+              -lef_files lef_dir/*.lef \
+              -gds_files gds_dir/*.gds \
+              -mem on \
+              -norun on
+
+OPTIONS
+  -vdd_nets
+	VDD net names separated with ',' Multiple GDS labels can map to a single VDD net
+	Default: none
+	Example: 'VDD vdda vddb, VDD_SOC' - segments labeled in GDS with 'vdda' and 'vddb' will 
+        appear as 'VDD' in generated def file. 'VDD_SOC' will bot be renamed
+  -vss_nets
+	VSS net names. Same syntax as VDD
+	Default: none
+  -cell_names
+	List of cell names for GDS conversion or name of the file where cells are listed
+	Default: all non CORE macros found in specified lef files
+  -map_file
+	GDS layer map file
+	Default: none
+  -lef_files
+	LEF files of macros to be extracted
+	Default: ../lef/*.lef
+  -gds_files
+	GDS files to be extracted
+	Default: ../gds/*.gds
+  -mem
+	Run gdsmem  (on/off)
+	Default: off
+  -start_layer
+	Extraction starting layer
+	Default: none
+	Example: m1
+  -core_start_layer
+	Core extraction starting layer
+	Default: none
+	Example: m3
+  -options_file
+	File containing list of additional gds2def options to use
+	Default: none
+  -norun
+	Setting to 'on' will stop the script after creation of config files 
+	Default: off
+
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
++
++genHisto.pl  Creates histogram of instance based voltage drop or any other tabulated file
++
+
+
+DESCRIPTION
+  genHisto.pl 
+      -report_files <dvd_results_report>
+      -min_voltage <lowest_voltage_bound>
+      -max_voltage <highest_voltage_bound>
+      -bin_size <volts> (default: 0.1)
+      -field [name|index]
+        a. index explicitly specifies the column number, count starts with 0
+        b. following predefined names can be used for anaylis of 
+           <design_name>.dvd (default: min_pg_sim):
+           eff_Vdd, max_pg_tw, min_pg_tw, min_pg_sim, min_vdd, max_vss
+
+ * You can type incomplete flags as long as they're inambiguous
+ ** Wildcards are accepted for specification of report file names 
+
+Example: 
+ genHisto.pl -bin_size 0.02 -min_volt 1.2 -rep lcore_vctrls_*/adsRpt/Dynamic/*dvd
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
++
++getLEF_pin.pl read through a list of LEF files and output the names and types of pins for a user provided list of cells
++
+
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
++
++gridfix2scm.pl  Convert Apache grid ECOs into Synopsys Scheme format
++
+
+USAGE: gridfix2scm.pl [ -h ] [ -m <layermap_file> ] <gridfix_file>
+       -h     - show this help message and exit
+       -m     - use this layer map file
+
+**** IMPORTANT NOTES ****
+1.   The default output file will be gridfix.scm
+2.   This program will ignore the "ADD via" commands in the gridfix file.
+     It will assume that Apollo/Astro will automatically drop vias
+     where possible.
+3.   The layer map file is optional but highly recommended.
+     The format of the layer map file are just layer and number pairs:
+
+     metal1 31
+     metal2 32
+     metal3 33
+     metal4 34
+
+     These layer names and numbers must correspond to the input files and
+     Apollo/Astro technology files
+4.   This script will issue one "axgCreateStraps" command for each
+     "ADD wire" command in the gridfix file.  This may be inefficient in terms
+     of scheme code but it is a more reliable way of translating the added wires
+5.   The "DELETE wire" and "DELETE via" commands translate into select and delete
+     commands in scheme.   Although the deletion process is done as selectively as
+     Apollo/Astro will allow, it is still a good idea to double check
+     what has been deleted b/c of the nature of the selection command, some unintentional
+     things may be selected and deleted
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
++
++mkmv.pl  Create an animated GIF of a RedHawk DvD movie cature
++
+
+
+Usage:
+    perl mkmv.pl [options] arguments
+
+    Options: -h, -help, -man, -d n, -l n, -b n, -e n, -s n where "n" is an
+    integer value
+
+    Arguments: -i movie_dir, -o output_gif
+
+Options:
+    -h  Prints a short synopsis.
+
+    -help
+        Prints a synopsis and a description of program options and
+        arguments.
+
+    -man
+        Prints the entire man page.
+
+    -d n
+        Sets the frame delay time to n * 10 milliseconds. Use this option to
+        set the time lapse between frames in the output gif. The default is
+        10 which sets the frame delay to 100mS or 10 frames/second.
+
+    -l n
+        Specifies the number of times the animation will loop (repeat)
+        before stopping. Specifying a loop count of 0 causes the animation
+        to loop forever. The default is 1.
+
+    -b n
+        Specifies the beginning frame number to use in the animation. Use
+        this option to skip unwanted frames at the beginning of the
+        animation. The default value is 1 (the first frame in the sequence).
+
+    -e n
+        Specifies the ending frame number to use in the animation sequence.
+        Use this option to skip unwanted frames at the end of the animation.
+        By default, all frames will be included.
+
+    -s n
+        Specifies the number of frames to skip in the animation sequence.
+        Use this option to specify the number of interleaved frames that
+        will be omitted from the animation. If specified, the program will
+        output the first frame specified (see -b option), skip the next n-1
+        frames, output the next frame, skip the next n-1 frames, and so
+        forth until all frames are processed. In other words, 1 of n frames
+        are included in the final animation. The default value is 1 (output
+        all frames).
+
+Arguments:
+    -i movie_dir
+        The path to the directory where the DvD movie was stored. RedHawk
+        will by default store the DvD movie in ".apache/.movie" but the user
+        also has the option to specify a custom movie directory. Use this
+        option to specify the same directory as that specified in the
+        RedHawk GUI when the movie was generated. You may use realitive or
+        absolute paths.
+
+    -o output_gif
+        The path to the output file for the animated gif. Once again, you
+        may specify realitive or absolute paths.
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
++
++plotHsim.pl displays waveforms for chosen signals from HSIM/Nanosim simulation results in Apache signal viewer
++
+
+Usage:
+perl plotHsim.pl 
+      -input <file_name> 
+      -signal_names <signal1> <signal2> ...
+      [-start_time <time_in_ns>]
+      [-end_time <time_in_ns>]
+
+Example:
+plotHsim.pl -hsim_file muf4kx32.out -signal_names clk re we vdd -start_time 5
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
++
++ process_pad_current.pl  Splits combined pad current file into individual waveforms
++
+
+USAGE: process_pad_current.pl -dir <directory to store waveforms>
+        This program must be executed in the Redhawk run directory
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
++
++saif2toggle.pl  Convert SAIF file into instance toggle file for Redhawk 
++
+
+Usage:
+    saif2toggle.pl [options] arguments
+
+    Options: -h, -help, -man, -r root_instance, -v, -debug
+
+    Arguments: -i saif_file, -o toggle_file | -p design_hierarchy_file
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
++
++sim2iprof_setup.pl gen config file for running sim2iprof for conversion of memory .OUT files to Apache cell.current format 
++
+
+DESCRIPTION
+ sim2iprof_setup.pl generates the configuration file and runs sim2iprof
+
+ Script accepts user options from 2 sources:
+ a. from $cwd/sim2iprof_setup.init file
+ b. from command line arguments, which are saved as well in avm_setup.init by the script
+
+ Input to the script is incremental. The user may invoke the script with one or more options, then 
+re-invoke the script adding more information, until all required information is complete. The user may 
+add optional information at any time.
+
+OPTIONS
+  -vdd_pin
+    VDD pin name probed in .OUT sim file
+  -vss_pin
+    VSS pin name probed in .OUT sim file
+  -sim_dir
+    Directory containing all memory cells' simulation OUT files 
+  -mcf_file
+    .apache/apache.mcf file from Redhawk run directory. Default is ../../../setupAPL/.apache/apache.apl
+  -norun
+    Run sim2iprof (on/off). Default off
+
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
++
++send2apache.pl  Automatically transfers complete customer testcases to Apache
++
+
+DESCRIPTION
+
+ This script performs automatic data collection - it's handy if customer
+ data has no common root and files are scattered across the network.
+
+
+ 1. All files referenced in Redhawk command script and GSR are detected and linked under
+    send2apache/design_data/<file_type> directories thus creating a complete local data set
+ 2. Modified command file and GSR are created under send2apache/run - they contain 
+    only relative pointers to ../design_data/...
+ 3. All the data is tarred in file send2apache/<design>.<username>.<domain>.<day><month><year>.tgz
+    * Please check disk space before using send2apache.pl - tarball can be very large!
+ 4. Tar file is automatically uploaded to Apache ftp (incoming)
+ 5. send2apache is deleted
+
+USAGE
+
+Please ask customer 
+ 1. cd to directory where the testcase had run
+ 2. run "send2apache.pl <cmd_file>"
+ 3. mail file name and size reported by "send2apache.pl"
+
+To reproduce testcase at Apache:
+ 1. download the file from ftp
+ 2. tar xvfz <filename>.tgz
+ 3. cd run
+ 4. redhawk -f <cmd_file>
+
+OPTIONS
+ -copy <target_directory>
+   Instead of putting the tarball on ftp - open it under <target_directory>
+ -notar
+   Only create temporary directory with all the link and the GSR file. Good for debug.
+
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
++
++cpp2ploc.pl  Creates the connection from an external package model format to Redhawk ploc format
++
++
+Usage: cpp2ploc.pl -ploc <RedHawk Ploc File> [-pcpp <CPP package spice deck> | -smap <Spice Node Mapping>] [-bcpp <CPP board spice deck>] -o <Modified Ploc File> [-sp <RH package spice>] [-io <IOSSO config file>] -om <Package Pad Name Mapping File> [-rot <0/90/180/270>] [-m x|y|xy] -plot
+
+Details on this script can be found in the Application Notes section of the Apache Customer Support website.
+
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
++
++pwl2apl.pl   Generates APL current profiles from a variety of simple waveform formats
++
++
+pwl2apl.pl -cell <name> [-ti <ti punch file>|-pwl <pwl file>|-hsp <hspice punch file>] -ctl <control file> [-pt <number of points>] [-plot]
+Verison 2.3
+
+See README_pwl2apl.pdf in the scripts directory
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
++
++genscansp.pl  Generate the scan shift state propagation file for the Vectorless Scan flow
++
++
+Usage: genscansp.pl [-mgc <fastscanfile>|-mag <scan order file>|-syn <scan compiler order file>|-stil <stil scan order file>] [-e <Register Output EEQ> [-d <design_name> | -m <mapping file>]] [-i <primary inputs file>] -p <pattern> -o <sp constraint file>
+
+See the Application Note "Vectorless Scan Chain Simulation in RedHawk" on the Apache Customer Support website.
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
++
++plotSwitchVoltageWaveformsForRampup.tcl  RedHawk TCL script to dump switch voltages from a list of instances
++
++
+Usage:
+In your rampup analysis run command file, add these two lines after "perform analysis -lowpower":
+source plotSwitchVoltageWaveformsForRampup.tcl
+plotSwitchVoltageWaveforms -switchCellListFile <switch_cell_list> -o <switch_waveforms_dir> 
+
+You can get detailed help regarding the options using the -help switch as follows:
+plotSwitchVoltageWaveforms -help 1
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
++
++
++ lec2rh.pl  convert LEC Mapping file from Conformal/Verplex to RedHawk readable mapping file
++
+
+To learn more about the options, use -help or -man to display the man page.
+
+Usage:
+    lec2rh.pl -in ARGUMENT -def TOP LEVEL DEF -div <hierarchy_separator>
+    -lef_dir LEF_DIR -q_pin <output_pin of the flop> [OPTIONS]
+
+    ARGUMENT: LEC(Logic Equivalency Check) Mapping file from Conformal
+
+    TOP LEVEL DEF: design top level def file
+
+    LEF_DIR: Directory with all the LEF files for macros and memories
+
+    -q_pin: Specify the output pin of the flop(whether q or qn default=q)
+
+    -div : Specify the hierarchy separator(default: obtained from Top level
+    DEF)
+
+    OPTIONS: -h, -help, -man, -o
+
+    outputs --> "o' (default is lec2rh.rpt)
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
++
++ parser_power.pl   allow user to refine power results for a run based on user search criteria such as
++                   cell, instance, freq, power domain, location, bounding box etc.  The script will 
++                   perform a detailed search on adsRpt/<design>.power.rpt file
++
+
+To learn more about the options, use -help or -man to display the man page.
+
+Usage:
+    parser_power.pl -in ARGUMENT [OPTIONS]
+
+    ARGUMENT: design power.rpt filename
+
+    OPTIONS: -h, -help, -man, -inst_exp, -inst, -cell_exp, -cell, -cell_type
+    <combinational/latch/flip flop/clocked/memory>, -domain, -freq, -bbox
+    "x_bottom_left y_bottom_left x_top_right y_top_right", -lib, -o
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
++
++ analyse_RH_run.tcl   Documentation provided in Report_Generation_Scripts_ReadMe.pdf
++ 
++
+
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
++
++ cpm2spice.pl  Automated creation of SPICE deck to generate Rdie/Cdie frequency spread for a CPM model
++ 
++
+Usage:
+    cpm2spice.pl [options] arguments
+
+    Options: -h, -help, -man, -verbose -debug
+
+    Arguments: -cpm cpm_input_file, -sp spice_output_file
+
+Options:
+    -h  Prints a short synopsis.
+
+    -help
+        Prints a synopsis and a description of program options and
+        arguments.
+
+    -man
+        Prints the entire man page.
+
+    -debug
+        Prints debug info to the log.
+
+    -verbose
+        Prints verbose debug/log info.
+
+Arguments:
+    -cpm cpm_input_file
+        The path to the input CPM model.
+
+    -sp spice_output_file
+        The path to the output SPICE deck. Don't forget to edit the
+        simulation parameters!
+
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
++
++ mmx.tbc   tcl script containing utilities for Redhawk-MMX/Totem
++
++
+Usage:
+Append $APACHEROOT/scripts to your path. (ex) set path = ($APACHEROOT/scripts $path)
+source mmx.tbc in Redhawk/Totem command window.
+The following commands are available in Redhawk/Totem command window.
+
+mmx_add_decap_cell            - to place decap cells over a wide region
+mmx_change_decap              - to change esc of intentional decap xtors in a region
+mmx_clear                     - to clear GUI screen
+mmx_dump_dvd                  - to dump out the whole DVD waveforms
+mmx_help                      - to show available commands
+mmx_plot_histogram            - to plot a histogram of DVD result
+mmx_plot_resistance_histogram - to plot a histogram of gridcheck result
+mmx_show_decap                - to show intentional decap xtors
+mmx_show_lef_pin              - to show lef pins in <>_adsgds1.lef
+mmx_show_missing_via          - to show missing vias
+mmx_show_xtor                 - to show xtors based on SPF location and lef location
+
+
+Description:
+mmx_add_decap_cell 
+                -region <llx lly urx ury>
+                -pg <power> <ground>
+                -metal <name>
+                ?-cap <value>?
+                ?-res <value>?
+                ?-leakage <value>?
+                ?-nc <value>?
+                ?-nt <value>?
+                ?-hws <value>?
+                ?-mode <h/v>?
+                ?-place?
+
+                # -nc : to specify # of decap cells/rail (default: 10)
+                # -nt : to set threshold value to find rails (default: 1)
+                # -hws : to merge adjacent rails. hws = 0.5x(width+space) (default: 0.2)
+                # -mode : to set wire direction (h-horizontal / v-vertical)
+                # -place : to place decap cells
+
+1. It shows P/G rails where decap cells can be placed (do not use -place here)
+   mmx_add_decap_cell -region 100 100 200 200 -pg vdd vss -metal M1 -cap 10p
+2. If the rails looks correct, use -place to really place decap
+   mmx_add_decap_cell -region 100 100 200 200 -pg vdd vss -metal M1 -cap 10p -place
+
+
+mmx_change_decap
+                -pg <p1> <g1> ... -pg <pN> <gN>
+                -region <llx1 lly1 urx1 ury1> ... -region <llxN llyN urxN uryN>
+                ?-o <output_file>?
+                ?-cap <c1> ... -cap <cN>?
+                ?-res <r1> ... -res <rN>?
+                ?-leakage <l1> ... -leakage <lN>?
+                ?-change?
+                ?-run?
+
+                # possible format of cap/res/leakage : <value/#x/->
+                # 'value' : F/ohm/A
+                # '#x' : multiplied factor
+                # '-'  : don't change
+                # -change : to change cdev
+                # -run : to change cdev and run dynamic analysis
+
+1. It shows intentional decap xtors in region(100 100 200 200) and region (300 300 400 400)
+   mmx_change_decap -pg vdd vss -pg vddq vssq -region 100 100 200 200 -region 300 300 400 400
+2. If you want to triple the intentioanl decap
+   mmx_change_decap -pg vdd vss -region 100 100 200 200 -o user.cdev -cap 3x -change
+3. If you want to distribute 10pF
+   mmx_change_decap -pg vdd vss -region 100 100 200 200 -cap 10p -change
+
+
+mmx_clear
+1. It clears the screen
+
+
+mmx_dump_dvd
+                -o <output_file>
+                ?-index_range <from> <to>?
+                ?-region <llx lly urx ury>?
+                ?-time_base <time>?
+                ?-nocap?
+                ?-pwl?
+
+                # -index_range : to dump waveforms only in the range (default: 0 ~ 999)
+                # -time_base : to set the time base of waveforms
+                # -nocap : to exclude decap xtors
+                # -pwl : to generate pwl
+
+1. It extracts the worst 1000 dvd waveforms into <>.ta0
+   mmx_dump_dvd -o dvd.ta0
+
+
+mmx_help
+1. it shows all available mmx_* commands
+
+
+mmx_plot_histogram
+                ?-pg <net1> ... -pg <netN>?
+                ?-bn <bin_number>?
+                ?-bs <bin_size>?
+                ?-min <min_voltage>?
+                ?-max <max_voltage>?
+                ?-o <output_file>?
+                ?-type <dynamicVectorless/staticIR>?
+                ?-log?
+
+                # -log : to plot log of xtor counts
+
+1. plot dynamic voltage drop histogram or static IR histogram
+   mmx_plot_histogram
+2. show usage
+   mmx_plot_histogram -h 
+
+
+mmx_plot_resistance_histogram
+                ?-pg <pg1> ... -pg <pgN>?
+                ?-bn <bin_number>?
+                ?-bs <bin_size>?
+                ?-min <min_%>?
+                ?-max <max_%>?
+                ?-o <output_file>?
+                ?-log?
+
+                # -log : to plot log of xtor counts
+
+1. plot a histogram of gridcheck result
+   mmx_plot_resistance_histogram
+2. show usage
+   mmx_plot_resistance_histogram -h 
+
+
+mmx_show_decap
+                -pg <p1> <g1> ... -pg <pN> <gN>
+                ?-region <llx lly urx ury>?
+                ?-name?
+                ?-conn?
+                ?-mono?
+
+                # -name : to show decap names
+                # -conn : to show pg connectivity
+                # -mono : to use monochrome markers (faster)
+
+1. show intentional xtors in a region
+   mmx_show_decap -pg vdd vss -region 100 100 200 200
+2. print xtor names and show connection between vdd and vss
+   mmx_show_decap -pg vdd vss -region 100 100 200 200 -name -conn
+
+
+mmx_show_lef_pin
+		-dir <gdsmmx_dir>
+                ?-cell <cell>?
+                ?-inst <instance>?
+                ?-region <llx lly urx ury>?
+
+1. show lef pins in <>_adsgds1.lef
+   mmx_show_lef_pin -dir ../gdsmmx
+
+
+mmx_show_missing_via
+                -range <minV> <maxV>
+                ?-pg <net1> ... -pg <netN>?
+                ?-gif <file_name>?
+
+                # -range : to set the color range of voltage difference
+
+1. show missing vias whose vdiff are over 1mV
+   mmx_show_missing_via -range 1m 10m
+
+
+mmx_show_xtor
+                -pg <net1> ... -pg <netN>
+		-dir <gdsmmx_dir>
+                ?-region <llx lly urx ury>?
+                ?-nocap?
+                ?-n <value>?
+
+                # -nocap : to hide decap xtors
+                # -n : to set the max number of displayed xtors (default: 1000)
+
+1. show xtors connected on vdd and vss
+   mmx_show_xtor -pg vdd -pg vss -dir ../gdsmmx -region 100 100 200 200
+
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
++
++ emi.tbc   tcl script containing utilities for on-chip emi analysis
++ 
++
+Usage:
+source emi.tbc in Redhawk/Totem command window.
+The following commands are available in Redhawk/Totem command window.
+
+emi_fft                       - to convert chip partition current to EMI data by FFT
+emi_map                       - to display EMI map at specified frequency from EMI data
+emi_plot                      - to display magnitude spectrum and current 
+emi_gifs                      - to geneate GIF of EMI map
+emi_movie                     - to display EMI movie from EMI data
+
+Description:
+emi_fft
+                ?-min_f <freq>?
+                ?-max_f <freq>?
+                ?-step <freq>?
+                ?-unit <fft result unit>?
+                ?-power?
+                ?-ground?
+                ?-net <net1> ... <netN>?
+                ?-di?
+
+        Converts chip partition current to EMI data by FFT. Chip partition
+        current is generated by using 'generate emi_current' with -nx -ny options
+
+        Inputs:
+        Chip partition current (adsRpt/Dynamic/emi_ivdd.<domain>)
+
+        Outputs:
+        FFT for each partition (fftTmp/*.temp)
+        FFT for each frequency (emiRpt/data/emi_<net>_<freq>.dat)
+        FFT Report (emiRpt/emi_<net>.rpt)
+
+        Options:
+        -min_f <freq> : Min frequency for FFT. Specify in Hz using scientific
+        notation
+        Example: -min_f 200M
+        Default: 1/DYNAMIC_SIMULATION_TIME
+
+        -max_f <freq> : Max frequency for FFT. Specify in Hz using scientific
+        notation
+        Default: 1/DYNAMIC_TIME_STEP
+
+        -step <freq> : frequency step for FFT. Specify in Hz using scientific
+        notation
+        Default: 1/DYNAMIC_SIMULATION_TIME
+
+        -unit <fft unit> : Units for output of fft. Accepted units are: mp
+        (magnitude and phase), db (decibels), dbm (decibels referenced to 1e-3),
+        dbu (db referenced to 1e-6).
+        Example: -unit dbm
+        Default: mp
+
+        -power : Use chip partition current of all power nets
+        -ground : Use chip partition current of all ground nets
+        -net <net1> ... <netN> : Use chip partition current of the specified nets
+        Default: -power -ground
+	Example: -net vdd1 vdd2
+
+        -di : Use <design>.partition.ipwr instead of emi_ivdd.<domain>
+
+
+emi_map
+                ?-min_f <frequency>?
+                ?-max_f <frequency>?
+                ?-f <frequency>?
+                ?-min <display min value>?
+                ?-max <display max value>?
+                ?-power?
+                ?-ground?
+                ?-net <net1> ... <netN>?
+                ?-di?
+                ?-ng?
+                ?-exdata?
+
+        Inputs:
+        EMI Data (emiRpt/data/emi_<net>_<freq>.dat)
+
+        Options:
+        -min_f/-max_f <freq> : Specifies the frequency range to display EMI map
+        Default: -min_f/-max_f of emi_fft
+        Example: -min_f 200M -max_f 1G
+
+        -f <freq> : Specifies the frequency to display EMI map
+        If -f is used, -min_f/-max_f are ignored
+        Example: -f 200M
+
+        -min/-max <display value> : Min/Max value used for EMI map display
+
+        -power : Display EMI map of all power nets
+        -ground : Display EMI map of all ground nets
+        -net <net1> ... <netN> : Display EMI map of the specified nets
+        Default: -power -ground
+        Example: -net vdd1 vdd2
+
+        -di : Use 'emi_fft -di' results
+
+        -ng : Not display partition grid
+
+        -exdata : Use existing data from previous emi_fft run
+
+
+emi_plot
+                ?-p <px1><py1> ... -p <pxN><pyN>?
+                ?-xy <x1><y1> ... -xy <xN><yN>?
+                ?-s or -spectrum?
+                ?-c or -current?
+                ?-sv?
+                ?-net <net1> ... <netN>?
+                ?-di?
+                ?-ng?
+                ?-exdata?
+
+        Inputs:
+        EMI Data (emiRpt/data/emi_<net>_<freq>.dat)
+
+        Options:
+        -p <px> <py> : Select regions by partition numbers
+        Example: -p 3 4 -p 10 7
+        -xy <x> <y> : Select regions including the points
+        Example: -xy 100 300 -xy 150 -100
+
+        -spectrum : Show magnitude spectrum of the region
+        -current : Show current waveforms of the region
+
+        -sv : Use sv instead of xgraph
+
+        -net <net1> ... <netN> : Include data of the specified nets
+        Default: Include data of all power/ground nets
+        Example: -net vdd1 vdd2
+
+        -di : Use <design>.partition.ipwr instead of emi_ivdd.<domain>
+
+        -ng : Not display partition grid
+
+        -exdata : Use existing data from previous emi_fft run
+
+
+emi_movie
+                ?-d <frame delay>?
+                ?-min_f <frequency>?
+                ?-max_f <frequency>?
+                ?-step <frequency>?
+                ?-min <display min value>?
+                ?-max <display max value>?
+                ?-power?
+                ?-ground?
+                ?-net <net1> ... <netN>?
+                ?-di?
+                ?-exdata?
+
+        Inputs:
+        EMI Data (emiRpt/data/emi_<net>_<freq>.dat)
+
+        Options:
+        -d <movie frame delay in sec> : Specifies the delay for each frame in
+        the movie. Default is 0
+
+        -min_f/-max_f/-step <freq> : Specifies the frequency range to display EMI movie
+        Default: -min_f/-max_f of emi_fft
+        Example: -min_f 200M -max_f 1G
+
+        -min/-max <display value> : Min/Max value used for EMI map display
+
+        -power : Display EMI movie of all power nets
+        -ground : Display EMI movie of all ground nets
+        -net <net1> ... <netN> : Display EMI movie of the specified nets
+        Default: -power -ground
+        Example: -net vdd1 vdd2
+
+        -di : Use <design>.partition.ipwr instead of emi_ivdd.<domain>
+
+        -exdata : Use existing data from previous emi_fft run
+
+
+emi_gifs
+                ?-min_f <frequency>?
+                ?-max_f <frequency>?
+                ?-step <frequency>?
+                ?-min <display min value>?
+                ?-max <display max value>?
+                ?-power?
+                ?-ground?
+                ?-net <net1> ... <netN>?
+                ?-di?
+                ?-exdata?
+
+        Inputs:
+        EMI Data (emiRpt/data/emi_<net>_<freq>.dat)
+
+        Outputs:
+        GIF of EMI map at each frequency (emiRpt/gifs/emi<freq>.gif)
+
+        Options:
+        -min_f/-max_f/-step <freq> : Specifies the frequency range to make gifs
+        Default: -min_f/-max_f of emi_fft
+        Example: -min_f 200M -max_f 1G
+
+        -min/-max <display value> : Min/Max value used for EMI map display
+
+        -power : Make gifs of all power nets
+        -ground : Make gifs of all ground nets
+        -net <net1> ... <netN> : Make gifs of the specified nets
+        Default: -power -ground
+        Example: -net vdd1 vdd2
+
+        -di : Use <design>.partition.ipwr instead of emi_ivdd.<domain>
+
+        -exdata : Use existing data from previous emi_fft run
+
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
++
++
++ 
++

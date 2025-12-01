@@ -1,0 +1,16 @@
+CREATE_PIN_PAIR {
+## SYNTAX1:
+##########
+#<clamp_type> <marker> <pin1> <pin2>
+##Valid values for RON+ and RON- should be an integer/real number or string "OFF"
+## SYNTAX2:
+##########
+#<clamp_type> <marker> <pin1> <pin2> <ron+> <ron->
+pdiode - PIN_PAIR { S P } RON { 0.1 OFF }
+ndiode - PIN_PAIR { G S } RON { 0.1 OFF } 
+b2b_diode - PIN_PAIR { G G } RON { 0.1 OFF }
+pwrclmp - PIN_PAIR { P G } RON { 0.1 OFF } 
+## SYNTAX3:
+###########
+#<clamp_type> <marker> <pin1> <pin2> <ivname> 
+}

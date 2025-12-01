@@ -1,0 +1,302 @@
+# $Revision: 1.12 $
+
+########################################################################
+# This is a default GSR file provided by APACHE-DA. 
+#
+# THIS IS TEMPLATE AND NOT A VALID GSR FILE! PLEASE DON'T EDIT IT 
+# OR LOAD DIRECTLY TO REDHAWK 
+#
+# -  This file is mandatory for rh_setup.pl 2.0 and newer. (must sit in the    
+#   same directory with rh_setup.pl)
+#
+# - rh_setup.pl constructs <design>.gsr from 4 sources in the following 
+#      precedence:
+#   a. From rh_setup.pl command line parameters
+#   b. From parameters previously saved in rh_setup.init 
+#   c. From template gsr pointed by variable $APACHEDA_TEMPLATE_GSR, if this
+#      file exists
+#   d. From this file:  $APACHEROOT/bin/rh_setup.defaults
+#
+# - Keywords without arguments only indicate that if this keyword exists
+#   in template $APACHEDA_TEMPLATE_GSR it will appear in the generated
+#   user GSR file
+#
+# - Blocks of comment lines, which precede keywords will be copied to the 
+#   user GSR 
+# 
+# - Note default lef/def/lib... file locations. User can put a different 
+#   pattern to $APACHEDA_TEMPLATE_GSR or simply override with rh_setup.pl 
+#   command line parameters
+#########################################################################
+
+#############################################################
+# 1) File pointers
+#############################################################
+# Apache tech file
+TECH_FILE ../design_data/tech/*.tech ../../data/tech/apache.tech
+
+# List of LEF files. Technology one must come first
+LEF_FILES {
+ ../design_data/lef/*.lef
+ ../design_data/lef/*.lef.gz	
+ ../../data/lef/*.lef
+ ../../data/lef/*.lef.gz
+}
+
+# List of DEF files. Top level should be at the end of the list
+DEF_FILES {
+ ../design_data/def/*.def
+ ../design_data/def/*.def.gz
+ ../../data/def/*.def
+ ../../data/def/*.def.gz
+}
+
+# List of LIB files. Order is not important
+LIB_FILES {
+ ../design_data/lib/*.lib
+ ../design_data/lib/*.lib.gz
+ ../../data/lib/*.lib
+ ../../data/lib/*.lib.gz
+}
+
+# Location of ideal power and ground sources
+PAD_FILES {
+ ../design_data/ploc/*.ploc
+ ../../data/ploc/*.ploc
+}
+
+# Timing windows for all instances.In case of multiple STA files the keyword BLOCK_STA_FILE has to be used instead of STA_FILE 
+STA_FILE {
+ ../design_data/timing/*.timing
+ ../design_data/timing/*.timing.gz
+ ../../data/timing/*.timing
+ ../../data/timing/*.timing.gz
+}
+
+ATE_CONSTRAINT_FILES {
+
+
+}
+
+ENABLE_ATE
+
+
+# Starting from Redhawk 5.3 cell current and decap characterized
+# with APL can be specified in GSR file
+APL_FILES {
+}
+
+# SPEF/DSPF  interconnect capacitance file for a flat
+# or hierarchical design.
+CELL_RC_FILE {
+ ../design_data/spf/*.spef
+ ../design_data/spf/*.spef.gz
+ ../design_data/spf/*.dspf
+ ../design_data/spf/*.dspf.gz
+ ../../data/spf/*.spef
+ ../../data/spf/*.spef.gz
+ ../../data/spf/*.dspf
+ ../../data/spf/*.dspf.gz
+}
+
+# Defines absolute or relative path from RedHawk running directory that
+# contains the list of instances with the following format:
+# <instance_name> <power in Watts>
+INSTANCE_POWER_FILE {
+ ../design_data/power/*.rpt
+ ../../data/power/*.rpt
+}
+
+# Specifies the GDS cells to be used, and where the LEF, DEF, and
+# LIB files converted by gds2def/gds2def -m are located.
+GDS_CELLS {
+}
+
+############################################################
+# 2) Required parameters
+############################################################
+# Power nets for which voltage drop analysis should run along with nominal voltages.
+# Names must match to ones defined in the DEF file with SPECIALNETS keyword.
+VDD_NETS {
+}
+
+# Ground nets for which voltage drop analysis should run. Nominal voltage must be 0
+# Names must match ones defined in the DEF file with SPECIALNETS keyword.
+GND_NETS {
+}
+
+# Defines default operating frequency of the chip in Hertz
+# All instances for which related clock can't be derive will switch with this frequency
+FREQ
+
+############################################################
+# 3) Optional parameters
+############################################################
+# Defines the default toggle rate of the nets on the chip that
+# are not otherwise specified. Toggle rate is defined as the sum of switching
+# rate from 0->1 and 1->0 of a net within a clock cycle with respect to
+# the net's clock  domain. For example, a clock net will have a toggle rate of
+# 2.0 with respect to its clock domain since the net switches once from 0->1
+# and 1->0 within a clock cycle.
+TOGGLE_RATE
+
+# If set to "POWER_MODE APL", cell power will be calculated by integrating the 
+# current curve from the APL file rather than from power tables of .lib 
+POWER_MODE
+
+# Defines default input transition time of the input pins of all instances
+INPUT_TRANSITION
+
+# You can define power consumption for the whole chip, subblock or any instance
+# Syntax:
+#  BLOCK_POWER_FOR_SCALING
+#  {
+#    FULLCHIP tutorial <power_in_watts>
+#    CELLTYPE <block_master_name> <power_in_watts>
+#  }
+BLOCK_POWER_FOR_SCALING
+
+# For designs that are in early stages of design and do not have complete placement
+#and routing information, Block_Power_Assignment defines power parameters for
+#blocks, pins, regions and the top level for performing early stage static power
+#analysis 
+BLOCK_POWER_ASSIGNMENT
+
+
+# Peak cycle power is defined as the power averaged over the worst cycle or the worst 
+# couple of cycles. The average power is defined as the power averaged over long normal
+# operation cycles.
+# Higher PAR increase the likelyhood of instance switching in dynamic vectorless simulation
+# Syntax: 
+# BLOCK_PAR
+# {
+# # Top level
+#  PAR <PEAK_AVG_PWR_RATIO>
+#
+# # Block level
+#  <BLOCK_NAME> <PEAK_AVG_PWR_RATIO>
+# }
+BLOCK_PAR
+
+
+# If signal net is not covered in spf file, steiner tree routing is performed 
+# and the resulting length is multiplied by the cap value specified in 
+# pF per um
+STEINER_TREE_CAP 
+
+# If net is not covered in spf file and STEINER_TREE_CAP is not defined:
+# The ratio of the total interconnect capacitance of the
+# net versus the total gate capacitance of the input pin fanouts.
+INTERCONNECT_GATE_CAP_RATIO
+
+# Forces 0 toggle rate for specified nets
+# Ex: 
+# INACTIVE_NETS {
+#  SCAN_CLK* 0
+# }
+INACTIVE_NETS 
+
+# By default Redhawk loads and displays all USE POWER/GROUND nets
+# even if they're not listed in VDD/VSS_NETS section
+IGNORE_NETS
+
+# Save waveforms at all nodes of the pwr/gnd grid. Takes a lot of disk space... 
+DYNAMIC_SAVE_WAVEFORM
+
+# If specified, dynamic simulation uses the specified start and end times. 
+# Default: 1/Frequency.
+# Syntax:
+#  DYNAMIC_SIMULATION_TIME <start time in sec> <end time in sec>
+DYNAMIC_SIMULATION_TIME
+
+DYNAMIC_PRESIM_TIME
+
+#When turned on this insures similar designs have similar switching scenarios between SOC level runs.
+CONSISTENT_SCENARIO
+#enables reporting of TW based effective voltage drop for all switching cycles
+DYNAMIC_REPORT_DVD
+# Defines dynamic simulation time step. Default: 10ps
+# Syntax: DYNAMIC_TIME_STEP <step_in_sec>
+DYNAMIC_TIME_STEP
+
+# To turn on the Dynamic EM please set it to 1
+DYNAMIC_EM 
+
+# Location of power and ground sources is derived from pin section 
+# of top level def. Typically it's useful for block level analysis
+ADD_PLOC_FROM_TOP_DEF
+
+
+ENABLE_AUTO_EM 
+
+# Description of decap cells - needed only for what-if/FAO decap insertion 
+# Can be either
+# a. Simple list of decap cells - all parameters are taken from .lef/.apl
+# b. Cell name along with explicit parameter values  
+#   <decap_cell_name> <WIDTH in um> <HEIGHT in um> <C in pF> <R in ohm> <metal_layer_name>
+DECAP_CELL
+
+# Switch model file specifies a header or footer switch in a format required for powerup analysis
+SWITCH_MODEL_FILE {
+../design_data/apl/switch.model
+}
+# Using this GSC file appropriate switching states for instances and blocks can be set, 
+# such as HIGH, LOW, STANDBY, DISABLE and OFF.
+GSC_FILE {
+
+}
+
+# You can define power consumption for the whole chip, subblock or any instance in a file and point to this variable
+BLOCK_POWER_FOR_SCALING_FILE {
+
+}
+
+#This keyword is used to include CMM models into redhawk.
+CMM_CELLS {
+}
+
+#This keyword reads in original VCD files directly for power calculation purpose
+VCD_FILE {
+}
+
+#Specify a file that contains a list of cells to be ignored by RedHawk during data input.The file containing the list must have only one entry per line.
+IGNORE_CELLS_FILE {
+}
+
+DECAP_CELLS {
+}
+#Specifies PIN layers in the LEF file to be ignored during design data input in Redhawk analysis.
+LEF_IGNORE_PIN_LAYERS {
+}
+
+USE_DRAWN_WIDTH_FOR_EM
+
+USE_DRAWN_WIDTH_FOR_EM_LOOKUP
+
+DYNAMIC_FRAME_SIZE
+
+IGNORE_SHORT
+
+IGNORE_LEF_DEF_MISMATCH
+
+IGNORE_DEF_ERROR
+
+IGNORE_PGARC_ERROR
+
+IGNORE_IPF_ERROR
+
+IGNORE_APL_CHECK
+
+IGNORE_APL_PROCESS_CORNER
+
+DISTRIBUTED_EXTRACT
+
+USE_FAST_DECAP_ALG
+
+DYNAMIC_REPORT_DECAP
+
+SPLIT_SPARSE_VIA_ARRAY
+
+CACHE_MODE
+
+CACHE_DIR 

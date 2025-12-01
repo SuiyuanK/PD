@@ -1,0 +1,112 @@
+This directory contains scripts providing functions deemed useful across a broad 
+spectrum of customers.
+
+Although Apache Design Solutions, Inc., provides these scripts at no charge as an 
+aid to our customers, there is no guarantee for support in resolving customer issues 
+found running the scripts nor any guarantee for continuation of these scripts in 
+future releases of RedHawk(TM).
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
++
++ rh_setup.pl  quick setup utility for RedHawk
++
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
++
++apl_std_setup.pl   Performs setup for APL and APLCAP characterization of std. cells in the design
++
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
++
++avm_setup.pl   Generates configuration file for running AVM for all memories used in design
++ Read the file AVM_Primer.txt for a technical discussion of the AVM parameters.)
++
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
++
++vds2avm.pl   Virage memory compiler datasheet to AVM conversion
++
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
++
++checkDefLefLib.pl print cells that exist in DEF but miss in LEF or LIB
++
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
++
++create_spi_ploc.pl  
++
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
++
++decap2eco.pl  Apache decap ECO to Synopsys Scheme translation
++
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
++
++gds_setup.pl   Generates configuration files and runs gds2def extraction for multiple cells
++
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
++
++genHisto.pl  Creates histogram of instance based voltage drop or any other tabulated file
++
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
++
++getLEF_pin.pl read through a list of LEF files and output the names and types of pins for a user provided list of cells
++
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
++
++gridfix2scm.pl  Convert Apache grid ECOs into Synopsys Scheme format
++
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
++
++mkmv.pl  Create an animated GIF of a RedHawk DvD movie cature
++
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
++
++plotHsim.pl displays waveforms for chosen signals from HSIM/Nanosim simulation results in Apache signal viewer
++
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
++
++ process_pad_current.pl  Splits combined pad current file into individual waveforms
++
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
++
++saif2toggle.pl  Convert SAIF file into instance toggle file for Redhawk 
++
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
++
++sim2iprof_setup.pl gen config file for running sim2iprof for conversion of memory .OUT files to Apache cell.current format 
++
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
++
++send2apache.pl  Automatically transfers complete customer testcases to Apache
++
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
++
++cpp2ploc.pl  Creates the connection from an external package model format to Redhawk ploc format
++
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
++
++pwl2apl.pl   Generates APL current profiles from a variety of simple waveform formats
++
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
++
++genscansp.pl  Generate the scan shift state propagation file for the Vectorless Scan flow
++
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
++
++plotSwitchVoltageWaveformsForRampup.tcl  RedHawk TCL script to dump switch voltages from a list of instances
++
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
++
++ lec2rh.pl  convert LEC Mapping file from Conformal/Verplex to RedHawk readable mapping file
++
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
++
++ parser_power.pl   allow user to refine power results for a run based on user search criteria 
++
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
++
++ analyse_RH_run.tcl   Documentation provided in Report_Generation_Scripts_ReadMe.pdf
++ 
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
++
++ cpm2spice.pl  Automated creation of SPICE deck to generate Rdie/Cdie frequency spread for a CPM model
++
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+

@@ -1,0 +1,262 @@
+                               Using AVM
+
+
+INTRODUCTION
+The Apache Virtual Memory (AVM) utility offers a rule based approach for 
+generating current profiles for memories within the RedHawk flow. AVM reads a
+configuration file that contains power and timing information that is 
+typically extracted from memory data sheets. With this information, AVM
+generates a current profile that is consistent with the data in the config
+file. 
+
+In many cases, this approach will offer a desirable compromise between the
+detailed accuracy of aplmem/sim2iprof and Liberty based power. In the former
+case, substantial effort may be required to completed the aplmem flow
+(especially if RAMs are large and require simulation in NanoSim or HSIM). In
+the latter case, usage is quite easy (just include the .lib in the RedHawk
+analysis) but accuracy is limited since .lib based power is translated to a
+simple triangular current waveform of equivalent power.
+
+AVM, on the other hand, uses the timing and power information from data sheets
+to generate current waveforms that contain two triangular waveforms - one for
+memory decode and the second waveform for memory read/write. This offers the
+user a substantial increase in accuracy with little additional effort.
+
+
+PURPOSE
+This document will lead you through the steps needed to generate an AVM
+configuration file, run AVM to generate an output current profile, test 
+the newly generated current profile, and include the current profile 
+into a RedHawk analysis.
+
+
+THEORY
+Power consumption in CMOS circuits can be divided into two categories -
+static power and dynamic power consumption. Static power is simply the power
+dissipated due to the leakage of currents flowing from Vdd to Vss. Static
+power (Ps) is computed simply as the product of the total leakage currents
+(I_leak) times the supply potential (Vdd): Ps = I_leak * Vdd.
+
+Dynamic power is the power associated with a devices' switching. This power
+can be further sub-divided into transient (internal) power consumption (Pt) 
+and output load (external) power consumption (Pl). The transient power 
+consumption is that power consumed within the cell and is associated with the 
+short circuit current through the N and P devices when both transistors are 
+on as well as the power associated with charging internal parasitic and gate 
+capacitances. The output load power is the power associated with charging 
+the output load on the cell. 
+
+In most cases, the short circuit current of a gate will be small when compared
+to the current required to charge the internal capacitances. Under these 
+conditions, the bulk of the internal power dissipated is consumed in the 
+charging and discharging of the internal parasitic and gate capacitances. The 
+"lumped" capacitance that dissipates the same power as that dissipated by the 
+transient power (Pt) of the cell is called the "power dissipation capacitance" 
+or Cpd.
+
+An expression for Cpd can be derived by taking the equation for the power 
+dissipated in capacitor C (Pc) which is charged/discharged to voltage 
+V at frequency F-
+
+    Pc = C * F * V**2 
+    
+and making some substitutions into this equation-
+
+    Pt = Cpd * F * Vdd**2
+
+and solving for Cpd-
+
+    Cpd = Pt/(F * Vdd**2)
+
+For a more detailed treatment of power dissipation capacitance see 
+"CMOS_Power_Consumption_And_Cpd_Calculation.pdf" in the docs directory.
+
+
+AVM CONFIGURATION FILE
+AVM requires knowledge of various RAM characteristics in order to generate the 
+best possible estimate for the current profile. In particular, the following 
+data are required-
+
+
+  MEMORY_NAME {
+      MEMORY_TYPE <SRAM | DRAM | CAM | ROM | RegFile | MSRAM | IP>
+      EQUIV_GATE_COUNT <count>
+      VDD_PIN <VDD1> <VDD2> ...
+      GND_PIN <GND1> <GND2> ...
+      VDD <voltage of VDD1> <voltage of VDD2> ...
+      PROCESS [ TT | FF | SS ]
+      Cpd_read <Cpd_read-VDD1> <Cpd_read-VDD2> ...
+      Cpd_write <Cpd_write-VDD1> <Cpd_write-VDD2> ...
+      Cpd_standby <Cpd_standby-VDD1> <Cpd_standby-VDD2> ...
+      C_decap <Decap for VDD1> <Decap for VDD2> ...
+      tsu <setup_time>
+	  ck2q_delay  <delay_time>
+      tr_q  <output_rise_time>
+      tf_q  <output_fall_time>
+      Cload  <output_load>
+      leakage_i  <leakage_current>      
+      
+  }
+
+These fields are defined below-
+
+MEMORY_NAME: Name of memory macro as defined in the LEF. 
+
+MEMORY_TYPE <SRAM | DRAM | CAM | ROM | RegFile | MSRAM | IP>: Identifies the 
+    memory type as Static RAM, Dynamic RAM, Content Addressable Memory, Read 
+    Only Memory, Register File, MSRAM (??), or generic IP.
+
+EQUIV_GATE_COUNT <count>: Equivalent gate count, which can be derived
+    from the number of bit cells. For example, a 512x70 memory should be 
+    512 * 70 * 1.1 = 39424 equivalent gates (the gate count is equal to the 
+    bit count plus 10%).
+
+VDD_PIN <VDD1> <VDD2>...: By default, VDD_PIN and GND_PIN are optional
+    and their default values are VDD and GND respectively. If the power and/or
+    ground names are different, you must specify these keywords. The Cpd and
+    decap must be specified per power pin. If there is a single ground pin, the
+    current profile of the ground pin is the sum of all the Vdd pins. If there 
+    are multiple grounds, the current profile is defined according to the P/G 
+    arc file described in the section "P/G Arc Definitions in Custom LIB Files", 
+    page 3-20 of Release 5.3 of the "RedHawk User's Manual".
+
+VDD <voltage of VDD1> <voltage of VDD2>...: Power supply potential(s) in Volts 
+    for each power pin. Matched to power pins based on order of appearance.
+
+PROCESS [ TT | FF | SS ]: Process corner specification. Supported values are 
+    typical (TT), best case (FF) and worst case (SS). The process specified 
+	should match the PVT point selected from the data sheet. In other words, 
+	if the PVT point used is "slow_125_1.08" then the process should be specified
+	as SS.
+
+Cpd_read <Cpd_read-VDD1> <Cpd_read-VDD2>...: Cpd capacitance for read operation, 
+    in Farads. Matched to power pins based on order of appearance.
+
+Cpd_write <Cpd_write-VDD1> <Cpd_write-VDD2>...: Cpd capacitance for write 
+	operation, in Farads. Matched to power pins based on order of appearance.
+
+Cpd_standby <Cpd_standby-VDD1> <Cpd_standby-VDD2>...: Cpd capacitance for standby 
+    operation, in Farads. Matched to power pins based on order of appearance.
+
+C_decap <Decap for VDD1> <Decap for VDD2>...: Decap value in Farads for each 
+	power pin. Matched to power pins based on order of appearance.
+
+tsu <setup_time>: Address setup time before CLOCK, in seconds.
+
+ck2q_delay <delay_time>: Clock to Q output delay, in seconds.
+
+tr_q <output_rise_time>: Output rise time, in seconds.
+
+tf_q <output_fall_time>: Output fall time, in seconds.
+
+Cload <output_load>: Typical output load, in Farads.
+
+leakage_i <leakage_current>: Leakage current, in amps.
+
+You will find more details on the AVM configuration file in the chapter titled 
+"Characterization Using The Apache Power Library" in the "RedHawk User's Manual"
+
+
+
+CONFIGURATION FILE VALIDATION
+Typically, AVM is automatically run as part of the RedHawk flow. This approach 
+regenerates the current and cdev files each time RedHawk is executed and 
+guarantees that any changes to the avm config file are "seen" by RedHawk. Also, 
+an extra user step is eliminated simplifying the usage model.
+
+It is useful, however, to run AVM outside the RedHawk flow in order to verify the 
+current and cdev data generated by the avm config file. Also, once you have 
+generated your current profiles you can run aplchk as an additional data check.
+
+To check your newly generated config file simply execute AVM with the file you've 
+generated-
+	
+	$ avm avm.cfg
+
+	Starting avm on Wed Aug  9 08:55:41 PDT 2006.
+	Running /appls/redhawk/5.3.1/RHEL3_x86/bin/avm avm.cfg
+
+	***********************************************************
+	****   Finish running avm
+	***********************************************************
+
+Once you've run avm you will find two newly created files in your working 
+directory - vmemory.current (current profiles) and vmemory.cdev (decap values). 
+
+Avm will do some sanity checks on your config file and echo any warnings/errors 
+to your terminal. For example, if you have a typo and specify a large Cpd_read 
+value you will get an error like this-
+
+	$ avm avm.cfg
+
+	Starting avm on Wed Aug  9 09:06:30 PDT 2006.
+	Running /appls/redhawk/5.3.1/RHEL3_x86/bin/avm avm.cfg
+	ERROR(AVM-318): Unreasonable high Cpd_read value- '1.1028e+07' pF in cell'hdsd1_1024x12'
+
+	SUMMARY:
+ 	 ERROR(AVM-318): total 1
+	 There are a total of 1 ERRORs. Please check <.error> for details.
+
+	***********************************************************
+	****   Finish running avm
+	***********************************************************
+
+You should always check AVM output for warning and errors. In the case above, 
+even though the tool issues an error the current and cdev files are still 
+generated. The read current generated will be too large by a factor of 1,000,000 
+and will most certainly cause problems in any ensuing RedHawk analysis. These 
+types of problems can be very difficult to debug so pay attention to avm warnings
+and errors!
+
+You can apply additional checks by scanning the generated current file with 
+aplchk. To do this simply run aplchk on the generated vmemory.current file-
+
+	$ aplchk vmemory.current
+
+	Starting aplchk on Wed Aug  9 12:22:08 PDT 2006.
+	Running /appls/redhawk/5.3.1/RHEL3_x86/bin/aplchk vmemory.current
+	APLCHK version 5.3 rel 0B Released Date: 07/13/2006   Linux 2.4.21-37.ELhugemem
+	(C) 2002-2003 Copyright Apache Design Solutions, Inc.
+
+	INFO(ACK-108): Total # of Cells: 1 (4 warnings). For detail, please refer to file aplchk.log
+	INFO(ACK-105): APLCHK done...
+	MEMORY USAGE: 4 MBytes
+	CPU TIME (APLCHK): 0 hrs 0 mins 0 secs
+
+Inspecting the resulting log yields-
+
+	$ more aplchk.log
+	APLCHK: Apache Power Library Cell-characterization Tool
+
+
+	ACK-103 4 warnings for cell 'hdsd1_1024x12'.
+	ACK-215 Tail current '18416' larger than set limit '6400.95' @ sample '1' for cell 'hdsd1_1024x12'.
+	
+	ACK-108 Total # of Cells: 1 (4 warnings).
+	##info## exit status 0
+
+Note that tail current warnings are common in memories so this warning can 
+typically be ignored (very large tail currents would be cause for concern, 
+however). Additional files that should be inspected are ack.err, ack.warn, and 
+ack.log. 
+
+
+AVM AND THE REDHAWK FLOW
+Using an avm config file in the RedHawk flow is quite simple. Just point to the avm 
+config file with the following gsr command-
+
+	APL_FILES {
+		/path/to/avm/config/file avm
+	}
+	
+This command will read the avm config file and automatically generate a 
+vmemory.current and a vmemory.cdev file. Note that you should *always* check your 
+avm config file as described in the above section before including them in a 
+RedHawk analysis (you've been warned!).
+
+SUMMARY
+In this README you have learned the theory surrounding Cpd and how to calculate 
+it from a data sheet. Additionally, you have also learned how to throughly check
+your AVM config files for errors before including them in a RedHawk analysis 
+(you did QC your config file didn't you?). 
+

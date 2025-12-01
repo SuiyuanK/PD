@@ -1,0 +1,115 @@
+PARSER_POWER(1)       User Contributed Perl Documentation      PARSER_POWER(1)
+
+
+
+NNAAMMEE
+       parser_power.pl
+
+SSYYNNOOPPSSIISS
+       parser_power.pl -in ARGUMENT [OPTIONS]
+
+       ARGUMENT: design power.rpt filename
+
+       OPTIONS: -h, -help, -man, -inst_exp, -inst, -cell_exp, -cell,
+       -cell_type <combinational/latch/flip flop/clocked/memory>, -domain,
+       -freq, -bbox "x_bottom_left y_bottom_left x_top_right y_top_right",
+       -lib, -o
+
+DDEESSCCRRIIPPTTIIOONN
+       ppaarrsseerr__ppoowweerr..ppll collects design power report results and produces a
+       report showing the following information.  This program allows the user
+       to customize the power report summary with the help of the search
+       options above.
+
+       instance name, cell name, cell type
+
+       frequency, toggle_rate
+
+       leakage power, switching power, internal + clock pin power, total power
+
+       x in um, y in um
+
+       VDD domain
+
+       source for leakage and internal power
+
+       domain type : 1 -> non-multi-rail power domain, 2 -> multi-rail VDD
+       domain, 0 -> multi-rail VSS domain
+
+       leakage current, total current
+
+       library.
+
+OOPPTTIIOONNSS
+       -h  Prints a short synopsis.
+
+       -help
+           Prints a short synopsis and description of program options
+
+       -man
+           Prints the entire man page
+
+       -in Pass file name of the power report file as input
+
+       -inst_exp <instance expression>
+           Prints summary for instances with stated regular expression
+
+       -inst <instance>
+           Prints summary for known instance
+
+       -cell_exp <cell expression>
+           Prints summary for cells with stated regular expression
+
+       -cell <master cell>
+           Prints summary for known cell
+
+       -cell_type <combinational/latch/flip flop/clocked/memory>
+           Prints summary for the above cell types
+
+       -domain <VDD domain>
+           Prints summary of all instances belonging to the required power
+           domain
+
+       -freq <frequency>
+           Prints summary for particular frequency
+
+       -bbox "x_bottom_left y_bottom_left x_top_right y_top_right"
+           Prints summary for all instances contained in the bounding box cov-
+           ered by x_bottom_left y_bottom_left x_top_right y_top_right
+
+       -lib <library>
+           Prints summary for library name
+
+       -o <filename>
+           Specify the output filename. Optional. Default is
+           "parser_power.rpt".
+
+EEXXAAMMPPLLEE
+       parser_power.pl design.power.rpt [options]
+
+       The more the search options are provided, more specific the output
+       report will get.
+
+       For eg, to obtain information on instances having names containing a
+       specific string pattern like BW1_, execute the following command.
+
+       _p_a_r_s_e_r___p_o_w_e_r_._p_l _-_i_n _<_d_e_s_i_g_n_._p_o_w_e_r_._r_p_t_> _-_i_n_s_t___e_x_p _B_W_1__
+
+RREEQQUUIIRREEMMEENNTTSS
+       The user has to specify the power report filename as an argument.
+       Script needs to be run in the RedHawk run directory.  When specifying x
+       and y coordinates of instances, be sure to give the upper and bottom
+       bounds.  If you know the precise location (xcoord and/or ycoord),
+       assign that same coordinate value to both upper and bottom bounds.
+
+AAUUTTHHOORR
+       Amey Kulkarni , Aplications Engineer, Apache Bangalore,India.
+
+       email : amey@apache-da.com
+
+CCOOPPYYRRIIGGHHTT
+       COPYRIGHT (c) 2006 Apache Design Solutions. All rights reserved.
+
+
+
+perl v5.8.0                       2007-09-02                   PARSER_POWER(1)

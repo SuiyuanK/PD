@@ -1,0 +1,300 @@
+#| PsiWinder Config File:
+#| -----------------------------------------------------------
+
+*Section INCLUDE SPICE LIBRARY FILES
+
+*Syntax
+DEFINE_LIBRARY_INCLUDE
+{
+  include [string]          # user specific case name, used in case analysis
+    .lib [string] [string]  # library file and corner
+        :
+    or
+    .inc [string]           # library file
+        :
+  endinclude
+
+  include [string]          # user specific case name, used in case analysis
+    .lib [string] [string]  # library file and corner
+        :
+    or
+    .inc [string]           # library file
+        :
+  endinclude
+        :
+        :
+  # addition window box to specify spice options, i.e.
+  .option psi=1
+  .option gshunt=1e-12
+}
+*End
+
+*Must
+*Add DEFINE_LIBRARY_INCLUDE
+*End
+
+*Section DEFINE CASE ANALYSIS
+
+*Syntax
+DEFINE_CASE_ANALYSIS
+{
+  define analysis
+    case 1 : setup_launch    trace=[min|max] coupled=[min|max] pgVolt=[string] include=[string] super=[int]
+    case 2 : setup_capture   trace=[min|max] coupled=[min|max] pgVolt=[string] include=[string] super=[int]
+    case 3 : hold_launch     trace=[min|max] coupled=[min|max] pgVolt=[string] include=[string] super=[int]
+    case 4 : hold_capture    trace=[min|max] coupled=[min|max] pgVolt=[string] include=[string] super=[int]
+    case 5 : clock_tree_skew trace=[min|max] coupled=[min|max] pgVolt=[string] include=[string]
+  enddefine
+}
+
+Keyword  Default Value  Format                     (Tool Tips)
+-------------------------------------------------------------------------------------------
+trace    max            max|min                    max: worst delay arc; min: best delay arc
+coupled  max            max|min                    max: opposite transition coupling; min: same transition coupling
+pgVolt   pwl            worst|best|pwl|eff|static  pi effect from local voltage sources, default is pwl
+include  NA             string                     case name defined in Library include section
+super    NA             int                        apply same case options for common path
+*End
+
+*Optional
+*Example
+DEFINE_CASE_ANALYSIS
+{
+  define analysis
+    case 1 : setup_launch       trace=max coupled=max pgVolt=pwl include=default
+    case 2 : setup_capture      trace=min coupled=min pgVolt=pwl include=default super=1
+    case 3 : hold_launch        trace=min coupled=min pgVolt=pwl include=default
+    case 4 : hold_capture       trace=max coupled=max pgVolt=pwl include=default super=3
+    case 5 : clock_tree_skew    trace=max coupled=max pgVolt=pwl include=default
+  enddefine
+}
+*Info Please Modify Section "DEFINE_CASE_ANALYSIS" to Fit Your Case
+*End
+
+*Section DEFINE DESIGN CONSTRAINT
+
+*Syntax
+DEFINE_DESIGN_CONSTRAINT
+{
+  set_resistance [float] [string]
+        :
+  set_input_transition [-rise|-fall] [float] [string]
+        :
+  set_load float [string]
+        :
+  set_clock_divider [string]
+	:
+  set_clock_leaf [string]
+	:
+  exclude_clock_leaf [string]
+        :
+  set_logic_zero [string]
+  set_logic_one  [string]
+        :
+}
+
+Keyword               Format                  (Tool Tips)
+-------------------------------------------------------------------------------------------
+set_resistance        [float] [string]               set net resistance on port or net (ohm)
+set_input_transition  [-rise/fall] [float] [string]  set path/tree io pin slope (ps)
+set_load              [float] [string]               set net capacitance on port or net (ff)
+set_clock_divider     [string]                       set clock divider on pin
+set_clock_leaf	      [string]			     set user defined clock leaf pin
+exclude_clock_leaf    [string]			     set user defined clock excluded leaf pin
+set_logic_zero        [string]                       set logic 0 at port
+set_logic_one         [string]                       set logic 1 at port
+*End
+
+*Example
+*Info Please Modify Section "DEFINE_DESIGN_CONSTRAINT" to Fit Your Constraint
+#DEFINE_DESIGN_CONSTRAINT
+#{
+#  set_resistance 100 pintr
+#  set_input_transition -rise 210 /l3_clk
+#  set_input_transition -fall 150 "/l3_clk"
+#  set_load 15000 "cpu_cmd[0]"
+#  set_load 15000 "vccok"
+#  set_logic_zero mux1:s1
+#  set_logic_one  mux1:s2
+#  set_clock_divider div_reg:q
+#  set_clock_leaf clk_mux1:i0
+#  exclude_clock_leaf clk_reg:d
+#}
+*End
+
+*Section COMMAND ARGS
+*Optional
+*Syntax
+CLOCK_ROOTS              [string]  # replace -userClkRoot command args
+FULL_CHIP_CLOCK_ANALYSIS [int]     # for full chip clock network analysis   [0|1]
+SPICE_NETLIST_FILE       [string]  # replace -spiceCell command args
+PT_RPT_FILE              [string]  # replace -userPtRpt command args
+PATH_IDX_LIST            [int]     # replace -pathNumber command args
+PATH_START_IDX           [int]     # replace -pathNumberStart command args
+PATH_END_IDX             [int]     # replace -pathNumberEnd command args
+ACTION                   [string]  # replace -action command args          [clockjitter|clocktree|criticalpath]
+CLK_INST_FILE            [string]  # replace -userClkInst command args 
+REDHAWK_DIR              [string]  # replace -redhawkDir command args
+INST_CELL_MAP            [string]  # replace -instCellMap command args
+SPF_FILE                 [string]  # replace -topSpf command args
+STA_FILE                 [string]  # replace -userTW command args
+IMPORT_DB                [string]  # replace -importDb command args
+SLB_FILE                 [string]  # replace -userSlb command args
+PI                       [int]     # replace -pi command args              [0|1]
+SI                       [int]     # replace -si command args              [0|1]
+*End
+*Example
+#CLOCK_ROOTS             { CLKA CLKB CLKC }
+#FULL_CHIP_CLOCK_ANALYSIS 1
+#SPICE_NETLIST_FILE
+#{
+#  stdcell.sp
+#}
+#PT_RPT_FILE             user_data/STA/pt.rpt
+#PATH_IDX_LIST           { 1 3 5 }
+#PATH_START_IDX          1
+#PATH_END_IDX            10
+#ACTION                  clockjitter
+#CLK_INST_FILE           psi_input.dir/chip_clk_inst.out
+#REDHAWK_DIR             ./
+#SPF_FILE                user_data/SPEF/flat.spef
+#STA_FILE                user_data/STA/sta.timing
+#IMPORT_DB               adsPsi/tree_autoSave.db
+#SLB_FILE                psi_input.dir/psi.slb
+#PI                      1
+#SI                      1
+*Info Please Modify Section "Command Arguments" to Fit Your Case
+*End
+
+
+*Section PARSING CONTROL
+*Optional
+*Syntax
+STA_HIER_DIVIDER       [string]  # default: / ; hier divider for critical path report, i.e. /
+STA_BUS_DELIMITER      [string]  # default: [] ; bus delimiter for critical path report, i.e. []
+STA_PIN_DELIMITER      [string]  # default: : ; pin delimiter for critical path report, i.e. :
+SPF_HIER_DIVIDER       [string]  # default: / ; hier divider for spef/dspf file, i.e. /
+SPF_BUS_DELIMITER      [string]  # default: [] ; bus delimiter for spef/dspf file, i.e. []
+SPF_PIN_DELIMITER      [string]  # default: : ; pin delimiter for spef/dspf file, i.e. :
+IGNORE_ESCAPE_CHAR     [0|1]     # default: 1 ; backslash character handing
+DSPF_PORT_MAP_BY_NAME  [0|1]     # default: 1 ; hier dspf subckt port mapping by name, otherwise mapping by order
+*End
+*Example
+#STA_HIER_DIVIDER "/"
+#SPF_HIER_DIVIDER "/"
+*End
+
+*Section SIGNAL WAVEFORM
+*Must
+*VDD_NETS
+*GND_NETS
+*TEMPERATURE
+*Syntax
+VDD_NETS         [string] [float]  # design power net names and voltages
+GND_NETS         [string] [float]  # design ground net names and voltages
+TEMPERATURE      [float]           # operating temperature for simulation
+*End
+*Optional
+*Syntax
+RISE_SLOPE       [float]  # default: 0.05 ; default rise slope (ns)
+FALL_SLOPE       [float]  # default: 0.05 ; default fall slope (ns)
+RISE_SLOPE_AGRS  [float]  # default: 0.05 ; default rise slope for aggressor (ns)
+FALL_SLOPE_AGRS  [float]  # default: 0.05 ; default fall slope for aggressor (ns)
+PWL_WAVEFORM     0.1 RL: 0.25 FL: 0.45 M: 0.5 RH: 0.55 FH: 0.75 0.9  # measure points for spice waveform; range (0 ~ 1) in increasing order
+*End
+*Example
+#RISE_SLOPE 0.075
+#FALL_SLOPE 0.075
+#PWL_WAVEFORM L: 0.1 0.25 0.45 M: 0.5 0.55 0.75 H: 0.9
+*End
+
+*Section SPICE ELEMENTS
+*Optional
+*Syntax
+COUPLE_CAP_MULTIPLIER      [float]{1.0}  # range [0 ~ 1]
+CAP_MULTIPLIER             [float]{1.0}  # range [0 ~ 1]
+RES_MULTIPLIER             [float]{1.0}  # range [0 ~ 1]
+SPF_COUPLE_CAP_MULTIPLIER  [float]{1.0}  # range [0 ~ 1]
+SPICE_STRING_CONTINUATION  [0|1]{0}      # allow spice string continuation in next line leading by + sign
+*End
+
+*Section SIMULATION CONTROL
+*Optional
+*Syntax
+GROUP_CLUSTERING_DEPTH  [int]     # default: 3 for CJ CT,5 for CP ; control variable for spice deck partitioning and clustering
+SPICE_IDLETIME          [int]     # default: 600 ; idle time limit for non-lsf spice job hanging situation (second)
+SETTLE_TIME             [float]   # default: 10 ; signal settle time in between transition inside spice simulation (ns)
+SPICE_TIME_STEP         [float]   # default: 0.01 ; spice simulation timestep (ns)
+CIRCUIT_SIMULATOR       [string]  # default: nspice ; spice simulator
+SPICE_FILE_BACKUP       [0|1]     # default: 0 ; dump out backup spice decks
+SPICE_DECK_PROBE        [0|1]     # default: 0 ; probe instance waveforms
+*End
+*Example
+#SETTLE_TIME 5
+#SPICE_TIME_STEP 0.01
+#SPICE_FILE_BACKUP 1
+*End
+
+*Sectio COUPLING SI EFFECT
+*Optional
+*Syntax
+COUPLING_CAP_RATIO_THRESHOLD  [float]  # default: 0.05 ; threshold to screen out too small coupling cap, range [0 ~ 1]
+COUPLING_WINDOW_MARGIN        [float]  # default: 1.0 ; factor to control timing window margin for coupling analysis, value must be > 0
+*End
+
+*Section VOLTAGE DROP-DVD PI EFFECT
+*Optional
+*Syntax
+DYNAMIC_SIMULATION_CYCLES  [int]:[int]  # specify multi-cycle simulation for jitter analysis
+*End
+*Example
+#DYNAMIC_SIMULATION_CYCLES 1:3
+*End
+
+*Section MULTITASK CONTROL
+*Optional
+*Syntax
+MULTITASK_GRID_TYPE      [LSF|SUNGRID]  # multi-task grid type
+MULTITASK_JOB_COUNT      [int]          # maximum number of parallel jobs
+MULTITASK_BATCH_OPTIONS  [string]       # multi-task job submission command options
+MULTITASK_QUEUE          [string]       # multi-task queue name
+*End
+*Example
+#MULTITASK_GRID_TYPE LSF
+#MULTITASK_JOB_COUNT 10
+#MULTITASK_BATCH_OPTIONS -R 'select[type==any]'
+#MULTITASK_QUEUE normal
+*End
+
+*Section CLOCK TREE CONTROL
+*Optional
+*Syntax
+JITTER_FAST_MODE      [0|1]   # turn on/off jitter fast mode simulation
+JITTER_CUTOFF_FREQ    [float] # default: 40 ; the slowest frequency domain for jitter analysis (MHz)
+CYCLE_SELECTION       [WORST_PERIOD_JITTER_CYCLE|WORST_MIN_PERIOD_JITTER_CYCLE|WORST_MAX_PERIOD_JITTER_CYCLE|WORST_C2C_JITTER_CYCLE] # select jitter analysis type
+CLOCK_TREE_MAX_LEVEL  [int]  # maximum levels of clock tree for analysis
+CLOCK_THRU_PASSGATE   [0|1]  # turn on/off passgate siumlation
+*End
+*Example
+#JITTER_FAST_MODE 1
+#JITTER_CUTOFF_FREQ 50
+#CYCLE_SELECTION WORST_MIN_PERIOD_JITTER_CYCLE
+*End
+
+*Section MISC
+*Optional
+*Syntax
+COMMAND MIS_MATCH_ERROR_SKIP [0|1] # turn on/off error aborting when encoutering input data problem
+COMMAND LOADING_CELL_PIN_CAP_USE   # turn on pin cap load model for loading cells
+WARNING_LOG_COUNTS    [int]        # default: 10; maximum number of same type of AMS messages printing on stdout
+WARNING_COUNTS        [int]        # default: 10; maximum number of same type of AMS warning messages printing on stdout
+ERROR_COUNTS          [int]        # default: 10; maximum number of same type of AMS error messages printing on stdout
+*End
+*Example
+#COMMAND MIS_MATCH_ERROR_SKIP 1
+#COMMAND LOADING_CELL_PIN_CAP_USE
+*End
+
+*Section ADDITIONAL SETTING
+*Optional
+*End

@@ -1,0 +1,78 @@
+#------ tips for customizing key shortcuts------- 
+# *) Key binding configuration file may be imported ONCE. We
+#    recommend users to import it before import design data. 
+#
+# *) There are two columns in the keybinding configuration file.
+#    The first column is the definitions of shortcut, and the 
+#    second column is the corresponding menu items or buttons.
+#
+# *) only the menu items or buttons listed in this template file
+#    will be supported. (including the comment out ones) 
+#  
+# *) "ctrl<key>B" equals to "ctrl+shift<key>b". If the keybinding
+#    is for menu item, then the definition of the keybinding will
+#    be shown to the right of menu item using capital letters. 
+#
+# *) Case insensitive.
+#
+# *) may not define shift<key>b, instead using <key>B
+
+#-------for menu item---------
+ctrl<key>s          File/ImportDesignData
+ctrl<key>d          File/ImportDB                 
+ctrl<key>e          File/ImportECO                 
+ctrl<key>D          File/ExportDB                 
+ctrl<key>E          File/ExportECO                 
+ctrl<key>h          File/ImportConfiguration       
+ctrl<key>H          File/ExportConfiguration
+ctrl<key>p          File/Playback
+#ctrl<key>1          Edit/AddPad
+#ctrl<key>2          Edit/DeletePad
+#ctrl<key>3          Edit/AddPowerStrap
+#ctrl<key>4          Edit/EditPowerStrap
+#ctrl<key>5          Edit/AddVia
+#ctrl<key>6          Edit/DeleteVia
+#ctrl<key>7          Edit/AddDecapCell
+#ctrl<key>8          Edit/EditChipPartition
+#ctrl<key>9          View/Nets
+#ctrl<key>x          Results/LogMessageViewer
+#ctrl<key>y          Results/ListWorstIRInstanceForStatic
+#ctrl<key>M          Results/ListWorstEM
+#ctrl<key>i          Results/ListWorstIRForWireViaForStatic
+#ctrl<key>u          Results/ListHighestPowerInstanceForStatic
+#ctrl<key>v          Results/ListWorstDVDInstanceForDynamic
+#ctrl<key>P          View/Connectivity/PGWeakness/ListPGWeaknessInstance
+
+#-------for top level button-------
+ctrl<key>Left                   Button/Left                            
+ctrl<key>Right                  Button/Right                           
+ctrl<key>Up                     Button/Up                              
+ctrl<key>Down                   Button/Down                            
+ctrl<key>equal                  Button/ZoomIn                     
+ctrl<key>minus                  Button/ZoomOut                    
+ctrl<key>f                      Button/ZoomToTop                 
+ctrl<key>k                      Button/ZoomBack                   
+ctrl<key>r                      Button/Refresh                     
+
+ctrl<key>l                      Button/ViewLayers                 
+ctrl<key>a                      Button/SetColorRange             
+ctrl<key>w                      Button/ShowPowerPad 
+
+<key>F1                         Button/SA                     
+<key>F2                         Button/PD                     
+<key>F3                         Button/DD                     
+<key>F4                         Button/IR                     
+<key>F5                         Button/IPM                    
+<key>F6                         Button/DEV                 
+<key>F7                         Button/EM                     
+<key>F8                         Button/CPM                    
+<key>F9                         Button/LC                
+<key>F10                        Button/CUR                
+ctrl<key>F1                     Button/LPM          
+ctrl<key>F2                     Button/IDD           
+ctrl<key>F3                     Button/IFM                   
+ctrl<key>F4                     Button/PG                  
+
+ctrl<key>o                      Button/Ob             
+ctrl<key>m                      Button/Max                 
+ctrl<key>g                      Button/Gif  

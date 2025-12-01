@@ -1,0 +1,384 @@
+atclCountSwitchingInstances.tcl
+SYNOPSIS
+- Apache-AE TCL utility for getting switching instance count corresponding to each cell
+- The output will be dumped to inst_switching.rpt
+- USAGE : atclCountSwitchingInstances
+-------------------------------------------------------------------------------------------------------
+
+atclListCellType.tcl
+SYNOPSIS
+- Apache-AE TCL utility to print a list of cells recognized by redhawk as a type stated in power_summary.rpt
+- USAGE : atclGetCellByType <clocked_inst|memory|combinational|latch|flipflop|mux|clockgate|IO> [output_file]
+- Options: atclGetTypeByCell <cell_name> [output_file]
+           Prints the type of a cell recognized by redhawk given the cell name.
+
+           atclGetTypeByCell <instance_name> [output_file]
+           Prints the cell name, the type of a cell recognized by redhawk given the instance name.
+- Example:
+          atclGetCellByType clocked_inst clocked_inst_cell_list.out
+          atclGetCellByType memory
+
+SYNOPSIS
+- Apache-AE TCL utility to print the type of a cell recognized by redhawk  given the cell name.
+- USAGE : atclGetTypeByCell <cell_name> \[output_file\]
+- Example: atclGetTypeByCell rf128x32p2
+
+SYNOPSIS
+- Apache-AE TCL utility to print the cell name, the type of a cell recognized by redhawk given the instance name.
+- USAGE : atclGetTypeByCell <instance_name> \[output_file\]
+- Example: atclGetTypeByInst ram_inst1
+
+--------------------------------------------------------------------------------------------------------
+
+atclPlocDelete.tcl
+SYNOPSIS
+- Apache-AE TCL utility to delete ploc from user specified region
+- USAGE : atclPlocDelete ll_x ll_y ur_x ur_y
+  	  Creates a file: user_pad_delete.tcl that can be sourced in RedHawk.
+---------------------------------------------------------------------------------------------------------
+
+atclPowerAssign.tcl
+SYNOPSIS
+- Apache-AE TCL utility for scaling power or current for selected voltage domainsn
+- USAGE : atclPowerAssign -net <net_name> -pwr <Power in Watts> -i <Current in Amps> -bbox <x1 y1 x2 y2>/current_zoom -file <area_power file> [-reset] [-undo] [-done] [-help] [-man]
+- Options: -net <voltage_domain> The voltage domain for which the power or current is to be scaled
+	  -pwr <Power in Watts> If the voltage domain specied is a VDD domain, then specify the power
+	  -i <Current in Amps> If the voltage domain specied is a VSS domain, then specify the current
+	  -bbox <x1 y1 x2 y2> The region for which the power or current is to be scaled
+          -done It will import adsPower, perform extraction and perform static analysis
+          -help command usage
+	  -man man page
+---------------------------------------------------------------------------------------------------------
+
+atclPrintMissingData.tcl
+SYNOPSIS
+- Apache-AE TCL utility to print missing data
+- USAGE : atclPrintMissingData
+---------------------------------------------------------------------------------------------------------
+
+atclReport_noApl_instances.tcl
+SYNOPSIS
+- Apache-AE TCL utility to list out the number of instances for cells having no APL currentn
+- USAGE : atcl_noAPL [option_arguments]
+- Options : -current_file <instance_list file> The output file containing the list of cells and their instantiation which do not have APL current profile
+ 	    -cdev_file <instance_list file> The output file containing the list of cells and their instantiation which do not have APL cdev
+	    -pwcap_file <instance_list file> The output file containing the list of cells and their instantiation which do not have APL pwcap
+   	    -help command usage
+            -man man page
+
+--------------------------------------------------------------------------------------------------------
+
+atcl_showPratioMap.tcl
+SYNOPSIS
+- Apache-AE TCL utility for highlighting the pratio distribution on the GUI
+- USAGE : atcl_showPratioMap [option_arguments]
+- Options: -inpDir <input directory i.e the directory which has the pratio and lef files> 
+           -cellname < the name of the cell >
+           -netname <netname e.g VDD,VSS,VDD1 ..by  default it will highlight Pratios of all the  nets .
+           [-h]            command usage
+           [-m]            man page
+--------------------------------------------------------------------------------------------------------
+
+atcl_showSwitchCurrentMap.tcl
+SYNOPSIS
+- Apache-AE TCL utility for highlighting the switch current distribution on the GUI
+- USAGE: atcl_showSwitchCurrentMap [option_arguments]
+- Options: -report_file <output_file>  Output report file(optional)(By default it is in showSwitchcTurnOn.rpt)
+	 -gif_file <output_gif_file> optional(By default it wont be created)
+	 [-h] 		  command usage
+	 [-m]		  man page
+---------------------------------------------------------------------------------------------------------
+
+atcl_showSwitchTurnOn.tcl
+SYNOPSIS
+- Apache-AE TCL utility for highlighting the switches on the GUI in the order in which they are turned on.
+- USAGE : atcl_showSwitchTurnOn [option_arguments]
+- Options: -switch_master_list <input_file>   Input file having switch master cell names (optional)
+           -report_file <output_file>  Output report file(optional)(By default it is in showSwitchcTurnOn.rpt)
+	   -simulation_time <simulation_time_in_seconds> optional(By default it will take simulation time to be 60 seconds)
+	   -movie_file <output_gif_file> optional(By default it wont be created)
+	   -frame_rate <the  delay between frames in the movie > (By default it is 10)
+	   -start_time <the start time for the  interval for which the switching is to be shown>
+	   -end_time <the end time for the  interval for which the switching is to be shown>
+	   -pin_name <1/2> {1 for smaller switch ( e.g PON) : 2 for larger switch (e.g PGOODIN)(By default its 1)}
+	   [-h] 		  command usage
+	   [-m]		  man page
+---------------------------------------------------------------------------------------------------------
+
+atcl_showSwitchVoltageMap.tcl
+SYNOPSIS
+- Apache-AE TCL utility for highlighting the switch voltage distribution on the GUI
+- USAGE : atcl_showSwitchVoltageMap [option_arguments]
+- Options: -report_file <output_file>  Output report file(optional)(By default it is in showSwitchVoltageMap.rpt)
+	   -gif_file <output_gif_file> optional(By default it wont be created)
+	   [-h] 		  command usage
+	   [-m]		  man page
+---------------------------------------------------------------------------------------------------------
+
+atclviewgds.tcl
+SYNOPSIS
+- Apache-AE TCL utility for viewing gds2def output in RH
+- USAGE atclviewgds [option_arguments]
+- Options: -dir <gds2def directory>   this should contain lef def and gds files
+           -cell <gds2def cell name>  gds2def cell name
+	   -layermap <layermap file> this option supports only new layermap format
+	   -norun <0/1> To do setup design or not
+	   [-h] 		  command usage
+	   [-m]		  man page
+----------------------------------------------------------------------------------------------------------
+
+atclAddVias.tcl
+SYNOPSIS
+- Apache-AE TCL utility to add multiple vias on overlapping wires
+- USAGE: atclAddVias -toplayer <layer name> -bottomlayer <layer name> -window <llx lly urx ury> -spacing <spacing between centre of vias> -direction <h|v> ?-h?
+- Options: -toplayer <layer name> (Required top layer name)
+           -bottomlayer <layer name> (Required bottom layer name)
+           -window <llx lly urx ury> (Required window of overlap)
+           -spacing <spacing between centre of vias (Required spacing between consecutive vias)
+           -direction <h|v> (Required wire direction)
+           [-h] command usge
+----------------------------------------------------------------------------------------------------------
+
+atclFindWorstIR.tcl
+SYNOPSIS
+- Apache TCL utility to fing worst IR drop/bounce on VDD/VSS nets
+USAGE
+- atclFindWorstIR -met <METAL1, METAL2, ...> -net <VDD1|VSS1, VDD2|VSS2, ...> -\[POWER|GROUND\] -o <output file name> -h -m
+OPTIONS
+        -met <METAL1, METAL2, ...> : Comma separated list of metal layer names (Required)
+        -net <VDD1|VSS1, VDD2|VSS2, ...> : Comma separated list of VDD|VSS net names (Required. Dont group VDD and VSS nets in same run)
+        -\[POWER|GROUND\] : Specifies if nets specified in -net are POWER or GROUND (Required)
+        -o <output file name : Optional
+        -h : Help (Optional)
+        -m : Manpage (Optional)
+----------------------------------------------------------------------------------------------------------
+
+atclGetMinVolt.tcl
+SYNOPSIS
+- Apache-DA AE TCL script to report minimum voltage on a Metal layer and the time of occurrence
+USAGE
+- atclGetMinVolt -met <Metal layer name> -vddvalue <vdd voltage> ?-bbox <llx lly urx ury> ?-o <output file name> ?-h ?-m
+OPTIONS
+        -met <Metal layer name> (Required)
+        -vddvalue <vdd voltage> (Required)
+        -o <output file name> (Optional, Default print in RedHawk Log Display Area)
+        -bbox <llx lly urx ury> (Optional, find minimum voltage in bounding box region only, give lower left and upper right cordinates)
+        -h : Help (Optional)
+        -m : Manpage (Optional)
+----------------------------------------------------------------------------------------------------------
+
+atclDisplayRes.tcl
+SYNOPSIS
+        Apache-AE TCL utility to display ESD check results
+                                                                                                                                                            
+USAGE
+#####################
+Options for BUMP2BUMP
+#####################
+
+atclDisplayRes -rule <BUMP2BUMP> ?-file <rule file name>? ?-internal_net? ?-equcell? ?-restype <loop | parallel>? ?-bump_pair <bump_pair_ID1 bump_pair_ID2 bump_pair_ID3 .........>? ?-loop_id <loop_ID1 loop_ID2 .........>? ?-fail? ?-h? ?-m?
+                                                                                                                                                            
+Options:
+        -rule <BUMP2BUMP> : Name of the ESD rule (BUMP2BUMP. Required) 
+	-file <rule file name>: ESD rule file name (Optional)
+	-internal_net : Specifies if the option -internal_net was used in perform esdcheck (Required if it was used in perform esdcheck)
+	-equcell : Specifies if the option -equcell was used in perform esdcheck (Required if it was used in perform esdcheck)
+        -restype <loop|parallel> : Displays loop or parallel resistance (Optional, Default: parallel)
+        -bump_pair <bump_pair_ID1 bump_pair_ID2 bump_pair_ID3 .........> :  ID of bump pair(s) to display (Required if -restype is loop. Takes only one bump ID if -loop_id is specified)
+        -loop_id <loop_ID_1 loop_ID_2 ........> : ID of bump-clamp-bump loop for a bump_pair specified (Specify only one bump pair in -bump_pair, -loop_id should be the last argument)
+        -fail : Displays ALL those bump-bump parallel resistances which are above the threshold (Optional, neglects -bump_pair and -loop_id)
+        -h : Help
+        -m : Man page
+
+COLOR CODING
+	GREEN :  Resistance is below threshold
+	RED   :  Resistance is above threshold
+	YELLOW:  Clamp-to-equivalent clamp connection
+	BLUE  :  Clamp-to-clamp bus connection
+	Clamps shown by grey crosshair markers                                        
+
+
+EXAMPLES
+	atclDisplayRes -rule BUMP2BUMP 
+	atclDisplayRes -rule BUMP2BUMP -internal_net 
+        atclDisplayRes -rule BUMP2BUMP -equcell
+        atclDisplayRes -rule BUMP2BUMP -internal_net -bump_pair 1
+        atclDisplayRes -rule BUMP2BUMP -internal_net -restype loop -bump_pair 1 -loop_id 2
+	atclDisplayRes -rule BUMP2BUMP -equcell -restype loop -bump_pair 1
+	atclDisplayRes -rule BUMP2BUMP -internal_net -equcell -fail
+	atclDisplayRes -rule BUMP2BUMP -file rule.txt -internal_net -equcell -restype loop -bump_pair 1 -loop_id 2
+	atclDisplayRes -rule BUMP2BUMP -file rule.txt -fail 
+
+
+######################
+Options for BUMP2CLAMP
+######################
+
+atclDisplayRes -rule <BUMP2CLAMP> ?-file <rule file name>?  -pad_id <number> ?-fail? ?-all_fail?	
+
+Options:
+	-rule <BUMP2CLAMP> : Name of the ESD rule (BUMP2CLAMP. Required) 
+	-file <rule file name>: ESD rule file name (Optional)
+	-pad_id <number> : ID of the pad for which the bump-to-clamp connections will be shown (Required, except if -all_fail is used, in which case it is neglected)
+	?-fail? : Displays all the failed resistance checks for the one pad_id specified (Optional, -pad_id is also required along with it)
+	?-all_fail? : Displayes all the failed resistance checks for all the pads (Optional. Neglects -pad_id if provided)
+
+COLOR CODING
+        GREEN :  Resistance is below threshold
+        RED   :  Resistance is above threshold
+	Clamps shown by grey crosshair markers                                        
+
+EXAMPLES
+	atclDisplayRes -rule BUMP2CLAMP -pad_id 1
+	atclDisplayRes -rule BUMP2CLAMP -pad_id 1 -fail
+	atclDisplayRes -rule BUMP2CLAMP -all_fail
+	atclDisplayRes -rule BUMP2CLAMP  -file rule.txt -pad_id 1
+
+
+######################
+Options for CLAMP2CLAMP
+######################
+                                                                                                                                                            
+atclDisplayRes -rule <CLAMP2CLAMP> ?-file <rule file name>? -clamp_id <number> ?-fail? ?-all_fail?
+                                                                                                                                                            
+Options:
+        -rule <CLAMP2CLAMP> : Name of the ESD rule (CLAMP2CLAMP. Required) 
+	-file <rule file name>: ESD rule file name (Optional)
+        -clamp_id <number> : ID of the clamp for which the clamp-to-clamp connections will be shown (Required, except if -all_fail is used, in which case it is neglected)
+        ?-fail? : Displays all the failed resistance checks for the one clamp_id specified (Optional, -clamp_id is also required along with it)
+        ?-all_fail? : Displayes all the failed resistance checks for all the clamps (Optional. Neglects -clamp_id if provided)
+                                                                                                                                                            
+COLOR CODING
+        GREEN :  Resistance is below threshold
+        RED   :  Resistance is above threshold
+	Clamps shown by grey crosshair markers                                        
+                                                                                                                                                            
+EXAMPLES
+        atclDisplayRes -rule CLAMP2CLAMP -clamp_id 1
+        atclDisplayRes -rule CLAMP2CLAMP -clamp_id 1 -fail
+        atclDisplayRes -rule CLAMP2CLAMP -all_fail
+        atclDisplayRes -rule CLAMP2CLAMP -file rule.txt -clamp_id 1
+
+----------------------------------------------------------------------------------------------------------
+
+atclDumpWireEM.tcl
+SYNOPSIS
+- Apache-AE TCL utility for dumping out wire EM's information into output file
+USAGE
+- atclDumpWireEM \[option_arguments\]
+                                                                                                                                                            
+        Options:
+        \[-bot <metal_layer_number>\]   Bottom metal layer number: 0,1,2... (optional) (default=1)
+        \[-top <metal_layer_number>\]   Top metal layer number: 0,1,2,... (optional) (default=top-layer from techfile)
+        \[-o <dest_file>\]              Destination/Output file (optional) (default=atclDumpWireEM.output)
+        \[-celllist <cell list file>\]  List of cells to exclude (optional)
+        \[-h\]                          command usage
+        \[-m\]                          man page
+----------------------------------------------------------------------------------------------------------
+
+atclMMXWorstVoltage.tcl
+SYNOPSIS
+- APACHE-AE TCL utility to report worst drop/bounce on each domain at each dynamic time step
+- USAGE : atclMMXWorstVoltage ?-o <output file name>? ?-h? ?-m?
+- Options
+        ?-o <output file name>? : Optional output file name. Default output is MMXWorstVoltage.out
+        \[-h\] : Help
+        \[-m\] : Manpage
+----------------------------------------------------------------------------------------------------------
+
+atclSwitchCurrMap.tcl
+SYNOPSIS
+- Apache-AE TCL utility to display switch current map
+- USAGE : atclSwitchCurrMap [-static | -dynamic | -rampup] ?-h? ?-m?
+- Options
+        [-static | -dynamic | -rampup] : Type of analysis done. (Required)
+        ?-h? : Help (Optional)
+        ?-m? : Manpage (Optional)
+----------------------------------------------------------------------------------------------------------
+
+atclGetPower.tcl
+SYNOPSIS
+- Apache-AE TCL utility to get power information for design hierarchy
+- USAGE : atclGetPower [-cellList <filename> | -instList <filename] ?-o <output file name>? ?-h? ?-m?
+- Options:
+ 	[-cellList <filename> | -instList <filename]: cellList of instList file (Required)
+ 	?-o <output file name>? : Output file name (Optional. Default output on RedHawk GUI)
+ 	?-h? : Help
+ 	?-m? : Manpage
+----------------------------------------------------------------------------------------------------------
+
+atclFixPartWSeg.tcl
+SYNOPSIS
+- Apache-AE TCL utility to fix a missing wire-segment when a wire doesn't overlap a via completely
+- USAGE : atclFixPartWSeg -i <input file name> ?-o <output file name>?
+- Options:
+        -i <input file name> : Output of Get-EM script (Required)
+       ?-o <output file name>? : The output of Get-EM script is modified to report the missing partial segments and written into the <output file name>. (Optional. Default : atclFixPartWSeg.out)
+        ?-h? : Help
+        ?-m? : Manpage
+-----------------------------------------------------------------------------------------------------------
+
+atclTemplate.tcl
+SYNOPSIS
+- Sample template file with the procedure to be followed while creating the atcl scripts
+------------------------------------------------------------------------------------------------------------
+
+atclPlotPowerMap.tcl
+SYNOPSIS
+- Apache-AE TCL utility for querying power or current for selected voltage domains within a region
+- USAGE : atclPowerAssign [option_arguments]
+- Options:
+        -net <voltage_domain> The voltage domain for which the power or current is to be scaled
+        -bbox <x1 y1 x2 y2> The region for which the power or current is to be queried
+        -help command usage
+        -man man page
+------------------------------------------------------------------------------------------------------------
+
+atclPowerQuery.tcl
+SYNOPSIS
+- Apache-AE TCL utility for querying power or current for selected voltage domains within a region
+- USAGE : atclPowerAssign [option_arguments]
+- Options:
+        -net <voltage_domain> The voltage domain for which the power or current is to be scaled
+        -bbox <x1 y1 x2 y2> The region for which the power or current is to be queried
+        -help command usage
+        -man man page
+------------------------------------------------------------------------------------------------------------
+
+atclget_instance.tcl
+SYNOPSIS
+- Apache-AE TCL utility for printing instances in a recatangular region
+- USAGE : atclget_instance [option arguments]
+- Options:
+          -o <output_file>
+          -bbox "<x1 y1 x2 y2>"
+          -help 1
+# Default outputfile is aget_instance.txt.<x1,y1> is expected to be lower left corner & <x2,y2> is th upper right corner.
+------------------------------------------------------------------------------------------------------------
+
+atclResDebug.tcl
+SYNOPSIS
+- Apache-AE TCL utility for creating a run directory in which the required gsr file,tcl command file and other required files are generated which can be used to run Redhawk, in the GUI it shows the IR map between the user specified clamp cell and bump pairs.
+- USAGE : atclResDebug \[option_arguments\]
+- Options:
+        -vddb <powerbump_instance_name> Name of the powerbump instance to which the clamp is connected
+        -vssb <groundbump_instance_name>Name of the groundbump instance to which is clamp is connected
+        -c <clamp_instance_name>        Name of the clamp instance name
+        -d <dir_name_with the path>     Name of the directory to be created in which the redhawk has to be run.Also include the path of the directory
+        [-h]            command usage
+        [-m]            man page
+-Sample Usage: atclResDebug -vddb powerbump2 -vssb groundbump2 -c coreESDInst1 -d ../opdir
+--------------------------------------------------------------------------------------------------------------
+
+atcl_RHE.tcl
+SYNOPSIS
+- Command used for running Redhawk Explorer.
+- USAGE : explore design \[option_arguments\]
+- Options:
+        -constraint_file <input_file>   Input file having user specified threshold [ Default is adsRHE/rhe_threshold.rpt] (optional)
+        -region <XLL,YLL,XUR,YUR>  Region for which the analysis is to be done. (optional)
+        -zoom <0/1> Zooming to an area and using -zoom 1 restricts the analysis to the zoomed region only (optional)        -zoom_hse <0/1> Zooming to an area and using -hse_zoom 1 ignores the HOT buckets outside this zoomed region (optional)
+        -outdir <name (with path) of the output directory>  adsRHE is redirected to this particular folder
+        [-h]  Provide Help on Usage (optional)
+--------------------------------------------------------------------------------------------------------------
+

@@ -1,0 +1,114 @@
+#!/usr/local/bin/tclsh
+#
+#
+##############################################################################
+## Name       : precursor.tcl
+## Description: To weigh instances based on their switching probability, resistance
+## $Revision  : 03242018v0p1
+## Author     : Sojan Philips, email : sojan.philips@ansys.com 
+##############################################################################
+# TclPro::Compiler::Include
+# TclPro::Compiler::Include
+
+if {[catch {package require tbcload 1.6} err] == 1} {
+    return -code error "[info script]: The TclPro ByteCode Loader is not available or does not support the correct version -- $err"
+}
+tbcload::bceval {
+TclPro ByteCode 2 0 1.7 8.4
+5 0 46 13 0 0 32 0 6 5 5 -1 -1
+46
+w0E<!-fSs!#<o7-@E`<!.Qr<!75bpv.c8=!7)Ks!Qsm<v0ZW<!?M1qv#!!
+5
+4P:qv5!
+5
+kC.rv'!
+13
+x
+5
+h-ur@4v
+x
+27
+ld^LCo1#D+5uC`F-S#D+rpwhC!onC+aGc&
+x
+3
+k*3-
+i
+1
+x
+6
+82_`FWnw
+x
+5
+0sb8A1v
+x
+5
+0lTfD>v
+x
+4
+wm<eD
+x
+6
+)^xlBx+%
+x
+89
+8*-NB^ROo@jZSfDq1pEFHha8Ab9MbDic/bE>6ME+>OVE+n0ljBhgpgC3(3cE%*)TA=y-fDIx
+S`F9o5cE=APQBwosdDwyBq@<2fTA59XeD_)/M/A!
+x
+0
+
+x
+15
+rpwhC;Z2b311fRAe(Q,
+x
+2754
+OEwhCs9)E+a2WTAH^oRAn+`H0-gH_21aLb1ZV>>+-.^G1/(:f0l%`H08Wi&3tm9w3pV>>+(`
+cK/&MFe0n|C,1mo/57g/>hA2bW3.jgrZ+>G@D4b34t5LdPv=*JN-0+K%x+kN?R.hTF+3'nA`
+Dh5gK8ODqR-4Sya4wRa_DN|e'36!!X4qLAC4*AWv6j539-j>Ew3?;f`+r_jE2x=U30#Y6-1P
+h&a4WL^X-WtCEFhBal71re,;2aA18l8|&GH81dEJT6*=2.&<?+,&7GwjFB4L4Rp,w#R8-|dI
+3@IpJAG-e&H3plr|<a:rU6wxnQ6ODqR-4Sya4=o=50s0mvG%EdH3^(/x+-^.?=K+KDE+I);w
+R>@x+kN?R.9uKp/<Y0!7VgCh/pgrZ+qtA+DcI(@<#-0YG'*'X+Y4fM/BkQG<_C++3KsF|G!^
+;_;Rcp|+^OV,;v-%A<^qpN.MIVAG*xQ&F3uKp/<Y0!7VgCh/pgrZ+qtA+DcI(@<#-0YG,WY6
+-C`Sn/(sFB4iens7uCm76Lt/sF19Lx+Xq:r5WMNZ6yTY6-<bp&G9%gkBCFM9?_ar47RTtQ-(
+nJx+%Qx#F8IP<->oj76M(K9GL1rZ+E1rZ+x+jJ0GHTV6U_Wc:SFC!7Kmp>,:%!)=IH@98i`c
+s,@9Kp5/6M;G|o-3BQ;kG<|MftGaJq6w/7xd8|@;AG,J6W.39lUG%m8ZGCnDj7kZAAG/xV3C
+Q&niB5#@y4,a4j:QvsR-Ir@E;_:9f09x=@2(i0&4rbtx=%ou?wf&x>6HS`g9tXARG:YVjH.%
+g7w80i8wiNRfDtNe?w7*`8wfuqS8Gnu?w`2^pF9,K|5bVepA_Tj@4B9l48>mZXGI`>RGTOGO
+6wou?wy->D4=T`g9:YARGIa09woq+CE<M_uHGnoLCArt?4XAiX6IWo?w96r8w#7.hC@)^AG8
+Rv%2(W@L0/ivvG6@AC1+%Z_F/nu?w(Om>4HWmg0wou?w8`Z??Iih-:D`m7w7*`8wkx<67Inu
+?w%m>7Aj#?RGyB!+9wnu?wmVM9-l8sj/wou?woFa8wPcy(<nbfF2gcfX+NDLa2_-2n.yc7Y6
+_wRs7;-#1BG3,:6`K*n.3&'(<tE%0D/FM+E%)?'G^cLR7Y/(.2m^yj.qF,^5lk^u5F@-`;_l
+/|3//1/1IgqC2&C|R7:b4nAVY,j@x`5319B_L9CLhA,toI-;eY@!6TSuY+lvmC3nJ*n.29.h
+C3TxQ8skHOA-2lu4p,297QPGw4*SqW5@P|^<0n#2029.hC3TxQ8bIPu6GPq@4+I`O73c1G3(
+2&XFb4v5Ac.T.0Iw^R7U3f0BxMDF0!Q):-9Imw4aJXu-v;iw5'|31/F9#t5l5`=6vY4976^V
+Q9wmh|<FT7q-Qxol.@3p&EeD!i98!uK9tAHgB+2S#6A%l=wRq8'5#NTL01DJt6APMb34hdbC
+vbq&=d&#V5+I`O7eQOJ2W9u!F.:MG1Qw04AyNhA,4eg/DFDZ&>KWdE;'T.q-85_u5/uIk/!:
+Lg9TKit=--3n.|/(.2m^yj.qF,^5>cSg0VBIm.6m2_+dcv76!I;00L!B4Ap;Mu5y18@592Gx
+GMBZn7IJf-1<S0iC8(C!GdTRt-4`#O@/H^u5:_wQ@pp=n736;K2-xk9-)6^u5<Oe/;4x0q6)
+-`a;'T.q-85_u5k77P7-BRQB|onQ6uKIO6Lfj=4KaefBUk<s,4hcw4lB|R7>p&J;Xkt)F#=T
+)=LM&h9BUw6/iNRfDpfQm.lrOu4&t7v5Q/J:7tjw+<fuIk/-bK9wd+`86/etX=nj:^<nO=s,
+4hcw4lB|R7>p&J;)_uG26|p08D7YCE=`^?5c>&(<^YKGE4x>RG>p.1.M/_O7KUARGVCKR5o'
+|R7dSp?w4mD8wXUARG5uBUF^nVu5YUARGEZBF0VrR>6ZUARG(xQaBMeUr54.`a0:G%q6Ld?7
+.ltR>6@Eo?w4mD8wET>RGB?FI/qK^q6K#TaB3,?RG4rBUF^nVu557&(1Jq=L@/H^u5:_wQ@n
+4sOBJd#:Ghqq*DGWMu54u,6@M1a=,sN<cEy0<^20QW58W+99ALnP_<u9Lg9TKit==VX58<rs
+&Fjj7?wTk?=5QUw6/(VXV7je-T6gr&n/8DLa2p/S>6P3f0Bkq^W5'TMuH6&uKA2&T|5DZ29A
+nw6A<HL3S69HSg0_Utm.!md.D<.5a+ohtd1xrRU7(900DqhI3/wUgL9C1h'3`Qms7oE#B4>h
+W1/^xst5F#1k@6(hA,9&9Y6G/<E4@KdE;9Lm^3%!_R7_>v6B4J-bEP0<^20QW58J+%Q@n4sO
+B.ODeD*+._2,0Js7OGZ0;01U5BqI^f0pmkF1Jg1n.*&'(<|Z,o@am`11gRvPAJGDF0QSqZ+9
+x=@2wb=&FV.5AF%ou?wa5^pF9,K|5bVepA_Tj@4|Cw1:Wa3;,wyv8wdqLA3J/,n/9Mg'3tKT
+q6o<0N8AT?=,kjgeDo;rj/Vg1n.K#%j8A1&4Aav.n/:V-C3F/J:71.vD3XV4t=qUq!53LwYF
+^nVu5rZ+./D_1m9YsG48'j)n.-w%j8W^Tt,6tr_Dv/LF2Bfq&5Pcy(<K_S#6Ux,:Ghqq*DGW
+Mu54u,6@M1a=,rH3cE^Br?3MuR:w)=/S@kjgeDo;rj/Vg1n.K#%j8Il(O1bv.n/+w@R.<NMu
+5./4u6cx^?-kFv>5je6b2,0Js7elP,<@04(=1.7j0eIud17mJ;6=;sR8|#a&3`U-%=l9VW7w
+m_499hW1/kxhZ-&)?'G^cLR7Ki960383MB9diQ9n50a2APS:7vv??6+M7k7)&.8-,&Ju5XZ0
+&422.&>)qk@=t8#V5g2S:79d857xn>^3(SrI9_4ksGiby'5V3f0BW`kQ7J,YyF;'J10RH*n.
+ficq-AFBAE#m#7G@&W?5g:`Y?%B=Z-wou?w3N;8ASc>^3YAVR74.`a0NN0wHVETs5egUt6y9
+y8/'xe?w7*`8w^1eO.Inu?w?f-:=:T.3/f8qG3YYIFDw*D97MIc==:T.3/f8qG3YYIFDw*D9
+7MIc==:T.3/f8qG3`n<uF57&(16gHT.qx5tF9,K|5bVepALYS#6/l>w4hn'e1O2S:7/td?w;
+B/9wE<5o@g@1^<9`?RG1WFXE-,K|57Iy^1,@1^<9`?RGiP1=<%i.m.:dXx27gHT.fM_FC%C|
+R7>p&J;^dTM/U4YvG<9e)2+TSU7PAmtFuXOy5VP'`+:%Kx+hHKR7Ea|;6t)XgDaR8??e@>a;
+).!y3vw1=<iR+C;K*Um7(ELW5rmbAFReC@4&0,Y+7Iy^1.`7-1/o?RGrXyj?sXARG(g2CC@a
+>RGW^bj6ow:7w5sM8ws;q6w5sM8wd8p?wbV5c13*i5@XcA:5W;wLB*gLV6N+((<H-^dCV;GK
+;(ZTg0+^i50u!Ao6|dip6tQN)F-(6R.5e_863?u09u:iw5K*3r-5f;8wx?!
+0
+0
+}

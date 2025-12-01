@@ -1,0 +1,115 @@
+### File pointers
+## Apache tech File
+TECH_FILE ../data/techfile/TD-LO40-DT-2016v0R/Smic_40nm_2TM_ALPA28K_RedHawk_power_analysis_techfile/1P9M_2TM/RedHawk_40LL_1P9M_2TM_ALPA28K_TYP.tech
+TEMPERATURE 125
+
+## LEF
+LEF_FILES {
+../data/techfile/lef/1P9M_2TM_ALPA2/sc12mc_tech.lef
+../data/lef/scc40nll_vhsc40_hvt_ant.lef
+../data/lef/scc40nll_vhsc40_lvt_ant.lef
+../data/lef/scc40nll_vhsc40_rvt_ant.lef
+../data/lef/SP40NLLD2RN_3P3V_V0p1_9MT_2TM.lef
+../data/lef/sram/RAMSP128X16.lef
+../data/lef/sram/RAMSP1024X16.lef
+../data/lef/sram/RAMSP2048X16.lef
+../data/lef/sram/RAMSP4096X16.lef
+../data/lef/sram/RAMTP128X16.lef
+../data/lef/sram/RAMTP1024X16.lef
+}
+
+## DEF
+DEF_FILES {
+../../eco/outputs/image_icb.def.gz top
+}
+
+## lib
+LIB_FILES {
+/mnt/hgfs/Em/40NM/S40/smic/SCC40NLL_VHSC40_HVT_V0.1/SCC40NLL_VHSC40_HVT_V0p1/liberty/1.1v/scc40nll_vhsc40_hvt_ff_v1p21_125c_ccs.lib
+/mnt/hgfs/Em/40NM/S40/smic/SCC40NLL_VHSC40_LVT_V0.1/SCC40NLL_VHSC40_LVT_V0p1/liberty/1.1v/scc40nll_vhsc40_lvt_ff_v1p21_125c_ccs.lib
+/mnt/hgfs/Em/40NM/S40/smic/SCC40NLL_VHSC40_RVT_V0.1/SCC40NLL_VHSC40_RVT_V0p1/liberty/1.1v/scc40nll_vhsc40_rvt_ff_v1p21_125c_ccs.lib
+/mnt/hgfs/Em/40NM/S40/smic/SP40NLLD2RN_3P3V_V0p4/syn/3p3v/SP40NLLD2RN_3P3V_V0p4_ff_V1p21_125C.lib
+/mnt/hgfs/Em/40NM/SRAM_Lib/RAMSP128X16/lib/RAMSP128X16_ff_1p21v_1p21v_125c.lib
+/mnt/hgfs/Em/40NM/SRAM_Lib/RAMSP1024X16/lib/RAMSP1024X16_ff_1p21v_1p21v_125c.lib
+/mnt/hgfs/Em/40NM/SRAM_Lib/RAMSP2048X16/lib/RAMSP2048X16_ff_1p21v_1p21v_125c.lib
+/mnt/hgfs/Em/40NM/SRAM_Lib/RAMSP4096X16/lib/RAMSP4096X16_ff_1p21v_1p21v_125c.lib
+/mnt/hgfs/Em/40NM/SRAM_Lib/RAMTP128X16/lib/RAMTP128X16_ff_1p21v_1p21v_125c.lib
+/mnt/hgfs/Em/40NM/SRAM_Lib/RAMTP1024X16/lib/RAMTP1024X16_ff_1p21v_1p21v_125c.lib
+}
+
+## 和lvs的TEXT一样 VDD的名字和坐标
+PAD_FILES {
+../data/image_icb_dynamic.ploc
+}
+
+
+## timinig file 回到pt打开session 运行write_timing_file.tcl
+STA_FILE {
+    FREQ_OF_MISSING_INSTANCES 1e6
+    image_icb ../data/image_icb_ff1p21v_typ_125c.timing
+}
+
+
+USE_DEF_VIARULE 1
+
+## APL
+APL_FILES {
+    ../apldi/outputs/hvt_ff1p21v125c.cdev cap
+    ../apldi/outputs/hvt_ff1p21v125c.pwcdev pwcap
+    ../apldi/outputs/hvt_ff1p21v125c.spiprof current
+    ../apldi/outputs/lvt_ff1p21v125c.cdev cap
+    ../apldi/outputs/lvt_ff1p21v125c.pwcdev pwcap
+    ../apldi/outputs/lvt_ff1p21v125c.spiprof current
+    ../apldi/outputs/rvt_ff1p21v125c.cdev cap
+    ../apldi/outputs/rvt_ff1p21v125c.pwcdev pwcap
+    ../apldi/outputs/rvt_ff1p21v125c.spiprof current
+}
+
+## spef
+CELL_RC_FILE {
+    image_icb ../../03_pt/starrc/typ_125c/image_icb.typ_125c.spef.gz
+}
+
+### required parameters
+VDD_NETS {
+    VDD 1.21
+}
+
+GND_NETS {
+    VSS 0
+}
+
+FREQ 1e6
+
+
+### optional parameters
+DELTA_T_RMS_EM 15
+
+LIB2AVM 1
+
+# CHARACTERIZATION_MODE ACCURATE
+
+TOGGLE_RATE 0.1 1.2
+
+INPUT_TRANSITION 0.3ns
+
+# SWITCH_MODEL_FILES ../../data/switch.model
+
+IGNORE_LEF_DEF_MISMATCH 1
+IGNORE_LIB_CHECK 1
+IGNORE_DEF_ERROR 1
+ADD_LEF_CELL_FOR_POWER 1
+STEINER_TREE_CAP 2.02e-4
+
+BLOCK_POWER_FOR_SCALING {
+    FULLCHIP FULLCHIP 0.600
+}
+
+#IGNORE_CELLS {
+#
+#}
+
+
+
+
+

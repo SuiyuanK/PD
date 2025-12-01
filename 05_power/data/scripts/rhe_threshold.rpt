@@ -1,0 +1,217 @@
+############################ RHE Thresholds ################################
+
+set rhe_bucket_size 50
+set rhe_enable_DWE 1
+set rhe_enable_DIE 1
+set rhe_enable_HSE 1
+set rhe_enable_PC 0
+set rhe_dvd_check_type minWC
+
+############################ DWE Thresholds ################################
+
+
+# Power_distribution_quality_check
+# Checks whether the power density in any bucket is greater than N times the chip average power density.
+
+
+set rhe_enable_power_distribution_check 1
+set rhe_bucket_power_density_ratio 5
+set rhe_num_violations_power_density_max 5
+
+
+
+# Peak_Current__distribution_quality_check
+# Checks whether the peak Current density in any bucket is greater than N times the chip peak current density.
+
+
+set rhe_enable_peak_current_distribution_check 1
+set rhe_bucket_peak_current_density_ratio 5
+set rhe_num_violations_peak_current_density_max 5
+
+# Decap_distribution_quality_check
+# Checks whether the Decap in any bucket is less than 1/N times the chip average decap density
+
+
+set rhe_enable_decap_distribution_check 1
+set rhe_bucket_decap_density_ratio 5
+set rhe_perc_null_decap_buckets 70
+set rhe_num_violations_decap_density_max 5
+
+
+# Clock_Buffer_Clustering_check
+# Checks whether the Clock power density in any bucket is greater than N times the chip average Clock power density
+
+
+set rhe_enable_clock_buffer_clustering_check 1
+set rhe_bucket_clock_power_density_ratio 5
+set rhe_num_violations_clock_power_density_max 5
+
+
+# Pad_Placement_Quality_check
+# Checks whether any given pad is supplying N times the chip average pad current
+
+
+set rhe_enable_pad_placement_quality_check 1
+set rhe_pad_current_ratio 3
+set rhe_num_violations_pad_current_max 3
+
+
+# Switch_Placement_Quality_check
+# Checks whether any given switch is supplying N times the chip switch current
+
+
+set rhe_enable_switch_placement_quality_check 1
+set rhe_switch_current_ratio 5
+set rhe_num_violations_switch_current_max 5
+
+
+# Simultaneous_switching_check                                                                                                                                                     
+# Checks whether the peak demand current is below N X the average demand current
+
+
+set rhe_enable_simultaneous_switching_check 1
+set rhe_peak_demand_current_ratio 10
+set rhe_switching_time_step 250
+set rhe_switching_time_bin 250
+set rhe_switching_instance_ratio 5
+
+# Package_Drop_Contribution_Check
+# Checks whether the drop across package is either to low or too high
+
+
+set rhe_enable_package_drop_contribution_check 1
+set rhe_min_package_drop_power_perc 2
+set rhe_max_package_drop_power_perc 5
+set rhe_min_package_drop_ground_perc 2
+set rhe_max_package_drop_ground_perc 5
+set rhe_num_violations_package_drop_contribution_max 5
+
+                                                                                                                                                            
+# PG_Resistance_Distribution
+# Checks if the PG Resistance in any bucket is greater than N times the average chip resistance
+
+
+set rhe_enable_pg_resistance_distribution_check 1
+set rhe_pg_resistance_distribution_ratio 2
+set rhe_num_violations_pg_resistance_distribution_max 5
+
+                                                                                                                                                            
+# PG_Resistance_Imbalance
+# Checks if the PG Resistance Imbalance in any bucket is greater than N times the average chip resistance imbalance 
+
+
+set rhe_pg_resistance_imbalance_ratio 2
+set rhe_num_violations_pg_resistance_imbalance_max 5
+
+
+############################# DIE thresholds ################################
+
+# Apl CURRENT Check
+set rhe_enable_apl_current_check 1
+set rhe_apl_current_threshold 95
+
+# Apl CAP Check
+set rhe_enable_apl_cap_check 1
+set rhe_apl_cap_threshold 95
+
+# Apl PWCAP Check
+set rhe_enable_apl_pwcap_check 1
+set rhe_apl_pwcap_threshold 95
+
+# DEF Check
+set rhe_show_def_violations 0
+set rhe_enable_def_check 1
+set rhe_short_limit 0
+set rhe_missing_via_limit 10000
+set rhe_inst_unconnect_limit 0
+set rhe_wire_unconnect_limit 0
+set rhe_via_unconnect_limit 0
+
+# STA Check
+set rhe_enable_sta_check 1
+set rhe_sta_threshold 90
+
+
+# SPEF Check
+set rhe_enable_spef_check 1
+set rhe_spef_threshold 90
+
+
+# LIB Check
+set rhe_enable_lib_check 1
+set rhe_lib_threshold 95
+
+
+# LEF Check
+set rhe_enable_lef_check 1
+set rhe_lef_threshold 90
+
+
+# GDS2DEF Check
+set rhe_enable_gds2def_check 1
+set rhe_gds2def_threshold 90
+
+# VCD Check
+set rhe_enable_vcd_check 1
+set rhe_vcd_threshold 90
+
+
+# PACKAGE Check
+set rhe_enable_package_check 1
+
+# GSR TCL Check
+set rhe_enable_gsr_tcl_check 1
+
+
+
+########################### HSE thresholds ################################
+
+# Bucket DVD Max Violation
+set rhe_bucket_dvd_threshold 100
+set rhe_bucket_static_ir_threshold 100
+set rhe_bucket_power_em_threshold 100
+
+# Domain Based Instance Drop Threshold
+set rhe_instance_dvd_threshold 100
+set rhe_instance_static_ir_threshold 100
+
+# Number of Violating buckets to be displayed
+set rhe_num_dvd_bucket_violations 3
+set rhe_num_static_ir_bucket_violations 3
+set rhe_num_power_em_bucket_violations 3
+
+# Enable checks in HSE
+set rhe_enable_dvd_distribution_check 1
+set rhe_enable_static_ir_distribution_check 1
+set rhe_enable_power_em_distribution_check 1
+
+# Rampup Check Thresholds
+
+# Enable Rampup Check
+set rhe_enable_rampup_distribution_check 1
+
+# Threshold for battery current ( Default is 10 mA )
+set rhe_rampup_battery_current_threshold 10
+
+# Distance b/w driver and receiver ( Default is 200 um )
+set rhe_rampup_switch_pair_distance 200
+
+# Threshold for rampup time ( default is 150 ns )
+set rhe_rampup_time_threshold 150
+
+# Threshold for differential voltage check ( default is 200 mV )
+set rhe_rampup_differential_voltage_threshold 200
+
+# Number of Differential Voltage violations to be displayed
+set rhe_rampup_num_differential_voltage_violations 3
+
+# Driver fanout check
+set rhe_alp_fanout_limit 100
+
+# Threshold for Noise Coupling Check
+set rhe_rampup_noise_analysis_threshold 100
+
+# Number of Noise Coupling Hotspots to be displayed
+set rhe_rampup_num_noise_coupling_hotspots 3
+
+

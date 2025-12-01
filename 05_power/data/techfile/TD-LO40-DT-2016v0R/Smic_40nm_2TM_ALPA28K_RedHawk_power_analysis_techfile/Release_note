@@ -1,0 +1,63 @@
+                                                           RELEASE NOTE
+
+
+*  Please read this release note before you use power analysis technology file!!!
+
+*  Redhawk version: V12.2.3p3
+
+*  License needed: redhawk
+
+*  Tech file name: 40nm Low Leakage 1P5M / 6M / 7M / 8M / 9M /10M with 2TM and ALPA(28k)power analysis tech file
+
+*  Tech file version: v1.0_0R
+
+*  Release Date: 2013/12/20  
+
+*  CONTENTS:
+   The metal scheme includes:
+        2TM           1P5M/ 6M/ 7M/ 8M/ 9M /10M
+
+*  Revision History
+
+   Rev.          Date         Who(QA)           What
+   ------------- ------------ -----------   -----------------------------------------------
+  v1.0_0R      2013/12/20      AiQun_Xu		Initial Version.
+
+                              Based on the following process documents:
+
+                              Logic Design Rule: 40nm Logic Salicide 0.9/1.1/1.2/1.8/2.5V low leakage and generic Design Rules 
+                                                 (Doc No:TD-LO40-DR-2001 )
+
+                              ITF file:      40nm Low Leakage 1P5M/ 6M/ 7M/ 8M/ 9M/ 10M with 2TM (9k) and ALPA 28k StarRC Runsets
+                                            (Doc No:TD-LO40-XS-2006 ) 
+
+                              Current density rule:  40ll current density width and length dependence relaxation rules
+                                            (Doc No:TD1211160009 ) 
+
+
+*  USER NOTES
+
+   1) Before use this tech file,please keep your design layer map such as LEF/DEF file match with layer map in tech file,below is match layer map list for reference;
+      (For example:
+          If your design the metal&via layer named "M1,V1,M2,V2......",please use tech file directly; 
+          If your design the metal&via layer named "metal1,via1,metal2......",please modify tech file all "M1,V1,M2......" to "metal1,via1,metal2......";
+          Other metal&via options all follow this rule)  
+     
+                    LEF file          tech file                LEF file     tech file
+-----------------------------------------------------------------------------------------    
+ Conduction layer:                                via layer:
+                      M1                M1                        
+                      M2                M2                         V1             V1
+                      M3                M3                         V2             V2
+                      M4                M4                         V3             V3
+                      M5                M5                         V4             V4
+                      M6                M6                         V5             V5
+                      M7                M7                         V6             V6
+                      M8                M8                         V7             V7
+                      TM1               TM1                        TV1            TV1
+                      TM2               TM2                        TV2            TV2
+                      ALPA              ALPA                       PA             PA
+
+   2)This power analysis tech file is created by DFM Service group for your reference.It can provide Static IR/EM Analysis & Dynamic Analysis.
+
+
