@@ -5,9 +5,8 @@ cp -v ../../00_dc/outputs/netlist/*.v ../data/
 cp -v ../../00_dc/outputs/svf/*.svf   ../data/
 cp -v ../../eco/outputs/image_icb.v.gz  ../data/
 
-rm -rf ../log
-mkdir -p ../log
-fm_shell -64bit -file run_fm_dc_vs_pr.tcl |tee -i ../log/fm.log
+rm -f ../log/fm_pr.log
+fm_shell -64bit -file run_fm_dc_vs_pr.tcl |tee -i ../log/fm_pr.log
 
 mv *.log ../log/
 

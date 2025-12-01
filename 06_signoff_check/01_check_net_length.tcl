@@ -10,6 +10,7 @@ foreach net $nets {
     }
     
 }
+
 set nets [get_object_name [get_nets * -physical_context]]
 foreach net $nets {
     set type [get_attr [get_nets $net] net_type]
