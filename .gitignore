@@ -1,9 +1,10 @@
 00_dc/*
 01_fm/*
 02_pr/*
-03_pt/*
+03_pt/sta/*
+03_pt/starrc/*
 04_pv/*
 05_power/*
 others/*
 eco/*
-03_pt/starrc/*
+*
