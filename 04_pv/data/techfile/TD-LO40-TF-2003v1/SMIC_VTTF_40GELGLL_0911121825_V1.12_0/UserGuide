@@ -1,0 +1,21 @@
+*********************************************************************************
+*			UserGuide						*
+*********************************************************************************
+*										*
+* 1.This file is released for users who are using Cadence tool			*
+* Virtuoso IC51/IC61 version for their design.					*
+* 2.Below files are released:							*
+*   1) Virtuoso Technology File: SMIC_VTTF_40GELGLL_0911121825_V1.12_0.tf	*
+*   2) Virtuoso Layer Mapping File: SMIC_VTMP_40GELGLL_0911121825_V1.12_0.map	*
+*   3) Virtuoso Display File: display.drf					*
+*										*
+* 3.This file is applicable for 40nm Logic Salicide 0.9/1.1     		*
+*	/1.2/1.8/2.5V Low leakage and Generic Process				*
+* 4.User can refer the Layer Mapping file to find the layers and		*
+* corresponding GDS NO and datatype.						*
+*										*
+* 5.Layer sequence 195~255 and purpose sequence 195~255 are			*
+* system reserved sequence. Please DO NOT use them for your own			*
+* usage.									*
+*										*
+*********************************************************************************

@@ -1,0 +1,33 @@
+//  Runset file generated on Thu Nov 27 16:26:19 2025
+//  by Calibre Interactive v2022.4_28.13    Tue Nov 1 14:48:39 PDT 2022
+//
+//      *** PLEASE DO NOT MODIFY THIS FILE ***
+//
+//
+
+cmn.showOptionPages.value = [ "Options" ]
+lvs.rulesFile.value = "/home/master/Desktop/04_pv/lvs/SMIC_CalLVS_40LL_1125_V1.15_0.lvs"
+lvs.runType.value = "FLAT"
+lvs.layout.layoutFile.value = "image_icb.calibre.db"
+cmn.layout.defFiles.value = [ "image_icb.def" ]
+lvs.layout.topCell.value = "image_icb"
+lvs.layout.layoutNetlist.value = "image_icb.sp"
+lvs.source2.sourceFile.value = "image_icb.sp"
+lvs.source.sourceFile.value = "/home/master/Desktop/04_pv/lvs/top.spi"
+lvs.source.topCell.value = "image_icb"
+lvs.source.topCellFDI.value = "image_icb"
+lvs.reports.lvsReport.value = "image_icb.lvs.report"
+lvs.layoutCase.caseSensitive.value = "YES"
+lvs.layoutCase.caseSensitive.specified = true
+lvs.sourceCase.caseSensitive.value = "YES"
+lvs.sourceCase.caseSensitive.specified = true
+lvs.svrfIncludes.statementType.value = "SVRF"
+lvs.ercdb.resultsFile.value = "image_icb.erc.results"
+lvs.ercSummaryReport.report.value = "image_icb.erc.summary"
+
+cmn.ipcSettings.schematicUseLayoutIPC.value = false
+cmn.remoteEnv.remoteMGCLIBPATH_aoi.value = "/export/SoftWare/Mentor/Calibre_2022.4_28.13/aoi_cal_2022.4_28.13/lib"
+cmn.remoteEnv.remoteMGCLIBPATH_aoj.value = "/export/SoftWare/Mentor/Calibre_2022.4_28.13/aoj_cal_2022.4_28.13/lib"
+cmn.remoteEnv.remoteMGCLIBPATH_aok.value = "/export/SoftWare/Mentor/Calibre_2022.4_28.13/aok_cal_2022.4_28.13/lib"
+cmn.remoteEnv.remoteMGCLIBPATH_soa.value = "/export/SoftWare/Mentor/Calibre_2022.4_28.13/soa_cal_2022.4_28.13/lib"
+cmn.miscPrefs.overwriteLayoutPref.value = false

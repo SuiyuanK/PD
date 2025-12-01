@@ -1,0 +1,34 @@
+*  RELEASE NOTE                                 		  
+
+*  Virtuoso Technology file for
+*  40nm Logic Salicide 0.9/1.1/1.2/1.8/2.5V Low leakage and Generic Process
+
+*  --- SMIC TD Tech File Group ---
+
+Release Date 2017-05-10
+***********************************************************************************
+[Finch DU] Following Files are officially released:
+------------------------------------------------------
+1. SMIC_VTTF_40GELGLL_0911121825_V1.12_0.tf
+2. SMIC_VTMP_40GELGLL_0911121825_V1.12_0.map
+3. display.drf
+4. UserGuide
+5. Release_Note
+------------------------------------------------------
+What's updated:
+1. Add layer EXDFM, EXLFD, MOM33, MOMTEM, MOM50, SUBTXT, MnV15, MnV18, MnV25, MnV33, MnV50 (n=1~8) and SIOTP.
+***********************************************************************************
+
+Release Date 2015-08-31
+***********************************************************************************
+[Iori Wang] Following Files are officially released:
+------------------------------------------------------
+1. SmicDR4_VTTF_0040_LogicLL_Salicide_CDBA_V1.10_0_0.tf
+2. SmicDR4_VTMP_0040_LogicLL_Salicide_CDBA_V1.10_0_0.map
+3. display.drf
+4. UserGuide
+5. all_tech_files/LL2.5V/1PxM_yIc_zTMc_ALPAi.tf (y=3~8,z=1/2,x=y+z,i=1/2)
+------------------------------------------------------
+What's updated:
+1. Initial release for 40nm LogicLL process of CDBA format.
+***********************************************************************************

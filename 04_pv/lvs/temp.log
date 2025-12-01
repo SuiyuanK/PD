@@ -1,0 +1,25 @@
+INITIAL NUMBERS OF OBJECTS
+--------------------------
+
+                Layout    Source         Component Type
+                ------    ------         --------------
+ Ports:             90        90
+
+ Nets:         3146923   3223656    *
+
+ Instances:    2129920   2129920         dpcnfetpd_ckt (4 pins)
+               2129920   2129920         dpcnfetwla_ckt (4 pins)
+               2129920   2129920         dpcnfetwlb_ckt (4 pins)
+                446368    446368         dslnfetpd_ckt (4 pins)
+                430976    430976         dslnfetwl_ckt (4 pins)
+                608871    378629    *    n11ll_ckt (4 pins)
+                148677    148608    *    nhvt11ll_ckt (4 pins)
+                 18500     14526    *    nlvt11ll_ckt (4 pins)
+               2129920   2129920         dpcpfetpu_ckt (4 pins)
+                432640    432640         dslpfetpu_ckt (4 pins)
+                539592    346133    *    p11ll_ckt (4 pins)
+                148689    148608    *    phvt11ll_ckt (4 pins)
+                 18698     14526    *    plvt11ll_ckt (4 pins)
+                 15486      8000    *    D (2 pins)
+                ------    ------
+ Total Inst:  11328177  10888694

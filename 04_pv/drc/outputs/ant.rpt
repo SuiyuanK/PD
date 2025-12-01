@@ -1,0 +1,145 @@
+
+
+==================================================================================
+=== CALIBRE::DRC-H SUMMARY REPORT
+===
+Execution Date/Time:       Sun Nov 23 10:23:57 2025
+Calibre Version:           v2022.4_28.13    Tue Nov 1 14:48:34 PDT 2022
+Rule File Pathname:        ./ant.cmd
+Rule File Title:           
+Layout System:             GDS
+Layout Path(s):            /home/master/Desktop/04_pv/merge/Calibredrv/top_merge_dummy.gds
+Layout Primary Cell:       TOP
+Current Directory:         /home/master/Desktop/04_pv/drc
+User Name:                 master
+Maximum Results/RuleCheck: 1000
+Maximum Result Vertices:   199
+DRC Results Database:      ./ant.db (ASCII)
+Layout Depth:              ALL
+Text Depth:                PRIMARY
+Summary Report File:       ./ant.rpt (REPLACE)
+Geometry Flagging:         ACUTE = NO  SKEW = NO  ANGLED = NO  OFFGRID = NO
+                           NONSIMPLE POLYGON = NO  NONSIMPLE PATH = NO
+Excluded Cells:           
+CheckText Mapping:         COMMENT TEXT + RULE FILE INFORMATION
+Layers:                    MEMORY-BASED
+Keep Empty Checks:         YES
+----------------------------------------------------------------------------------
+--- RUNTIME WARNINGS
+---
+MAXIMUM RDB limit 1000 reached for layer M1 in cell TOP on net 4454.
+MAXIMUM RDB limit 1000 reached for layer M4_DIO in cell TOP on net 4454.
+MAXIMUM RDB limit 1000 reached for layer M1 in cell TOP on net 4664.
+MAXIMUM RDB limit 1000 reached for layer M4_DIO in cell TOP on net 4664.
+----------------------------------------------------------------------------------
+--- ORIGINAL LAYER STATISTICS
+---
+LAYER M1DOP ..... TOTAL Original Geometry Count = 112418  (112418)
+LAYER M1DUMi .... TOTAL Original Geometry Count = 21793   (21793)
+LAYER M2DOP ..... TOTAL Original Geometry Count = 45518   (45518)
+LAYER M2DUMi .... TOTAL Original Geometry Count = 15505   (15505)
+LAYER M3DOP ..... TOTAL Original Geometry Count = 187154  (187154)
+LAYER M3DUMi .... TOTAL Original Geometry Count = 239089  (239089)
+LAYER M4DOP ..... TOTAL Original Geometry Count = 224096  (224096)
+LAYER M4DUMi .... TOTAL Original Geometry Count = 259140  (259140)
+LAYER M5DOP ..... TOTAL Original Geometry Count = 269737  (269737)
+LAYER M5DUMi .... TOTAL Original Geometry Count = 1782854 (1782854)
+LAYER M6DOP ..... TOTAL Original Geometry Count = 451862  (451862)
+LAYER M6DUMi .... TOTAL Original Geometry Count = 1364800 (1364800)
+LAYER M7DOP ..... TOTAL Original Geometry Count = 140377  (140377)
+LAYER M7DUMi .... TOTAL Original Geometry Count = 1861136 (1861136)
+LAYER V1DOP ..... TOTAL Original Geometry Count = 0       (0)
+LAYER V1DUMi .... TOTAL Original Geometry Count = 12683   (12683)
+LAYER V2DOP ..... TOTAL Original Geometry Count = 0       (0)
+LAYER V2DUMi .... TOTAL Original Geometry Count = 11246   (11246)
+LAYER V3DOP ..... TOTAL Original Geometry Count = 0       (0)
+LAYER V3DUMi .... TOTAL Original Geometry Count = 192812  (192812)
+LAYER V4DOP ..... TOTAL Original Geometry Count = 0       (0)
+LAYER V4DUMi .... TOTAL Original Geometry Count = 195027  (195027)
+LAYER V5DOP ..... TOTAL Original Geometry Count = 0       (0)
+LAYER V5DUMi .... TOTAL Original Geometry Count = 1243302 (1243302)
+LAYER V6DOP ..... TOTAL Original Geometry Count = 0       (0)
+LAYER V6DUMi .... TOTAL Original Geometry Count = 1281975 (1281975)
+LAYER M1i ....... TOTAL Original Geometry Count = 63873   (39961459)
+LAYER M2i ....... TOTAL Original Geometry Count = 171379  (31921251)
+LAYER M3i ....... TOTAL Original Geometry Count = 103137  (15143964)
+LAYER M4i ....... TOTAL Original Geometry Count = 82438   (3548378)
+LAYER M5i ....... TOTAL Original Geometry Count = 40259   (100640)
+LAYER M6i ....... TOTAL Original Geometry Count = 11077   (57082)
+LAYER M7i ....... TOTAL Original Geometry Count = 1224    (20678)
+LAYER TM1DUMi ... TOTAL Original Geometry Count = 11274   (11274)
+LAYER TM1i ...... TOTAL Original Geometry Count = 97      (5402)
+LAYER TM2DUMi ... TOTAL Original Geometry Count = 11643   (11643)
+LAYER TM2i ...... TOTAL Original Geometry Count = 142     (3267)
+LAYER V1i ....... TOTAL Original Geometry Count = 27800   (38578516)
+LAYER V2i ....... TOTAL Original Geometry Count = 8826    (13472234)
+LAYER V3i ....... TOTAL Original Geometry Count = 9603    (1620228)
+LAYER V4i ....... TOTAL Original Geometry Count = 179356  (358153)
+LAYER V5i ....... TOTAL Original Geometry Count = 115     (178903)
+LAYER V6i ....... TOTAL Original Geometry Count = 1053    (316855)
+LAYER ALDUM ..... TOTAL Original Geometry Count = 5266    (5266)
+LAYER ALPAi ..... TOTAL Original Geometry Count = 0       (0)
+LAYER AADUM ..... TOTAL Original Geometry Count = 33555   (33555)
+LAYER AAi ....... TOTAL Original Geometry Count = 5876    (38103055)
+LAYER GTDUM ..... TOTAL Original Geometry Count = 33571   (33571)
+LAYER GTi ....... TOTAL Original Geometry Count = 17835   (20556066)
+LAYER SP ........ TOTAL Original Geometry Count = 1783    (4422867)
+LAYER SN ........ TOTAL Original Geometry Count = 2478    (6955860)
+LAYER DGi ....... TOTAL Original Geometry Count = 0       (0)
+LAYER TGi ....... TOTAL Original Geometry Count = 0       (0)
+LAYER TV1 ....... TOTAL Original Geometry Count = 64      (23968)
+LAYER TV2 ....... TOTAL Original Geometry Count = 147     (149836)
+LAYER CT ........ TOTAL Original Geometry Count = 46441   (58234044)
+LAYER PA ........ TOTAL Original Geometry Count = 0       (0)
+----------------------------------------------------------------------------------
+--- RULECHECK RESULTS STATISTICS
+---
+RULECHECK ANT.GT_1 ........... TOTAL Result Count = 0 (0)
+RULECHECK ANT.GT_2 ........... TOTAL Result Count = 0 (0)
+RULECHECK ANT.CT_1 ........... TOTAL Result Count = 0 (0)
+RULECHECK ANT.MN_1&3.M1 ...... TOTAL Result Count = 0 (0)
+RULECHECK ANT.MN18_2&3.M1 .... TOTAL Result Count = 0 (0)
+RULECHECK ANT.VN_1&3.V1 ...... TOTAL Result Count = 0 (0)
+RULECHECK ANT.VN_2&3.V1 ...... TOTAL Result Count = 0 (0)
+RULECHECK ANT.MN_1&3.M2 ...... TOTAL Result Count = 0 (0)
+RULECHECK ANT.MN18_2&3.M2 .... TOTAL Result Count = 0 (0)
+RULECHECK ANT.VN_1&3.V2 ...... TOTAL Result Count = 0 (0)
+RULECHECK ANT.VN_2&3.V2 ...... TOTAL Result Count = 0 (0)
+RULECHECK ANT.MN_1&3.M3 ...... TOTAL Result Count = 0 (0)
+RULECHECK ANT.MN18_2&3.M3 .... TOTAL Result Count = 0 (0)
+RULECHECK ANT.VN_1&3.V3 ...... TOTAL Result Count = 0 (0)
+RULECHECK ANT.VN_2&3.V3 ...... TOTAL Result Count = 0 (0)
+RULECHECK ANT.MN_1&3.M4 ...... TOTAL Result Count = 4 (4)
+RULECHECK ANT.MN18_2&3.M4 .... TOTAL Result Count = 0 (0)
+RULECHECK ANT.VN_1&3.V4 ...... TOTAL Result Count = 0 (0)
+RULECHECK ANT.VN_2&3.V4 ...... TOTAL Result Count = 0 (0)
+RULECHECK ANT.MN_1&3.M5 ...... TOTAL Result Count = 0 (0)
+RULECHECK ANT.MN18_2&3.M5 .... TOTAL Result Count = 0 (0)
+RULECHECK ANT.VN_1&3.V5 ...... TOTAL Result Count = 0 (0)
+RULECHECK ANT.VN_2&3.V5 ...... TOTAL Result Count = 0 (0)
+RULECHECK ANT.MN_1&3.M6 ...... TOTAL Result Count = 0 (0)
+RULECHECK ANT.MN18_2&3.M6 .... TOTAL Result Count = 0 (0)
+RULECHECK ANT.VN_1&3.V6 ...... TOTAL Result Count = 0 (0)
+RULECHECK ANT.VN_2&3.V6 ...... TOTAL Result Count = 0 (0)
+RULECHECK ANT.MN_1&3.M7 ...... TOTAL Result Count = 0 (0)
+RULECHECK ANT.MN18_2&3.M7 .... TOTAL Result Count = 0 (0)
+RULECHECK ANT.VN_1&3.TV1 ..... TOTAL Result Count = 0 (0)
+RULECHECK ANT.VN_2&3.TV1 ..... TOTAL Result Count = 0 (0)
+RULECHECK ANT.MN_1&4.TM1 ..... TOTAL Result Count = 0 (0)
+RULECHECK ANT.MN18_2&4.TM1 ... TOTAL Result Count = 0 (0)
+RULECHECK ANT.VN_1&3.TV2 ..... TOTAL Result Count = 0 (0)
+RULECHECK ANT.VN_2&3.TV2 ..... TOTAL Result Count = 0 (0)
+RULECHECK ANT.MN_1&4.TM2 ..... TOTAL Result Count = 0 (0)
+RULECHECK ANT.MN18_2&4.TM2 ... TOTAL Result Count = 0 (0)
+RULECHECK ANT.PA_1&3.PA ...... TOTAL Result Count = 0 (0)
+RULECHECK ANT.PA_2&3.PA ...... TOTAL Result Count = 0 (0)
+RULECHECK ANT.AL_1&3.ALPA .... TOTAL Result Count = 0 (0)
+RULECHECK ANT.AL_2&3.ALPA .... TOTAL Result Count = 0 (0)
+----------------------------------------------------------------------------------
+--- SUMMARY
+---
+TOTAL CPU Time:                  124
+TOTAL REAL Time:                 34
+TOTAL Original Layer Geometries: 10782836 (283740539)
+TOTAL DRC RuleChecks Executed:   41
+TOTAL DRC Results Generated:     4 (4)
