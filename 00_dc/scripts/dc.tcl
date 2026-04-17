@@ -1,180 +1,291 @@
-###环境设置
-# 低功耗和时钟门控优化设置
-set_app_var pwr_cg_improved_cells_selection_for_remapping true
-set_app_var compile_clock_gating_through_hierarchy true
-set_app_var power_low_power_placement true
-set_app_var power_cg_flatten false
 
-###set syn env###
-set topModuleName           image_top1                                                      
-set data_path               "../data"                                      
-set rtl_path                "../../../RTL"
-set run_dir                 "../"
+#****************************************************
+date
+#****************************************************
 
-# set_app_var search_path     "$data_path"
-# lappend search_path         "$rtl_path"
-# 先删除可能存在的目录（-rf 强制删除目录及内容，即使目录不存在也不会报错）
-file delete -force $run_dir/rpts 
-file delete -force $run_dir/outputs 
-file delete -force $run_dir/tmp_work
+set fix_hold_switch 	            [getenv fix_hold_switch]
+set exit_switch 	                [getenv exit_switch]
+set area_switch  	                [getenv area_switch]
+set power_switch  	                [getenv power_switch]
+set ultra_switch 	                [getenv ultra_switch]
+set high_switch  	                [getenv high_switch]
+set remove_tie_dont_use_switch      [getenv remove_tie_dont_use_switch]
+set read_rtl_only_switch            [getenv read_rtl_only_switch]
 
-#创建目录
-file mkdir -p $run_dir/rpts
-file mkdir -p $run_dir/outputs
-file mkdir -p $run_dir/outputs/ddc
-file mkdir -p $run_dir/outputs/netlist
-file mkdir -p $run_dir/outputs/sdf
-file mkdir -p $run_dir/outputs/svf
-file mkdir -p $run_dir/tmp_work
+#****************************************************
 
+# Define working directory
+set TOPDIR	            [sh pwd]
 
-#记录dc在综合时采用的优化、复用、状态机重编码信息等等，供formality验证时使用。
-set_svf  $run_dir/outputs/svf/$topModuleName.svf
-# DC脚本中启用层次映射
-set_app_var hdlin_enable_hier_map true
+# Define RTL source files directory
+set rtlDir 		        [getenv rtlDir]
+set TOP_MODULE          [getenv TOP_MODULE]                                       
 
+# Output&Reports files directory
+set reportsDir          "$TOPDIR/rpts"
+set outputsDir          "$TOPDIR/outputs"
 
-#指定设计和库的工作路径，放一些运行中的垃圾，临时目录
-define_design_lib WORK -path $run_dir/tmp_work
+set dataDir             "$TOPDIR/data"
 
-###read library###
+# Design Compile system setting
+set_app_var search_path                ". $rtlDir"
+lappend search_path             "$dataDir/lib"
+
+#****************************************************
 
 # stdcell
 set stdcell_libs "
-$data_path/lib/scc40nll_vhsc40_hvt_ss_v0p99_125c_basic.db
-$data_path/lib/scc40nll_vhsc40_lvt_ss_v0p99_125c_basic.db
-$data_path/lib/scc40nll_vhsc40_rvt_ss_v0p99_125c_basic.db"
+scc40nll_vhsc40_hvt_ss_v0p99_125c_basic.db
+scc40nll_vhsc40_lvt_ss_v0p99_125c_basic.db
+scc40nll_vhsc40_rvt_ss_v0p99_125c_basic.db"
 
 # memory
 set memory_libs "
-$data_path/lib/RAMSP128X16_ss_0p90v_0p90v_125c.db
-$data_path/lib/RAMSP1024X16_ss_0p90v_0p90v_125c.db
-$data_path/lib/RAMSP2048X16_ss_0p90v_0p90v_125c.db
-$data_path/lib/RAMSP4096X16_ss_0p90v_0p90v_125c.db
-$data_path/lib/RAMTP128X16_ss_0p90v_0p90v_125c.db
-$data_path/lib/RAMTP1024X16_ss_0p90v_0p90v_125c.db"
+RAMSP128X16_ss_0p90v_0p90v_125c.db
+RAMSP1024X16_ss_0p90v_0p90v_125c.db
+RAMSP2048X16_ss_0p90v_0p90v_125c.db
+RAMSP4096X16_ss_0p90v_0p90v_125c.db
+RAMTP128X16_ss_0p90v_0p90v_125c.db
+RAMTP1024X16_ss_0p90v_0p90v_125c.db"
 
 # iopad
 set iopad_lib "
-$data_path/lib/SP40NLLD2RN_3P3V_V0p4_ss_V0p99_125C.db"
+SP40NLLD2RN_3P3V_V0p4_ss_V0p99_125C.db"
 
-#分页显示关闭
-set enable_page_mode false
+# set_app_var synthetic_library 	"dw_foundation.sldb" # 优化库
+
+# # symbol library 用于图形化显示的符号库
+# set_app_var symbol_library	"smic18io.sdb"
+# lappend symbol_library	"smic18.sdb"
+
 
 set_app_var target_library  "$stdcell_libs"
 set_app_var link_library    "* $target_library $memory_libs $iopad_lib"
-
-
-
-# ---------------------------read RTL from rtl.list----------------------------
-set rtl_list_file "$rtl_path/rtl.list"
-if {![file exists $rtl_list_file]} {
-    puts "Error: rtl.list not found in $rtl_path"
-    exit 1
-}
-
-set RTLFileList {}
-set file_id [open $rtl_list_file r]
-while {[gets $file_id line] != -1} {
-    # 去除前后空格
-    set line [string trim $line]
-    # 跳过空行和以#开头的注释行
-    if {[string length $line] == 0 || [string index $line 0] == "#"} {
-        continue
-    }
-    lappend RTLFileList "$rtl_path/$line"
-}
-close $file_id
-
-# 打印读取到的文件列表（可选）
-puts "#++++++++++++++++++++++++++"
-puts "RTL Files to be analyzed:"
-foreach f $RTLFileList {
-    puts $f
-}
-puts "#++++++++++++++++++++++++++"
-
-foreach rtl_file $RTLFileList {
-    set ext [file extension $rtl_file]
-    if { $ext eq ".v" } {
-        analyze -format verilog $rtl_file
-    } elseif { $ext eq ".sv" } {
-        analyze -format sverilog $rtl_file
-    }
-}
-
-elaborate      $topModuleName                                                           
-current_design $topModuleName
-
-# This command is a part of the recommended Synopsys verification setup(SVF) creation flow.
-set_verification_top 
-
-# 链接，查看当前要综合的设计是否缺少子模块，返回值是1，说明子模块完整
-link
-
-
-## 设置约束文件
-#读入设计约束
-source $data_path/$topModuleName.tcl
-
-
-#过滤源的类型为端口的clk
-set ports_clock_root [filter_collection [get_attribute [get_clocks] sources] object_class==port]
-#路径分组。-from -to 优先级最大，-from 次之，-to 优先级最小
-group_path -name reg2out -to [all_outputs]
-#来自除去clk之外的所有输入信号的路径
-group_path -name in2reg -from [remove_from_collection [all_inputs] $ports_clock_root]
-#除去clk之外的所有输入信号到所有输出信号的路径
-group_path -name in2out -from [remove_from_collection [all_inputs] $ports_clock_root] \
--to [all_outputs]
-
-# 动态功耗和漏电优化
-set_dynamic_optimization true
-set_leakage_optimization true
-
-
-#综合并插入门控时钟单元
-compile_ultra -gate_clock 
-
-#为formality进行停止记录数据（形式验证）
-set_svf -off
-
-#因为DC和其它的XX命名规则不同，为了避免出现问题，在产生网表之前先要定义一些命名规则。
-change_names -rules verilog -hierarchy
-
-#保存综合后的设计
-write -format ddc -hierarchy -output $run_dir/outputs/ddc/$topModuleName.ddc
-#输出网表，自动布局布线需要
-write -f verilog -hierarchy -output $run_dir/outputs/netlist/$topModuleName.v
-#-version 2.1 兼容性更好 若设计涉及多工艺角（PVT）或先进工艺节点选3.0
-#-version 2.1
-write_sdf $run_dir/outputs/sdf/$topModuleName.sdf
+# set_app_var link_library    	"* $target_library $memory_libs $iopad_lib $synthetic_library"
 
 #****************************************************
-# Reporting
-#****************************************************    
-report_design     -nosplit >                $run_dir/rpts/$topModuleName.design.rpt
-report_timing     -nosplit >                $run_dir/rpts/$topModuleName.timing.rpt
-report_area       -nosplit >                $run_dir/rpts/$topModuleName.area.rpt
-report_power      -nosplit >                $run_dir/rpts/$topModuleName.power.rpt
-report_constraint -nosplit -all_violators > $run_dir/rpts/$topModuleName.constraint.rpt
-report_port       -nosplit >                $run_dir/rpts/$topModuleName.port.rpt
-report_net        -nosplit >                $run_dir/rpts/$topModuleName.net.rpt
-
-check_design  >                             $run_dir/rpts/$topModuleName.check_design.rpt
-check_timing  >                             $run_dir/rpts/$topModuleName.check_timing.rpt
 
 
-##++++++++++++++++++++++++
-# THE END
-#++++++++++++++++++++++++
-set flag [sizeof_collection [get_cells -hier -filter "is_unmapped==true"]]
-if {$flag == 0} {
-  puts "--------Synthesis Complete!--------"
+
+# specify directory for intermediate files from analyze
+define_design_lib DEFAULT -path ./analyzed
+
+# 输入 h 命令可以查看历史命令，默认保存100条历史命令
+alias h history
+history keep 100
+
+# specify varibles
+set_app_var hdlin_ff_always_sync_set_reset true
+set_app_var write_name_nets_same_as_ports true
+
+# reserve unused register
+# set_app_var compile_seqmap_propagate_constants false
+# set_app_var compile_delete_unloaded_sequential_cells false
+
+# 设置高扇出网络的阈值和引脚电容
+set_app_var high_fanout_net_threshold           60
+set_app_var high_fanout_net_pin_capacitance     0.01
+
+#****************************************************
+
+if {$read_rtl_only_switch == "true"} {
+
+    set_svf ${outputsDir}/${TOP_MODULE}.svf
+
+    define_design_lib WORK -path WORK
+
+    analyze -format verilog -lib WORK  -vcs "-f $rtlDir/rtl_verilog.list"
+    # 如果有sv
+    # analyze -format sverilog -lib WORK  -vcs "-f $rtlDir/rtl_sverilog.list"
+    elaborate $TOP_MODULE
+
+    current_design $TOP_MODULE	
+
+    if { [link] == 0 } {
+        echo "Linking Error when deal with $TOP_MODULE"
+        exit;
+    }
+    # 为每个单元实例创建一个唯一的设计，消除当前设计中多重实例化的层级
+    uniquify
+    if { [check_design] == 0 } {
+        echo "Check Design Error when deal with $TOP_MODULE"
+        exit;
+    }
+
+    write -format ddc -hierarchy -output ${outputsDir}/${TOP_MODULE}_unmapped.ddc
+
+    
+
+    #****************************************************
+    #  Finish and Quit
+    #****************************************************
+    if {$exit_switch == "true"} {
+        exit
+    }
+
 } else {
-  puts "--------Synthesis Failed!----------"
+    set_svf 	${outputsDir}/${TOP_MODULE}.svf
+
+    #Read saved unmapped ddc file
+    read_ddc  ${outputsDir}/${TOP_MODULE}_unmapped.ddc
+
+    # Define The Design Enviroment
+    set_min_library smic18io_line_ss_1p62v_2p97v_125c.db -min_version smic18io_line_ff_1p98v_3p63v_0c.db
+    set_operating_conditions -analysis_type bc_wc -min FF -max SS
+
+    set_min_library smic18_ss_1p62v_125c.db -min_version  smic18_ff_1p98v_0c.db
+    set_operating_conditions -analysis_type bc_wc -min ff_1p98v_0c -max ss_1p62v_125c
+
+    set_wire_load_mode  "segmented"
+    set_wire_load_model -name reference_area_10000000 -library smic18_ss_1p62v_125c
+
+
+    # #****************************************************
+    # # List of dont use cells. Avoiding scan and jk flip-flops, latches
+    # #****************************************************
+    # if 1 {
+    # set_dont_use smic18_ss_1p62v_125c/FFSD*
+    # set_dont_use smic18_ss_1p62v_125c/FFSED*
+    # set_dont_use smic18_ss_1p62v_125c/FFJK*
+    # set_dont_use smic18_ss_1p62v_125c/FFSJK*
+    # set_dont_use smic18_ff_1p98v_0c/FFSD*
+    # set_dont_use smic18_ff_1p98v_0c/FFSED*
+    # set_dont_use smic18_ff_1p98v_0c/FFJK*
+    # set_dont_use smic18_ff_1p98v_0c/FFSJK*
+    # }
+
+    #****************************************************
+    # remove dont_use attribute
+    #****************************************************
+    if { $remove_tie_dont_use_switch == "true" } {
+        set_attribute  [get_lib_cells smic18_ss_1p62v_125c/TIE*] dont_touch false
+        set_attribute  [get_lib_cells smic18_ff_1p98v_0c/TIE*] dont_touch false
+
+        set_attribute  [get_lib_cells smic18_ss_1p62v_125c/TIE*] dont_use false
+        set_attribute  [get_lib_cells smic18_ff_1p98v_0c/TIE*] dont_use false
+    }
+    
+    current_design $TOP_MODULE
+    #****************************************************
+
+    # 读入约束
+    source ${dataDir}/${TOP_MODULE}.tcl
+    #过滤源的类型为端口的clk
+    set ports_clock_root [filter_collection [get_attribute [get_clocks] sources] object_class==port]
+    #路径分组。-from -to 优先级最大，-from 次之，-to 优先级最小
+    group_path -name reg2out -to [all_outputs]
+    #来自除去clk之外的所有输入信号的路径
+    group_path -name in2reg -from [remove_from_collection [all_inputs] $ports_clock_root]
+    #除去clk之外的所有输入信号到所有输出信号的路径
+    group_path -name in2out -from [remove_from_collection [all_inputs] $ports_clock_root] \
+    -to [all_outputs]
+    report_clocks -nosplit >  ${reportsDir}/${TOP_MODULE}.clocks.rpt
+    #****************************************************
+
+    #****************************************************
+
+    # # don't touch
+    # set_dont_touch        [get_cells U_* ]
+
+
+    #****************************************************
+    # area and power
+    if { $area_switch == "true" } {
+        set_max_area     0   
+    }
+    if { $power_switch == "true" } {
+        set_max_total_power 0 uw
+        # 动态功耗和漏电优化
+        set_dynamic_optimization true
+        set_leakage_optimization true
+    }
+    #****************************************************
+
+
+    #  Map and Optimize the design
+    check_design
+
+    #compile
+    #avoid "assign"
+    set_app_var verilogout_no_tri true
+    set_app_var verilogout_equation false
+
+    set_fix_multiple_port_nets -buffer_constants -all
+
+    if {$ultra_switch == "true"} {
+        compile_ultra -boundary_optimization -gate_clock
+        #  fix_hold_time
+        if {$fix_hold_switch == "true"} {
+            set_fix_hold [get_clocks *]
+            compile_ultra -incremental
+        }
+    } else {
+        if {$high_switch == "true"} {
+            compile -map_effort high -boundary_optimization
+        } else {
+            compile -map_effort medium -boundary_optimization
+        }
+        #  fix_hold_time
+        if {$fix_hold_switch == "true"} {
+            set_fix_hold [get_clocks *]
+            compile -incremental -only_hold_time
+        }
+    }
+    
+
+    
+
+    check_design  >  ${reportsDir}/${TOP_MODULE}.check_design.rpt
+    check_timing  >  ${reportsDir}/${TOP_MODULE}.check_timing.rpt
+
+    #  Output Reports
+    report_design       -nosplit >                  ${reportsDir}/${TOP_MODULE}.design.rpt
+    report_port         -nosplit >                  ${reportsDir}/${TOP_MODULE}.port.rpt
+    report_net          -nosplit >                  ${reportsDir}/${TOP_MODULE}.net.rpt
+    report_timing_requirements -nosplit >           ${reportsDir}/${TOP_MODULE}.timing_requirements.rpt
+    report_constraint   -nosplit -all_violators >   ${reportsDir}/${TOP_MODULE}.constraint.rpt
+    report_timing       -nosplit >                  ${reportsDir}/${TOP_MODULE}.timing.rpt
+    report_area         -nosplit >                  ${reportsDir}/${TOP_MODULE}.area.rpt
+    report_power        -nosplit >                  ${reportsDir}/${TOP_MODULE}.power.rpt
+
+    #  Change Naming Rule
+    remove_unconnected_ports -blast_buses [find -hierarchy cell {"*"}]
+    set bus_inference_style {%s[%d]}
+    set bus_naming_style {%s[%d]}
+    set hdlout_internal_busses true
+    change_names -hierarchy -rule verilog
+    define_name_rules name_rule -allowed {a-z A-Z 0-9 _} -max_length 255 -type cell
+    define_name_rules name_rule -allowed {a-z A-Z 0-9 _[]} -max_length 255 -type net
+    define_name_rules name_rule -map {{"\\*cell\\*" "cell"}}
+    define_name_rules name_rule -case_insensitive -remove_internal_net_bus -equal_ports_nets
+    change_names -hierarchy -rules name_rule
+
+
+    #  Output Results
+    write -format verilog -hierarchy -output    ${outputsDir}/${TOP_MODULE}.v
+    write -format ddc -hierarchy -output        ${outputsDir}/${TOP_MODULE}.ddc
+    write_sdf                                   ${outputsDir}/${TOP_MODULE}_post_dc.sdf
+    write_sdc -nosplit                          ${outputsDir}/${TOP_MODULE}.sdc
+
+    date
+
+    set_svf -off
+
+    #++++++++++++++++++++++++
+    # THE END
+    #++++++++++++++++++++++++
+    set flag [sizeof_collection [get_cells -hier -filter "is_unmapped==true"]]
+    if {$flag == 0} {
+        puts "--------Synthesis Complete!--------"
+    } else {
+        puts "--------Synthesis Failed!----------"
+    }
+
+    #  Finish and Quit
+    if {$exit_switch == "true"} {
+    exit
+    }
 }
 
-exit
 
 
