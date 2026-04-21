@@ -68,7 +68,7 @@ set_app_var link_library    "* $target_library $memory_libs $iopad_lib"
 
 
 # specify directory for intermediate files from analyze
-define_design_lib DEFAULT -path ./analyzed
+define_design_lib WORK -path WORK
 
 # 输入 h 命令可以查看历史命令，默认保存100条历史命令
 alias h history
@@ -92,8 +92,6 @@ if {$read_rtl_only_switch == "true"} {
 
     set_svf ${outputsDir}/${TOP_MODULE}.svf
 
-    define_design_lib WORK -path WORK
-
     analyze -format verilog -lib WORK  -vcs "-f $rtlDir/rtl_verilog.list"
     # 如果有sv
     # analyze -format sverilog -lib WORK  -vcs "-f $rtlDir/rtl_sverilog.list"
@@ -114,7 +112,8 @@ if {$read_rtl_only_switch == "true"} {
 
     write -format ddc -hierarchy -output ${outputsDir}/${TOP_MODULE}_unmapped.ddc
 
-    
+    set_svf -off
+
 
     #****************************************************
     #  Finish and Quit
@@ -124,20 +123,23 @@ if {$read_rtl_only_switch == "true"} {
     }
 
 } else {
-    set_svf 	${outputsDir}/${TOP_MODULE}.svf
+    # 增加时钟门控的插入机会并减少设计中时钟门控单元的总数 搭配compile -gate_clock 和 compile_ultra -gate_clock
+    set_app_var compile_clock_gating_through_hierarchy true
+
+    set_svf 	${outputsDir}/${TOP_MODULE}.svf  -append
 
     #Read saved unmapped ddc file
     read_ddc  ${outputsDir}/${TOP_MODULE}_unmapped.ddc
 
-    # Define The Design Enviroment
-    set_min_library smic18io_line_ss_1p62v_2p97v_125c.db -min_version smic18io_line_ff_1p98v_3p63v_0c.db
-    set_operating_conditions -analysis_type bc_wc -min FF -max SS
+    # # Define The Design Enviroment
+    # set_min_library smic18io_line_ss_1p62v_2p97v_125c.db -min_version smic18io_line_ff_1p98v_3p63v_0c.db
+    # set_operating_conditions -analysis_type bc_wc -min FF -max SS
 
-    set_min_library smic18_ss_1p62v_125c.db -min_version  smic18_ff_1p98v_0c.db
-    set_operating_conditions -analysis_type bc_wc -min ff_1p98v_0c -max ss_1p62v_125c
+    # set_min_library smic18_ss_1p62v_125c.db -min_version  smic18_ff_1p98v_0c.db
+    # set_operating_conditions -analysis_type bc_wc -min ff_1p98v_0c -max ss_1p62v_125c
 
-    set_wire_load_mode  "segmented"
-    set_wire_load_model -name reference_area_10000000 -library smic18_ss_1p62v_125c
+    # set_wire_load_mode  "segmented"
+    # set_wire_load_model -name reference_area_10000000 -library smic18_ss_1p62v_125c
 
 
     # #****************************************************
@@ -154,38 +156,23 @@ if {$read_rtl_only_switch == "true"} {
     # set_dont_use smic18_ff_1p98v_0c/FFSJK*
     # }
 
-    #****************************************************
-    # remove dont_use attribute
-    #****************************************************
-    if { $remove_tie_dont_use_switch == "true" } {
-        set_attribute  [get_lib_cells smic18_ss_1p62v_125c/TIE*] dont_touch false
-        set_attribute  [get_lib_cells smic18_ff_1p98v_0c/TIE*] dont_touch false
+    # #****************************************************
+    # # remove dont_use attribute
+    # #****************************************************
+    # if { $remove_tie_dont_use_switch == "true" } {
+    #     set_attribute  [get_lib_cells smic18_ss_1p62v_125c/TIE*] dont_touch false
+    #     set_attribute  [get_lib_cells smic18_ff_1p98v_0c/TIE*] dont_touch false
 
-        set_attribute  [get_lib_cells smic18_ss_1p62v_125c/TIE*] dont_use false
-        set_attribute  [get_lib_cells smic18_ff_1p98v_0c/TIE*] dont_use false
-    }
+    #     set_attribute  [get_lib_cells smic18_ss_1p62v_125c/TIE*] dont_use false
+    #     set_attribute  [get_lib_cells smic18_ff_1p98v_0c/TIE*] dont_use false
+    # }
     
     current_design $TOP_MODULE
     #****************************************************
-
     # 读入约束
     source ${dataDir}/${TOP_MODULE}.tcl
-    #过滤源的类型为端口的clk
-    set ports_clock_root [filter_collection [get_attribute [get_clocks] sources] object_class==port]
-    #路径分组。-from -to 优先级最大，-from 次之，-to 优先级最小
-    group_path -name reg2out -to [all_outputs]
-    #来自除去clk之外的所有输入信号的路径
-    group_path -name in2reg -from [remove_from_collection [all_inputs] $ports_clock_root]
-    #除去clk之外的所有输入信号到所有输出信号的路径
-    group_path -name in2out -from [remove_from_collection [all_inputs] $ports_clock_root] \
-    -to [all_outputs]
     report_clocks -nosplit >  ${reportsDir}/${TOP_MODULE}.clocks.rpt
     #****************************************************
-
-    #****************************************************
-
-    # # don't touch
-    # set_dont_touch        [get_cells U_* ]
 
 
     #****************************************************
@@ -194,6 +181,9 @@ if {$read_rtl_only_switch == "true"} {
         set_max_area     0   
     }
     if { $power_switch == "true" } {
+        # # 低功耗布局 需搭配compile_ultra -spg使用 降低设计的总翻转功耗
+        # set_app_var power_low_power_placement true
+        set_app_var compile_enable_total_power_optimization true
         set_max_total_power 0 uw
         # 动态功耗和漏电优化
         set_dynamic_optimization true
@@ -213,26 +203,20 @@ if {$read_rtl_only_switch == "true"} {
     set_fix_multiple_port_nets -buffer_constants -all
 
     if {$ultra_switch == "true"} {
-        compile_ultra -boundary_optimization -gate_clock
-        #  fix_hold_time
-        if {$fix_hold_switch == "true"} {
-            set_fix_hold [get_clocks *]
-            compile_ultra -incremental
-        }
+        compile_ultra -gate_clock
     } else {
         if {$high_switch == "true"} {
             compile -map_effort high -boundary_optimization
         } else {
             compile -map_effort medium -boundary_optimization
         }
-        #  fix_hold_time
-        if {$fix_hold_switch == "true"} {
-            set_fix_hold [get_clocks *]
-            compile -incremental -only_hold_time
-        }
     }
     
-
+    #  fix_hold_time
+    if {$fix_hold_switch == "true"} {
+        set_fix_hold [get_clocks *]
+        compile -incremental -only_hold_time
+    }
     
 
     check_design  >  ${reportsDir}/${TOP_MODULE}.check_design.rpt
@@ -283,7 +267,7 @@ if {$read_rtl_only_switch == "true"} {
 
     #  Finish and Quit
     if {$exit_switch == "true"} {
-    exit
+        exit
     }
 }
 

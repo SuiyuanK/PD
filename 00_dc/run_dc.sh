@@ -1,5 +1,4 @@
 #!/bin/bash
-mkdir -p analyzed
 mkdir -p logs
 mkdir -p rpts
 mkdir -p outputs
@@ -14,14 +13,14 @@ export exit_switch=true
 # 开启只读RTL模式, 其它选项除exit_switch外无效
 export read_rtl_only_switch=true
 
-export area_switch=false
-export power_switch=false
-export fix_hold_switch=false
+export area_switch=true
+export power_switch=true
+export fix_hold_switch=true
 export remove_tie_dont_use_switch=false
 
 # ultra_switch开启时 high_switch无效
-export ultra_switch=false
-export high_switch=false
+export ultra_switch=true
+export high_switch=true
 
 
 if [ "$read_rtl_only_switch" = "true" ]; then

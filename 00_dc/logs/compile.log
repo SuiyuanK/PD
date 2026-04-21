@@ -1,0 +1,760 @@
+
+                           Design Compiler Graphical 
+                                 DC Ultra (TM)
+                                  DFTMAX (TM)
+                              Power Compiler (TM)
+                                 DesignWare (R)
+                                 DC Expert (TM)
+                               Design Vision (TM)
+                               HDL Compiler (TM)
+                               VHDL Compiler (TM)
+                                  DFT Compiler
+                               Design Compiler(R)
+
+               Version T-2022.03-SP2 for linux64 - May 25, 2022 
+
+                    Copyright (c) 1988 - 2022 Synopsys, Inc.
+   This software and the associated documentation are proprietary to Synopsys,
+ Inc. This software may only be used in accordance with the terms and conditions
+ of a written license agreement with Synopsys, Inc. All other use, reproduction,
+   or distribution of this software is strictly prohibited.  Licensed Products
+     communicate with Synopsys servers for the purpose of providing software
+    updates, detecting software piracy and verifying that customers are using
+    Licensed Products in conformity with the applicable License Key for such
+  Licensed Products. Synopsys will use information gathered in connection with
+    this process to deliver software updates and pursue software pirates and
+                                   infringers.
+
+ Inclusivity & Diversity - Visit SolvNetPlus to read the "Synopsys Statement on
+            Inclusivity and Diversity" (Refer to article 000036315 at
+                        https://solvnetplus.synopsys.com)
+Initializing...
+#****************************************************
+date
+Fri Apr 17 19:57:30 2026
+#****************************************************
+set fix_hold_switch 	            [getenv fix_hold_switch]
+true
+set exit_switch 	                [getenv exit_switch]
+true
+set area_switch  	                [getenv area_switch]
+true
+set power_switch  	                [getenv power_switch]
+true
+set ultra_switch 	                [getenv ultra_switch]
+true
+set high_switch  	                [getenv high_switch]
+true
+set remove_tie_dont_use_switch      [getenv remove_tie_dont_use_switch]
+false
+set read_rtl_only_switch            [getenv read_rtl_only_switch]
+false
+#****************************************************
+# Define working directory
+set TOPDIR	            [sh pwd]
+/mnt/hgfs/Em/PD/00_dc
+# Define RTL source files directory
+set rtlDir 		        [getenv rtlDir]
+../../RTL
+set TOP_MODULE          [getenv TOP_MODULE]                                       
+conv
+# Output&Reports files directory
+set reportsDir          "$TOPDIR/rpts"
+/mnt/hgfs/Em/PD/00_dc/rpts
+set outputsDir          "$TOPDIR/outputs"
+/mnt/hgfs/Em/PD/00_dc/outputs
+set dataDir             "$TOPDIR/data"
+/mnt/hgfs/Em/PD/00_dc/data
+# Design Compile system setting
+set_app_var search_path                ". $rtlDir"
+. ../../RTL
+lappend search_path             "$dataDir/lib"
+. ../../RTL /mnt/hgfs/Em/PD/00_dc/data/lib
+#****************************************************
+# stdcell
+set stdcell_libs "
+scc40nll_vhsc40_hvt_ss_v0p99_125c_basic.db
+scc40nll_vhsc40_lvt_ss_v0p99_125c_basic.db
+scc40nll_vhsc40_rvt_ss_v0p99_125c_basic.db"
+
+scc40nll_vhsc40_hvt_ss_v0p99_125c_basic.db
+scc40nll_vhsc40_lvt_ss_v0p99_125c_basic.db
+scc40nll_vhsc40_rvt_ss_v0p99_125c_basic.db
+# memory
+set memory_libs "
+RAMSP128X16_ss_0p90v_0p90v_125c.db
+RAMSP1024X16_ss_0p90v_0p90v_125c.db
+RAMSP2048X16_ss_0p90v_0p90v_125c.db
+RAMSP4096X16_ss_0p90v_0p90v_125c.db
+RAMTP128X16_ss_0p90v_0p90v_125c.db
+RAMTP1024X16_ss_0p90v_0p90v_125c.db"
+
+RAMSP128X16_ss_0p90v_0p90v_125c.db
+RAMSP1024X16_ss_0p90v_0p90v_125c.db
+RAMSP2048X16_ss_0p90v_0p90v_125c.db
+RAMSP4096X16_ss_0p90v_0p90v_125c.db
+RAMTP128X16_ss_0p90v_0p90v_125c.db
+RAMTP1024X16_ss_0p90v_0p90v_125c.db
+# iopad
+set iopad_lib "
+SP40NLLD2RN_3P3V_V0p4_ss_V0p99_125C.db"
+
+SP40NLLD2RN_3P3V_V0p4_ss_V0p99_125C.db
+# set_app_var synthetic_library 	"dw_foundation.sldb" # 优化库
+# # symbol library 用于图形化显示的符号库
+# set_app_var symbol_library	"smic18io.sdb"
+# lappend symbol_library	"smic18.sdb"
+set_app_var target_library  "$stdcell_libs"
+
+scc40nll_vhsc40_hvt_ss_v0p99_125c_basic.db
+scc40nll_vhsc40_lvt_ss_v0p99_125c_basic.db
+scc40nll_vhsc40_rvt_ss_v0p99_125c_basic.db
+set_app_var link_library    "* $target_library $memory_libs $iopad_lib"
+* 
+scc40nll_vhsc40_hvt_ss_v0p99_125c_basic.db
+scc40nll_vhsc40_lvt_ss_v0p99_125c_basic.db
+scc40nll_vhsc40_rvt_ss_v0p99_125c_basic.db 
+RAMSP128X16_ss_0p90v_0p90v_125c.db
+RAMSP1024X16_ss_0p90v_0p90v_125c.db
+RAMSP2048X16_ss_0p90v_0p90v_125c.db
+RAMSP4096X16_ss_0p90v_0p90v_125c.db
+RAMTP128X16_ss_0p90v_0p90v_125c.db
+RAMTP1024X16_ss_0p90v_0p90v_125c.db 
+SP40NLLD2RN_3P3V_V0p4_ss_V0p99_125C.db
+# set_app_var link_library    	"* $target_library $memory_libs $iopad_lib $synthetic_library"
+#****************************************************
+# specify directory for intermediate files from analyze
+define_design_lib DEFAULT -path ./analyzed
+1
+# 输入 h 命令可以查看历史命令，默认保存100条历史命令
+alias h history
+history keep 100
+100
+# specify varibles
+set_app_var hdlin_ff_always_sync_set_reset true
+true
+set_app_var write_name_nets_same_as_ports true
+true
+# reserve unused register
+# set_app_var compile_seqmap_propagate_constants false
+# set_app_var compile_delete_unloaded_sequential_cells false
+# 设置高扇出网络的阈值和引脚电容
+set_app_var high_fanout_net_threshold           60
+60
+set_app_var high_fanout_net_pin_capacitance     0.01
+0.01
+#****************************************************
+if {$read_rtl_only_switch == "true"} {
+
+    set_svf ${outputsDir}/${TOP_MODULE}.svf
+
+    define_design_lib WORK -path WORK
+
+    analyze -format verilog -lib WORK  -vcs "-f $rtlDir/rtl_verilog.list"
+    # 如果有sv
+    # analyze -format sverilog -lib WORK  -vcs "-f $rtlDir/rtl_sverilog.list"
+    elaborate $TOP_MODULE
+
+    current_design $TOP_MODULE	
+
+    if { [link] == 0 } {
+        echo "Linking Error when deal with $TOP_MODULE"
+        exit;
+    }
+    # 为每个单元实例创建一个唯一的设计，消除当前设计中多重实例化的层级
+    uniquify
+    if { [check_design] == 0 } {
+        echo "Check Design Error when deal with $TOP_MODULE"
+        exit;
+    }
+
+    write -format ddc -hierarchy -output ${outputsDir}/${TOP_MODULE}_unmapped.ddc
+
+    set_svf -off
+
+
+    #****************************************************
+    #  Finish and Quit
+    #****************************************************
+    if {$exit_switch == "true"} {
+        exit
+    }
+
+} else {
+    # 增加时钟门控的插入机会并减少设计中时钟门控单元的总数 搭配compile -gate_clock 和 compile_ultra -gate_clock
+    set_app_var compile_clock_gating_through_hierarchy true
+
+    set_svf 	${outputsDir}/${TOP_MODULE}.svf  -append
+
+    #Read saved unmapped ddc file
+    read_ddc  ${outputsDir}/${TOP_MODULE}_unmapped.ddc
+
+    # # Define The Design Enviroment
+    # set_min_library smic18io_line_ss_1p62v_2p97v_125c.db -min_version smic18io_line_ff_1p98v_3p63v_0c.db
+    # set_operating_conditions -analysis_type bc_wc -min FF -max SS
+
+    # set_min_library smic18_ss_1p62v_125c.db -min_version  smic18_ff_1p98v_0c.db
+    # set_operating_conditions -analysis_type bc_wc -min ff_1p98v_0c -max ss_1p62v_125c
+
+    # set_wire_load_mode  "segmented"
+    # set_wire_load_model -name reference_area_10000000 -library smic18_ss_1p62v_125c
+
+
+    # #****************************************************
+    # # List of dont use cells. Avoiding scan and jk flip-flops, latches
+    # #****************************************************
+    # if 1 {
+    # set_dont_use smic18_ss_1p62v_125c/FFSD*
+    # set_dont_use smic18_ss_1p62v_125c/FFSED*
+    # set_dont_use smic18_ss_1p62v_125c/FFJK*
+    # set_dont_use smic18_ss_1p62v_125c/FFSJK*
+    # set_dont_use smic18_ff_1p98v_0c/FFSD*
+    # set_dont_use smic18_ff_1p98v_0c/FFSED*
+    # set_dont_use smic18_ff_1p98v_0c/FFJK*
+    # set_dont_use smic18_ff_1p98v_0c/FFSJK*
+    # }
+
+    # #****************************************************
+    # # remove dont_use attribute
+    # #****************************************************
+    # if { $remove_tie_dont_use_switch == "true" } {
+    #     set_attribute  [get_lib_cells smic18_ss_1p62v_125c/TIE*] dont_touch false
+    #     set_attribute  [get_lib_cells smic18_ff_1p98v_0c/TIE*] dont_touch false
+
+    #     set_attribute  [get_lib_cells smic18_ss_1p62v_125c/TIE*] dont_use false
+    #     set_attribute  [get_lib_cells smic18_ff_1p98v_0c/TIE*] dont_use false
+    # }
+    
+    current_design $TOP_MODULE
+    #****************************************************
+    # 读入约束
+    source ${dataDir}/${TOP_MODULE}.tcl
+    report_clocks -nosplit >  ${reportsDir}/${TOP_MODULE}.clocks.rpt
+    #****************************************************
+
+
+    #****************************************************
+    # area and power
+    if { $area_switch == "true" } {
+        set_max_area     0   
+    }
+    if { $power_switch == "true" } {
+        # # 低功耗布局 需搭配compile_ultra -spg使用 降低设计的总翻转功耗
+        # set_app_var power_low_power_placement true
+        set_max_total_power 0 uw
+        # 动态功耗和漏电优化
+        set_dynamic_optimization true
+        set_leakage_optimization true
+    }
+    #****************************************************
+
+
+    #  Map and Optimize the design
+    check_design
+
+    #compile
+    #avoid "assign"
+    set_app_var verilogout_no_tri true
+    set_app_var verilogout_equation false
+
+    set_fix_multiple_port_nets -buffer_constants -all
+
+    if {$ultra_switch == "true"} {
+        compile_ultra -gate_clock
+    } else {
+        if {$high_switch == "true"} {
+            compile -map_effort high -boundary_optimization
+        } else {
+            compile -map_effort medium -boundary_optimization
+        }
+    }
+    
+    #  fix_hold_time
+    if {$fix_hold_switch == "true"} {
+        set_fix_hold [get_clocks *]
+        compile -incremental -only_hold_time
+    }
+    
+
+    check_design  >  ${reportsDir}/${TOP_MODULE}.check_design.rpt
+    check_timing  >  ${reportsDir}/${TOP_MODULE}.check_timing.rpt
+
+    #  Output Reports
+    report_design       -nosplit >                  ${reportsDir}/${TOP_MODULE}.design.rpt
+    report_port         -nosplit >                  ${reportsDir}/${TOP_MODULE}.port.rpt
+    report_net          -nosplit >                  ${reportsDir}/${TOP_MODULE}.net.rpt
+    report_timing_requirements -nosplit >           ${reportsDir}/${TOP_MODULE}.timing_requirements.rpt
+    report_constraint   -nosplit -all_violators >   ${reportsDir}/${TOP_MODULE}.constraint.rpt
+    report_timing       -nosplit >                  ${reportsDir}/${TOP_MODULE}.timing.rpt
+    report_area         -nosplit >                  ${reportsDir}/${TOP_MODULE}.area.rpt
+    report_power        -nosplit >                  ${reportsDir}/${TOP_MODULE}.power.rpt
+
+    #  Change Naming Rule
+    remove_unconnected_ports -blast_buses [find -hierarchy cell {"*"}]
+    set bus_inference_style {%s[%d]}
+    set bus_naming_style {%s[%d]}
+    set hdlout_internal_busses true
+    change_names -hierarchy -rule verilog
+    define_name_rules name_rule -allowed {a-z A-Z 0-9 _} -max_length 255 -type cell
+    define_name_rules name_rule -allowed {a-z A-Z 0-9 _[]} -max_length 255 -type net
+    define_name_rules name_rule -map {{"\\*cell\\*" "cell"}}
+    define_name_rules name_rule -case_insensitive -remove_internal_net_bus -equal_ports_nets
+    change_names -hierarchy -rules name_rule
+
+
+    #  Output Results
+    write -format verilog -hierarchy -output    ${outputsDir}/${TOP_MODULE}.v
+    write -format ddc -hierarchy -output        ${outputsDir}/${TOP_MODULE}.ddc
+    write_sdf                                   ${outputsDir}/${TOP_MODULE}_post_dc.sdf
+    write_sdc -nosplit                          ${outputsDir}/${TOP_MODULE}.sdc
+
+    date
+
+    set_svf -off
+
+    #++++++++++++++++++++++++
+    # THE END
+    #++++++++++++++++++++++++
+    set flag [sizeof_collection [get_cells -hier -filter "is_unmapped==true"]]
+    if {$flag == 0} {
+        puts "--------Synthesis Complete!--------"
+    } else {
+        puts "--------Synthesis Failed!----------"
+    }
+
+    #  Finish and Quit
+    if {$exit_switch == "true"} {
+        exit
+    }
+}
+Loading db file '/mnt/hgfs/Em/PD/00_dc/data/lib/scc40nll_vhsc40_hvt_ss_v0p99_125c_basic.db'
+Loading db file '/mnt/hgfs/Em/PD/00_dc/data/lib/scc40nll_vhsc40_lvt_ss_v0p99_125c_basic.db'
+Loading db file '/mnt/hgfs/Em/PD/00_dc/data/lib/scc40nll_vhsc40_rvt_ss_v0p99_125c_basic.db'
+Loading db file '/mnt/hgfs/Em/PD/00_dc/data/lib/RAMSP128X16_ss_0p90v_0p90v_125c.db'
+Loading db file '/mnt/hgfs/Em/PD/00_dc/data/lib/RAMSP1024X16_ss_0p90v_0p90v_125c.db'
+Loading db file '/mnt/hgfs/Em/PD/00_dc/data/lib/RAMSP2048X16_ss_0p90v_0p90v_125c.db'
+Loading db file '/mnt/hgfs/Em/PD/00_dc/data/lib/RAMSP4096X16_ss_0p90v_0p90v_125c.db'
+Loading db file '/mnt/hgfs/Em/PD/00_dc/data/lib/RAMTP128X16_ss_0p90v_0p90v_125c.db'
+Loading db file '/mnt/hgfs/Em/PD/00_dc/data/lib/RAMTP1024X16_ss_0p90v_0p90v_125c.db'
+Loading db file '/mnt/hgfs/Em/PD/00_dc/data/lib/SP40NLLD2RN_3P3V_V0p4_ss_V0p99_125C.db'
+Loading db file '/export/SoftWare/Synopsys/syn/T-2022.03-SP2/libraries/syn/gtech.db'
+Loading db file '/export/SoftWare/Synopsys/syn/T-2022.03-SP2/libraries/syn/standard.sldb'
+  Loading link library 'scc40nll_vhsc40_hvt_ss_v0p99_125c_basic'
+  Loading link library 'scc40nll_vhsc40_lvt_ss_v0p99_125c_basic'
+  Loading link library 'scc40nll_vhsc40_rvt_ss_v0p99_125c_basic'
+  Loading link library 'RAMSP128X16_ss_0p90v_0p90v_125c'
+  Loading link library 'RAMSP1024X16_ss_0p90v_0p90v_125c'
+  Loading link library 'RAMSP2048X16_ss_0p90v_0p90v_125c'
+  Loading link library 'RAMSP4096X16_ss_0p90v_0p90v_125c'
+  Loading link library 'RAMTP128X16_ss_0p90v_0p90v_125c'
+  Loading link library 'RAMTP1024X16_ss_0p90v_0p90v_125c'
+  Loading link library 'SP40NLLD2RN_3P3V_V0p4_ss_V0p99_125C'
+  Loading link library 'gtech'
+Reading ddc file '/mnt/hgfs/Em/PD/00_dc/outputs/conv_unmapped.ddc'.
+Loaded 2 designs.
+Current design is 'conv'.
+Current design is 'conv'.
+Warning: Design rule attributes from the driving cell will be set on the port 'ap_start'. (UID-401)
+Information: Command 'set_max_total_power' is obsolete and is being ignored. (INFO-102)
+Loading db file '/export/SoftWare/Synopsys/syn/T-2022.03-SP2/libraries/syn/dw_foundation.sldb'
+Information: Failed to find dw_foundation.sldb in the user defined search_path, load it from 'Synopsys Root'. (UISN-70)
+Warning: DesignWare synthetic library dw_foundation.sldb is added to the synthetic_library in the current command. (UISN-40)
+Information: Performing power optimization. (PWR-850)
+Analyzing: "/mnt/hgfs/Em/PD/00_dc/data/lib/scc40nll_vhsc40_hvt_ss_v0p99_125c_basic.db"
+Analyzing: "/mnt/hgfs/Em/PD/00_dc/data/lib/scc40nll_vhsc40_lvt_ss_v0p99_125c_basic.db"
+Analyzing: "/mnt/hgfs/Em/PD/00_dc/data/lib/scc40nll_vhsc40_rvt_ss_v0p99_125c_basic.db"
+Library analysis succeeded.
+Information: Evaluating DesignWare library utilization. (UISN-27)
+
+============================================================================
+| DesignWare Building Block Library  |         Version         | Available |
+============================================================================
+| Basic DW Building Blocks           | T-2022.03-DWBB_202203.2 |     *     |
+| Licensed DW Building Blocks        | T-2022.03-DWBB_202203.2 |     *     |
+============================================================================
+
+====================================================================================================
+| Flow Information                                                                                 |
+----------------------------------------------------------------------------------------------------
+| Flow         | Design Compiler WLM                                                               |
+| Comand Line  | compile_ultra -gate_clock                                                         |
+====================================================================================================
+| Design Information                                      | Value                                  |
+====================================================================================================
+| Number of Scenarios                                     | 0                                      |
+| Leaf Cell Count                                         | 4                                      |
+| Number of User Hierarchies                              | 1                                      |
+| Sequential Cell Count                                   | 2                                      |
+| Macro Count                                             | 0                                      |
+| Number of Power Domains                                 | 0                                      |
+| Number of Path Groups                                   | 5                                      |
+| Number of VT Class                                      | 3                                      |
+| Number of Clocks                                        | 1                                      |
+| Number of Dont Touch Cells                              | 0                                      |
+| Number of Dont Touch Nets                               | 3                                      |
+| Number of Size Only Cells                               | 0                                      |
+| Design with UPF Data                                    | false                                  |
+----------------------------------------------------------------------------------------------------
+| Variables                                               | Value                                  |
+----------------------------------------------------------------------------------------------------
+| set_fix_multiple_port_nets                              | -all -buffer_constants                 |
+====================================================================================================
+Information: Sequential output inversion is enabled.  SVF file must be used for formal verification. (OPT-1208)
+  Simplifying Design 'conv'
+Information: Performing clock-gating with positive edge logic: 'integrated' and negative edge logic: 'integrated'. (PWR-1047)
+
+Loaded alib file './alib-52/scc40nll_vhsc40_hvt_ss_v0p99_125c_basic.db.alib'
+Loaded alib file './alib-52/scc40nll_vhsc40_lvt_ss_v0p99_125c_basic.db.alib' (placeholder)
+Loaded alib file './alib-52/scc40nll_vhsc40_rvt_ss_v0p99_125c_basic.db.alib' (placeholder)
+  Building model 'DW01_NAND2'
+Information: Ungrouping hierarchy u_mod before Pass 1 (OPT-776)
+Information: Ungrouping 1 of 2 hierarchies before Pass 1 (OPT-775)
+Information: State dependent leakage is now switched from on to off.
+
+  Beginning Pass 1 Mapping
+  ------------------------
+  Processing 'conv'
+Information: In design 'conv', the register 'b_reg' is removed because it is merged to 'a_reg'. (OPT-1215)
+Memory usage for J1 task 1525 Mbytes -- main task 1525 Mbytes.
+
+  Updating timing information
+Information: Updating design information... (UID-85)
+Information: Performing global clock-gating on design conv. (PWR-731)
+
+Threshold voltage group cell usage:
+>> scc40nll_vhsc40_hvt 100.00%, scc40nll_vhsc40_lvt 0.00%, scc40nll_vhsc40_rvt 0.00%
+
+  Beginning Mapping Optimizations  (Ultra High effort)
+  -------------------------------
+Information: There is no timing violation in design conv. Delay-based auto_ungroup will not be performed. (OPT-780)
+
+                                  TOTAL                                                
+   ELAPSED            WORST NEG   SETUP    DESIGN                              LEAKAGE 
+    TIME      AREA      SLACK     COST    RULE COST         ENDPOINT            POWER  
+  --------- --------- --------- --------- --------- ------------------------- ---------
+    0:00:35       6.7      0.00       0.0       4.2                              0.0006
+    0:00:35       6.7      0.00       0.0       4.2                              0.0006
+
+Threshold voltage group cell usage:
+>> scc40nll_vhsc40_hvt 100.00%, scc40nll_vhsc40_lvt 0.00%, scc40nll_vhsc40_rvt 0.00%
+
+  Beginning Constant Register Removal
+  -----------------------------------
+    0:00:35       6.7      0.00       0.0       4.2                              0.0006
+    0:00:35       6.7      0.00       0.0       4.2                              0.0006
+
+Threshold voltage group cell usage:
+>> scc40nll_vhsc40_hvt 100.00%, scc40nll_vhsc40_lvt 0.00%, scc40nll_vhsc40_rvt 0.00%
+
+  Beginning Global Optimizations
+  ------------------------------
+  Numerical Synthesis (Phase 1)
+  Numerical Synthesis (Phase 2)
+  Global Optimization (Phase 1)
+  Global Optimization (Phase 2)
+  Global Optimization (Phase 3)
+  Global Optimization (Phase 4)
+  Global Optimization (Phase 5)
+  Global Optimization (Phase 6)
+  Global Optimization (Phase 7)
+  Global Optimization (Phase 8)
+  Global Optimization (Phase 9)
+  Global Optimization (Phase 10)
+  Global Optimization (Phase 11)
+  Global Optimization (Phase 12)
+  Global Optimization (Phase 13)
+  Global Optimization (Phase 14)
+  Global Optimization (Phase 15)
+  Global Optimization (Phase 16)
+  Global Optimization (Phase 17)
+  Global Optimization (Phase 18)
+  Global Optimization (Phase 19)
+  Global Optimization (Phase 20)
+  Global Optimization (Phase 21)
+  Global Optimization (Phase 22)
+  Global Optimization (Phase 23)
+  Global Optimization (Phase 24)
+  Global Optimization (Phase 25)
+  Global Optimization (Phase 26)
+  Global Optimization (Phase 27)
+  Global Optimization (Phase 28)
+  Global Optimization (Phase 29)
+
+Threshold voltage group cell usage:
+>> scc40nll_vhsc40_hvt 100.00%, scc40nll_vhsc40_lvt 0.00%, scc40nll_vhsc40_rvt 0.00%
+
+  Beginning Isolate Ports
+  -----------------------
+
+Threshold voltage group cell usage:
+>> scc40nll_vhsc40_hvt 100.00%, scc40nll_vhsc40_lvt 0.00%, scc40nll_vhsc40_rvt 0.00%
+
+  Beginning Delay Optimization
+  ----------------------------
+    0:00:36       6.7      0.00       0.0       4.2                              0.0006
+    0:00:36       6.7      0.00       0.0       4.2                              0.0006
+    0:00:36       6.7      0.00       0.0       4.2                              0.0006
+    0:00:36       6.4      0.00       0.0       4.2                              0.0005
+
+Threshold voltage group cell usage:
+>> scc40nll_vhsc40_hvt 100.00%, scc40nll_vhsc40_lvt 0.00%, scc40nll_vhsc40_rvt 0.00%
+    0:00:36       6.4      0.00       0.0       4.2                              0.0005
+    0:00:36       6.4      0.00       0.0       4.2                              0.0005
+
+  Beginning WLM Backend Optimization
+  --------------------------------------
+
+Threshold voltage group cell usage:
+>> scc40nll_vhsc40_hvt 100.00%, scc40nll_vhsc40_lvt 0.00%, scc40nll_vhsc40_rvt 0.00%
+
+  Beginning Delay Optimization HSVT Pass
+  --------------------------------------
+    0:00:43       6.4      0.00       0.0       4.2                              0.0005
+    0:00:43       6.4      0.00       0.0       4.2                              0.0005
+    0:00:43       6.4      0.00       0.0       4.2                              0.0005
+    0:00:43       6.4      0.00       0.0       4.2                              0.0005
+    0:00:46       6.4      0.00       0.0       4.2                              0.0005
+    0:00:46       6.4      0.00       0.0       4.2                              0.0005
+    0:00:46       6.4      0.00       0.0       4.2                              0.0005
+    0:00:46       6.4      0.00       0.0       4.2                              0.0005
+    0:00:50       6.4      0.00       0.0       4.2                              0.0005
+    0:00:50       6.4      0.00       0.0       4.2                              0.0005
+    0:00:50       6.4      0.00       0.0       4.2                              0.0005
+    0:00:50       6.4      0.00       0.0       4.2                              0.0005
+    0:00:51       6.4      0.00       0.0       4.2                              0.0005
+    0:00:51       6.4      0.00       0.0       4.2                              0.0005
+    0:00:51       6.4      0.00       0.0       4.2                              0.0005
+    0:00:51       6.4      0.00       0.0       4.2                              0.0005
+    0:00:51       6.4      0.00       0.0       4.2                              0.0005
+    0:00:51       6.4      0.00       0.0       4.2                              0.0005
+    0:00:51       6.4      0.00       0.0       4.2                              0.0005
+    0:00:51       6.4      0.00       0.0       4.2                              0.0005
+    0:00:51       6.4      0.00       0.0       4.2                              0.0005
+    0:00:51       6.4      0.00       0.0       4.2                              0.0005
+
+Threshold voltage group cell usage:
+>> scc40nll_vhsc40_hvt 100.00%, scc40nll_vhsc40_lvt 0.00%, scc40nll_vhsc40_rvt 0.00%
+
+  Beginning Delay Optimization
+  ----------------------------
+    0:00:51       6.4      0.00       0.0       4.2                              0.0005
+    0:00:51       6.4      0.00       0.0       4.2                              0.0005
+    0:00:51       6.4      0.00       0.0       4.2                              0.0005
+    0:00:51       6.4      0.00       0.0       4.2                              0.0005
+    0:00:51       6.4      0.00       0.0       4.2                              0.0005
+    0:00:51       6.4      0.00       0.0       4.2                              0.0005
+    0:00:51       6.4      0.00       0.0       4.2                              0.0005
+    0:00:51       6.4      0.00       0.0       4.2                              0.0005
+
+
+  Beginning Design Rule Fixing  (max_capacitance)
+  ----------------------------
+
+                                  TOTAL                                                
+   ELAPSED            WORST NEG   SETUP    DESIGN                              LEAKAGE 
+    TIME      AREA      SLACK     COST    RULE COST         ENDPOINT            POWER  
+  --------- --------- --------- --------- --------- ------------------------- ---------
+    0:00:51       6.4      0.00       0.0       4.2                              0.0005
+  Global Optimization (Phase 30)
+  Global Optimization (Phase 31)
+  Global Optimization (Phase 32)
+    0:00:51       6.4      0.00       0.0       4.2                              0.0005
+    0:00:51       6.4      0.00       0.0       4.2                              0.0005
+
+Threshold voltage group cell usage:
+>> scc40nll_vhsc40_hvt 100.00%, scc40nll_vhsc40_lvt 0.00%, scc40nll_vhsc40_rvt 0.00%
+
+
+  Beginning Power Optimization
+  ----------------------------
+
+                                  TOTAL                                                
+   ELAPSED            WORST NEG   SETUP    DESIGN                              LEAKAGE 
+    TIME      AREA      SLACK     COST    RULE COST         ENDPOINT            POWER  
+  --------- --------- --------- --------- --------- ------------------------- ---------
+    0:00:51       6.4      0.00       0.0       4.2                              0.0005
+  Global Optimization (Phase 33)
+  Global Optimization (Phase 34)
+  Global Optimization (Phase 35)
+  Global Optimization (Phase 36)
+  Global Optimization (Phase 37)
+  Global Optimization (Phase 38)
+  Global Optimization (Phase 39)
+  Global Optimization (Phase 40)
+  Global Optimization (Phase 41)
+  Global Optimization (Phase 42)
+    0:00:51       6.4      0.00       0.0       4.2                              0.0005
+    0:00:51       6.4      0.00       0.0       4.2                              0.0005
+    0:00:51       6.4      0.00       0.0       4.2                              0.0005
+    0:00:52       6.4      0.00       0.0       4.2                              0.0005
+    0:00:52       6.4      0.00       0.0       4.2                              0.0005
+    0:00:52       6.4      0.00       0.0       4.2                              0.0005
+    0:00:52       6.4      0.00       0.0       4.2                              0.0005
+    0:00:52       6.4      0.00       0.0       4.2                              0.0005
+    0:00:52       6.4      0.00       0.0       4.2                              0.0005
+    0:00:52       6.4      0.00       0.0       4.2                              0.0005
+    0:00:52       6.4      0.00       0.0       4.2                              0.0005
+    0:00:52       6.4      0.00       0.0       4.2                              0.0005
+    0:00:52       6.4      0.00       0.0       4.2                              0.0005
+    0:00:52       6.4      0.00       0.0       4.2                              0.0005
+    0:00:52       6.4      0.00       0.0       4.2                              0.0005
+    0:00:52       6.4      0.00       0.0       4.2                              0.0005
+    0:00:52       6.4      0.00       0.0       4.2                              0.0005
+    0:00:52       6.4      0.00       0.0       4.2                              0.0005
+    0:00:52       6.4      0.00       0.0       4.2                              0.0005
+    0:00:52       6.4      0.00       0.0       4.2                              0.0005
+    0:00:52       6.4      0.00       0.0       4.2                              0.0005
+    0:00:52       6.4      0.00       0.0       4.2                              0.0005
+
+                                  TOTAL                                                
+   ELAPSED            WORST NEG   SETUP    DESIGN                              LEAKAGE 
+    TIME      AREA      SLACK     COST    RULE COST         ENDPOINT            POWER  
+  --------- --------- --------- --------- --------- ------------------------- ---------
+    0:00:52       6.4      0.00       0.0       4.2                              0.0005
+    0:00:52       6.4      0.00       0.0       4.2                              0.0005
+    0:00:52       6.4      0.00       0.0       4.2                              0.0005
+    0:00:52       6.4      0.00       0.0       4.2                              0.0005
+    0:00:53       6.4      0.00       0.0       4.2                              0.0005
+
+Threshold voltage group cell usage:
+>> scc40nll_vhsc40_hvt 100.00%, scc40nll_vhsc40_lvt 0.00%, scc40nll_vhsc40_rvt 0.00%
+
+  Beginning Delay Optimization HSVT Pass
+  --------------------------------------
+    0:00:55       6.4      0.00       0.0       4.2                              0.0005
+    0:00:55       6.4      0.00       0.0       4.2                              0.0005
+    0:00:55       6.4      0.00       0.0       4.2                              0.0005
+    0:00:55       6.4      0.00       0.0       4.2                              0.0005
+    0:00:58       6.4      0.00       0.0       4.2                              0.0005
+    0:00:58       6.4      0.00       0.0       4.2                              0.0005
+    0:00:58       6.4      0.00       0.0       4.2                              0.0005
+    0:00:58       6.4      0.00       0.0       4.2                              0.0005
+    0:01:02       6.4      0.00       0.0       4.2                              0.0005
+    0:01:02       6.4      0.00       0.0       4.2                              0.0005
+    0:01:02       6.4      0.00       0.0       4.2                              0.0005
+    0:01:02       6.4      0.00       0.0       4.2                              0.0005
+    0:01:02       6.4      0.00       0.0       4.2                              0.0005
+    0:01:02       6.4      0.00       0.0       4.2                              0.0005
+Loading db file '/mnt/hgfs/Em/PD/00_dc/data/lib/scc40nll_vhsc40_hvt_ss_v0p99_125c_basic.db'
+Loading db file '/mnt/hgfs/Em/PD/00_dc/data/lib/scc40nll_vhsc40_lvt_ss_v0p99_125c_basic.db'
+Loading db file '/mnt/hgfs/Em/PD/00_dc/data/lib/scc40nll_vhsc40_rvt_ss_v0p99_125c_basic.db'
+Loading db file '/mnt/hgfs/Em/PD/00_dc/data/lib/RAMSP128X16_ss_0p90v_0p90v_125c.db'
+Loading db file '/mnt/hgfs/Em/PD/00_dc/data/lib/RAMSP1024X16_ss_0p90v_0p90v_125c.db'
+Loading db file '/mnt/hgfs/Em/PD/00_dc/data/lib/RAMSP2048X16_ss_0p90v_0p90v_125c.db'
+Loading db file '/mnt/hgfs/Em/PD/00_dc/data/lib/RAMSP4096X16_ss_0p90v_0p90v_125c.db'
+Loading db file '/mnt/hgfs/Em/PD/00_dc/data/lib/RAMTP128X16_ss_0p90v_0p90v_125c.db'
+Loading db file '/mnt/hgfs/Em/PD/00_dc/data/lib/RAMTP1024X16_ss_0p90v_0p90v_125c.db'
+Loading db file '/mnt/hgfs/Em/PD/00_dc/data/lib/SP40NLLD2RN_3P3V_V0p4_ss_V0p99_125C.db'
+
+
+Note: Symbol # after min delay cost means estimated hold TNS across all active scenarios 
+
+
+  Optimization Complete
+  ---------------------
+Information: State dependent leakage is now switched from off to on.
+Information: Propagating switching activity (low effort zero delay simulation). (PWR-6)
+Information: Performing power optimization. (PWR-850)
+Information: Evaluating DesignWare library utilization. (UISN-27)
+
+============================================================================
+| DesignWare Building Block Library  |         Version         | Available |
+============================================================================
+| Basic DW Building Blocks           | T-2022.03-DWBB_202203.2 |     *     |
+| Licensed DW Building Blocks        |                         |     *     |
+============================================================================
+
+====================================================================================================
+| Flow Information                                                                                 |
+----------------------------------------------------------------------------------------------------
+| Flow         | Design Compiler                                                                   |
+| Comand Line  | compile_ultra                                                                     |
+====================================================================================================
+| Design Information                                      | Value                                  |
+====================================================================================================
+| Number of Scenarios                                     | 0                                      |
+| Leaf Cell Count                                         | 2                                      |
+| Number of User Hierarchies                              | 0                                      |
+| Sequential Cell Count                                   | 1                                      |
+| Macro Count                                             | 0                                      |
+| Number of Power Domains                                 | 0                                      |
+| Number of Path Groups                                   | 5                                      |
+| Number of VT Class                                      | 3                                      |
+| Number of Clocks                                        | 1                                      |
+| Number of Dont Touch Cells                              | 0                                      |
+| Number of Dont Touch Nets                               | 2                                      |
+| Number of Size Only Cells                               | 0                                      |
+| Design with UPF Data                                    | false                                  |
+----------------------------------------------------------------------------------------------------
+| Variables                                               | Value                                  |
+----------------------------------------------------------------------------------------------------
+| set_fix_multiple_port_nets                              | -all -buffer_constants                 |
+====================================================================================================
+
+Information: State dependent leakage is now switched from on to off.
+
+  Beginning Pass 1 Mapping  (Incremental)
+  ------------------------
+
+  Updating timing information
+Information: Updating design information... (UID-85)
+
+Threshold voltage group cell usage:
+>> scc40nll_vhsc40_hvt 100.00%, scc40nll_vhsc40_lvt 0.00%, scc40nll_vhsc40_rvt 0.00%
+
+  Beginning Mapping Optimizations  (Incremental)
+  -------------------------------
+
+  Beginning Delay Optimization Phase
+  ----------------------------------
+
+                                  TOTAL                                                            
+   ELAPSED            WORST NEG   SETUP    DESIGN                              LEAKAGE   MIN DELAY 
+    TIME      AREA      SLACK     COST    RULE COST         ENDPOINT            POWER      COST    
+  --------- --------- --------- --------- --------- ------------------------- --------- -----------
+    0:00:04       6.4      0.00       0.0       4.2                              0.0005      0.00  
+    0:00:05       6.4      0.00       0.0       4.2                              0.0005      0.00  
+    0:00:05       6.4      0.00       0.0       4.2                              0.0005      0.00  
+
+
+  Beginning Design Rule Fixing  (max_capacitance)
+  ----------------------------
+
+                                  TOTAL                                                            
+   ELAPSED            WORST NEG   SETUP    DESIGN                              LEAKAGE   MIN DELAY 
+    TIME      AREA      SLACK     COST    RULE COST         ENDPOINT            POWER      COST    
+  --------- --------- --------- --------- --------- ------------------------- --------- -----------
+    0:00:05       6.4      0.00       0.0       4.2                              0.0005      0.00  
+Information: State dependent leakage is now switched from off to on.
+Information: Propagating switching activity (low effort zero delay simulation). (PWR-6)
+    0:00:05       6.4      0.00       0.0       4.2                              0.0005      0.00  
+Loading db file '/mnt/hgfs/Em/PD/00_dc/data/lib/scc40nll_vhsc40_hvt_ss_v0p99_125c_basic.db'
+Loading db file '/mnt/hgfs/Em/PD/00_dc/data/lib/scc40nll_vhsc40_lvt_ss_v0p99_125c_basic.db'
+Loading db file '/mnt/hgfs/Em/PD/00_dc/data/lib/scc40nll_vhsc40_rvt_ss_v0p99_125c_basic.db'
+Loading db file '/mnt/hgfs/Em/PD/00_dc/data/lib/RAMSP128X16_ss_0p90v_0p90v_125c.db'
+Loading db file '/mnt/hgfs/Em/PD/00_dc/data/lib/RAMSP1024X16_ss_0p90v_0p90v_125c.db'
+Loading db file '/mnt/hgfs/Em/PD/00_dc/data/lib/RAMSP2048X16_ss_0p90v_0p90v_125c.db'
+Loading db file '/mnt/hgfs/Em/PD/00_dc/data/lib/RAMSP4096X16_ss_0p90v_0p90v_125c.db'
+Loading db file '/mnt/hgfs/Em/PD/00_dc/data/lib/RAMTP128X16_ss_0p90v_0p90v_125c.db'
+Loading db file '/mnt/hgfs/Em/PD/00_dc/data/lib/RAMTP1024X16_ss_0p90v_0p90v_125c.db'
+Loading db file '/mnt/hgfs/Em/PD/00_dc/data/lib/SP40NLLD2RN_3P3V_V0p4_ss_V0p99_125C.db'
+
+
+Note: Symbol # after min delay cost means estimated hold TNS across all active scenarios 
+
+
+  Optimization Complete
+  ---------------------
+Writing verilog file '/mnt/hgfs/Em/PD/00_dc/outputs/conv.v'.
+Writing ddc file '/mnt/hgfs/Em/PD/00_dc/outputs/conv.ddc'.
+Information: Annotated 'cell' delays are assumed to include load delay. (UID-282)
+Information: Writing timing information to file '/mnt/hgfs/Em/PD/00_dc/outputs/conv_post_dc.sdf'. (WT-3)
+Information: Updating design information... (UID-85)
+--------Synthesis Complete!--------
+
+Memory usage for this session 1574 Mbytes.
+Memory usage for this session including child processes 1574 Mbytes.
+CPU usage for this session 260 seconds ( 0.07 hours ).
+Elapsed time for this session 302 seconds ( 0.08 hours ).
+
+Thank you...

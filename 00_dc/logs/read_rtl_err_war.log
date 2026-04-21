@@ -1,0 +1,38 @@
+Log: D:\SuiyuanBa\Desktop\Em\PD\00_dc\logs\read_rtl.log
+
+[Error] 总数: 76，类型数: 1
+- 类型: ELAB-366
+  数量: 76
+  样例: ../../RTL/yolov4_tiny/verilog/conv_maxpool_fm_in_buff_RAM_AUTO_1R1W.v:65: Net 'ram[0][15]' or a directly connected net is driven by more than one source, and not all drivers are three-state. (ELAB-366)
+
+[Warning] 总数: 44997，类型数: 10
+- 类型: ELAB-405
+  数量: 43552
+  样例: ../../RTL/yolov4_tiny/verilog/conv_maxpool_fm_in_buff_RAM_AUTO_1R1W.v:65: Net ram[0][15] or a directly connected net may be driven by more than one process or block. (ELAB-405)
+- 类型: VER-318
+  数量: 1349
+  样例: ../../RTL/yolov4_tiny/verilog/conv.v:2204: signed to unsigned assignment occurs. (VER-318)
+- 类型: VER-281
+  数量: 32
+  样例: ../../RTL/yolov4_tiny/verilog/conv.v:882: The statements in initial blocks are ignored. (VER-281)
+- 类型: VER-708
+  数量: 31
+  样例: ../../RTL/yolov4_tiny/verilog/conv_CTRL_s_axi.v:164: The construct 'declaration initial assignment' is not supported in synthesis; it is ignored. (VER-708)
+- 类型: VER-944
+  数量: 15
+  样例: ../../RTL/yolov4_tiny/verilog/conv_FULL_m_axi.v:2245: A unnamed generate block with an LRM-defined name 'genblk1' is detected, which is incompatible with Verilog standard 2001 or 1995. (VER-944)
+- 类型: ELAB-335
+  数量: 13
+  样例: ../../RTL/yolov4_tiny/verilog/conv_conv_Pipeline_1.v:464: 'Case' statement is full and has only one nontrivial branch; it will be inlined. (ELAB-335)
+- 类型: LINK-5
+  数量: 2
+  样例: Unable to resolve reference 'conv_maxpool_fm_in_buff_RAM_AUTO_1R1W' in 'conv_maxpool'. (LINK-5)
+- 类型: ELAB-311
+  数量: 1
+  样例: ../../RTL/yolov4_tiny/verilog/conv_sparsemux_17_3_16_1_1.v:78: DEFAULT branch of CASE statement cannot be reached. (ELAB-311)
+- 类型: Filename too long >255 chars. Renaming file:
+  数量: 1
+  样例: Filename too long >255 chars. Renaming file:
+- 类型: UID-341
+  数量: 1
+  样例: Design 'conv' has '2' unresolved references. For more detailed information, use the "link" command. (UID-341)

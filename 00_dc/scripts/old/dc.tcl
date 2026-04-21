@@ -1,9 +1,10 @@
 ###环境设置
 # 低功耗和时钟门控优化设置
-set_app_var pwr_cg_improved_cells_selection_for_remapping true
+
+# 增加时钟门控的插入机会并减少设计中时钟门控单元的总数 搭配compile -gate_clock 和 compile_ultra -gate_clock
 set_app_var compile_clock_gating_through_hierarchy true
+# 低功耗布局 搭配compile_ultra -spg使用 降低设计的总翻转功耗
 set_app_var power_low_power_placement true
-set_app_var power_cg_flatten false
 
 ###set syn env###
 set topModuleName           conv                                                      
