@@ -38,6 +38,9 @@ read_db [list   ${TOPDIR}/data/lib/scc40nll_vhsc40_hvt_tt_v1p1_25c_basic.db    \
                 ${TOPDIR}/data/lib/SP40NLLD2RN_3P3V_V0p4_tt_V1p10_25C.db   ]
 
 
+
+read_verilog -r [sh ls ${topDir}/verilog/*.v]
+
 read_verilog -r ${post_dc_Dir}/${TOP_MODULE}.v
 set_top r:/WORK/${TOP_MODULE}
 

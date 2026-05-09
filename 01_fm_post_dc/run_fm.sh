@@ -1,5 +1,4 @@
-rm -rf ./log
-mkdir -p ./log
+rm -f ./log/*.log
 
 export rtlDir="../../RTL"
 export TOP_MODULE="conv"
