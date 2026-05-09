@@ -11,7 +11,7 @@ export TOP_MODULE="conv"
 
 export exit_switch=true
 # 开启只读RTL模式, 其它选项除exit_switch外无效
-export read_rtl_only_switch=true
+export read_rtl_switch=true
 
 export area_switch=true
 export power_switch=true
@@ -23,7 +23,7 @@ export ultra_switch=true
 export high_switch=true
 
 
-if [ "$read_rtl_only_switch" = "true" ]; then
+if [ "$read_rtl_switch" = "true" ]; then
     echo "Running RTL only mode..."
     dc_shell-xg-t -f ./scripts/dc.tcl |tee -i logs/read_rtl.log
 else
@@ -31,7 +31,7 @@ else
     dc_shell-xg-t -f ./scripts/dc.tcl |tee -i logs/compile.log
 fi
 
-# if [ "$read_rtl_only_switch" = "true" ]; then
+# if [ "$read_rtl_switch" = "true" ]; then
 #     echo "Running RTL only mode..."
 #     dc_shell-xg-t -f ./scripts/dc.tcl |tee -i logs/read_rtl_$(date +%Y-%m-%d_%H-%M-%S).log
 # else

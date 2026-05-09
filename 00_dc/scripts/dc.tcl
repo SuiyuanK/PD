@@ -10,7 +10,7 @@ set power_switch  	                [getenv power_switch]
 set ultra_switch 	                [getenv ultra_switch]
 set high_switch  	                [getenv high_switch]
 set remove_tie_dont_use_switch      [getenv remove_tie_dont_use_switch]
-set read_rtl_only_switch            [getenv read_rtl_only_switch]
+set read_rtl_switch                 [getenv read_rtl_switch]
 
 #****************************************************
 
@@ -88,7 +88,7 @@ set_app_var high_fanout_net_pin_capacitance     0.01
 
 #****************************************************
 
-if {$read_rtl_only_switch == "true"} {
+if {$read_rtl_switch == "true"} {
 
     set_svf ${outputsDir}/${TOP_MODULE}.svf
 
@@ -234,16 +234,33 @@ if {$read_rtl_only_switch == "true"} {
 
     #  Change Naming Rule
     remove_unconnected_ports -blast_buses [find -hierarchy cell {"*"}]
-    set bus_inference_style {%s[%d]}
-    set bus_naming_style {%s[%d]}
-    set hdlout_internal_busses true
+    set_app_var bus_inference_style {%s[%d]}
+    set_app_var bus_naming_style {%s[%d]}
+    set_app_var hdlout_internal_busses true
     change_names -hierarchy -rule verilog
-    define_name_rules name_rule -allowed {a-z A-Z 0-9 _} -max_length 255 -type cell
-    define_name_rules name_rule -allowed {a-z A-Z 0-9 _[]} -max_length 255 -type net
-    define_name_rules name_rule -map {{"\\*cell\\*" "cell"}}
-    define_name_rules name_rule -case_insensitive -remove_internal_net_bus -equal_ports_nets
+
+    remove_name_rules name_rule 
+    define_name_rules name_rule \
+        -type net \
+        -allowed "A-Za-z0-9_[]" \
+        -replacement_char "_" \
+        -max_length 255 \
+        -case_insensitive \
+        -remove_internal_net_bus \
+        -equal_ports_nets \
+        -map {{"\\*cell\\*" "cell"}}
+    define_name_rules name_rule \
+        -type cell \
+        -allowed "A-Za-z0-9_" \
+        -replacement_char "_" \
+        -max_length 255 \
+        -case_insensitive \
+        -remove_internal_net_bus \
+        -equal_ports_nets \
+        -map {{"\\*cell\\*" "cell"}}
     change_names -hierarchy -rules name_rule
 
+    
 
     #  Output Results
     write -format verilog -hierarchy -output    ${outputsDir}/${TOP_MODULE}.v
