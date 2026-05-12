@@ -1,12 +1,13 @@
 Log: D:\SuiyuanBa\Desktop\Em\PD\00_dc\logs\compile.log
+----------------------------------------
+[Error] Total: 0, Unique Types: 0
+- None
 
-[Error] 总数: 0，类型数: 0
-- 无
+[Warning] Total: 2, Unique Types: 2
+- Type:   UID-401
+  Count:  1
+  Sample: Design rule attributes from the driving cell will be set on the port 'ap_start'. (UID-401)
 
-[Warning] 总数: 2，类型数: 2
-- 类型: UID-401
-  数量: 1
-  样例: Design rule attributes from the driving cell will be set on the port 'ap_start'. (UID-401)
-- 类型: UISN-40
-  数量: 1
-  样例: DesignWare synthetic library dw_foundation.sldb is added to the synthetic_library in the current command. (UISN-40)
+- Type:   UISN-40
+  Count:  1
+  Sample: DesignWare synthetic library dw_foundation.sldb is added to the synthetic_library in the current command. (UISN-40)
