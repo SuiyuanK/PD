@@ -1,0 +1,199 @@
+*****************************************************************
+*			User Guideline				*
+*****************************************************************
+								
+This file is released for users who are using SMIC 40nm Logic Salicide 0.9/1.1/1.2/1.8/2.5V low leakage and generic Calibre drc runset. 
+
+1.Option switch setting
+There are 3 DRC decks in attached package. 
+For main rules(include ESD and Latch-up rules):
+SMIC_CalDRC_40GELGLL_0911121825_2TM_V1.12.1_0.drc
+SMIC_CalDRC_40GELGLL_0911121825_1TM_V1.12.1_0.drc
+For antenna rules:
+SMIC_CalDRC_40GELGLL_0911121825_V1.12.1_0.ant
+
+
+1.1 Option switch setting in main rule
+#################################################
+#     Environmental Variables Setting           #
+#################################################
+
+#TOP Metal select. The value can be 10,9,8,7,6,5(include double top metals(TM1,TM2/MTT2)).
+#Default value is 10.
+set TOPMETAL 10             ;#valid value is: {10,9,8,7,6,5}
+
+VERBATIM {
+#DEFINE CONNECT_ALL_RESISTOR 0  //;#valid value is: {0,1}   
+                             //;#default 0 
+                             //;#The switch (to connect AA resistor, Hi-R resistor, well resistor between PAD and AA injector) can control the connectivity of resistor.   
+                             //;#if 0,the connection is broken; 
+                             //;#if 1,the connection is not broken;
+
+#DEFINE DEFINE_PAD_BY_TEXT  1   // ;# valid value is: {0,1}
+                             //;# default is 1
+                             //;# when“?VDD?”,”?VCC?”,“?VSS?”,”?GND?” as text name using layer ALPATXT on ALPA,
+                             //;# if 0, it is regarded as I/O PAD; if valid value is 1, it is regarded POWER PAD. 
+
+
+//***********************************************
+//   SMIC internal choice
+//***********************************************
+
+
+//AA resistor layout guideline selection. Default is YES.
+//when check AA resistor layout guidelines, please set it to "YES".
+//when not to check AA resistor layout guidelines, please set it to "NO".
+#DEFINE RESAA_CHECK YES           //valid value is: {YES, NO}
+
+
+//NW resistor layout guideline selection. Default is YES.
+//when check NW resistor layout guidelines, please set it to "YES".
+//when not to check NW resistor layout guidelines, please set it to "NO".
+#DEFINE RESNW_CHECK YES           //valid value is: {YES, NO}
+
+
+//Poly resistor layout guideline selection. Default is YES.
+//when check Poly resistor layout guidelines, please set it to "YES".
+//when not to check Poly resistor layout guidelines, please set it to "NO".
+#DEFINE RESP_CHECK YES           //valid value is: {YES, NO}
+
+
+//ESD layout guideline selection. Default is NO.
+//when check ESD layout guidelines, please set it to "YES".
+//when not to check ESD layout guidelines, please set it to "NO".
+#DEFINE ESD_CHECK NO           //valid value is: {YES, NO}
+
+
+//Latch Up Prevention Layout Guidelines selection. Default is YES.
+//when check Latch up guidelines, please set it to "YES".
+//when not to check Latch up guidelines, please set it to "NO".
+#DEFINE LATCH_UP_CHECK YES           //valid value is: {YES, NO}
+
+// LDMOS rule selection. Defaults to NO.
+// when check LDMOS rules , please set it to "YES"; 
+// when not to check LDMOS rules, please set it to "NO".	
+#DEFINE LD NO           //valid value is: {YES, NO}
+
+//Inductor rule selection. Defaults to YES.
+//when check inductor rules , please set it to "YES".
+//when not to check inductor rules, please set it to "NO".
+#DEFINE INDUCTOR YES           //valid value is: {YES, NO}
+
+//BUMP rule selection. Default is "NO".
+//when check BUMP rules , please set it to "YES".
+//when not to check BUMP rules, please set it to "NO".
+#DEFINE BUMP NO           //valid value is: {YES, NO}
+
+
+
+
+//LOGO guideline selection. Default is YES.
+//when check LOGO guidelines, please set it to "YES".
+//when not to check LOGO guidelines, please set it to "NO".
+#DEFINE LOGO YES           //valid value is: {YES, NO}
+
+
+//MOM(metal oxide metal) capacitor rule selection for MOM.4[G]. Defaults to YES.
+//when check MOM.4[G] guidelines,please set it to "YES";
+//when not to check MOM.4[G] guidelines,please set it to "NO".
+#DEFINE MOM_4_CHECK YES           //valid value is: {YES, NO}
+
+
+//MOM(metal oxide metal) capacitor rule selection for MOM.5[G]. Default is YES.
+//when check MOM.5[G],guidelines,please set it to "YES".
+//when not to check MOM.5[G] guidelines,please set it to "NO".
+#DEFINE MOM_5_CHECK YES           //valid value is: {YES, NO}
+
+
+//MOM(metal oxide metal) capacitor rule selection for MOM.6[G]. Default is YES.
+//when check MOM.6[G] guidelines,please set it to "YES".
+//when not to check MOM.6[G] guidelines,please set it to "NO".
+#DEFINE MOM_6_CHECK YES           //valid value is: {YES, NO}
+
+
+
+
+
+
+//This switch is for default turn on DFM rules.
+//Default value is "YES" to check default turn on DFM rules.
+//Please change the value "YES" into "NO" if you don't want to check these rules.
+#DEFINE DFM_rules_CHECK_ON YES           //valid value is: {YES, NO}
+   
+
+//This switch is for default turn off DFM rules.
+//Default value is "NO" not to check default turn off DFM rules.
+//Please change the value "NO" into "YES" if you want to check these rules.
+#DEFINE DFM_rules_CHECK_OFF NO           //valid value is: {YES, NO}
+
+
+//If top metal is layer TM2 (layer 122, top metal with regular thickness), then please use default value NO.
+//If top metal is layer MTT2 (layer 231, top metal with ultra thickness), then please change it into YES.
+#DEFINE UTM NO           //valid value is: {YES, NO}
+
+
+
+
+
+
+
+
+//CORN rule selection. Default is YES.
+//when check Chip without SEAL RING , please set it to "YES".
+//when check Chip with SEAL RING, please set it to "NO".
+#DEFINE CHK_CORN YES           //valid value is: {YES, NO}
+
+
+//BORDER rule selection. Default is YES.
+//If customer check the chip level , please set it to "YES".
+//If customer check the IP level , please set it to "NO".
+#DEFINE CHK_BORDER YES           //valid value is: {YES, NO}
+
+
+//SRAM GT direction selection.
+//Default is V (vertical).
+//But it can also be changed into H (horizontal).
+#DEFINE SRAM_GT_DIRECTION V           //valid value is: {H,V}
+
+
+
+
+// This switch is only for LU_3_3a_G,LU_3_3b_G,LU_3_3c_G, LU_3_3d_G rules 
+// default value is "FAST" to fast check LU_3_? rules and reduce runtime,yet it may report false alarm in min space value 
+// please change the value "FAST" into "ACCURATE",if you want to accurately check LU_3_? rules, yet it have long runtime.
+#DEFINE LU_3_CHECK FAST   //valid value is: {FAST, ACCURATE}
+
+
+
+1.2 Option switch setting in antenna rule
+    a.Please set the correct total metal counts in your design.DRC default to check 10 level metal.
+      For 10 level metal, please set this option to “M 10”;
+      For 9 level metal, please set this option to “M 9”;
+      For 8 level metal, please set this option to “M 8”;
+      For 7 level metal, please set this option to “M 7”;
+      For 6 level metal, please set this option to “M 6”;
+      For 5 level metal, please set this option to “M 5”;
+      For 4 level metal, please set this option to “M 4”;
+
+    b.Please set the correct top metal counts in your design.DRC default to check 2 top metal.
+      For one top metal count,please set this option to “T 1”.
+
+    c.Please set the correct top metal in your design.DRC default to check normal top metal,
+      For ultra thickness top metal, please set this option to “TM_NAME TM2”.
+
+    d.Please set the correct ALPA thickness in your design.DRC default to check 1.45um thickness ALPA,
+      For 2.8um thickness ALPA,please set this option “2.8”.
+
+
+
+2. Calibre version requirement: 2016.3_19.12
+This drc runset is verified by 2016.3_19.12 version Calibre,so advise
+user also use 2016.3_19.12 version Calibre to do drc check for your design.
+
+
+
+3. Known issues
+MTT2_13 may have false alarm in below pattern:
+Two TV2 are located on the same TM1 and on the same MTT2, but they are located on the different intersect region of TM1 and MTT2. 
+If the space between the two TV2 is <= 1.7um,it is also a good pattern,but DRC would highlight it.
+
