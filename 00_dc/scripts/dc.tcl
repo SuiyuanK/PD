@@ -9,8 +9,8 @@ set area_switch  	                [getenv area_switch]
 set power_switch  	                [getenv power_switch]
 set ultra_switch 	                [getenv ultra_switch]
 set high_switch  	                [getenv high_switch]
-set remove_tie_dont_use_switch      [getenv remove_tie_dont_use_switch]
-set read_rtl_switch                 [getenv read_rtl_switch]
+set remove_tie_dont_use_switch     [getenv remove_tie_dont_use_switch]
+set read_rtl_switch                [getenv read_rtl_switch]
 
 #****************************************************
 
@@ -94,7 +94,7 @@ if {$read_rtl_switch == "true"} {
 
     analyze -format verilog -lib WORK  -vcs "-f $rtlDir/rtl_verilog.list"
     # 如果有sv
-    # analyze -format sverilog -lib WORK  -vcs "-f $rtlDir/rtl_sverilog.list"
+    analyze -format sverilog -lib WORK  -vcs "-f $rtlDir/rtl_sverilog.list"
     elaborate $TOP_MODULE
 
     current_design $TOP_MODULE	

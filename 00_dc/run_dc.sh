@@ -7,20 +7,21 @@ mkdir -p WORK
 # 等号两边不能有空格
 # Define RTL source files directory
 export rtlDir="../../RTL"
-export TOP_MODULE="conv"
+export TOP_MODULE="soc_pad_wrapper"
 
 export exit_switch=true
 # 开启只读RTL模式, 其它选项除exit_switch外无效
+
 export read_rtl_switch=true
 
-export area_switch=true
-export power_switch=true
-export fix_hold_switch=true
+export area_switch=false
+export power_switch=false
+export fix_hold_switch=false
 export remove_tie_dont_use_switch=false
 
 # ultra_switch开启时 high_switch无效
-export ultra_switch=true
-export high_switch=true
+export ultra_switch=false
+export high_switch=false
 
 
 if [ "$read_rtl_switch" = "true" ]; then

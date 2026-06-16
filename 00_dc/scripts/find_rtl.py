@@ -31,8 +31,15 @@ def find_verilog_files():
     # 遍历脚本所在目录及其子目录
     for root, dirs, files in os.walk(script_dir):
         for file in files:
-            # 检查文件名不包含tb（不区分大小写）
-            if 'tb' not in file.lower():
+            # 过滤常见 testbench 命名，避免误过滤 btb.v 这类正常 RTL 文件
+            name = os.path.splitext(file)[0].lower()
+            is_testbench = (
+                name == 'tb' or
+                name.startswith('tb_') or
+                name.endswith('_tb') or
+                name.endswith('_testbench')
+            )
+            if not is_testbench:
                 # 获取文件相对于脚本目录的相对路径
                 rel_path = os.path.relpath(os.path.join(root, file), script_dir)
                 # 将路径中的反斜杠替换为斜杠
