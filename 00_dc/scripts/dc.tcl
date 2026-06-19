@@ -171,7 +171,7 @@ if {$read_rtl_switch == "true"} {
     #****************************************************
     # 读入约束
     source ${dataDir}/${TOP_MODULE}.tcl
-    report_clocks -nosplit >  ${reportsDir}/${TOP_MODULE}.clocks.rpt
+    report_clock -nosplit >  ${reportsDir}/${TOP_MODULE}.clock.rpt
     #****************************************************
 
 
@@ -239,7 +239,6 @@ if {$read_rtl_switch == "true"} {
     set_app_var hdlout_internal_busses true
     change_names -hierarchy -rule verilog
 
-    remove_name_rules name_rule 
     define_name_rules name_rule \
         -type net \
         -allowed "A-Za-z0-9_[]" \
