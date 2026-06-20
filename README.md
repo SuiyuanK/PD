@@ -275,6 +275,7 @@ cd 07_signoff_check
 
 - **Foundry**: SMIC
 - **IO 单元**: 见 [SMIC_IO_Cell_Categories_CN.md](SMIC_IO_Cell_Categories_CN.md)
+- 本人 DC 所用的工艺库放在 `00_dc/data/lib/` 下，**未上传**。使用时需自行放置或修改 `scripts/dc.tcl` 中的库路径指向你自己的库。
 
 ---
 
