@@ -154,20 +154,58 @@ PD/
 
 ### 1. 逻辑综合 (DC)
 
+DC 脚本位于 `00_dc/` 目录下，运行 `run_dc.sh` 即可启动。整个 DC 流程通过 `run_dc.sh` 顶部的环境变量来控制：
+
 ```bash
 cd 00_dc
-# 1. 修改 scripts/dc.tcl 中的工艺库路径和 RTL 路径
-# 2. 将 scripts/find_rtl.py 放到 RTL 目录下运行，生成 rtl.list
-python find_rtl.py
-# 3. 运行综合
+# 等号两边不能有空格
+# Define RTL source files directory
+export rtlDir="../../RTL"
+export TOP_MODULE="soc_pad_wrapper"
+
+export exit_switch=false
+# 开启只读RTL模式, 其它选项除exit_switch外无效
+export read_rtl_switch=false
+
+export area_switch=true
+export power_switch=true
+export fix_hold_switch=true
+export remove_tie_dont_use_switch=false
+
+# ultra_switch开启时 high_switch无效
+export ultra_switch=true
+export high_switch=true
+
 ./run_dc.sh
 ```
+
+#### 变量说明
+
+| 变量 | 作用 |
+| :--- | :--- |
+| `rtlDir` | RTL 文件目录。需包含 `rtl_verilog.list` 与 `rtl_sverilog.list`。将 `scripts/find_rtl.py` 放入你的 RTL 目录运行即可自动生成。该脚本会过滤文件名以 `tb`、`tb_` 开头或以 `_tb`、`_testbench` 结尾的 `.v` / `.sv` 文件（避免误过滤 `btb.v` 这类正常 RTL）。 |
+| `TOP_MODULE` | 顶层模块名称。脚本将读入 RTL 并以该模块为 TOP 进行综合。 |
+| `exit_switch` | 退出开关。 |
+| `read_rtl_switch` | 开启只读 RTL 模式，此时除 `exit_switch` 外其他选项无效。 |
+| `area_switch` | 面积优化开关。 |
+| `power_switch` | 功耗优化开关。 |
+| `fix_hold_switch` | hold 修复开关。 |
+| `remove_tie_dont_use_switch` | 移除 tie / dont_use 单元开关。 |
+| `ultra_switch` | 开启 `compile_ultra`。开启时 `high_switch` 无效。 |
+| `high_switch` | 高级优化开关（`ultra_switch` 开启时无效）。 |
+
+#### 注意事项
+
+- 同一时刻只能运行一个 DC 流程。
+- 需要将 `scripts/dc.tcl` 中的工艺库改成你自己的库。
+- 脚本还有一些未完善的功能，使用时请注意。
 
 ### 2. 形式验证 — DC 后 (FM)
 
 ```bash
 cd 01_fm_post_dc
-# 修改 scripts/run_fm.tcl 中的工艺库路径
+# 修改 ./run_fm.sh 顶部的相关变量（rtlDir / TOP_MODULE / netlistDir / svfDir）
+# 以及 scripts/run_fm.tcl 中的工艺库路径
 ./run_fm.sh
 ```
 
@@ -184,7 +222,8 @@ icc2_shell -f scripts/00_common_design_settings.tcl
 
 ```bash
 cd 03_fm_post_pr
-# 修改 scripts/run_fm_dc_vs_pr.tcl 中的库路径
+# 修改 ./run_fm.sh 顶部的相关变量（TOP_MODULE / post_dc_Dir / post_pr_Dir）
+# 以及 scripts/run_fm.tcl 中的工艺库路径
 ./run_fm.sh
 ```
 
