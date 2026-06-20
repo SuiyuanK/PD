@@ -15,7 +15,7 @@ set_app_var synopsys_auto_setup true
 # set_app_var hdlin_unresolved_modules black_box
 
 # 使用此变量可使 source 命令在搜索文件时使用 search_path 变量
-# set_app_var sh_source_uses_search_path true
+set_app_var sh_source_uses_search_path true
 
 set TOPDIR                      [sh pwd]
 # Define RTL source files directory
@@ -24,6 +24,7 @@ set TOP_MODULE                  [getenv TOP_MODULE]
 set netlistDir                  [getenv netlistDir]
 set svfDir                      [getenv svfDir]
 
+set_app_var search_path "$rtlDir $search_path"
 
 set_svf ${svfDir}/${TOP_MODULE}.svf
 #这里的lib 从dc的ss换成了tt max换成了typ
@@ -42,7 +43,7 @@ read_db [list   ${TOPDIR}/data/lib/scc40nll_vhsc40_hvt_tt_v1p1_25c_basic.db    \
 
 read_verilog -r -vcs "-f ${rtlDir}/rtl_verilog.list"
 # 如果有sv
-# read_sverilog -r -vcs "-f ${rtlDir}/rtl_sverilog.list"
+read_sverilog -r -vcs "-f ${rtlDir}/rtl_sverilog.list"
 set_top r:/WORK/${TOP_MODULE}
 
 read_verilog -i ${netlistDir}/${TOP_MODULE}.v

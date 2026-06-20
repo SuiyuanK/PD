@@ -1,7 +1,7 @@
 rm -f ./log/*.log
 
 export rtlDir="../../RTL"
-export TOP_MODULE="conv"
+export TOP_MODULE="soc_pad_wrapper"
 export netlistDir="../00_dc/outputs"
 export svfDir="../00_dc/outputs"
 
