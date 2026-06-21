@@ -23,6 +23,9 @@ export remove_tie_dont_use_switch=false
 export ultra_switch=true
 export high_switch=true
 
+# gate_clock_switch开启时 compile_ultra 使用 -gate_clock 插入时钟门控单元
+export gate_clock_switch=false
+
 
 if [ "$read_rtl_switch" = "true" ]; then
     echo "Running RTL only mode..."

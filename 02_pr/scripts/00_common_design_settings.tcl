@@ -1,5 +1,5 @@
 ### design information
-set design              "image_icb"
+set design              "soc_pad_wrapper"
 
 ### gate level netlist files
 set import_netlist      ""

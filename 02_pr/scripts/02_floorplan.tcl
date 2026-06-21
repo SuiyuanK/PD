@@ -21,8 +21,14 @@ source scripts/scenario_setup.tcl
 # 确保core和die的边界左右一致 上下差一个row
 # get_attribute [get_site_defs] width    40nm 0.1900
 # get_attribute [get_site_defs] height   40nm 1.6800
-# initialize_floorplan -boundary {{0 0} {1499.86 1495.2}} -core_offset {0 1.6800}
-initialize_floorplan -boundary {{0 0} {1352.04 1340.64}} -core_offset {0 1.6800}
+
+# initialize_floorplan -boundary {{0 0} {1352.04 1340.64}} -core_offset {0 1.6800}
+
+initialize_floorplan -core_utilization 0.7 -shape R \
+    -orientation N -side_ratio {1.0 1.0} -core_offset {100.0} \
+    -flip_first_row true -coincident_boundary true
+
+
 ### place port
 remove_individual_pin_constraints
 #-allowed_layers {M5 M7} 

@@ -8,9 +8,10 @@ set exit_switch 	                [getenv exit_switch]
 set area_switch  	                [getenv area_switch]
 set power_switch  	                [getenv power_switch]
 set ultra_switch 	                [getenv ultra_switch]
+set gate_clock_switch               [getenv gate_clock_switch]
 set high_switch  	                [getenv high_switch]
-set remove_tie_dont_use_switch     [getenv remove_tie_dont_use_switch]
-set read_rtl_switch                [getenv read_rtl_switch]
+set remove_tie_dont_use_switch      [getenv remove_tie_dont_use_switch]
+set read_rtl_switch                 [getenv read_rtl_switch]
 
 #****************************************************
 
@@ -63,6 +64,8 @@ set_app_var target_library  "$stdcell_libs"
 set_app_var link_library    "* $target_library $memory_libs $iopad_lib"
 # set_app_var link_library    	"* $target_library $memory_libs $iopad_lib $synthetic_library"
 
+# 生成带 guide_hier_map 指导 SVF 给 FM 用。
+set_app_var hdlin_enable_hier_map true
 #****************************************************
 
 
@@ -103,6 +106,7 @@ if {$read_rtl_switch == "true"} {
         echo "Linking Error when deal with $TOP_MODULE"
         exit;
     }
+    set_verification_top
     # 为每个单元实例创建一个唯一的设计，消除当前设计中多重实例化的层级
     uniquify
     if { [check_design] == 0 } {
@@ -168,6 +172,7 @@ if {$read_rtl_switch == "true"} {
     # }
     
     current_design $TOP_MODULE
+    set_verification_top
     #****************************************************
     # 读入约束
     source ${dataDir}/${TOP_MODULE}.tcl
@@ -203,7 +208,11 @@ if {$read_rtl_switch == "true"} {
     set_fix_multiple_port_nets -buffer_constants -all
 
     if {$ultra_switch == "true"} {
-        compile_ultra -gate_clock
+        if {$gate_clock_switch == "true"} {
+            compile_ultra -gate_clock
+        } else {
+            compile_ultra
+        }
     } else {
         if {$high_switch == "true"} {
             compile -map_effort high -boundary_optimization
@@ -286,6 +295,4 @@ if {$read_rtl_switch == "true"} {
         exit
     }
 }
-
-
 
