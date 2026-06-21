@@ -22,12 +22,19 @@ source scripts/scenario_setup.tcl
 # get_attribute [get_site_defs] width    40nm 0.1900
 # get_attribute [get_site_defs] height   40nm 1.6800
 
+# block 级的
 # initialize_floorplan -boundary {{0 0} {1352.04 1340.64}} -core_offset {0 1.6800}
 
-initialize_floorplan -core_utilization 0.7 -shape R \
-    -orientation N -side_ratio {1.0 1.0} -core_offset {100.0} \
-    -flip_first_row true -coincident_boundary true
+# TOP级的 加PAD的 -core_utilization 0.7 可以看看大致需要多大面积 也可根据DC的计算
+# initialize_floorplan -core_utilization 0.7 -shape R \
+#     -orientation N -side_ratio {1.0 1.0} -core_offset {100.0} \
+#     -flip_first_row true -coincident_boundary true
 
+# core估计长度+2*（电源环预留宽度(20)+PAD宽度(30)）or 边PAD数*PAD宽度 + 2* Corner 宽度 
+# puts "PISRN count = [sizeof_collection [get_cells -hier -filter {ref_name == PISRN}]]"
+# puts "PBS4RN count = [sizeof_collection [get_cells -hier -filter {ref_name == PBS4RN}]]" 
+initialize_floorplan -boundary {{0 0} {3200.17 3200.40}} -core_offset {50 50} \
+    -flip_first_row true -coincident_boundary true
 
 ### place port
 remove_individual_pin_constraints

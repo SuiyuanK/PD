@@ -5,7 +5,7 @@ file delete -force ${nlib_dir}/${design}_01_import_netlist.nlib
 create_lib -technology $tech_tf -ref_libs $ndm_files ${nlib_dir}/${design}_01_import_netlist.nlib
 get_libs
 read_verilog -library ${design}_01_import_netlist.nlib -design $design -top $design $import_netlist
-
+link_block
 
 source scripts/initialization_settings.tcl
 
