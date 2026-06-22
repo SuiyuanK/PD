@@ -33,15 +33,119 @@ source scripts/scenario_setup.tcl
 # core估计长度+2*（电源环预留宽度(20)+PAD宽度(30)）or 边PAD数*PAD宽度 + 2* Corner 宽度 
 # puts "PISRN count = [sizeof_collection [get_cells -hier -filter {ref_name == PISRN}]]"
 # puts "PBS4RN count = [sizeof_collection [get_cells -hier -filter {ref_name == PBS4RN}]]" 
-initialize_floorplan -boundary {{0 0} {3200.17 3200.40}} -core_offset {50 50} \
+initialize_floorplan -boundary {{0 0} {3200.17 3200.40}} -core_offset {240 240} \
     -flip_first_row true -coincident_boundary true
 
+
+
+
+
 ### place port
-remove_individual_pin_constraints
-#-allowed_layers {M5 M7} 
-set_individual_pin_constraints -ports [all_inputs] -sides 1 -pin_spacing 50 -offset {150 1200} -allowed_layers {M3 M4 M5 M6 M7}
-set_individual_pin_constraints -ports [all_outputs] -sides 1 -pin_spacing  50 -offset {150 1200} -allowed_layers {M3 M4 M5 M6 M7}
-place_pins -self -ports [get_ports *]
+# remove_individual_pin_constraints
+# #-allowed_layers {M5 M7} 
+# set_individual_pin_constraints -ports [all_inputs] -sides 1 -pin_spacing 50 -offset {150 1200} -allowed_layers {M3 M4 M5 M6 M7}
+# set_individual_pin_constraints -ports [all_outputs] -sides 1 -pin_spacing  50 -offset {150 1200} -allowed_layers {M3 M4 M5 M6 M7}
+# place_pins -self -ports [get_ports *]
+
+### place pad
+# Core power pads: 4 pairs PVDD1RN / PVSS1RN
+create_cell {
+  CORE_PVDD1RN_0 CORE_PVDD1RN_1 CORE_PVDD1RN_2 CORE_PVDD1RN_3
+} PVDD1RN
+
+create_cell {
+  CORE_PVSS1RN_0 CORE_PVSS1RN_1 CORE_PVSS1RN_2 CORE_PVSS1RN_3
+} PVSS1RN
+
+
+# PAD ring power pads: 20 pairs PVDD2RN / PVSS2RN
+create_cell {
+  PAD_PVDD2RN_00 PAD_PVDD2RN_01 PAD_PVDD2RN_02 PAD_PVDD2RN_03 PAD_PVDD2RN_04
+  PAD_PVDD2RN_05 PAD_PVDD2RN_06 PAD_PVDD2RN_07 PAD_PVDD2RN_08 PAD_PVDD2RN_09
+  PAD_PVDD2RN_10 PAD_PVDD2RN_11 PAD_PVDD2RN_12 PAD_PVDD2RN_13 PAD_PVDD2RN_14
+  PAD_PVDD2RN_15 PAD_PVDD2RN_16 PAD_PVDD2RN_17 PAD_PVDD2RN_18 PAD_PVDD2RN_19
+} PVDD2RN
+
+create_cell {
+  PAD_PVSS2RN_00 PAD_PVSS2RN_01 PAD_PVSS2RN_02 PAD_PVSS2RN_03 PAD_PVSS2RN_04
+  PAD_PVSS2RN_05 PAD_PVSS2RN_06 PAD_PVSS2RN_07 PAD_PVSS2RN_08 PAD_PVSS2RN_09
+  PAD_PVSS2RN_10 PAD_PVSS2RN_11 PAD_PVSS2RN_12 PAD_PVSS2RN_13 PAD_PVSS2RN_14
+  PAD_PVSS2RN_15 PAD_PVSS2RN_16 PAD_PVSS2RN_17 PAD_PVSS2RN_18 PAD_PVSS2RN_19
+} PVSS2RN
+
+
+# remove_cells {PCORNER_0 PCORNER_1 PCORNER_2 PCORNER_3}
+
+
+
+# 获取PAD
+# foreach_in_collection c [get_cells -hierarchical -filter "ref_name =~ PISRN* || ref_name =~ PBS4RN*"] {
+#     puts "[get_object_name $c]  -> [get_attribute $c ref_name]"
+# }
+
+source scripts/pad.tcl 
+
+
+
+
+# get_attribute [current_block] boundary
+
+
+set die_llx -240.0000
+set die_lly -240.0000
+set die_urx 3440.1700
+set die_ury 3440.4000
+
+# 最终X方向有0.005导致FILLER无法插满 所以改为177.005
+set x_corner 177.005
+set y_corner 177.000
+
+set x_len [expr {$die_urx - $die_llx - 2*$x_corner}]
+set y_len [expr {$die_ury - $die_lly - 2*$y_corner}]
+
+
+
+remove_io_guides -all
+
+create_io_guide -name left_guide -side left -pad_cells $left_pads \
+    -line [list [list $die_llx [expr {$die_lly + $y_corner}]] $y_len]
+
+create_io_guide -name top_guide -side top -pad_cells $top_pads \
+    -line [list [list [expr {$die_llx + $x_corner}] $die_ury] $x_len]
+
+create_io_guide -name right_guide -side right -pad_cells $right_pads \
+    -line [list [list $die_urx [expr {$die_ury - $y_corner}]] $y_len]
+
+create_io_guide -name bottom_guide -side bottom -pad_cells $bottom_pads \
+    -line [list [list [expr {$die_urx - $x_corner}] $die_lly] $x_len]
+
+remove_signal_io_constraints
+set_signal_io_constraints -io_guide_object left_guide \
+    -constraint "{42} $left_pads"
+set_signal_io_constraints -io_guide_object top_guide \
+    -constraint "{42} $top_pads"
+set_signal_io_constraints -io_guide_object right_guide \
+    -constraint "{42} $right_pads"
+set_signal_io_constraints -io_guide_object bottom_guide \
+    -constraint "{42} $bottom_pads"
+
+
+create_io_corner_cell -reference_cell PCORNERRN {left_guide top_guide}
+create_io_corner_cell -reference_cell PCORNERRN {right_guide top_guide}
+create_io_corner_cell -reference_cell PCORNERRN {left_guide bottom_guide}
+create_io_corner_cell -reference_cell PCORNERRN {right_guide bottom_guide}
+
+place_io -io_guide {left_guide top_guide right_guide bottom_guide} 
+
+puts "PISRN  = [sizeof_collection [get_cells -hierarchical -filter {ref_name == PISRN}]]"
+puts "PBS4RN = [sizeof_collection [get_cells -hierarchical -filter {ref_name == PBS4RN}]]"
+puts "PVDD1RN = [sizeof_collection [get_cells -hierarchical -filter {ref_name == PVDD1RN}]]"
+puts "PVSS1RN = [sizeof_collection [get_cells -hierarchical -filter {ref_name == PVSS1RN}]]"
+puts "PVDD2RN = [sizeof_collection [get_cells -hierarchical -filter {ref_name == PVDD2RN}]]"
+puts "PVSS2RN = [sizeof_collection [get_cells -hierarchical -filter {ref_name == PVSS2RN}]]"
+puts "PCORNERRN = [sizeof_collection [get_cells -hierarchical -filter {ref_name == PCORNERRN}]]"
+
+create_io_filler_cells -reference_cells { PFILL20RN PFILL10RN PFILL5RN PFILL2RN PFILL1RN PFILL01RN PFILL001RN }
 
 ### create voltage area
 # create_voltage_area -power_domains PD_RISC_CORE -guard_band {{10.032 10}} -region {{0.0000 642.0480} {489.1360 999.8560}}
@@ -56,7 +160,7 @@ place_pins -self -ports [get_ports *]
 
 # change_selection [get_flat_cells * -filter is_hard_macro==true]
 # write_floorplan -objects [get_selection ] -force -nosplit
-# cp floorplan/fp.tcl scripts/place_hard_macro.tcl
+# file copy -force ./floorplan/fp.tcl ./scripts/place_hard_macro.tcl
 # 小的5 大的20
 source scripts/place_hard_macro.tcl 
 create_keepout_margin -outer {5.02 3.78 5.02 3.78} [get_flat_cells * -filter is_hard_macro==true] ;# 左 下 右 上
@@ -64,16 +168,14 @@ create_keepout_margin -outer {5.02 3.78 5.02 3.78} [get_flat_cells * -filter is_
 
 ### blockage(gui) copy from fp.tcl
 # change_selection [get_placement_blockages *]
-# write_floorplan -objects [get_selection ] -force -nosplit (-nosplit No line break)
+# write_floorplan -objects [get_selection ] -force -nosplit ;#(-nosplit No line break)
 
 
 
-create_placement_blockage -name pb_2 -type allow_buffer_only -blocked_percentage 100 -boundary { {0.0000 821.5550} {1352.0400 1342.3200} }
-create_placement_blockage -name pb_3 -type allow_buffer_only -blocked_percentage 100 -boundary { {0.0000 -1.6800} {394.6850 821.5550} }
-create_placement_blockage -name pb_4 -type allow_buffer_only -blocked_percentage 100 -boundary { {394.6850 -1.6800} {1352.0400 502.9450} }
-create_placement_blockage -name pb_5 -type allow_buffer_only -blocked_percentage 100 -boundary { {820.7600 731.5350} {1352.0400 821.5550} }
-create_placement_blockage -name pb_6 -type allow_buffer_only -blocked_percentage 100 -boundary { {957.5250 502.9450} {1352.0400 731.5350} }
-
+create_placement_blockage -name pb_0 -type allow_buffer_only -blocked_percentage 0 -boundary { {1808.9800 0.0000} {3200.1700 310.5150} }
+create_placement_blockage -name pb_1 -type allow_buffer_only -blocked_percentage 0 -boundary { {3146.1000 310.5150} {3200.1700 781.6150} }
+create_placement_blockage -name pb_2 -type allow_buffer_only -blocked_percentage 0 -boundary { {1950.0950 310.5150} {2071.2500 334.7500} }
+create_placement_blockage -name pb_3 -type allow_buffer_only -blocked_percentage 0 -boundary { {2232.3250 310.5150} {2353.4800 334.7500} }
 
 
 

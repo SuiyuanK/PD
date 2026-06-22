@@ -1,6 +1,6 @@
 ################################################################################
 #
-# Created by icc2 write_floorplan on Wed Nov 12 23:50:35 2025
+# Created by icc2 write_floorplan on Sun Jun 21 19:09:43 2026
 #
 ################################################################################
 
@@ -11,543 +11,148 @@ set _dirName__0 [file dirname [file normalize [info script]]]
 # Cells
 ################################################################################
 
-set cellInst [get_cells { u_axi_image_top/u_sram_ram_inst_31__u2_RAMTP1024X16_rtl_top }]
+set cellInst [get_cells { u_soc_top_ASIC_u_AXI_FFT_IFFT_Briage_u_fft_ctrl_axi_u_out_ram_imag }]
 set_attribute -quiet -objects $cellInst -name orientation -value R270
-set_attribute -quiet -objects $cellInst -name origin -value { 141.7850 331.7900 }
+set_attribute -quiet -objects $cellInst -name origin -value { 2803.6000 306.7350 }
 set_attribute -quiet -objects $cellInst -name status -value placed
-create_keepout_margin -type hard -outer { 5.0200 2.5200 5.0200 2.5200 } { u_axi_image_top/u_sram_ram_inst_31__u2_RAMTP1024X16_rtl_top }
 
 
-set cellInst [get_cells { u_axi_image_top/u_sram_ram_inst_31__u1_RAMTP1024X16_rtl_top }]
+set cellInst [get_cells { u_soc_top_ASIC_u_AXI_FFT_IFFT_Briage_u_fft_ctrl_axi_u_out_ram_real }]
 set_attribute -quiet -objects $cellInst -name orientation -value R270
-set_attribute -quiet -objects $cellInst -name origin -value { 278.5500 331.7900 }
+set_attribute -quiet -objects $cellInst -name origin -value { 2944.7150 306.7350 }
 set_attribute -quiet -objects $cellInst -name status -value placed
-create_keepout_margin -type hard -outer { 5.0200 2.5200 5.0200 2.5200 } { u_axi_image_top/u_sram_ram_inst_31__u1_RAMTP1024X16_rtl_top }
 
 
-set cellInst [get_cells { u_axi_image_top/u_sram_ram_inst_30__u2_RAMTP1024X16_rtl_top }]
+set cellInst [get_cells { u_soc_top_ASIC_u_AXI_FFT_IFFT_Briage_u_fft_ctrl_axi_u_in_ram_imag }]
 set_attribute -quiet -objects $cellInst -name orientation -value R270
-set_attribute -quiet -objects $cellInst -name origin -value { 141.7850 164.4150 }
+set_attribute -quiet -objects $cellInst -name origin -value { 2098.0250 306.7350 }
 set_attribute -quiet -objects $cellInst -name status -value placed
-create_keepout_margin -type hard -outer { 5.0200 2.5200 5.0200 2.5200 } { u_axi_image_top/u_sram_ram_inst_30__u2_RAMTP1024X16_rtl_top }
 
 
-set cellInst [get_cells { u_axi_image_top/u_sram_ram_inst_30__u1_RAMTP1024X16_rtl_top }]
+set cellInst [get_cells { u_soc_top_ASIC_u_AXI_FFT_IFFT_Briage_u_fft_ctrl_axi_u_in_ram_real }]
 set_attribute -quiet -objects $cellInst -name orientation -value R270
-set_attribute -quiet -objects $cellInst -name origin -value { 552.0800 331.7900 }
+set_attribute -quiet -objects $cellInst -name origin -value { 1815.7950 306.7350 }
 set_attribute -quiet -objects $cellInst -name status -value placed
-create_keepout_margin -type hard -outer { 5.0200 2.5200 5.0200 2.5200 } { u_axi_image_top/u_sram_ram_inst_30__u1_RAMTP1024X16_rtl_top }
 
 
-set cellInst [get_cells { u_axi_image_top/u_sram_ram_inst_29__u2_RAMTP1024X16_rtl_top }]
-set_attribute -quiet -objects $cellInst -name orientation -value MXR90
-set_attribute -quiet -objects $cellInst -name origin -value { 825.6100 841.4750 }
-set_attribute -quiet -objects $cellInst -name status -value placed
-create_keepout_margin -type hard -outer { 5.0200 2.5200 5.0200 2.5200 } { u_axi_image_top/u_sram_ram_inst_29__u2_RAMTP1024X16_rtl_top }
-
-
-set cellInst [get_cells { u_axi_image_top/u_sram_ram_inst_29__u1_RAMTP1024X16_rtl_top }]
-set_attribute -quiet -objects $cellInst -name orientation -value MXR90
-set_attribute -quiet -objects $cellInst -name origin -value { 688.8450 841.4750 }
-set_attribute -quiet -objects $cellInst -name status -value placed
-create_keepout_margin -type hard -outer { 5.0200 2.5200 5.0200 2.5200 } { u_axi_image_top/u_sram_ram_inst_29__u1_RAMTP1024X16_rtl_top }
-
-
-set cellInst [get_cells { u_axi_image_top/u_sram_ram_inst_28__u2_RAMTP1024X16_rtl_top }]
-set_attribute -quiet -objects $cellInst -name orientation -value MXR90
-set_attribute -quiet -objects $cellInst -name origin -value { 962.3750 841.4750 }
-set_attribute -quiet -objects $cellInst -name status -value placed
-create_keepout_margin -type hard -outer { 5.0200 2.5200 5.0200 2.5200 } { u_axi_image_top/u_sram_ram_inst_28__u2_RAMTP1024X16_rtl_top }
-
-
-set cellInst [get_cells { u_axi_image_top/u_sram_ram_inst_28__u1_RAMTP1024X16_rtl_top }]
+set cellInst [get_cells { u_soc_top_ASIC_u_AXI_FFT_IFFT_Briage_u_fft_ctrl_axi_u_fft_core_natural_u_reorder_bank1_imag }]
 set_attribute -quiet -objects $cellInst -name orientation -value R270
-set_attribute -quiet -objects $cellInst -name origin -value { 415.3150 499.1650 }
+set_attribute -quiet -objects $cellInst -name origin -value { 2521.3700 306.7350 }
 set_attribute -quiet -objects $cellInst -name status -value placed
-create_keepout_margin -type hard -outer { 5.0200 2.5200 5.0200 2.5200 } { u_axi_image_top/u_sram_ram_inst_28__u1_RAMTP1024X16_rtl_top }
 
 
-set cellInst [get_cells { u_axi_image_top/u_sram_ram_inst_27__u2_RAMTP1024X16_rtl_top }]
+set cellInst [get_cells { u_soc_top_ASIC_u_AXI_FFT_IFFT_Briage_u_fft_ctrl_axi_u_fft_core_natural_u_reorder_bank1_real }]
 set_attribute -quiet -objects $cellInst -name orientation -value R270
-set_attribute -quiet -objects $cellInst -name origin -value { 278.5500 499.1650 }
+set_attribute -quiet -objects $cellInst -name origin -value { 2662.4850 306.7350 }
 set_attribute -quiet -objects $cellInst -name status -value placed
-create_keepout_margin -type hard -outer { 5.0200 2.5200 5.0200 2.5200 } { u_axi_image_top/u_sram_ram_inst_27__u2_RAMTP1024X16_rtl_top }
 
 
-set cellInst [get_cells { u_axi_image_top/u_sram_ram_inst_27__u1_RAMTP1024X16_rtl_top }]
-set_attribute -quiet -objects $cellInst -name orientation -value MXR90
-set_attribute -quiet -objects $cellInst -name origin -value { 1235.9050 841.4750 }
-set_attribute -quiet -objects $cellInst -name status -value placed
-create_keepout_margin -type hard -outer { 5.0200 2.5200 5.0200 2.5200 } { u_axi_image_top/u_sram_ram_inst_27__u1_RAMTP1024X16_rtl_top }
-
-
-set cellInst [get_cells { u_axi_image_top/u_sram_ram_inst_26__u2_RAMTP1024X16_rtl_top }]
+set cellInst [get_cells { u_soc_top_ASIC_u_AXI_FFT_IFFT_Briage_u_fft_ctrl_axi_u_fft_core_natural_u_reorder_bank0_imag }]
 set_attribute -quiet -objects $cellInst -name orientation -value R270
-set_attribute -quiet -objects $cellInst -name origin -value { 1235.9050 666.5400 }
+set_attribute -quiet -objects $cellInst -name origin -value { 3085.8300 306.7350 }
 set_attribute -quiet -objects $cellInst -name status -value placed
-create_keepout_margin -type hard -outer { 5.0200 2.5200 5.0200 2.5200 } { u_axi_image_top/u_sram_ram_inst_26__u2_RAMTP1024X16_rtl_top }
 
 
-set cellInst [get_cells { u_axi_image_top/u_sram_ram_inst_26__u1_RAMTP1024X16_rtl_top }]
-set_attribute -quiet -objects $cellInst -name orientation -value MXR90
-set_attribute -quiet -objects $cellInst -name origin -value { 1235.9050 674.1000 }
-set_attribute -quiet -objects $cellInst -name status -value placed
-create_keepout_margin -type hard -outer { 5.0200 2.5200 5.0200 2.5200 } { u_axi_image_top/u_sram_ram_inst_26__u1_RAMTP1024X16_rtl_top }
-
-
-set cellInst [get_cells { u_axi_image_top/u_sram_ram_inst_25__u2_RAMTP1024X16_rtl_top }]
-set_attribute -quiet -objects $cellInst -name orientation -value MYR90
-set_attribute -quiet -objects $cellInst -name origin -value { 116.1350 499.1650 }
-set_attribute -quiet -objects $cellInst -name status -value placed
-create_keepout_margin -type hard -outer { 5.0200 2.5200 5.0200 2.5200 } { u_axi_image_top/u_sram_ram_inst_25__u2_RAMTP1024X16_rtl_top }
-
-
-set cellInst [get_cells { u_axi_image_top/u_sram_ram_inst_25__u1_RAMTP1024X16_rtl_top }]
+set cellInst [get_cells { u_soc_top_ASIC_u_AXI_FFT_IFFT_Briage_u_fft_ctrl_axi_u_fft_core_natural_u_reorder_bank0_real }]
 set_attribute -quiet -objects $cellInst -name orientation -value R270
-set_attribute -quiet -objects $cellInst -name origin -value { 278.5500 164.4150 }
+set_attribute -quiet -objects $cellInst -name origin -value { 2380.2550 306.7350 }
 set_attribute -quiet -objects $cellInst -name status -value placed
-create_keepout_margin -type hard -outer { 5.0200 2.5200 5.0200 2.5200 } { u_axi_image_top/u_sram_ram_inst_25__u1_RAMTP1024X16_rtl_top }
 
 
-set cellInst [get_cells { u_axi_image_top/u_sram_ram_inst_24__u2_RAMTP1024X16_rtl_top }]
+set cellInst [get_cells { u_soc_top_ASIC_u_AXI_FFT_IFFT_Briage_u_fft_ctrl_axi_u_fft_core_FFT_INST_fft_ins_stagX_11__u_fft_stage_BF_inst_I_u0_shiftTaps_genblk1_RAMTP1024_D1023_u1_RAMTP1024X16 }]
 set_attribute -quiet -objects $cellInst -name orientation -value R270
-set_attribute -quiet -objects $cellInst -name origin -value { 552.0800 164.4150 }
+set_attribute -quiet -objects $cellInst -name origin -value { 1955.1150 330.9700 }
 set_attribute -quiet -objects $cellInst -name status -value placed
-create_keepout_margin -type hard -outer { 5.0200 2.5200 5.0200 2.5200 } { u_axi_image_top/u_sram_ram_inst_24__u2_RAMTP1024X16_rtl_top }
 
 
-set cellInst [get_cells { u_axi_image_top/u_sram_ram_inst_24__u1_RAMTP1024X16_rtl_top }]
-set_attribute -quiet -objects $cellInst -name orientation -value R90
-set_attribute -quiet -objects $cellInst -name origin -value { 116.1350 841.4750 }
-set_attribute -quiet -objects $cellInst -name status -value placed
-create_keepout_margin -type hard -outer { 5.0200 2.5200 5.0200 2.5200 } { u_axi_image_top/u_sram_ram_inst_24__u1_RAMTP1024X16_rtl_top }
-
-
-set cellInst [get_cells { u_axi_image_top/u_sram_ram_inst_23__u2_RAMTP1024X16_rtl_top }]
+set cellInst [get_cells { u_soc_top_ASIC_u_AXI_FFT_IFFT_Briage_u_fft_ctrl_axi_u_fft_core_FFT_INST_fft_ins_stagX_11__u_fft_stage_BF_inst_I_u0_shiftTaps_genblk1_RAMTP1024_D1023_u0_RAMTP1024X16 }]
 set_attribute -quiet -objects $cellInst -name orientation -value R270
-set_attribute -quiet -objects $cellInst -name origin -value { 1235.9050 499.1650 }
+set_attribute -quiet -objects $cellInst -name origin -value { 2237.3450 330.9700 }
 set_attribute -quiet -objects $cellInst -name status -value placed
-create_keepout_margin -type hard -outer { 5.0200 2.5200 5.0200 2.5200 } { u_axi_image_top/u_sram_ram_inst_23__u2_RAMTP1024X16_rtl_top }
 
 
-set cellInst [get_cells { u_axi_image_top/u_sram_ram_inst_23__u1_RAMTP1024X16_rtl_top }]
+set cellInst [get_cells { u_soc_top_ASIC_u_AXI_FFT_IFFT_Briage_u_fft_ctrl_axi_u_fft_core_FFT_INST_fft_ins_stagX_11__u_fft_stage_BF_inst_I_u1_shiftTaps_genblk1_RAMTP1024_D1023_u1_RAMTP1024X16 }]
 set_attribute -quiet -objects $cellInst -name orientation -value R270
-set_attribute -quiet -objects $cellInst -name origin -value { 962.3750 499.1650 }
+set_attribute -quiet -objects $cellInst -name origin -value { 2237.3450 163.5950 }
 set_attribute -quiet -objects $cellInst -name status -value placed
-create_keepout_margin -type hard -outer { 5.0200 2.5200 5.0200 2.5200 } { u_axi_image_top/u_sram_ram_inst_23__u1_RAMTP1024X16_rtl_top }
 
 
-set cellInst [get_cells { u_axi_image_top/u_sram_ram_inst_22__u2_RAMTP1024X16_rtl_top }]
-set_attribute -quiet -objects $cellInst -name orientation -value MXR90
-set_attribute -quiet -objects $cellInst -name origin -value { 552.0800 841.4750 }
-set_attribute -quiet -objects $cellInst -name status -value placed
-create_keepout_margin -type hard -outer { 5.0200 2.5200 5.0200 2.5200 } { u_axi_image_top/u_sram_ram_inst_22__u2_RAMTP1024X16_rtl_top }
-
-
-set cellInst [get_cells { u_axi_image_top/u_sram_ram_inst_22__u1_RAMTP1024X16_rtl_top }]
-set_attribute -quiet -objects $cellInst -name orientation -value MXR90
-set_attribute -quiet -objects $cellInst -name origin -value { 278.5500 841.4750 }
-set_attribute -quiet -objects $cellInst -name status -value placed
-create_keepout_margin -type hard -outer { 5.0200 2.5200 5.0200 2.5200 } { u_axi_image_top/u_sram_ram_inst_22__u1_RAMTP1024X16_rtl_top }
-
-
-set cellInst [get_cells { u_axi_image_top/u_sram_ram_inst_21__u2_RAMTP1024X16_rtl_top }]
+set cellInst [get_cells { u_soc_top_ASIC_u_AXI_FFT_IFFT_Briage_u_fft_ctrl_axi_u_fft_core_FFT_INST_fft_ins_stagX_11__u_fft_stage_BF_inst_I_u1_shiftTaps_genblk1_RAMTP1024_D1023_u0_RAMTP1024X16 }]
 set_attribute -quiet -objects $cellInst -name orientation -value R270
-set_attribute -quiet -objects $cellInst -name origin -value { 552.0800 499.1650 }
+set_attribute -quiet -objects $cellInst -name origin -value { 2096.2300 163.5950 }
 set_attribute -quiet -objects $cellInst -name status -value placed
-create_keepout_margin -type hard -outer { 5.0200 2.5200 5.0200 2.5200 } { u_axi_image_top/u_sram_ram_inst_21__u2_RAMTP1024X16_rtl_top }
 
 
-set cellInst [get_cells { u_axi_image_top/u_sram_ram_inst_21__u1_RAMTP1024X16_rtl_top }]
+set cellInst [get_cells { u_soc_top_ASIC_u_AXI_FFT_IFFT_Briage_u_fft_ctrl_axi_u_fft_core_FFT_INST_fft_ins_stagX_11__u_fft_stage_LARGER_THAN_2_BF_inst_II_u0_shiftTaps_genblk1_RAMTP1024_D511_u1_RAMTP1024X16 }]
 set_attribute -quiet -objects $cellInst -name orientation -value R270
-set_attribute -quiet -objects $cellInst -name origin -value { 141.7850 499.1650 }
+set_attribute -quiet -objects $cellInst -name origin -value { 2660.6900 163.5950 }
 set_attribute -quiet -objects $cellInst -name status -value placed
-create_keepout_margin -type hard -outer { 5.0200 2.5200 5.0200 2.5200 } { u_axi_image_top/u_sram_ram_inst_21__u1_RAMTP1024X16_rtl_top }
 
 
-set cellInst [get_cells { u_axi_image_top/u_sram_ram_inst_20__u2_RAMTP1024X16_rtl_top }]
-set_attribute -quiet -objects $cellInst -name orientation -value MXR90
-set_attribute -quiet -objects $cellInst -name origin -value { 141.7850 1008.8500 }
-set_attribute -quiet -objects $cellInst -name status -value placed
-create_keepout_margin -type hard -outer { 5.0200 2.5200 5.0200 2.5200 } { u_axi_image_top/u_sram_ram_inst_20__u2_RAMTP1024X16_rtl_top }
-
-
-set cellInst [get_cells { u_axi_image_top/u_sram_ram_inst_20__u1_RAMTP1024X16_rtl_top }]
-set_attribute -quiet -objects $cellInst -name orientation -value MYR90
-set_attribute -quiet -objects $cellInst -name origin -value { 116.1350 666.5400 }
-set_attribute -quiet -objects $cellInst -name status -value placed
-create_keepout_margin -type hard -outer { 5.0200 2.5200 5.0200 2.5200 } { u_axi_image_top/u_sram_ram_inst_20__u1_RAMTP1024X16_rtl_top }
-
-
-set cellInst [get_cells { u_axi_image_top/u_sram_ram_inst_19__u2_RAMTP1024X16_rtl_top }]
+set cellInst [get_cells { u_soc_top_ASIC_u_AXI_FFT_IFFT_Briage_u_fft_ctrl_axi_u_fft_core_FFT_INST_fft_ins_stagX_11__u_fft_stage_LARGER_THAN_2_BF_inst_II_u0_shiftTaps_genblk1_RAMTP1024_D511_u0_RAMTP1024X16 }]
 set_attribute -quiet -objects $cellInst -name orientation -value R270
-set_attribute -quiet -objects $cellInst -name origin -value { 415.3150 164.4150 }
+set_attribute -quiet -objects $cellInst -name origin -value { 2801.8050 163.5950 }
 set_attribute -quiet -objects $cellInst -name status -value placed
-create_keepout_margin -type hard -outer { 5.0200 2.5200 5.0200 2.5200 } { u_axi_image_top/u_sram_ram_inst_19__u2_RAMTP1024X16_rtl_top }
 
 
-set cellInst [get_cells { u_axi_image_top/u_sram_ram_inst_19__u1_RAMTP1024X16_rtl_top }]
+set cellInst [get_cells { u_soc_top_ASIC_u_AXI_FFT_IFFT_Briage_u_fft_ctrl_axi_u_fft_core_FFT_INST_fft_ins_stagX_11__u_fft_stage_LARGER_THAN_2_BF_inst_II_u1_shiftTaps_genblk1_RAMTP1024_D511_u1_RAMTP1024X16 }]
 set_attribute -quiet -objects $cellInst -name orientation -value R270
-set_attribute -quiet -objects $cellInst -name origin -value { 415.3150 331.7900 }
+set_attribute -quiet -objects $cellInst -name origin -value { 3084.0350 163.5950 }
 set_attribute -quiet -objects $cellInst -name status -value placed
-create_keepout_margin -type hard -outer { 5.0200 2.5200 5.0200 2.5200 } { u_axi_image_top/u_sram_ram_inst_19__u1_RAMTP1024X16_rtl_top }
 
 
-set cellInst [get_cells { u_axi_image_top/u_sram_ram_inst_18__u2_RAMTP1024X16_rtl_top }]
-set_attribute -quiet -objects $cellInst -name orientation -value MXR90
-set_attribute -quiet -objects $cellInst -name origin -value { 1099.1400 841.4750 }
-set_attribute -quiet -objects $cellInst -name status -value placed
-create_keepout_margin -type hard -outer { 5.0200 2.5200 5.0200 2.5200 } { u_axi_image_top/u_sram_ram_inst_18__u2_RAMTP1024X16_rtl_top }
-
-
-set cellInst [get_cells { u_axi_image_top/u_sram_ram_inst_18__u1_RAMTP1024X16_rtl_top }]
+set cellInst [get_cells { u_soc_top_ASIC_u_AXI_FFT_IFFT_Briage_u_fft_ctrl_axi_u_fft_core_FFT_INST_fft_ins_stagX_11__u_fft_stage_LARGER_THAN_2_BF_inst_II_u1_shiftTaps_genblk1_RAMTP1024_D511_u0_RAMTP1024X16 }]
 set_attribute -quiet -objects $cellInst -name orientation -value R270
-set_attribute -quiet -objects $cellInst -name origin -value { 1099.1400 499.1650 }
+set_attribute -quiet -objects $cellInst -name origin -value { 2942.9200 163.5950 }
 set_attribute -quiet -objects $cellInst -name status -value placed
-create_keepout_margin -type hard -outer { 5.0200 2.5200 5.0200 2.5200 } { u_axi_image_top/u_sram_ram_inst_18__u1_RAMTP1024X16_rtl_top }
 
 
-set cellInst [get_cells { u_axi_image_top/u_sram_ram_inst_17__u2_RAMTP1024X16_rtl_top }]
+set cellInst [get_cells { u_soc_top_ASIC_u_AXI_FFT_IFFT_Briage_u_fft_ctrl_axi_u_fft_core_FFT_INST_fft_ins_stagX_9__u_fft_stage_BF_inst_I_u0_shiftTaps_genblk1_RAMTP1024_D255_u1_RAMTP1024X16 }]
 set_attribute -quiet -objects $cellInst -name orientation -value R270
-set_attribute -quiet -objects $cellInst -name origin -value { 825.6100 499.1650 }
+set_attribute -quiet -objects $cellInst -name origin -value { 2378.4600 163.5950 }
 set_attribute -quiet -objects $cellInst -name status -value placed
-create_keepout_margin -type hard -outer { 5.0200 2.5200 5.0200 2.5200 } { u_axi_image_top/u_sram_ram_inst_17__u2_RAMTP1024X16_rtl_top }
 
 
-set cellInst [get_cells { u_axi_image_top/u_sram_ram_inst_17__u1_RAMTP1024X16_rtl_top }]
-set_attribute -quiet -objects $cellInst -name orientation -value MXR90
-set_attribute -quiet -objects $cellInst -name origin -value { 415.3150 841.4750 }
-set_attribute -quiet -objects $cellInst -name status -value placed
-create_keepout_margin -type hard -outer { 5.0200 2.5200 5.0200 2.5200 } { u_axi_image_top/u_sram_ram_inst_17__u1_RAMTP1024X16_rtl_top }
-
-
-set cellInst [get_cells { u_axi_image_top/u_sram_ram_inst_16__u2_RAMTP1024X16_rtl_top }]
-set_attribute -quiet -objects $cellInst -name orientation -value MXR90
-set_attribute -quiet -objects $cellInst -name origin -value { 141.7850 841.4750 }
-set_attribute -quiet -objects $cellInst -name status -value placed
-create_keepout_margin -type hard -outer { 5.0200 2.5200 5.0200 2.5200 } { u_axi_image_top/u_sram_ram_inst_16__u2_RAMTP1024X16_rtl_top }
-
-
-set cellInst [get_cells { u_axi_image_top/u_sram_ram_inst_16__u1_RAMTP1024X16_rtl_top }]
+set cellInst [get_cells { u_soc_top_ASIC_u_AXI_FFT_IFFT_Briage_u_fft_ctrl_axi_u_fft_core_FFT_INST_fft_ins_stagX_9__u_fft_stage_BF_inst_I_u0_shiftTaps_genblk1_RAMTP1024_D255_u0_RAMTP1024X16 }]
 set_attribute -quiet -objects $cellInst -name orientation -value R270
-set_attribute -quiet -objects $cellInst -name origin -value { 688.8450 499.1650 }
+set_attribute -quiet -objects $cellInst -name origin -value { 1955.1150 163.5950 }
 set_attribute -quiet -objects $cellInst -name status -value placed
-create_keepout_margin -type hard -outer { 5.0200 2.5200 5.0200 2.5200 } { u_axi_image_top/u_sram_ram_inst_16__u1_RAMTP1024X16_rtl_top }
 
 
-set cellInst [get_cells { u_axi_image_top/u_sram_ram_inst_15__u2_RAMTP1024X16_rtl_top }]
-set_attribute -quiet -objects $cellInst -name orientation -value MXR90
-set_attribute -quiet -objects $cellInst -name origin -value { 825.6100 1008.8500 }
-set_attribute -quiet -objects $cellInst -name status -value placed
-create_keepout_margin -type hard -outer { 5.0200 2.5200 5.0200 2.5200 } { u_axi_image_top/u_sram_ram_inst_15__u2_RAMTP1024X16_rtl_top }
-
-
-set cellInst [get_cells { u_axi_image_top/u_sram_ram_inst_15__u1_RAMTP1024X16_rtl_top }]
-set_attribute -quiet -objects $cellInst -name orientation -value MXR90
-set_attribute -quiet -objects $cellInst -name origin -value { 552.0800 1008.8500 }
-set_attribute -quiet -objects $cellInst -name status -value placed
-create_keepout_margin -type hard -outer { 5.0200 2.5200 5.0200 2.5200 } { u_axi_image_top/u_sram_ram_inst_15__u1_RAMTP1024X16_rtl_top }
-
-
-set cellInst [get_cells { u_axi_image_top/u_sram_ram_inst_14__u2_RAMTP1024X16_rtl_top }]
-set_attribute -quiet -objects $cellInst -name orientation -value R90
-set_attribute -quiet -objects $cellInst -name origin -value { 116.1350 1008.8500 }
-set_attribute -quiet -objects $cellInst -name status -value placed
-create_keepout_margin -type hard -outer { 5.0200 2.5200 5.0200 2.5200 } { u_axi_image_top/u_sram_ram_inst_14__u2_RAMTP1024X16_rtl_top }
-
-
-set cellInst [get_cells { u_axi_image_top/u_sram_ram_inst_14__u1_RAMTP1024X16_rtl_top }]
-set_attribute -quiet -objects $cellInst -name orientation -value MXR90
-set_attribute -quiet -objects $cellInst -name origin -value { 1235.9050 1008.8500 }
-set_attribute -quiet -objects $cellInst -name status -value placed
-create_keepout_margin -type hard -outer { 5.0200 2.5200 5.0200 2.5200 } { u_axi_image_top/u_sram_ram_inst_14__u1_RAMTP1024X16_rtl_top }
-
-
-set cellInst [get_cells { u_axi_image_top/u_sram_ram_inst_13__u2_RAMTP1024X16_rtl_top }]
-set_attribute -quiet -objects $cellInst -name orientation -value MXR90
-set_attribute -quiet -objects $cellInst -name origin -value { 1099.1400 1008.8500 }
-set_attribute -quiet -objects $cellInst -name status -value placed
-create_keepout_margin -type hard -outer { 5.0200 2.5200 5.0200 2.5200 } { u_axi_image_top/u_sram_ram_inst_13__u2_RAMTP1024X16_rtl_top }
-
-
-set cellInst [get_cells { u_axi_image_top/u_sram_ram_inst_13__u1_RAMTP1024X16_rtl_top }]
-set_attribute -quiet -objects $cellInst -name orientation -value R90
-set_attribute -quiet -objects $cellInst -name origin -value { 116.1350 674.1000 }
-set_attribute -quiet -objects $cellInst -name status -value placed
-create_keepout_margin -type hard -outer { 5.0200 2.5200 5.0200 2.5200 } { u_axi_image_top/u_sram_ram_inst_13__u1_RAMTP1024X16_rtl_top }
-
-
-set cellInst [get_cells { u_axi_image_top/u_sram_ram_inst_12__u2_RAMTP1024X16_rtl_top }]
+set cellInst [get_cells { u_soc_top_ASIC_u_AXI_FFT_IFFT_Briage_u_fft_ctrl_axi_u_fft_core_FFT_INST_fft_ins_stagX_9__u_fft_stage_BF_inst_I_u1_shiftTaps_genblk1_RAMTP1024_D255_u1_RAMTP1024X16 }]
 set_attribute -quiet -objects $cellInst -name orientation -value R270
-set_attribute -quiet -objects $cellInst -name origin -value { 688.8450 331.7900 }
+set_attribute -quiet -objects $cellInst -name origin -value { 2519.5750 163.5950 }
 set_attribute -quiet -objects $cellInst -name status -value placed
-create_keepout_margin -type hard -outer { 5.0200 2.5200 5.0200 2.5200 } { u_axi_image_top/u_sram_ram_inst_12__u2_RAMTP1024X16_rtl_top }
 
 
-set cellInst [get_cells { u_axi_image_top/u_sram_ram_inst_12__u1_RAMTP1024X16_rtl_top }]
+set cellInst [get_cells { u_soc_top_ASIC_u_AXI_FFT_IFFT_Briage_u_fft_ctrl_axi_u_fft_core_FFT_INST_fft_ins_stagX_9__u_fft_stage_BF_inst_I_u1_shiftTaps_genblk1_RAMTP1024_D255_u0_RAMTP1024X16 }]
 set_attribute -quiet -objects $cellInst -name orientation -value R270
-set_attribute -quiet -objects $cellInst -name origin -value { 825.6100 331.7900 }
+set_attribute -quiet -objects $cellInst -name origin -value { 1814.0000 163.5950 }
 set_attribute -quiet -objects $cellInst -name status -value placed
-create_keepout_margin -type hard -outer { 5.0200 2.5200 5.0200 2.5200 } { u_axi_image_top/u_sram_ram_inst_12__u1_RAMTP1024X16_rtl_top }
 
 
-set cellInst [get_cells { u_axi_image_top/u_sram_ram_inst_11__u2_RAMTP1024X16_rtl_top }]
-set_attribute -quiet -objects $cellInst -name orientation -value MXR90
-set_attribute -quiet -objects $cellInst -name origin -value { 415.3150 1176.2250 }
-set_attribute -quiet -objects $cellInst -name status -value placed
-create_keepout_margin -type hard -outer { 5.0200 2.5200 5.0200 2.5200 } { u_axi_image_top/u_sram_ram_inst_11__u2_RAMTP1024X16_rtl_top }
-
-
-set cellInst [get_cells { u_axi_image_top/u_sram_ram_inst_11__u1_RAMTP1024X16_rtl_top }]
-set_attribute -quiet -objects $cellInst -name orientation -value MXR90
-set_attribute -quiet -objects $cellInst -name origin -value { 278.5500 1008.8500 }
-set_attribute -quiet -objects $cellInst -name status -value placed
-create_keepout_margin -type hard -outer { 5.0200 2.5200 5.0200 2.5200 } { u_axi_image_top/u_sram_ram_inst_11__u1_RAMTP1024X16_rtl_top }
-
-
-set cellInst [get_cells { u_axi_image_top/u_sram_ram_inst_10__u2_RAMTP1024X16_rtl_top }]
-set_attribute -quiet -objects $cellInst -name orientation -value MXR90
-set_attribute -quiet -objects $cellInst -name origin -value { 1235.9050 1176.2250 }
-set_attribute -quiet -objects $cellInst -name status -value placed
-create_keepout_margin -type hard -outer { 5.0200 2.5200 5.0200 2.5200 } { u_axi_image_top/u_sram_ram_inst_10__u2_RAMTP1024X16_rtl_top }
-
-
-set cellInst [get_cells { u_axi_image_top/u_sram_ram_inst_10__u1_RAMTP1024X16_rtl_top }]
-set_attribute -quiet -objects $cellInst -name orientation -value MXR90
-set_attribute -quiet -objects $cellInst -name origin -value { 962.3750 1176.2250 }
-set_attribute -quiet -objects $cellInst -name status -value placed
-create_keepout_margin -type hard -outer { 5.0200 2.5200 5.0200 2.5200 } { u_axi_image_top/u_sram_ram_inst_10__u1_RAMTP1024X16_rtl_top }
-
-
-set cellInst [get_cells { u_axi_image_top/u_sram_ram_inst_9__u2_RAMTP1024X16_rtl_top }]
-set_attribute -quiet -objects $cellInst -name orientation -value MYR90
-set_attribute -quiet -objects $cellInst -name origin -value { 116.1350 164.4150 }
-set_attribute -quiet -objects $cellInst -name status -value placed
-create_keepout_margin -type hard -outer { 5.0200 2.5200 5.0200 2.5200 } { u_axi_image_top/u_sram_ram_inst_9__u2_RAMTP1024X16_rtl_top }
-
-
-set cellInst [get_cells { u_axi_image_top/u_sram_ram_inst_9__u1_RAMTP1024X16_rtl_top }]
+set cellInst [get_cells { u_soc_top_ASIC_u_AXI_FFT_IFFT_Briage_u_fft_ctrl_axi_u_fft_core_FFT_INST_fft_ins_stagX_9__u_fft_stage_LARGER_THAN_2_BF_inst_II_u0_shiftTaps_genblk1_RAMTP128_D127_u1_RAMTP128X16 }]
 set_attribute -quiet -objects $cellInst -name orientation -value R270
-set_attribute -quiet -objects $cellInst -name origin -value { 1235.9050 164.4150 }
+set_attribute -quiet -objects $cellInst -name origin -value { 3151.1200 660.0600 }
 set_attribute -quiet -objects $cellInst -name status -value placed
-create_keepout_margin -type hard -outer { 5.0200 2.5200 5.0200 2.5200 } { u_axi_image_top/u_sram_ram_inst_9__u1_RAMTP1024X16_rtl_top }
 
 
-set cellInst [get_cells { u_axi_image_top/u_sram_ram_inst_8__u2_RAMTP1024X16_rtl_top }]
+set cellInst [get_cells { u_soc_top_ASIC_u_AXI_FFT_IFFT_Briage_u_fft_ctrl_axi_u_fft_core_FFT_INST_fft_ins_stagX_9__u_fft_stage_LARGER_THAN_2_BF_inst_II_u0_shiftTaps_genblk1_RAMTP128_D127_u0_RAMTP128X16 }]
 set_attribute -quiet -objects $cellInst -name orientation -value R270
-set_attribute -quiet -objects $cellInst -name origin -value { 1099.1400 164.4150 }
+set_attribute -quiet -objects $cellInst -name origin -value { 3151.1200 777.8350 }
 set_attribute -quiet -objects $cellInst -name status -value placed
-create_keepout_margin -type hard -outer { 5.0200 2.5200 5.0200 2.5200 } { u_axi_image_top/u_sram_ram_inst_8__u2_RAMTP1024X16_rtl_top }
 
 
-set cellInst [get_cells { u_axi_image_top/u_sram_ram_inst_8__u1_RAMTP1024X16_rtl_top }]
+set cellInst [get_cells { u_soc_top_ASIC_u_AXI_FFT_IFFT_Briage_u_fft_ctrl_axi_u_fft_core_FFT_INST_fft_ins_stagX_9__u_fft_stage_LARGER_THAN_2_BF_inst_II_u1_shiftTaps_genblk1_RAMTP128_D127_u1_RAMTP128X16 }]
 set_attribute -quiet -objects $cellInst -name orientation -value R270
-set_attribute -quiet -objects $cellInst -name origin -value { 962.3750 164.4150 }
+set_attribute -quiet -objects $cellInst -name origin -value { 3151.1200 542.2850 }
 set_attribute -quiet -objects $cellInst -name status -value placed
-create_keepout_margin -type hard -outer { 5.0200 2.5200 5.0200 2.5200 } { u_axi_image_top/u_sram_ram_inst_8__u1_RAMTP1024X16_rtl_top }
 
 
-set cellInst [get_cells { u_axi_image_top/u_sram_ram_inst_7__u2_RAMTP1024X16_rtl_top }]
+set cellInst [get_cells { u_soc_top_ASIC_u_AXI_FFT_IFFT_Briage_u_fft_ctrl_axi_u_fft_core_FFT_INST_fft_ins_stagX_9__u_fft_stage_LARGER_THAN_2_BF_inst_II_u1_shiftTaps_genblk1_RAMTP128_D127_u0_RAMTP128X16 }]
 set_attribute -quiet -objects $cellInst -name orientation -value R270
-set_attribute -quiet -objects $cellInst -name origin -value { 825.6100 164.4150 }
+set_attribute -quiet -objects $cellInst -name origin -value { 3151.1200 424.5100 }
 set_attribute -quiet -objects $cellInst -name status -value placed
-create_keepout_margin -type hard -outer { 5.0200 2.5200 5.0200 2.5200 } { u_axi_image_top/u_sram_ram_inst_7__u2_RAMTP1024X16_rtl_top }
-
-
-set cellInst [get_cells { u_axi_image_top/u_sram_ram_inst_7__u1_RAMTP1024X16_rtl_top }]
-set_attribute -quiet -objects $cellInst -name orientation -value R270
-set_attribute -quiet -objects $cellInst -name origin -value { 688.8450 164.4150 }
-set_attribute -quiet -objects $cellInst -name status -value placed
-create_keepout_margin -type hard -outer { 5.0200 2.5200 5.0200 2.5200 } { u_axi_image_top/u_sram_ram_inst_7__u1_RAMTP1024X16_rtl_top }
-
-
-set cellInst [get_cells { u_axi_image_top/u_sram_ram_inst_6__u2_RAMTP1024X16_rtl_top }]
-set_attribute -quiet -objects $cellInst -name orientation -value MXR90
-set_attribute -quiet -objects $cellInst -name origin -value { 415.3150 1008.8500 }
-set_attribute -quiet -objects $cellInst -name status -value placed
-create_keepout_margin -type hard -outer { 5.0200 2.5200 5.0200 2.5200 } { u_axi_image_top/u_sram_ram_inst_6__u2_RAMTP1024X16_rtl_top }
-
-
-set cellInst [get_cells { u_axi_image_top/u_sram_ram_inst_6__u1_RAMTP1024X16_rtl_top }]
-set_attribute -quiet -objects $cellInst -name orientation -value MXR90
-set_attribute -quiet -objects $cellInst -name origin -value { 278.5500 1176.2250 }
-set_attribute -quiet -objects $cellInst -name status -value placed
-create_keepout_margin -type hard -outer { 5.0200 2.5200 5.0200 2.5200 } { u_axi_image_top/u_sram_ram_inst_6__u1_RAMTP1024X16_rtl_top }
-
-
-set cellInst [get_cells { u_axi_image_top/u_sram_ram_inst_5__u2_RAMTP1024X16_rtl_top }]
-set_attribute -quiet -objects $cellInst -name orientation -value MXR90
-set_attribute -quiet -objects $cellInst -name origin -value { 141.7850 1176.2250 }
-set_attribute -quiet -objects $cellInst -name status -value placed
-create_keepout_margin -type hard -outer { 5.0200 2.5200 5.0200 2.5200 } { u_axi_image_top/u_sram_ram_inst_5__u2_RAMTP1024X16_rtl_top }
-
-
-set cellInst [get_cells { u_axi_image_top/u_sram_ram_inst_5__u1_RAMTP1024X16_rtl_top }]
-set_attribute -quiet -objects $cellInst -name orientation -value R270
-set_attribute -quiet -objects $cellInst -name origin -value { 1235.9050 331.7900 }
-set_attribute -quiet -objects $cellInst -name status -value placed
-create_keepout_margin -type hard -outer { 5.0200 2.5200 5.0200 2.5200 } { u_axi_image_top/u_sram_ram_inst_5__u1_RAMTP1024X16_rtl_top }
-
-
-set cellInst [get_cells { u_axi_image_top/u_sram_ram_inst_4__u2_RAMTP1024X16_rtl_top }]
-set_attribute -quiet -objects $cellInst -name orientation -value R270
-set_attribute -quiet -objects $cellInst -name origin -value { 1099.1400 331.7900 }
-set_attribute -quiet -objects $cellInst -name status -value placed
-create_keepout_margin -type hard -outer { 5.0200 2.5200 5.0200 2.5200 } { u_axi_image_top/u_sram_ram_inst_4__u2_RAMTP1024X16_rtl_top }
-
-
-set cellInst [get_cells { u_axi_image_top/u_sram_ram_inst_4__u1_RAMTP1024X16_rtl_top }]
-set_attribute -quiet -objects $cellInst -name orientation -value R270
-set_attribute -quiet -objects $cellInst -name origin -value { 962.3750 331.7900 }
-set_attribute -quiet -objects $cellInst -name status -value placed
-create_keepout_margin -type hard -outer { 5.0200 2.5200 5.0200 2.5200 } { u_axi_image_top/u_sram_ram_inst_4__u1_RAMTP1024X16_rtl_top }
-
-
-set cellInst [get_cells { u_axi_image_top/u_sram_ram_inst_3__u2_RAMTP1024X16_rtl_top }]
-set_attribute -quiet -objects $cellInst -name orientation -value MXR90
-set_attribute -quiet -objects $cellInst -name origin -value { 552.0800 1176.2250 }
-set_attribute -quiet -objects $cellInst -name status -value placed
-create_keepout_margin -type hard -outer { 5.0200 2.5200 5.0200 2.5200 } { u_axi_image_top/u_sram_ram_inst_3__u2_RAMTP1024X16_rtl_top }
-
-
-set cellInst [get_cells { u_axi_image_top/u_sram_ram_inst_3__u1_RAMTP1024X16_rtl_top }]
-set_attribute -quiet -objects $cellInst -name orientation -value MYR90
-set_attribute -quiet -objects $cellInst -name origin -value { 116.1350 331.7900 }
-set_attribute -quiet -objects $cellInst -name status -value placed
-create_keepout_margin -type hard -outer { 5.0200 2.5200 5.0200 2.5200 } { u_axi_image_top/u_sram_ram_inst_3__u1_RAMTP1024X16_rtl_top }
-
-
-set cellInst [get_cells { u_axi_image_top/u_sram_ram_inst_2__u2_RAMTP1024X16_rtl_top }]
-set_attribute -quiet -objects $cellInst -name orientation -value MXR90
-set_attribute -quiet -objects $cellInst -name origin -value { 688.8450 1176.2250 }
-set_attribute -quiet -objects $cellInst -name status -value placed
-create_keepout_margin -type hard -outer { 5.0200 2.5200 5.0200 2.5200 } { u_axi_image_top/u_sram_ram_inst_2__u2_RAMTP1024X16_rtl_top }
-
-
-set cellInst [get_cells { u_axi_image_top/u_sram_ram_inst_2__u1_RAMTP1024X16_rtl_top }]
-set_attribute -quiet -objects $cellInst -name orientation -value MXR90
-set_attribute -quiet -objects $cellInst -name origin -value { 825.6100 1176.2250 }
-set_attribute -quiet -objects $cellInst -name status -value placed
-create_keepout_margin -type hard -outer { 5.0200 2.5200 5.0200 2.5200 } { u_axi_image_top/u_sram_ram_inst_2__u1_RAMTP1024X16_rtl_top }
-
-
-set cellInst [get_cells { u_axi_image_top/u_sram_ram_inst_1__u2_RAMTP1024X16_rtl_top }]
-set_attribute -quiet -objects $cellInst -name orientation -value MXR90
-set_attribute -quiet -objects $cellInst -name origin -value { 1099.1400 1176.2250 }
-set_attribute -quiet -objects $cellInst -name status -value placed
-create_keepout_margin -type hard -outer { 5.0200 2.5200 5.0200 2.5200 } { u_axi_image_top/u_sram_ram_inst_1__u2_RAMTP1024X16_rtl_top }
-
-
-set cellInst [get_cells { u_axi_image_top/u_sram_ram_inst_1__u1_RAMTP1024X16_rtl_top }]
-set_attribute -quiet -objects $cellInst -name orientation -value MXR90
-set_attribute -quiet -objects $cellInst -name origin -value { 688.8450 1008.8500 }
-set_attribute -quiet -objects $cellInst -name status -value placed
-create_keepout_margin -type hard -outer { 5.0200 2.5200 5.0200 2.5200 } { u_axi_image_top/u_sram_ram_inst_1__u1_RAMTP1024X16_rtl_top }
-
-
-set cellInst [get_cells { u_axi_image_top/u_sram_ram_inst_0__u2_RAMTP1024X16_rtl_top }]
-set_attribute -quiet -objects $cellInst -name orientation -value R90
-set_attribute -quiet -objects $cellInst -name origin -value { 116.1350 1176.2250 }
-set_attribute -quiet -objects $cellInst -name status -value placed
-create_keepout_margin -type hard -outer { 5.0200 2.5200 5.0200 2.5200 } { u_axi_image_top/u_sram_ram_inst_0__u2_RAMTP1024X16_rtl_top }
-
-
-set cellInst [get_cells { u_axi_image_top/u_sram_ram_inst_0__u1_RAMTP1024X16_rtl_top }]
-set_attribute -quiet -objects $cellInst -name orientation -value MXR90
-set_attribute -quiet -objects $cellInst -name origin -value { 962.3750 1008.8500 }
-set_attribute -quiet -objects $cellInst -name status -value placed
-create_keepout_margin -type hard -outer { 5.0200 2.5200 5.0200 2.5200 } { u_axi_image_top/u_sram_ram_inst_0__u1_RAMTP1024X16_rtl_top }
-
-
-set cellInst [get_cells { u_axi_image_top/u_image_process_u_VIP_Plate_Locate_u_VIP_horizon_projection_u_projection_ram_u_projection_ram }]
-set_attribute -quiet -objects $cellInst -name orientation -value MYR90
-set_attribute -quiet -objects $cellInst -name origin -value { 252.9000 605.4550 }
-set_attribute -quiet -objects $cellInst -name status -value placed
-create_keepout_margin -type hard -outer { 5.0200 2.5200 5.0200 2.5200 } { u_axi_image_top/u_image_process_u_VIP_Plate_Locate_u_VIP_horizon_projection_u_projection_ram_u_projection_ram }
-
-
-set cellInst [get_cells { u_axi_image_top/u_image_process_u_VIP_Char_Divide_u_VIP_vertical_projection_char_u_projection_ram_u_projection_ram }]
-set_attribute -quiet -objects $cellInst -name orientation -value MXR90
-set_attribute -quiet -objects $cellInst -name origin -value { 962.5450 629.1550 }
-set_attribute -quiet -objects $cellInst -name status -value placed
-create_keepout_margin -type hard -outer { 5.0200 2.5200 5.0200 2.5200 } { u_axi_image_top/u_image_process_u_VIP_Char_Divide_u_VIP_vertical_projection_char_u_projection_ram_u_projection_ram }
-
-
-set cellInst [get_cells { u_axi_image_top/u_image_process_u_VIP_Plate_Locate_u_VIP_vertical_projection_u_projection_ram_u_projection_ram }]
-set_attribute -quiet -objects $cellInst -name orientation -value R270
-set_attribute -quiet -objects $cellInst -name origin -value { 1099.3100 605.4550 }
-set_attribute -quiet -objects $cellInst -name status -value placed
-create_keepout_margin -type hard -outer { 5.0200 2.5200 5.0200 2.5200 } { u_axi_image_top/u_image_process_u_VIP_Plate_Locate_u_VIP_vertical_projection_u_projection_ram_u_projection_ram }
-
-
-set cellInst [get_cells { u_axi_image_top/u_image_process_u_VIP_Plate_Locate_u_VIP_Bit_Erosion_Detector_u_matrix_generate_3x3_1bit_u_line_shift_ram_8bit_u_ram_1024x8_0_u_ram_1024x8_0 }]
-set_attribute -quiet -objects $cellInst -name orientation -value MXR90
-set_attribute -quiet -objects $cellInst -name origin -value { 1099.3100 629.1550 }
-set_attribute -quiet -objects $cellInst -name status -value placed
-create_keepout_margin -type hard -outer { 5.0200 2.5200 5.0200 2.5200 } { u_axi_image_top/u_image_process_u_VIP_Plate_Locate_u_VIP_Bit_Erosion_Detector_u_matrix_generate_3x3_1bit_u_line_shift_ram_8bit_u_ram_1024x8_0_u_ram_1024x8_0 }
-
-
-set cellInst [get_cells { u_axi_image_top/u_image_process_u_VIP_Char_Divide_u_VIP_Bit_Dilation_Detector_red_u_matrix_generate_3x3_1bit_u_line_shift_ram_8bit_u_ram_1024x8_1_u_ram_1024x8_0 }]
-set_attribute -quiet -objects $cellInst -name orientation -value R90
-set_attribute -quiet -objects $cellInst -name origin -value { 252.9000 735.3150 }
-set_attribute -quiet -objects $cellInst -name status -value placed
-create_keepout_margin -type hard -outer { 5.0200 2.5200 5.0200 2.5200 } { u_axi_image_top/u_image_process_u_VIP_Char_Divide_u_VIP_Bit_Dilation_Detector_red_u_matrix_generate_3x3_1bit_u_line_shift_ram_8bit_u_ram_1024x8_1_u_ram_1024x8_0 }
-
-
-set cellInst [get_cells { u_axi_image_top/u_image_process_u_VIP_Char_Divide_u_VIP_Bit_Dilation_Detector_red_u_matrix_generate_3x3_1bit_u_line_shift_ram_8bit_u_ram_1024x8_0_u_ram_1024x8_0 }]
-set_attribute -quiet -objects $cellInst -name orientation -value MXR90
-set_attribute -quiet -objects $cellInst -name origin -value { 825.7800 735.3150 }
-set_attribute -quiet -objects $cellInst -name status -value placed
-create_keepout_margin -type hard -outer { 5.0200 2.5200 5.0200 2.5200 } { u_axi_image_top/u_image_process_u_VIP_Char_Divide_u_VIP_Bit_Dilation_Detector_red_u_matrix_generate_3x3_1bit_u_line_shift_ram_8bit_u_ram_1024x8_0_u_ram_1024x8_0 }
-
-
-set cellInst [get_cells { u_axi_image_top/u_image_process_u_VIP_Plate_Locate_u_Sobel_Edge_Detector_u_matrix_generate_3x3_8bit_u_line_shift_ram_8bit_u_ram_1024x8_1_u_ram_1024x8_0 }]
-set_attribute -quiet -objects $cellInst -name orientation -value R90
-set_attribute -quiet -objects $cellInst -name origin -value { 252.9000 629.1550 }
-set_attribute -quiet -objects $cellInst -name status -value placed
-create_keepout_margin -type hard -outer { 5.0200 2.5200 5.0200 2.5200 } { u_axi_image_top/u_image_process_u_VIP_Plate_Locate_u_Sobel_Edge_Detector_u_matrix_generate_3x3_8bit_u_line_shift_ram_8bit_u_ram_1024x8_1_u_ram_1024x8_0 }
-
-
-set cellInst [get_cells { u_axi_image_top/u_image_process_u_VIP_Plate_Locate_u_Sobel_Edge_Detector_u_matrix_generate_3x3_8bit_u_line_shift_ram_8bit_u_ram_1024x8_0_u_ram_1024x8_0 }]
-set_attribute -quiet -objects $cellInst -name orientation -value R90
-set_attribute -quiet -objects $cellInst -name origin -value { 389.6650 629.1550 }
-set_attribute -quiet -objects $cellInst -name status -value placed
-create_keepout_margin -type hard -outer { 5.0200 2.5200 5.0200 2.5200 } { u_axi_image_top/u_image_process_u_VIP_Plate_Locate_u_Sobel_Edge_Detector_u_matrix_generate_3x3_8bit_u_line_shift_ram_8bit_u_ram_1024x8_0_u_ram_1024x8_0 }
-
-
-set cellInst [get_cells { u_axi_image_top/u_image_process_u_VIP_Plate_Locate_u_VIP_Bit_Erosion_Detector_u_matrix_generate_3x3_1bit_u_line_shift_ram_8bit_u_ram_1024x8_1_u_ram_1024x8_0 }]
-set_attribute -quiet -objects $cellInst -name orientation -value MXR90
-set_attribute -quiet -objects $cellInst -name origin -value { 1099.3100 735.3150 }
-set_attribute -quiet -objects $cellInst -name status -value placed
-create_keepout_margin -type hard -outer { 5.0200 2.5200 5.0200 2.5200 } { u_axi_image_top/u_image_process_u_VIP_Plate_Locate_u_VIP_Bit_Erosion_Detector_u_matrix_generate_3x3_1bit_u_line_shift_ram_8bit_u_ram_1024x8_1_u_ram_1024x8_0 }
-
-
-set cellInst [get_cells { u_axi_image_top/u_image_process_u_VIP_Plate_Locate_u_VIP_Bit_Dilation_Detector_u_matrix_generate_3x3_1bit_u_line_shift_ram_8bit_u_ram_1024x8_0_u_ram_1024x8_0 }]
-set_attribute -quiet -objects $cellInst -name orientation -value MXR90
-set_attribute -quiet -objects $cellInst -name origin -value { 962.5450 735.3150 }
-set_attribute -quiet -objects $cellInst -name status -value placed
-create_keepout_margin -type hard -outer { 5.0200 2.5200 5.0200 2.5200 } { u_axi_image_top/u_image_process_u_VIP_Plate_Locate_u_VIP_Bit_Dilation_Detector_u_matrix_generate_3x3_1bit_u_line_shift_ram_8bit_u_ram_1024x8_0_u_ram_1024x8_0 }
-
-
-set cellInst [get_cells { u_axi_image_top/u_image_process_u_VIP_Plate_Locate_u_VIP_Bit_Dilation_Detector_u_matrix_generate_3x3_1bit_u_line_shift_ram_8bit_u_ram_1024x8_1_u_ram_1024x8_0 }]
-set_attribute -quiet -objects $cellInst -name orientation -value R90
-set_attribute -quiet -objects $cellInst -name origin -value { 389.6650 735.3150 }
-set_attribute -quiet -objects $cellInst -name status -value placed
-create_keepout_margin -type hard -outer { 5.0200 2.5200 5.0200 2.5200 } { u_axi_image_top/u_image_process_u_VIP_Plate_Locate_u_VIP_Bit_Dilation_Detector_u_matrix_generate_3x3_1bit_u_line_shift_ram_8bit_u_ram_1024x8_1_u_ram_1024x8_0 }
-
-
-set cellInst [get_cells { u_axi_image_top/u_image_process_u_VIP_Char_Divide_u_VIP_Bit_Erosion_Detector_red_u_matrix_generate_3x3_1bit_u_line_shift_ram_8bit_u_ram_1024x8_0_u_ram_1024x8_0 }]
-set_attribute -quiet -objects $cellInst -name orientation -value MYR90
-set_attribute -quiet -objects $cellInst -name origin -value { 389.6650 605.4550 }
-set_attribute -quiet -objects $cellInst -name status -value placed
-create_keepout_margin -type hard -outer { 5.0200 2.5200 5.0200 2.5200 } { u_axi_image_top/u_image_process_u_VIP_Char_Divide_u_VIP_Bit_Erosion_Detector_red_u_matrix_generate_3x3_1bit_u_line_shift_ram_8bit_u_ram_1024x8_0_u_ram_1024x8_0 }
-
-
-set cellInst [get_cells { u_axi_image_top/u_image_process_u_VIP_Char_Divide_u_VIP_Bit_Erosion_Detector_red_u_matrix_generate_3x3_1bit_u_line_shift_ram_8bit_u_ram_1024x8_1_u_ram_1024x8_0 }]
-set_attribute -quiet -objects $cellInst -name orientation -value R270
-set_attribute -quiet -objects $cellInst -name origin -value { 962.5450 605.4550 }
-set_attribute -quiet -objects $cellInst -name status -value placed
-create_keepout_margin -type hard -outer { 5.0200 2.5200 5.0200 2.5200 } { u_axi_image_top/u_image_process_u_VIP_Char_Divide_u_VIP_Bit_Erosion_Detector_red_u_matrix_generate_3x3_1bit_u_line_shift_ram_8bit_u_ram_1024x8_1_u_ram_1024x8_0 }
 
 
 

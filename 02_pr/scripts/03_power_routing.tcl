@@ -13,6 +13,10 @@ source scripts/initialization_settings.tcl
 ### scenario setup
 source scripts/scenario_setup.tcl
 
+
+# remove_routes -net_types {power ground} -ring -stripe -macro_pin_connect -lib_cell_pin_connect
+
+
 ### remove before create
 remove_pg_patterns              -all
 remove_pg_strategies            -all
@@ -48,8 +52,6 @@ foreach_in_collection _macro $macro_col {
 
 set macro_pgregions [get_pg_regions *]
 
-remove_routes -net_types {power ground} -ring -stripe -macro_pin_connect -lib_cell_pin_connect
-
 # rail pattern for std cells
 # layers跟pin同一层 width 也一样
 create_pg_std_cell_conn_pattern pattern_pg_rail -layers M2 -rail_width {@w} -parameters {w}
@@ -71,8 +73,9 @@ create_pg_composite_pattern pattern_core_M7_mesh -net {VDD VSS} \
 
 set_pg_strategy strategy_M7_pg_mesh -pattern "{name : pattern_core_M7_mesh} {nets : VDD VSS}" -voltage_areas DEFAULT_VA -blockage {{pg_regions : $macro_pgregions} {placement_blockages : all}}
 # macro also need 手动连 -blockage {{pg_regions : $macro_pgregions} {placement_blockages : all}}
-set_pg_strategy strategy_TM1_pg_mesh -pattern "{name : pattern_core_TM1_mesh} {nets : VDD VSS}" -voltage_areas DEFAULT_VA
-set_pg_strategy strategy_TM2_pg_mesh -pattern "{name : pattern_core_TM2_mesh} {nets : VDD VSS}" -voltage_areas DEFAULT_VA 
+set_pg_strategy strategy_TM1_pg_mesh -pattern "{name : pattern_core_TM1_mesh} {nets : VDD VSS}" -voltage_areas DEFAULT_VA -extension {{stop: outermost_ring}}
+set_pg_strategy strategy_TM2_pg_mesh -pattern "{name : pattern_core_TM2_mesh} {nets : VDD VSS}" -voltage_areas DEFAULT_VA  -extension {{stop: outermost_ring}}
+
 
 
 ### via rules
@@ -99,18 +102,39 @@ set_pg_strategy strategy_memory_ring_top -macro $memory_top -pattern {{pattern: 
 
 
 ### macro pin connection
-# -layers Choose which layer the pin is on {hor_layer ver_layer}
+# -layers Choose which layer the pin is on {hor_layer ver_layer} 
 create_pg_macro_conn_pattern pattern_memory_pin -pin_conn_type scattered_pin -layers {M4 M5}
 set_pg_strategy strap_top_pins -macros $memory_top -pattern {{pattern: pattern_memory_pin} {nets : {VDD VSS}}}
 
+
+### core ring
+create_pg_ring_pattern pattern_core_ring \
+    -horizontal_layer TM1 \
+    -horizontal_width 12 \
+    -horizontal_spacing 6 \
+    -vertical_layer TM2 \
+    -vertical_width 12 \
+    -vertical_spacing 6 \
+    -corner_bridge true \
+    -via_rule {{intersection: all} {via_master: default}}
+
+set_pg_strategy strategy_core_ring \
+    -core \
+    -pattern {{pattern: pattern_core_ring} {nets: {VDD VSS}} {offset: {12 12}}} \
 
 ### compile_pg
 # compile_pg
 compile_pg -strategies {strategy_pg_rail} -tag pattern_pg_rail 
 compile_pg -strategies {strategy_memory_ring_top} -tag pg_ring  
 compile_pg -strategies {strap_top_pins} -tag macro_pins 
+compile_pg -strategies {strategy_core_ring} -tag core_ring 
+# 这里手动画一下Shrift + H 手动打 via(PAD 到 ring) 
+
+
 set_app_options -name plan.pgroute.disable_via_creation -value true
 compile_pg -strategies {strategy_TM2_pg_mesh strategy_TM1_pg_mesh strategy_M7_pg_mesh} -tag pg_stripes 
+# 记得调整部分stripe的长度 防止与直接打的 via(PAD 到 ring) 冲突
+
 
 #  -ignore_via_drc
 ### pg via 先调整下再打via
@@ -119,20 +143,22 @@ create_pg_vias -nets {VDD VSS} -from_types stripe -to_types lib_cell_pin_connect
 create_pg_vias -nets {VDD VSS} -from_types stripe -to_types stripe -from_layers M7 -to_layers TM1 -mark_as strap -allow_parallel_objects
 create_pg_vias -nets {VDD VSS} -from_types ring -to_types stripe -from_layers M6 -to_layers TM2 -mark_as strap -allow_parallel_objects
 create_pg_vias -nets {VDD VSS} -from_types stripe -to_types stripe -from_layers TM1 -to_layers TM2 -mark_as strap -allow_parallel_objects
+create_pg_vias -nets {VDD VSS} -from_types ring -to_types stripe -from_layers TM1 -to_layers TM2 -mark_as strap -allow_parallel_objects
+create_pg_vias -nets {VDD VSS} -from_types ring -to_types stripe -from_layers TM2 -to_layers TM1 -mark_as strap -allow_parallel_objects
 
 
 
-# block 不打pad 所以在top VDD VSS 上加 terminal
-# 为 TM2 层上所有 VDD 网络的金属线创建终端
-create_terminal \
-    -of_objects [get_shapes -of_objects [get_layers TM2] -filter {net_type  == "power"}] \
-    -direction {bottom top}
+# # block 不打pad 所以在top VDD VSS 上加 terminal
+# # 为 TM2 层上所有 VDD 网络的金属线创建终端
+# create_terminal \
+#     -of_objects [get_shapes -of_objects [get_layers TM2] -filter {net_type  == "power"}] \
+#     -direction {bottom top}
 
-# 为 TM2 层上所有 VSS 网络的金属线创建终端
-create_terminal \
-    -of_objects [get_shapes -of_objects [get_layers TM2] -filter {net_type  == "ground"}] \
-    -direction {bottom top}
-# analyze_power_plan -voltage 1.1 -nets {VDD VSS} -power_budget 5 -use_terminals_as_pads 
+# # 为 TM2 层上所有 VSS 网络的金属线创建终端
+# create_terminal \
+#     -of_objects [get_shapes -of_objects [get_layers TM2] -filter {net_type  == "ground"}] \
+#     -direction {bottom top}
+# # analyze_power_plan -voltage 1.1 -nets {VDD VSS} -power_budget 5 -use_terminals_as_pads 
 
 
 set_fixed_objects [get_ports *]
@@ -159,4 +185,3 @@ check_pg_drc -ignore_std_cells > $report_dir/check_pg_drc.rpt
 check_pg_connectivity -check_std_cell_pins none > $report_dir/check_pg_connectivity.rpt
 check_lvs > $report_dir/check_lvs.rpt ;#net
 check_legality -verbose > $report_dir/check_legality.rpt
-gui_start
