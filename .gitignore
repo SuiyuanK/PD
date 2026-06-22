@@ -206,3 +206,6 @@ doc/PPT/*
 02_pr/data/lib/ndm/sram/RAMTP128X16.ndm/pcat
 02_pr/data/lib/ndm/sram/RAMTP128X16.ndm/reflib.ndm
 
+
+# 大网表文件：仅本地保留
+02_pr/data/soc_pad_wrapper.v
