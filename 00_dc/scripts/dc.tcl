@@ -12,6 +12,7 @@ set gate_clock_switch               [getenv gate_clock_switch]
 set high_switch  	                [getenv high_switch]
 set remove_tie_dont_use_switch      [getenv remove_tie_dont_use_switch]
 set read_rtl_switch                 [getenv read_rtl_switch]
+set sverilog_switch                 [getenv sverilog_switch]
 
 #****************************************************
 
@@ -96,8 +97,10 @@ if {$read_rtl_switch == "true"} {
     set_svf ${outputsDir}/${TOP_MODULE}.svf
 
     analyze -format verilog -lib WORK  -vcs "-f $rtlDir/rtl_verilog.list"
-    # 如果有sv
-    analyze -format sverilog -lib WORK  -vcs "-f $rtlDir/rtl_sverilog.list"
+    # 如果有 SystemVerilog RTL
+    if {$sverilog_switch == "true"} {
+        analyze -format sverilog -lib WORK  -vcs "-f $rtlDir/rtl_sverilog.list"
+    }
     elaborate $TOP_MODULE
 
     current_design $TOP_MODULE	
@@ -115,8 +118,6 @@ if {$read_rtl_switch == "true"} {
     }
 
     write -format ddc -hierarchy -output ${outputsDir}/${TOP_MODULE}_unmapped.ddc
-
-    set_svf -off
 
 
     #****************************************************

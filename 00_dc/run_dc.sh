@@ -7,12 +7,15 @@ mkdir -p WORK
 # 等号两边不能有空格
 # Define RTL source files directory
 export rtlDir="../../RTL"
-export TOP_MODULE="soc_pad_wrapper"
+export TOP_MODULE="CNN"
 
 export exit_switch=false
-# 开启只读RTL模式, 其它选项除exit_switch外无效
 
+# 开启只读RTL模式, 其它选项除exit_switch和sverilog_switch外无效
 export read_rtl_switch=false
+# sverilog_switch 控制是否读入 SystemVerilog RTL
+export sverilog_switch=false
+
 
 export area_switch=true
 export power_switch=true
@@ -24,7 +27,7 @@ export ultra_switch=true
 export high_switch=true
 
 # gate_clock_switch开启时 compile_ultra 使用 -gate_clock 插入时钟门控单元
-export gate_clock_switch=false
+export gate_clock_switch=true
 
 
 if [ "$read_rtl_switch" = "true" ]; then

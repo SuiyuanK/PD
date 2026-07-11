@@ -10,7 +10,7 @@ write_changes -format icc2tcl -output ./scripts/fix_ecotiming.tcl
 ### size cell 看timing.rpt 换vt rvt->lvt 优先 可以先导出来一条的 替换掉 /Y /CO为空格 换
 size_cell $inst_name $cell
 
-### delay capture clock delay前report timingfrom ck 看看后面的咋样(有margin再插 slack为+)
+### delay capture clock delay前report timing from ck 看看后面的咋样(有margin再插 slack为+)
 insert_buffer $pin $cell
 #上面是虚拟的 在pt 看完结果后放icc2里
 

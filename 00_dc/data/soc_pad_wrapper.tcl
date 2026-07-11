@@ -40,8 +40,8 @@ create_generated_clock -name cpu_clk \
 
 
 set_clock_latency	    0.8	            [all_clocks]
-set_clock_uncertainty	0.3	    [all_clocks]
-set_clock_transition    0.3         [all_clocks]
+set_clock_uncertainty	0.3	            [all_clocks]
+set_clock_transition    0.3             [all_clocks]
 
 
 set_drive 0	            [get_ports "$Rst_list"]
