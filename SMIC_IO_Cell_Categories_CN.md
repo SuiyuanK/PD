@@ -95,10 +95,10 @@
 | **PFILL001RN** | 填充单元 (Filler cell) |
 | **PFILL01RN** | 填充单元 |
 | **PFILL1RN** | 填充单元 |
-| **PFILL10RN** | 填充单元 |
 | **PFILL2RN** | 填充单元 |
-| **PFILL20RN** | 填充单元 |
 | **PFILL5RN** | 填充单元 |
+| **PFILL20RN** | 填充单元 |
+| **PFILL10RN** | 填充单元 |
 | **PFILL001ARN** | 用于模拟 IO 单元的填充单元 (Filler cell for analog IO cells) |
 | **PFILL01ARN** | 用于模拟 IO 单元的填充单元 |
 | **PFILL10ARN** | 用于模拟 IO 单元的填充单元 |

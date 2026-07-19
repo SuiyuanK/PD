@@ -176,6 +176,9 @@ export remove_tie_dont_use_switch=false
 export ultra_switch=true
 export high_switch=true
 
+# gate_clock_switch开启时 compile_ultra 使用 -gate_clock 插入时钟门控单元
+export gate_clock_switch=true
+
 ./run_dc.sh
 ```
 
@@ -193,11 +196,13 @@ export high_switch=true
 | `remove_tie_dont_use_switch` | 移除 tie / dont_use 单元开关。 |
 | `ultra_switch` | 开启 `compile_ultra`。开启时 `high_switch` 无效。 |
 | `high_switch` | 高级优化开关（`ultra_switch` 开启时无效）。 |
+| `gate_clock_switch` | 时钟门控开关。开启时 `compile_ultra` 附加 `-gate_clock` 插入时钟门控单元（仅在 `ultra_switch` 开启时生效）。 |
 
 #### 注意事项
 
 - 同一时刻只能运行一个 DC 流程。
 - 需要将 `scripts/dc.tcl` 中的工艺库改成你自己的库。
+- 本人 DC 所用的工艺库放在 `00_dc/data/lib/` 下，**未上传**。使用时需自行放置该目录或修改 `scripts/dc.tcl` 中的库路径指向你自己的库。
 - 脚本还有一些未完善的功能，使用时请注意。
 
 ### 2. 形式验证 — DC 后 (FM)
@@ -275,7 +280,6 @@ cd 07_signoff_check
 
 - **Foundry**: SMIC
 - **IO 单元**: 见 [SMIC_IO_Cell_Categories_CN.md](SMIC_IO_Cell_Categories_CN.md)
-- 本人 DC 所用的工艺库放在 `00_dc/data/lib/` 下，**未上传**。使用时需自行放置或修改 `scripts/dc.tcl` 中的库路径指向你自己的库。
 
 ---
 
