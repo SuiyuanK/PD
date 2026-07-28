@@ -110,7 +110,7 @@ if {$read_rtl_switch == "true"} {
         exit;
     }
     set_verification_top
-    # 为每个单元实例创建一个唯一的设计，消除当前设计中多重实例化的层级
+    # 为每个单元实例创建一个唯一的设计, 消除当前设计中多重实例化的层级
     uniquify
     if { [check_design] == 0 } {
         echo "Check Design Error when deal with $TOP_MODULE"
