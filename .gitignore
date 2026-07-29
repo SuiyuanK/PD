@@ -1,31 +1,48 @@
-00_dc/*
-01_fm_post_dc/*
-02_pr/*
-03_fm_post_pr/*
-04_pt/*
-05_pv/*
-06_power/*
-07_signoff_check/*
-others/*
-eco/*
+# 00_dc/*
+# 01_fm_post_dc/*
+# 02_pr/*
+# 03_fm_post_pr/*
+# 04_pt/*
+# 05_pv/*
+# 06_power/*
+# 07_signoff_check/*
+# others/*
+# eco/*
 doc/PPT/*
 
-02_pr/data/*.sdf
-02_pr/nlib/*
-01_fm_post_dc/FM_INFO/*
-01_fm_post_dc/FM_WORK/*
-01_fm_post_dc/formality_svf/*
-01_fm_post_dc/tmp_work/*
-00_dc/logs/*
-00_dc/WORK/*
-02_pr/data/layout_files/*
-02_pr/data/*.v
-
-# SMIC PDK 工艺库文件：仅本地保留，不上传 GitHub
-02_pr/data/techfile/
-02_pr/data/lef/
 
 
-# 大网表文件：仅本地保留
-02_pr/data/soc_pad_wrapper.v
+01_fm_post_dc/data/lib/*.db
+00_dc/data/lib/*.db
 .vscode/*
+
+02_pr/data/layout_files/*.gds2
+02_pr/data/layout_files/*.gds
+02_pr/data/lef/sram/*.lef
+02_pr/data/lef/*.lef
+02_pr/data/lib/ndm/*
+02_pr/data/techfile/milkyway/*
+02_pr/data/techfile/lef/*
+02_pr/data/techfile/synopsys_tluplus/*
+
+03_fm_post_pr/data/lib/*.db
+03_fm_post_pr/data/verilog/*.v
+
+
+04_pt/data/techfile/lef/*
+04_pt/data/techfile/milkyway/*
+04_pt/data/techfile/synopsys_tluplus/*
+04_pt/data/techfile/TD-LO40-XS-2037v0/*
+
+
+05_pv/data/layout_files/*
+05_pv/data/techfile/*
+05_pv/drc/TD-LO40-DC-2002v10/SMIC_CalDRC_40GELGLL_0911121825_V1.12.1_0.tar.gz
+
+
+
+06_power/apldi/outputs/*
+06_power/data/*
+
+others/scripts/lib/ndm_mcmm/1P7M_1TM_ALPA2/*.ndm
+others/scripts/lib/ndm_mcmm/1P7M_1TM_ALPA2.io/*.ndm
