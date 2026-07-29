@@ -1,0 +1,1341 @@
+#! tvf
+namespace import tvf::*
+VERBATIM {
+//Note 1 : This script will select to fill dummy patterns for AA, GT, M1~M8, V1~V7, TM1, TM2, MTT2, ALPA layers according to user's setting .
+//Note 2 : Please select the filled dummy layers base on your layout.Set it to "YES", will fill the dummy pattern, otherwise set to "NO".
+//Note 3 : This script will insert two types metal dummy (MnDUM and MnDOP) for Mn, n = 1~8.
+//Note 4 : Please only set one switch to "Yes" between "TM2_insert" AND "MTT2_insert",while you must keep the other one to "NO".
+//Note 5 : Vn dummy patterns can be inserted only when the switches "Mn_insert", "Mn+1_insert" and "Vn_inserted" are set to "YES", n = 1~7.
+//Note 6 :"BORDER" layer must be drawn as "chip edge" in your layout in order to insert dummy patterns in it.   
+//Note 7 : This runset must be run with hierarchy mode.
+
+//*************************************
+//    Swiches selection
+//*************************************
+
+#DEFINE AA_insert YES
+#DEFINE GT_insert YES
+
+#DEFINE M1_insert YES
+#DEFINE V1_insert YES
+#DEFINE M2_insert YES
+#DEFINE V2_insert YES
+#DEFINE M3_insert YES
+#DEFINE V3_insert YES
+#DEFINE M4_insert YES
+#DEFINE V4_insert YES
+#DEFINE M5_insert YES
+
+#DEFINE V5_insert YES
+#DEFINE M6_insert YES
+#DEFINE V6_insert YES
+#DEFINE M7_insert YES
+#DEFINE V7_insert YES
+#DEFINE M8_insert YES
+#DEFINE TM1_insert YES
+
+#DEFINE TM2_insert YES
+#DEFINE MTT2_insert NO
+
+#DEFINE ALPA_insert YES
+ 
+
+
+
+
+//=================================================================================
+//|                                                                               |
+//|   40nm 1P10M Calibre AA/Poly/Metal/Via Dummy rule file for                    |
+//|                                                                               |
+//|       SMIC:          40nm Logic 1P10M Salicide 0.9/1.1/1.2/1.8/2.5/V Low      |
+//|                      leakage and generic AA/Poly/Metal/Via layers Dummy       |
+//|			 Insertion Rules 					  |
+//|									          |
+//|       Doc. No:       TD-LO40-DR-2009         Rev: 5R            		  |
+//|                                                                               |
+//|  document for reference:                                                      |
+//|       SMIC:         40nm Logic 1P10M Salicide 0.9/1.0/1.1/1.2/1.8/2.5V Low    |
+//|                     leakage and generic Design Rule                           |
+//|       Doc. No:       TD-LO40-DR-2001         Rev: 6R            		  |
+//|                                                                               |
+//|       SMIC Technologies                                                       |
+//|                                                                               |
+//|===============================================================================| 
+//|                                                                               |
+//|    DISCLAIMER                                                                 |
+//|                                                                               |
+//|   SMIC hereby provides the quality information to you but makes no claims,    |
+//| promises or guarantees about the accuracy, completeness, or adequacy of the   |
+//| information herein. The information contained herein is provided on an "AS IS"|
+//| basis without any warranty, and SMIC assumes no obligation to provide support |
+//| of any kind or otherwise maintain the information.                            |
+//|                                                                               |
+//|   SMIC disclaims any representation that the information does not infringe any|
+//| intellectual property rights or proprietary rights of any third parties.SMIC  |
+//| makes no other warranty, whether express, implied or statutory as to any      |
+//| matter whatsoever, including but not limited to the accuracy or sufficiency of|
+//| any information or the merchantability and fitness for a particular purpose.  |
+//| Neither SMIC nor any of its representatives shall be liable for any cause of  |
+//| action incurred to connect to this service.                                   |
+//|                                                                               |
+//|===============================================================================|
+//|                                                                               |
+//|    STATEMENT OF USE AND CONFIDENTIALITY                                       |
+//|                                                                               |
+//|   The following/attached material contains confidential and proprietary       |
+//| information of SMIC. This material is based upon information which SMIC       |
+//| considers reliable, but SMIC neither represents nor warrants that such        |
+//| information is accurate or complete, and it must not be relied upon as such.  |
+//| This information was prepared for informational purposes and is for the use by|
+//| SMIC's customer only. SMIC reserves the right to make changes in the          |
+//| information at any time without notice.                                       |
+//|   No part of this information may be reproduced, transmitted, transcribed,    |
+//| stored in a retrieval system, or translated into any human or computer        |
+//| language, in any form or by any means, electronic, mechanical, magnetic,      |
+//| optical, chemical, manual, or otherwise, without the prior written consent of |
+//| SMIC. Any unauthorized use or disclosure of this material is strictly         |
+//| prohibited and may be unlawful. By accepting this material, the receiving     |
+//| party shall be deemed to have acknowledged, accepted, and agreed to be bound  |
+//| by the foregoing limitations and restrictions. Thank you.                     |
+//|                                                                               |
+//|===============================================================================|
+//|                                                                               |
+//|   This file includes SVRF/TVF Technology under license by Mentor Graphics     |
+//| Corporation.  "SVRF/TVF Technology" shall mean Mentor Graphics' Standard      |
+//| Verification Rule Format ("SVRF") and Tcl Verification Format ("TVF")         |
+//| proprietary syntaxes for expressing process rules.  You shall not use SVRF/TVF|
+//| Technology unless you are a Mentor Graphics customer with a license to use the|
+//| applicable Mentor Graphics software. The exact terms of your obligations and  |
+//| rights are governed by your respective license.  You shall not use SVRF/TVF   |
+//| Technology except: (a) for your internal business purposes and (b) for use    |
+//| with Mentor Graphics' Calibre tools. All SVRF/TVF Technology constitutes or   |
+//| contains trade secrets and confidential information of Mentor Graphics or its |
+//| licensors. You shall not make SVRF/TVF Technology available in any form to any|
+//| person other than your employees and on-site contractors, excluding Mentor    |
+//| Graphics competitors, whose job performance requires access and who are under |
+//| obligations of confidentiality.                                               |
+//|                                                                               |
+//|===============================================================================|
+//|                                                                               |
+//| Release Note:                                                                 |
+//|    1) Please add dummy block layers in the region no need to fill dummy.      |
+//|    2) Please check DRC/LVS after dummy fill.  This script is neither used for |
+//|       sign-off nor guaranteed to meet density rule.                           |
+//|                                                                               |
+//|===============================================================================|
+//| Validated with Calibre version 2016.2_18.12                                   |
+//|                                                                               |
+//| Revision History :                                                            |
+//|                                                                               |
+//|   Rev         Date          Who                      What                     |
+//| -------  -------------  ----------    ----------------------------------------|
+//| v1.14_4R  08-May-2017    Monica_Cao   enhance DUMBA outside AA insert for AA dummy insertion
+//| v1.0_2R  07-Jan-2013    Hu_Tang       Enhance the NW and DNW constraints for AA dummy insertion
+//|                                       Change runset format from SVRF into TVF
+//|                                       Change the via dummy cell name
+//| v1.0_1R  11-Sep-2012    Hu_Tang       Enhance hierarchy structure to reduce gds result size for AA,GT,metal dummy patterns
+//| v1.0_0R  14-Aug-2012    Hu_Tang       Add MARKS constraint for below rules: 
+//|                                           1AADUM1.1,1AADUM1.3a,1AADUM1.3b,
+//|                                           1GTDUM1.1,1GTDUM1.3a,1GTDUM1.3b,
+//|                                           1MDUM1.1,1MDUM1.5a,1MDUM1.11a,1MDUM1.16,1MDUM1.27,1VxDUM1.1
+//|                                       change the value for below rules:
+//|                                           1MDUM1.3a,1MDUM1.3b,1MDUM1.5a,1MDUM1.10,1MDUM1.11a,1MDUM1.23,1MDUM1.25
+//|                                       Add "within" constraint for 1MDUM1.5b,1MDUM1.11b,1MDUM1.26c
+//|                                       Adjust one grid for metal dummy insertion
+//|----------------------------------------------------------------------------------------------------------------
+//| V0.0_1T  27-Jul-2012    Hu_Tang       Add switch for AA,GT,M1~M5,V1~V4,ALPA's dummy insertion
+//| V0.0_0T  23-Nov-2011    Hu_Tang       Rewrite the whole runset to follow SMIC |
+//|                                        dummy utility format.                  |
+//|                                                                               |
+//|   0.4    14-Apr-2011    Zhitao Chen   Change layer of PCFILL from 31 to 30.   |
+//|   0.3    20-Dec-2010    Carolyn Y     Turn on "ALPA_insert" by default,       |
+//|					  Correct the datatype of the generated   |
+//|					  ALPA dummy to 11 from 1.		  |
+//|   0.2    14-Sep-2010    Carolyn Y     Dummy fill rule update to 20100908 :	  |
+//|					  Add DUMBM layer to block all metal      |
+//|					  dummies filled.			  |
+//|					  Add RESNW layer to avoid AA dummy fill  |
+//|					  in RESNW region.			  |
+//|   0.1    25-Aug-2010    Carolyn Y     Initial version                         |
+//|                                                                               |
+//|===============================================================================|
+
+
+
+
+//*************************************
+//     DIRECTIVE SECTION
+//*************************************
+
+
+LAYOUT PRIMARY "*"
+LAYOUT PATH "xxx.gds"
+LAYOUT SYSTEM GDSII
+ 
+DRC RESULTS DATABASE "Dummy.gds" GDSII _dummy
+//DRC RESULTS DATABASE "DUM.OUT" ASCII
+DRC MAXIMUM RESULTS ALL
+DRC MAXIMUM VERTEX 199
+DRC KEEP EMPTY NO
+
+DRC SUMMARY REPORT "ADD_DUMAAGTMnVn.sum" REPLACE HIER 
+PRECISION 1000
+
+
+LAYER   MAP      10 DATATYPE 0 1099 
+LAYER   AAi      1099
+
+LAYER   MAP      30 DATATYPE 0 3099
+LAYER   GTi      3099
+
+LAYER   MAP      14 DATATYPE 0 1499
+LAYER   NW       1499
+
+LAYER   MAP      19 DATATYPE 0 1999
+LAYER   DNW      1999
+
+LAYER   MAP     26 DATATYPE 0 2699
+LAYER   LOGO    2699
+
+LAYER   MAP      61 DATATYPE 0 610
+LAYER   M1i      610      //      Metal-1
+
+LAYER   MAP      62 DATATYPE 0 620
+LAYER   M2i      620      //      Metal-2
+
+LAYER   MAP      63 DATATYPE 0 630
+LAYER   M3i      630      //      Metal-3
+
+LAYER   MAP      64 DATATYPE 0 640
+LAYER   M4i      640      //      Metal-4
+
+LAYER   MAP      65 DATATYPE 0 650
+LAYER   M5i      650      //      Metal-5
+
+LAYER   MAP      66 DATATYPE 0 660
+LAYER   M6i      660      //      Metal-6
+
+LAYER   MAP      67 DATATYPE 0 670
+LAYER   M7i      670      //      Metal-7
+
+LAYER   MAP      68 DATATYPE 0 680
+LAYER   M8i      680      //      Metal-8
+
+LAYER   MAP      120 DATATYPE 0 1200
+LAYER   TM1i     1200     //      Top Metal 1
+
+LAYER   MAP      122 DATATYPE 0 1220
+LAYER   TM2i     1220     //      Top Metal 2
+
+LAYER   MAP     70 DATATYPE 0 700
+LAYER   V1i     700
+
+LAYER   MAP     70 DATATYPE 1 701
+LAYER   V1DUM   701
+
+LAYER   MAP     70 DATATYPE 6 706
+LAYER   V1DUB   706
+
+LAYER   MAP     71 DATATYPE 0 710
+LAYER   V2i     710
+
+LAYER   MAP     71 DATATYPE 1 711
+LAYER   V2DUM   711
+
+LAYER   MAP     71 DATATYPE 6 716
+LAYER   V2DUB   716
+
+LAYER   MAP     72 DATATYPE 0 720
+LAYER   V3i     720
+
+LAYER   MAP     72 DATATYPE 1 721
+LAYER   V3DUM   721
+
+LAYER   MAP     72 DATATYPE 6 726
+LAYER   V3DUB   726
+
+LAYER   MAP     73 DATATYPE 0 730
+LAYER   V4i     730
+
+LAYER   MAP     73 DATATYPE 1 731
+LAYER   V4DUM   731
+
+LAYER   MAP     73 DATATYPE 6 736
+LAYER   V4DUB   736
+
+LAYER   MAP     74 DATATYPE 0 740
+LAYER   V5i     740
+
+LAYER   MAP     74 DATATYPE 1 741
+LAYER   V5DUM   741
+
+LAYER   MAP     74 DATATYPE 6 746
+LAYER   V5DUB   746
+
+LAYER   MAP     75 DATATYPE 0 750
+LAYER   V6i     750
+
+LAYER   MAP     75 DATATYPE 1 751
+LAYER   V6DUM   751
+
+LAYER   MAP     75 DATATYPE 6 756
+LAYER   V6DUB   756
+
+LAYER   MAP     76 DATATYPE 0 760
+LAYER   V7i     760
+
+LAYER   MAP     76 DATATYPE 1 761
+LAYER   V7DUM   761
+
+LAYER   MAP     76 DATATYPE 6 766
+LAYER   V7DUB   766
+
+LAYER   MAP     80 DATATYPE 0 800
+LAYER   PA      800      //      Passivation / Pad
+
+LAYER   MAP     81 DATATYPE 0 810
+LAYER   FUSE    810      //      Fuse Window
+
+LAYER   MAP     81 DATATYPE 1 811
+LAYER   GTFUSE  811
+
+LAYER   MAP     83 DATATYPE 0  8300
+LAYER   ALPAi   8300
+
+LAYER   MAP     83 DATATYPE 3  8303
+LAYER   ALRDL   8303
+
+LAYER   MAP     83 DATATYPE 6  8306
+LAYER   ALDUB   8306
+
+LAYER   MAP     83 DATATYPE 11 8311
+LAYER   ALDUM   8311
+
+LAYER   MAP     90 DATATYPE 0 900
+LAYER   DUMBM   900      //      Define area to prevent METAL Dummy operation
+
+LAYER   MAP     91 DATATYPE 0 910
+LAYER   DUMBA   910      //      Define area to prevent AA Dummy operation
+
+LAYER   MAP     92 DATATYPE 0 920
+LAYER   DUMBP   920      //      Define area to prevent Poly Dummy operation
+
+LAYER   MAP     93 DATATYPE 0 930
+LAYER   VARMOS  930     //      Block Layer to cover all MOS-type varactor
+
+LAYER   MAP     95 DATATYPE 0 950
+LAYER   RESNW   950      //      Dummy Pattern for NWELL Resistor
+
+LAYER   MAP     96 DATATYPE 0 960
+LAYER   RESP1   960      //      Dummy Pattern for Poly-1 Resistor
+
+LAYER   MAP     97 DATATYPE 0 970
+LAYER   RESAA   970      //      Dummy Pattern for AA Resistor
+
+LAYER   MAP     127 DATATYPE 0 1270
+LAYER   BORDERi 1270
+
+LAYER   MAP     151     DATATYPE == 1   1511
+LAYER   M1DUB   1511     // Block layer for M1 dummy operations
+
+LAYER   MAP     152     DATATYPE == 1   1521
+LAYER   M2DUB   1521     // Block layer for M2 dummy operations
+
+LAYER   MAP     153     DATATYPE == 1   1531
+LAYER   M3DUB   1531     // Block layer for M3 dummy operations
+
+LAYER   MAP     154     DATATYPE == 1   1541
+LAYER   M4DUB   1541     // Block layer for M4 dummy operations
+
+LAYER   MAP     155     DATATYPE == 1   1551
+LAYER   M5DUB   1551     // Block layer for M5 dummy operations
+
+LAYER   MAP     156     DATATYPE == 1   1561
+LAYER   M6DUB   1561     // Block layer for M6 dummy operations
+
+LAYER   MAP     157     DATATYPE == 1   1571
+LAYER   M7DUB   1571     // Block layer for M7 dummy operations
+
+LAYER   MAP     158     DATATYPE == 1   1581
+LAYER   M8DUB   1581     // Block layer for M8 dummy operations
+
+LAYER   MAP     159 DATATYPE 7 1597
+LAYER   PTCT 1597
+
+LAYER   MAP     193     DATATYPE == 1   1939
+LAYER   TM1DUB  1939     // Block layer for TM1 dummy operations
+
+LAYER   MAP     194     DATATYPE == 1   1940
+LAYER   TM2DUB  1940     // Block layer for TM2 dummy operations
+
+//--------------------------------------------------------------------------------
+LAYER   MAP 189 DATATYPE 0 1890
+LAYER	MARKGi	1890	//	Guard ring or seal ring area mark layer for DRC
+MARKG = MARKGi OR MARKS
+
+LAYER MAP 189  DATATYPE  151  1895
+LAYER MARKS 1895
+//------------------------------------------------------------------------------------
+
+LAYER   MAP     211 DATATYPE 1 2111
+LAYER   MOMDMY  2111    //      MOM Dummy layer
+
+LAYER   MAP     212 DATATYPE 0 2120
+LAYER   INDMY   2120
+
+LAYER   MAP     231 DATATYPE 0 2310
+LAYER   MTT2i   2310
+
+LAYER   MAP     10  DATATYPE 1 1019
+LAYER   AADUM   1019
+
+LAYER   MAP     30  DATATYPE 1 3010
+LAYER   GTDUM   3010
+
+LAYER   MAP     61  DATATYPE 1 6110
+LAYER   M1DUM   6110
+
+LAYER   MAP     62  DATATYPE 1 6210
+LAYER   M2DUM   6210
+
+LAYER   MAP     63  DATATYPE 1 6310
+LAYER   M3DUM   6310
+
+LAYER   MAP     64  DATATYPE 1 6410
+LAYER   M4DUM   6410
+
+LAYER   MAP     65  DATATYPE 1 6510
+LAYER   M5DUM   6510
+
+LAYER   MAP     66  DATATYPE 1 6610
+LAYER   M6DUM   6610
+
+LAYER   MAP     67  DATATYPE 1 6710
+LAYER   M7DUM   6710
+
+LAYER   MAP     68  DATATYPE 1 6810
+LAYER   M8DUM   6810
+
+LAYER   MAP     120  DATATYPE 1 1201
+LAYER   TM1DUM  1201
+
+LAYER   MAP     122  DATATYPE 1 1221
+LAYER   TM2DUM  1221
+
+LAYER   MAP     61   DATATYPE 7 6170
+LAYER   M1DOP   6170
+
+LAYER   MAP     62   DATATYPE 7 6270
+LAYER   M2DOP   6270
+
+LAYER   MAP     63   DATATYPE 7 6370
+LAYER   M3DOP   6370
+
+LAYER   MAP     64   DATATYPE 7 6470
+LAYER   M4DOP   6470
+
+LAYER   MAP     65   DATATYPE 7 6570
+LAYER   M5DOP   6570
+
+LAYER   MAP     66   DATATYPE 7 6670
+LAYER   M6DOP   6670
+
+LAYER   MAP     67   DATATYPE 7 6770
+LAYER   M7DOP   6770
+
+LAYER   MAP     68   DATATYPE 7 6870
+LAYER   M8DOP   6870
+
+LAYER   MAP     70   DATATYPE 7 7070
+LAYER   V1DOP   7070
+
+LAYER   MAP     71   DATATYPE 7 7170
+LAYER   V2DOP   7170
+
+LAYER   MAP     72   DATATYPE 7 7270
+LAYER   V3DOP   7270
+
+LAYER   MAP     73   DATATYPE 7 7370
+LAYER   V4DOP   7370
+
+LAYER   MAP     74   DATATYPE 7 7470
+LAYER   V5DOP   7470
+
+LAYER   MAP     75   DATATYPE 7 7570
+LAYER   V6DOP   7570
+
+LAYER   MAP     76   DATATYPE 7 7670
+LAYER   V7DOP   7670
+
+LAYER   MAP     231  DATATYPE 1 2311
+LAYER   MTT2DM  2311
+
+LAYER   MAP     194  DATATYPE 2 1942
+LAYER   MTT2DB  1942
+
+LAYER   MAP     97 DATATYPE 3 973
+LAYER   DIFRES  973
+
+LAYER   MAP     96 DATATYPE 3 963
+LAYER   PLRES   963
+
+LAYER   MAP     210 DATATYPE 0 2199
+LAYER   HRPDMY  2199
+
+BORDER = BORDERi OR (HOLES BORDERi)
+
+AA = AAi OR AADUM
+GT = GTi OR GTDUM
+M1 = (M1i OR M1DUM) OR M1DOP
+M2 = (M2i OR M2DUM) OR M2DOP
+M3 = (M3i OR M3DUM) OR M3DOP
+M4 = (M4i OR M4DUM) OR M4DOP
+M5 = (M5i OR M5DUM) OR M5DOP
+M6 = (M6i OR M6DUM) OR M6DOP
+M7 = (M7i OR M7DUM) OR M7DOP
+M8 = (M8i OR M8DUM) OR M8DOP
+TM1 = TM1i OR TM1DUM
+TM2 = TM2i OR TM2DUM
+MTT2 = MTT2i OR MTT2DM
+
+// Metal constrains for distinguishing datetype
+M1_UP = SIZE M1 BY 1.111
+M2_UP = SIZE M2 BY 1.111
+M3_UP = SIZE M3 BY 1.111
+M4_UP = SIZE M4 BY 1.111
+M5_UP = SIZE M5 BY 1.111
+M6_UP = SIZE M6 BY 1.111
+M7_UP = SIZE M7 BY 1.111
+M8_UP = SIZE M8 BY 1.111
+
+
+V1     = (V1i OR V1DUM) OR V1DOP
+V2     = (V2i OR V2DUM) OR V2DOP
+V3     = (V3i OR V3DUM) OR V3DOP
+V4     = (V4i OR V4DUM) OR V4DOP
+V5     = (V5i OR V5DUM) OR V5DOP
+V6     = (V6i OR V6DUM) OR V6DOP
+V7     = (V7i OR V7DUM) OR V7DOP
+ALPA   = (ALPAi OR ALRDL) OR ALDUM
+
+V1D_BK        = (V1 OR V1DUB) OR INDMY
+V2D_BK        = (V2 OR V2DUB) OR INDMY
+V3D_BK        = (V3 OR V3DUB) OR INDMY
+V4D_BK        = (V4 OR V4DUB) OR INDMY
+V5D_BK        = (V5 OR V5DUB) OR INDMY
+V6D_BK        = (V6 OR V6DUB) OR INDMY
+V7D_BK        = (V7 OR V7DUB) OR INDMY
+
+GTFUSE_EXPAND = SIZE GTFUSE BY 3.332
+DUM_INSERT_AREA_M1 = DENSITY M1 <= 0.6 WINDOW 110 STEP 55 BACKUP
+DUM_INSERT_AREA_M2 = DENSITY M2 <= 0.6 WINDOW 110 STEP 55 BACKUP
+DUM_INSERT_AREA_M3 = DENSITY M3 <= 0.6 WINDOW 110 STEP 55 BACKUP
+DUM_INSERT_AREA_M4 = DENSITY M4 <= 0.6 WINDOW 110 STEP 55 BACKUP
+DUM_INSERT_AREA_M5 = DENSITY M5 <= 0.6 WINDOW 110 STEP 55 BACKUP
+DUM_INSERT_AREA_M6 = DENSITY M6 <= 0.6 WINDOW 110 STEP 55 BACKUP
+DUM_INSERT_AREA_M7 = DENSITY M7 <= 0.6 WINDOW 110 STEP 55 BACKUP
+DUM_INSERT_AREA_M8 = DENSITY M8 <= 0.6 WINDOW 110 STEP 55 BACKUP
+DUM_INSERT_AREA_TM1 = DENSITY TM1 <= 0.6 WINDOW 110 STEP 55 BACKUP
+DUM_INSERT_AREA_TM2 = DENSITY TM2 <= 0.6 WINDOW 110 STEP 55 BACKUP
+DUM_INSERT_AREA_MTT2 = DENSITY MTT2 <= 0.6 WINDOW 110 STEP 55 BACKUP
+DUM_INSERT_AREA_ALPA = DENSITY ALPA <= 0.6 WINDOW 110 STEP 55 BACKUP
+
+//=====================
+//AA Dummy insertion 
+//=====================
+
+//Dummy AA rectangles constrains
+AAD_GTD = LOGO OR (PTCT OR (MARKG OR RESNW))
+AAD = (AAD_GTD OR (PLRES OR HRPDMY)) OR ((GT OR DUMBA) OR RESP1)
+AAD_a = SIZE (AAD OR AA) BY 2.221
+AA_OUT_DUM = DUMBA OUTSIDE AAi
+AAD_b = OR (SIZE AAD BY 0.221)  (SIZE AA BY 0.710) (SIZE AA_OUT_DUM BY 0.71)
+
+NW_ENC_SPA_AA = (SIZE NW BY 0.266) NOT (SIZE NW BY -0.266)
+DNW_ENC_SPA_AA = (SIZE DNW BY 0.266) NOT (SIZE DNW BY -0.266)
+NW_DNW_ENC_SPA_AA = NW_ENC_SPA_AA OR DNW_ENC_SPA_AA
+
+DUMAA_CONSTRAIN_0 = NW_DNW_ENC_SPA_AA OR (GTFUSE_EXPAND NOT GTFUSE)
+DUMAA_CONSTRAIN_a = AAD_a OR DUMAA_CONSTRAIN_0
+DUMAA_CONSTRAIN_b = AAD_b OR DUMAA_CONSTRAIN_0
+
+
+//Dummy AA_a rectangles produce regulation
+EXTENT_AA_0   = SIZE BORDER BY -0.1
+EXTENT_AA_a_1   = SHRINK (SIZE EXTENT_AA_0 BY 6.666) RIGHT BY 6.666 TOP BY 6.666 LEFT BY 8.888
+EXTENT_AA_a_2   = SHRINK (SIZE EXTENT_AA_a_1 BY 6.666) RIGHT BY 6.666 TOP BY 6.666 LEFT BY 8.888
+
+DUMAA_OFF_a_0 =  RECTANGLES 4.444 4.444 2.222 17.776 OFFSET 0 2.222 INSIDE OF LAYER EXTENT_AA_0
+DUMAA_OFF_a_1 = (RECTANGLES 4.444 4.444 2.222 17.776 OFFSET 0 2.222 INSIDE OF LAYER EXTENT_AA_a_1) INSIDE EXTENT_AA_0
+DUMAA_OFF_a_2 = (RECTANGLES 4.444 4.444 2.222 17.776 OFFSET 0 2.222 INSIDE OF LAYER EXTENT_AA_a_2) INSIDE EXTENT_AA_0
+
+DUMAA_OFF_a_all = DUMAA_OFF_a_0 OR (DUMAA_OFF_a_1 OR DUMAA_OFF_a_2)
+
+
+//AADUM_a rectangles
+DUMAA_a_all = DUMAA_OFF_a_all NOT INTERACT DUMAA_CONSTRAIN_a
+
+
+//Dummy AA_b rectangles produce regulation
+EXTENT_AA_b_1   = SHRINK (SIZE EXTENT_AA_0 BY 0.666) RIGHT BY 0.666 TOP BY 0.666 LEFT BY 0.888
+EXTENT_AA_b_2   = SHRINK (SIZE EXTENT_AA_b_1 BY 0.666) RIGHT BY 0.666 TOP BY 0.666 LEFT BY 0.888
+
+
+DUMAA_OFF_b_0 =  RECTANGLES 0.444 0.444 0.222 1.776 OFFSET 0 0.222 INSIDE OF LAYER EXTENT_AA_0
+DUMAA_OFF_b_1 = (RECTANGLES 0.444 0.444 0.222 1.776 OFFSET 0 0.222 INSIDE OF LAYER EXTENT_AA_b_1) INSIDE EXTENT_AA_0
+DUMAA_OFF_b_2 = (RECTANGLES 0.444 0.444 0.222 1.776 OFFSET 0 0.222 INSIDE OF LAYER EXTENT_AA_b_2) INSIDE EXTENT_AA_0
+
+DUMAA_OFF_b_all = DUMAA_OFF_b_0 OR (DUMAA_OFF_b_1 OR DUMAA_OFF_b_2)
+
+//AADUM_b rectangles
+DUMAA_CONSTRAIN_b_all = (SIZE DUMAA_a_all BY 2.222 OVERUNDER) OR ((SIZE DUMAA_a_all BY 0.221) OR DUMAA_CONSTRAIN_b)
+DUMAA_b_all = DUMAA_OFF_b_all NOT INTERACT DUMAA_CONSTRAIN_b_all
+
+
+
+//Output results of AADUM insertion
+
+#IFDEF AA_insert YES
+DUMAA_a_all_out { COPY DUMAA_a_all }
+DRC CHECK MAP DUMAA_a_all_out GDSII 10 1 AUTOREF
+
+DUMAA_b_all_out { COPY DUMAA_b_all }
+DRC CHECK MAP DUMAA_b_all_out GDSII 10 1 AUTOREF
+#ENDIF
+
+
+
+ 
+//=====================
+//GT Dummy insertion 
+//=====================
+
+//GTDUM rectangles constrains AND output results
+
+GTD = (AAD_GTD OR DIFRES) OR ((AA OR DUMBP) OR RESAA)
+GTD_a = SIZE ((GTD OR GT) OR DUMAA_b_all) BY 2.665
+GTD_b = (SIZE (GTD OR DUMAA_a_all) BY 0.221) OR (SIZE GT BY 0.710) 
+NW_DNW_ENC_GT = SIZE (NW OR DNW) BY -0.710 
+NW_DNW_SPA_GT = SIZE (NW OR DNW) BY 0.710
+NW_DNW_ENC_SPA_GT = NW_DNW_SPA_GT NOT NW_DNW_ENC_GT
+DUMGT_CONSTRAIN_0 = NW_DNW_ENC_SPA_GT OR (GTFUSE_EXPAND NOT GTFUSE)
+DUMGT_CONSTRAIN_a = GTD_a OR DUMGT_CONSTRAIN_0
+DUMGT_CONSTRAIN_b = GTD_b OR DUMGT_CONSTRAIN_0
+
+EXTENT_GT_0   = SIZE BORDER BY -0.177
+
+#IFDEF GT_insert YES
+DUMGT_a_all = (SIZE DUMAA_OFF_a_all BY -0.444) NOT INTERACT DUMGT_CONSTRAIN_a
+DUMGT_a_all_out { COPY DUMGT_a_all }
+DRC CHECK MAP DUMGT_a_all_out GDSII 30 1 AUTOREF
+
+DUMGT_CONSTRAIN_b_all = ((SIZE DUMGT_a_all BY 3.11 OVERUNDER) OR (SIZE DUMGT_a_all BY 0.709)) OR DUMGT_CONSTRAIN_b
+DUMGT_b_all = ((SIZE DUMAA_OFF_b_all BY -0.044) NOT INTERACT DUMGT_CONSTRAIN_b_all) INSIDE EXTENT_GT_0
+DUMGT_b_all_out { COPY DUMGT_b_all }
+DRC CHECK MAP DUMGT_b_all_out GDSII 30 1 AUTOREF
+#ENDIF
+
+
+
+
+
+//=================================================
+//Mx Dummy insertion when Mx Dummy NOT touching INDMY
+//=================================================
+
+
+EXTENT_MT_0   = SIZE BORDER BY -0.4
+EXTENT_MT_1   = SHRINK (SIZE EXTENT_MT_0 BY 0.666) RIGHT BY 0.666 TOP BY 0.666 LEFT BY 0.888
+EXTENT_MT_2   = SHRINK (SIZE EXTENT_MT_1 BY 0.666) RIGHT BY 0.666 TOP BY 0.666 LEFT BY 0.888
+
+
+MD_BK         = ((LOGO OR PTCT) OR DUMBM) OR MARKG
+INDMY_UP       = SIZE INDMY BY 0.6
+
+M1D_BK_0      = SIZE (M1DUB OR MD_BK) BY 0.6
+M1D_BK_A      = (SIZE M1 BY 1.111) OR (M1D_BK_0 OR GTFUSE_EXPAND)
+M1D_BK_C      = (SIZE M1 BY 0.533) OR (M1D_BK_0 OR GTFUSE_EXPAND)
+
+M2D_BK_0      = SIZE (M2DUB OR MD_BK) BY 0.6
+M2D_BK_A      = (SIZE M2 BY 1.111) OR (M2D_BK_0 OR GTFUSE_EXPAND)
+M2D_BK_C      = (SIZE M2 BY 0.533) OR (M2D_BK_0 OR GTFUSE_EXPAND)
+
+M3D_BK_0      = SIZE (M3DUB OR MD_BK) BY 0.6
+M3D_BK_A      = (SIZE M3 BY 1.111) OR M3D_BK_0
+M3D_BK_C      = (SIZE M3 BY 0.533) OR M3D_BK_0
+
+M4D_BK_0      = SIZE (M4DUB OR MD_BK) BY 0.6
+M4D_BK_A      = (SIZE M4 BY 1.111) OR M4D_BK_0
+M4D_BK_C      = (SIZE M4 BY 0.533) OR M4D_BK_0
+
+M5D_BK_0      = SIZE (M5DUB OR MD_BK) BY 0.6
+M5D_BK_A      = (SIZE M5 BY 1.111) OR M5D_BK_0
+M5D_BK_C      = (SIZE M5 BY 0.533) OR M5D_BK_0
+
+M6D_BK_0      = SIZE (M6DUB OR MD_BK) BY 0.6
+M6D_BK_A      = (SIZE M6 BY 1.111) OR M6D_BK_0
+M6D_BK_C      = (SIZE M6 BY 0.533) OR M6D_BK_0
+
+M7D_BK_0      = SIZE (M7DUB OR MD_BK) BY 0.6
+M7D_BK_A      = (SIZE M7 BY 1.111) OR M7D_BK_0
+M7D_BK_C      = (SIZE M7 BY 0.533) OR M7D_BK_0
+
+M8D_BK_0      = SIZE (M8DUB OR MD_BK) BY 0.6
+M8D_BK_A      = (SIZE M8 BY 1.111) OR M8D_BK_0
+M8D_BK_C      = (SIZE M8 BY 0.533) OR M8D_BK_0
+
+
+
+//MxDUM_A rectangles produce regulation when Mx Dummy A NOT touching INDMY
+DUMMA_OFF_0 =  (RECTANGLES 0.444 0.444 0.222 1.776 OFFSET 0 0.222 INSIDE OF LAYER EXTENT_MT_0) NOT INTERACT INDMY_UP
+DUMMA_OFF_1 = ((RECTANGLES 0.444 0.444 0.222 1.776 OFFSET 0 0.222 INSIDE OF LAYER EXTENT_MT_1) INSIDE EXTENT_MT_0) NOT INTERACT INDMY_UP
+DUMMA_OFF_2 = ((RECTANGLES 0.444 0.444 0.222 1.776 OFFSET 0 0.222 INSIDE OF LAYER EXTENT_MT_2) INSIDE EXTENT_MT_0) NOT INTERACT INDMY_UP
+
+
+
+//M1DUM_A rectangles when M1 Dummy A NOT touching INDMY
+
+DUMM1A_0 = DUMMA_OFF_0 NOT INTERACT M1D_BK_A
+DUMM1A_1 = DUMMA_OFF_1 NOT INTERACT M1D_BK_A
+DUMM1A_2 = DUMMA_OFF_2 NOT INTERACT M1D_BK_A
+DUMM1A_ALL = ((DUMM1A_0 OR DUMM1A_1) OR DUMM1A_2) INSIDE DUM_INSERT_AREA_M1
+DUMM1A_ALL_datetype_1 = DUMM1A_ALL NOT INTERACT M1_UP
+DUMM1A_ALL_datetype_7 = DUMM1A_ALL NOT DUMM1A_ALL_datetype_1
+
+//M2DUM_A rectangles when M2 Dummy A NOT touching INDMY
+
+DUMM2A_0 = DUMMA_OFF_0 NOT INTERACT M2D_BK_A
+DUMM2A_1 = DUMMA_OFF_1 NOT INTERACT M2D_BK_A
+DUMM2A_2 = DUMMA_OFF_2 NOT INTERACT M2D_BK_A
+DUMM2A_ALL = ((DUMM2A_0 OR DUMM2A_1) OR DUMM2A_2) INSIDE DUM_INSERT_AREA_M2
+DUMM2A_ALL_datetype_1 = DUMM2A_ALL NOT INTERACT M2_UP
+DUMM2A_ALL_datetype_7 = DUMM2A_ALL NOT DUMM2A_ALL_datetype_1
+
+//M3DUM_A rectangles when M3 Dummy A NOT touching INDMY
+
+DUMM3A_0 = DUMMA_OFF_0 NOT INTERACT M3D_BK_A
+DUMM3A_1 = DUMMA_OFF_1 NOT INTERACT M3D_BK_A
+DUMM3A_2 = DUMMA_OFF_2 NOT INTERACT M3D_BK_A
+DUMM3A_ALL = ((DUMM3A_0 OR DUMM3A_1) OR DUMM3A_2) INSIDE DUM_INSERT_AREA_M3
+DUMM3A_ALL_datetype_1 = DUMM3A_ALL NOT INTERACT M3_UP
+DUMM3A_ALL_datetype_7 = DUMM3A_ALL NOT DUMM3A_ALL_datetype_1
+
+//M4DUM_A rectangles when M4 Dummy A NOT touching INDMY
+
+DUMM4A_0 = DUMMA_OFF_0 NOT INTERACT M4D_BK_A
+DUMM4A_1 = DUMMA_OFF_1 NOT INTERACT M4D_BK_A
+DUMM4A_2 = DUMMA_OFF_2 NOT INTERACT M4D_BK_A
+DUMM4A_ALL = ((DUMM4A_0 OR DUMM4A_1) OR DUMM4A_2) INSIDE DUM_INSERT_AREA_M4
+DUMM4A_ALL_datetype_1 = DUMM4A_ALL NOT INTERACT M4_UP
+DUMM4A_ALL_datetype_7 = DUMM4A_ALL NOT DUMM4A_ALL_datetype_1
+
+//M5DUM_A rectangles when M5 Dummy A NOT touching INDMY
+
+DUMM5A_0 = DUMMA_OFF_0 NOT INTERACT M5D_BK_A
+DUMM5A_1 = DUMMA_OFF_1 NOT INTERACT M5D_BK_A
+DUMM5A_2 = DUMMA_OFF_2 NOT INTERACT M5D_BK_A
+DUMM5A_ALL = ((DUMM5A_0 OR DUMM5A_1) OR DUMM5A_2) INSIDE DUM_INSERT_AREA_M5
+DUMM5A_ALL_datetype_1 = DUMM5A_ALL NOT INTERACT M5_UP
+DUMM5A_ALL_datetype_7 = DUMM5A_ALL NOT DUMM5A_ALL_datetype_1
+
+//M6DUM_A rectangles when M6 Dummy A NOT touching INDMY
+
+DUMM6A_0 = DUMMA_OFF_0 NOT INTERACT M6D_BK_A
+DUMM6A_1 = DUMMA_OFF_1 NOT INTERACT M6D_BK_A
+DUMM6A_2 = DUMMA_OFF_2 NOT INTERACT M6D_BK_A
+DUMM6A_ALL = ((DUMM6A_0 OR DUMM6A_1) OR DUMM6A_2) INSIDE DUM_INSERT_AREA_M6
+DUMM6A_ALL_datetype_1 = DUMM6A_ALL NOT INTERACT M6_UP
+DUMM6A_ALL_datetype_7 = DUMM6A_ALL NOT DUMM6A_ALL_datetype_1
+
+//M7DUM_A rectangles when M7 Dummy A NOT touching INDMY
+
+DUMM7A_0 = DUMMA_OFF_0 NOT INTERACT M7D_BK_A
+DUMM7A_1 = DUMMA_OFF_1 NOT INTERACT M7D_BK_A
+DUMM7A_2 = DUMMA_OFF_2 NOT INTERACT M7D_BK_A
+DUMM7A_ALL = ((DUMM7A_0 OR DUMM7A_1) OR DUMM7A_2) INSIDE DUM_INSERT_AREA_M7
+DUMM7A_ALL_datetype_1 = DUMM7A_ALL NOT INTERACT M7_UP
+DUMM7A_ALL_datetype_7 = DUMM7A_ALL NOT DUMM7A_ALL_datetype_1
+
+//M8DUM_A rectangles when M8 Dummy A NOT touching INDMY
+
+DUMM8A_0 = DUMMA_OFF_0 NOT INTERACT M8D_BK_A
+DUMM8A_1 = DUMMA_OFF_1 NOT INTERACT M8D_BK_A
+DUMM8A_2 = DUMMA_OFF_2 NOT INTERACT M8D_BK_A
+DUMM8A_ALL = ((DUMM8A_0 OR DUMM8A_1) OR DUMM8A_2) INSIDE DUM_INSERT_AREA_M8
+DUMM8A_ALL_datetype_1 = DUMM8A_ALL NOT INTERACT M8_UP
+DUMM8A_ALL_datetype_7 = DUMM8A_ALL NOT DUMM8A_ALL_datetype_1
+
+
+//MxDUM_B rectangles produce regulation when Mx Dummy B NOT touching INDMY
+
+EXTENT_MT_B_1   = SHRINK (SIZE EXTENT_MT_0 BY 0.444) RIGHT BY 0.444 TOP BY 0.444 LEFT BY 0.555
+EXTENT_MT_B_2   = SHRINK (SIZE EXTENT_MT_B_1 BY 0.444) RIGHT BY 0.444 TOP BY 0.444 LEFT BY 0.555
+EXTENT_MT_B_3   = SHRINK (SIZE EXTENT_MT_B_2 BY 0.444) RIGHT BY 0.444 TOP BY 0.444 LEFT BY 0.555
+
+DUMMB_OFF_0 =  (RECTANGLES 0.222 0.222 0.222 1.665 OFFSET 0 0.111 INSIDE OF LAYER EXTENT_MT_0) NOT INTERACT INDMY_UP
+DUMMB_OFF_1 = ((RECTANGLES 0.222 0.222 0.222 1.665 OFFSET 0 0.111 INSIDE OF LAYER EXTENT_MT_B_1) INSIDE EXTENT_MT_0) NOT INTERACT INDMY_UP
+DUMMB_OFF_2 = ((RECTANGLES 0.222 0.222 0.222 1.665 OFFSET 0 0.111 INSIDE OF LAYER EXTENT_MT_B_2) INSIDE EXTENT_MT_0) NOT INTERACT INDMY_UP
+DUMMB_OFF_3 = ((RECTANGLES 0.222 0.222 0.222 1.665 OFFSET 0 0.111 INSIDE OF LAYER EXTENT_MT_B_3) INSIDE EXTENT_MT_0) NOT INTERACT INDMY_UP
+
+//MxDUM_B rectangles constrains when Mx Dummy B NOT touching INDMY
+M1D_BK_B = ((SIZE M1 BY 0.6) OR (SIZE DUMM1A_ALL BY 0.222)) OR (M1D_BK_0 OR GTFUSE_EXPAND)
+M2D_BK_B = ((SIZE M2 BY 0.6) OR (SIZE DUMM2A_ALL BY 0.222)) OR (M2D_BK_0 OR GTFUSE_EXPAND)
+M3D_BK_B = ((SIZE M3 BY 0.6) OR (SIZE DUMM3A_ALL BY 0.222)) OR M3D_BK_0
+M4D_BK_B = ((SIZE M4 BY 0.6) OR (SIZE DUMM4A_ALL BY 0.222)) OR M4D_BK_0
+M5D_BK_B = ((SIZE M5 BY 0.6) OR (SIZE DUMM5A_ALL BY 0.222)) OR M5D_BK_0
+M6D_BK_B = ((SIZE M6 BY 0.6) OR (SIZE DUMM6A_ALL BY 0.222)) OR M6D_BK_0
+M7D_BK_B = ((SIZE M7 BY 0.6) OR (SIZE DUMM7A_ALL BY 0.222)) OR M7D_BK_0
+M8D_BK_B = ((SIZE M8 BY 0.6) OR (SIZE DUMM8A_ALL BY 0.222)) OR M8D_BK_0
+
+
+
+//M1DUM_B rectangles when M1 Dummy B NOT touching INDMY
+
+DUMM1B_0 = DUMMB_OFF_0 NOT INTERACT M1D_BK_B
+DUMM1B_1 = DUMMB_OFF_1 NOT INTERACT M1D_BK_B
+DUMM1B_2 = DUMMB_OFF_2 NOT INTERACT M1D_BK_B
+DUMM1B_3 = DUMMB_OFF_3 NOT INTERACT M1D_BK_B
+DUMM1B_ALL = ((DUMM1B_0 OR DUMM1B_1) OR (DUMM1B_2 OR DUMM1B_3)) INSIDE DUM_INSERT_AREA_M1
+DUMM1B_ALL_datetype_1 = DUMM1B_ALL NOT INTERACT M1_UP
+DUMM1B_ALL_datetype_7 = DUMM1B_ALL NOT DUMM1B_ALL_datetype_1
+
+
+//M2DUM_B rectangles when M2 Dummy B NOT touching INDMY
+
+DUMM2B_0 = DUMMB_OFF_0 NOT INTERACT M2D_BK_B
+DUMM2B_1 = DUMMB_OFF_1 NOT INTERACT M2D_BK_B
+DUMM2B_2 = DUMMB_OFF_2 NOT INTERACT M2D_BK_B
+DUMM2B_3 = DUMMB_OFF_3 NOT INTERACT M2D_BK_B
+DUMM2B_ALL = ((DUMM2B_0 OR DUMM2B_1) OR (DUMM2B_2 OR DUMM2B_3)) INSIDE DUM_INSERT_AREA_M2
+DUMM2B_ALL_datetype_1 = DUMM2B_ALL NOT INTERACT M2_UP
+DUMM2B_ALL_datetype_7 = DUMM2B_ALL NOT DUMM2B_ALL_datetype_1
+
+//M3DUM_B rectangles when M3 Dummy B NOT touching INDMY
+
+DUMM3B_0 = DUMMB_OFF_0 NOT INTERACT M3D_BK_B
+DUMM3B_1 = DUMMB_OFF_1 NOT INTERACT M3D_BK_B
+DUMM3B_2 = DUMMB_OFF_2 NOT INTERACT M3D_BK_B
+DUMM3B_3 = DUMMB_OFF_3 NOT INTERACT M3D_BK_B
+DUMM3B_ALL = ((DUMM3B_0 OR DUMM3B_1) OR (DUMM3B_2 OR DUMM3B_3)) INSIDE DUM_INSERT_AREA_M3
+DUMM3B_ALL_datetype_1 = DUMM3B_ALL NOT INTERACT M3_UP
+DUMM3B_ALL_datetype_7 = DUMM3B_ALL NOT DUMM3B_ALL_datetype_1
+
+//M4DUM_B rectangles when M4 Dummy B NOT touching INDMY
+
+DUMM4B_0 = DUMMB_OFF_0 NOT INTERACT M4D_BK_B
+DUMM4B_1 = DUMMB_OFF_1 NOT INTERACT M4D_BK_B
+DUMM4B_2 = DUMMB_OFF_2 NOT INTERACT M4D_BK_B
+DUMM4B_3 = DUMMB_OFF_3 NOT INTERACT M4D_BK_B
+DUMM4B_ALL = ((DUMM4B_0 OR DUMM4B_1) OR (DUMM4B_2 OR DUMM4B_3)) INSIDE DUM_INSERT_AREA_M4
+DUMM4B_ALL_datetype_1 = DUMM4B_ALL NOT INTERACT M4_UP
+DUMM4B_ALL_datetype_7 = DUMM4B_ALL NOT DUMM4B_ALL_datetype_1
+
+//M5DUM_B rectangles when M5 Dummy B NOT touching INDMY
+
+DUMM5B_0 = DUMMB_OFF_0 NOT INTERACT M5D_BK_B
+DUMM5B_1 = DUMMB_OFF_1 NOT INTERACT M5D_BK_B
+DUMM5B_2 = DUMMB_OFF_2 NOT INTERACT M5D_BK_B
+DUMM5B_3 = DUMMB_OFF_3 NOT INTERACT M5D_BK_B
+DUMM5B_ALL = ((DUMM5B_0 OR DUMM5B_1) OR (DUMM5B_2 OR DUMM5B_3)) INSIDE DUM_INSERT_AREA_M5
+DUMM5B_ALL_datetype_1 = DUMM5B_ALL NOT INTERACT M5_UP
+DUMM5B_ALL_datetype_7 = DUMM5B_ALL NOT DUMM5B_ALL_datetype_1
+
+//M6DUM_B rectangles when M6 Dummy B NOT touching INDMY
+
+DUMM6B_0 = DUMMB_OFF_0 NOT INTERACT M6D_BK_B
+DUMM6B_1 = DUMMB_OFF_1 NOT INTERACT M6D_BK_B
+DUMM6B_2 = DUMMB_OFF_2 NOT INTERACT M6D_BK_B
+DUMM6B_3 = DUMMB_OFF_3 NOT INTERACT M6D_BK_B
+DUMM6B_ALL = ((DUMM6B_0 OR DUMM6B_1) OR (DUMM6B_2 OR DUMM6B_3)) INSIDE DUM_INSERT_AREA_M6
+DUMM6B_ALL_datetype_1 = DUMM6B_ALL NOT INTERACT M6_UP
+DUMM6B_ALL_datetype_7 = DUMM6B_ALL NOT DUMM6B_ALL_datetype_1
+
+//M7DUM_B rectangles when M7 Dummy B NOT touching INDMY
+
+DUMM7B_0 = DUMMB_OFF_0 NOT INTERACT M7D_BK_B
+DUMM7B_1 = DUMMB_OFF_1 NOT INTERACT M7D_BK_B
+DUMM7B_2 = DUMMB_OFF_2 NOT INTERACT M7D_BK_B
+DUMM7B_3 = DUMMB_OFF_3 NOT INTERACT M7D_BK_B
+DUMM7B_ALL = ((DUMM7B_0 OR DUMM7B_1) OR (DUMM7B_2 OR DUMM7B_3)) INSIDE DUM_INSERT_AREA_M7
+DUMM7B_ALL_datetype_1 = DUMM7B_ALL NOT INTERACT M7_UP
+DUMM7B_ALL_datetype_7 = DUMM7B_ALL NOT DUMM7B_ALL_datetype_1
+
+//M8DUM_B rectangles when M8 Dummy B NOT touching INDMY
+
+DUMM8B_0 = DUMMB_OFF_0 NOT INTERACT M8D_BK_B
+DUMM8B_1 = DUMMB_OFF_1 NOT INTERACT M8D_BK_B
+DUMM8B_2 = DUMMB_OFF_2 NOT INTERACT M8D_BK_B
+DUMM8B_3 = DUMMB_OFF_3 NOT INTERACT M8D_BK_B
+DUMM8B_ALL = ((DUMM8B_0 OR DUMM8B_1) OR (DUMM8B_2 OR DUMM8B_3)) INSIDE DUM_INSERT_AREA_M8
+DUMM8B_ALL_datetype_1 = DUMM8B_ALL NOT INTERACT M8_UP
+DUMM8B_ALL_datetype_7 = DUMM8B_ALL NOT DUMM8B_ALL_datetype_1
+
+
+//Output results of MxDUM insertion when Mx Dummy NOT touching INDMY
+#IFDEF M1_insert YES
+DUMM1A_ALL_OUT_datetype_1 { COPY DUMM1A_ALL_datetype_1 }
+DRC CHECK MAP DUMM1A_ALL_OUT_datetype_1 GDSII 61 1 AUTOREF
+DUMM1A_ALL_OUT_datetype_7 { COPY DUMM1A_ALL_datetype_7 }
+DRC CHECK MAP DUMM1A_ALL_OUT_datetype_7 GDSII 61 7 AUTOREF
+#ENDIF
+
+#IFDEF M2_insert YES
+DUMM2A_ALL_OUT_datetype_1 { COPY DUMM2A_ALL_datetype_1 }
+DRC CHECK MAP DUMM2A_ALL_OUT_datetype_1 GDSII 62 1 AUTOREF
+DUMM2A_ALL_OUT_datetype_7 { COPY DUMM2A_ALL_datetype_7 }
+DRC CHECK MAP DUMM2A_ALL_OUT_datetype_7 GDSII 62 7 AUTOREF
+#ENDIF
+
+#IFDEF M3_insert YES
+DUMM3A_ALL_OUT_datetype_1 { COPY DUMM3A_ALL_datetype_1 }
+DRC CHECK MAP DUMM3A_ALL_OUT_datetype_1 GDSII 63 1 AUTOREF
+DUMM3A_ALL_OUT_datetype_7 { COPY DUMM3A_ALL_datetype_7 }
+DRC CHECK MAP DUMM3A_ALL_OUT_datetype_7 GDSII 63 7 AUTOREF
+#ENDIF
+
+#IFDEF M4_insert YES
+DUMM4A_ALL_OUT_datetype_1 { COPY DUMM4A_ALL_datetype_1 }
+DRC CHECK MAP DUMM4A_ALL_OUT_datetype_1 GDSII 64 1 AUTOREF
+DUMM4A_ALL_OUT_datetype_7 { COPY DUMM4A_ALL_datetype_7 }
+DRC CHECK MAP DUMM4A_ALL_OUT_datetype_7 GDSII 64 7 AUTOREF
+#ENDIF
+
+#IFDEF M5_insert YES
+DUMM5A_ALL_OUT_datetype_1 { COPY DUMM5A_ALL_datetype_1 }
+DRC CHECK MAP DUMM5A_ALL_OUT_datetype_1 GDSII 65 1 AUTOREF
+DUMM5A_ALL_OUT_datetype_7 { COPY DUMM5A_ALL_datetype_7 }
+DRC CHECK MAP DUMM5A_ALL_OUT_datetype_7 GDSII 65 7 AUTOREF
+#ENDIF
+
+#IFDEF M6_insert YES
+DUMM6A_ALL_OUT_datetype_1 { COPY DUMM6A_ALL_datetype_1 }
+DRC CHECK MAP DUMM6A_ALL_OUT_datetype_1 GDSII 66 1 AUTOREF
+DUMM6A_ALL_OUT_datetype_7 { COPY DUMM6A_ALL_datetype_7 }
+DRC CHECK MAP DUMM6A_ALL_OUT_datetype_7 GDSII 66 7 AUTOREF
+#ENDIF
+
+#IFDEF M7_insert YES
+DUMM7A_ALL_OUT_datetype_1 { COPY DUMM7A_ALL_datetype_1 }
+DRC CHECK MAP DUMM7A_ALL_OUT_datetype_1 GDSII 67 1 AUTOREF
+DUMM7A_ALL_OUT_datetype_7 { COPY DUMM7A_ALL_datetype_7 }
+DRC CHECK MAP DUMM7A_ALL_OUT_datetype_7 GDSII 67 7 AUTOREF
+#ENDIF
+
+#IFDEF M8_insert YES
+DUMM8A_ALL_OUT_datetype_1 { COPY DUMM8A_ALL_datetype_1 }
+DRC CHECK MAP DUMM8A_ALL_OUT_datetype_1 GDSII 68 1 AUTOREF
+DUMM8A_ALL_OUT_datetype_7 { COPY DUMM8A_ALL_datetype_7 }
+DRC CHECK MAP DUMM8A_ALL_OUT_datetype_7 GDSII 68 7 AUTOREF
+#ENDIF
+
+
+#IFDEF M1_insert YES
+DUMM1B_ALL_OUT_datetype_1 { COPY DUMM1B_ALL_datetype_1 }
+DRC CHECK MAP DUMM1B_ALL_OUT_datetype_1 GDSII 61 1 AUTOREF
+DUMM1B_ALL_OUT_datetype_7 { COPY DUMM1B_ALL_datetype_7 }
+DRC CHECK MAP DUMM1B_ALL_OUT_datetype_7 GDSII 61 7 AUTOREF
+#ENDIF
+
+#IFDEF M2_insert YES
+DUMM2B_ALL_OUT_datetype_1 { COPY DUMM2B_ALL_datetype_1 }
+DRC CHECK MAP DUMM2B_ALL_OUT_datetype_1 GDSII 62 1 AUTOREF
+DUMM2B_ALL_OUT_datetype_7 { COPY DUMM2B_ALL_datetype_7 }
+DRC CHECK MAP DUMM2B_ALL_OUT_datetype_7 GDSII 62 7 AUTOREF
+#ENDIF
+
+#IFDEF M3_insert YES
+DUMM3B_ALL_OUT_datetype_1 { COPY DUMM3B_ALL_datetype_1 }
+DRC CHECK MAP DUMM3B_ALL_OUT_datetype_1 GDSII 63 1 AUTOREF
+DUMM3B_ALL_OUT_datetype_7 { COPY DUMM3B_ALL_datetype_7 }
+DRC CHECK MAP DUMM3B_ALL_OUT_datetype_7 GDSII 63 7 AUTOREF
+#ENDIF
+
+#IFDEF M4_insert YES
+DUMM4B_ALL_OUT_datetype_1 { COPY DUMM4B_ALL_datetype_1 }
+DRC CHECK MAP DUMM4B_ALL_OUT_datetype_1 GDSII 64 1 AUTOREF
+DUMM4B_ALL_OUT_datetype_7 { COPY DUMM4B_ALL_datetype_7 }
+DRC CHECK MAP DUMM4B_ALL_OUT_datetype_7 GDSII 64 7 AUTOREF
+#ENDIF
+
+#IFDEF M5_insert YES
+DUMM5B_ALL_OUT_datetype_1 { COPY DUMM5B_ALL_datetype_1 }
+DRC CHECK MAP DUMM5B_ALL_OUT_datetype_1 GDSII 65 1 AUTOREF
+DUMM5B_ALL_OUT_datetype_7 { COPY DUMM5B_ALL_datetype_7 }
+DRC CHECK MAP DUMM5B_ALL_OUT_datetype_7 GDSII 65 7 AUTOREF
+#ENDIF
+
+#IFDEF M6_insert YES
+DUMM6B_ALL_OUT_datetype_1 { COPY DUMM6B_ALL_datetype_1 }
+DRC CHECK MAP DUMM6B_ALL_OUT_datetype_1 GDSII 66 1 AUTOREF
+DUMM6B_ALL_OUT_datetype_7 { COPY DUMM6B_ALL_datetype_7 }
+DRC CHECK MAP DUMM6B_ALL_OUT_datetype_7 GDSII 66 7 AUTOREF
+#ENDIF
+
+#IFDEF M7_insert YES
+DUMM7B_ALL_OUT_datetype_1 { COPY DUMM7B_ALL_datetype_1 }
+DRC CHECK MAP DUMM7B_ALL_OUT_datetype_1 GDSII 67 1 AUTOREF
+DUMM7B_ALL_OUT_datetype_7 { COPY DUMM7B_ALL_datetype_7 }
+DRC CHECK MAP DUMM7B_ALL_OUT_datetype_7 GDSII 67 7 AUTOREF
+#ENDIF
+
+#IFDEF M8_insert YES
+DUMM8B_ALL_OUT_datetype_1 { COPY DUMM8B_ALL_datetype_1 }
+DRC CHECK MAP DUMM8B_ALL_OUT_datetype_1 GDSII 68 1 AUTOREF
+DUMM8B_ALL_OUT_datetype_7 { COPY DUMM8B_ALL_datetype_7 }
+DRC CHECK MAP DUMM8B_ALL_OUT_datetype_7 GDSII 68 7 AUTOREF
+#ENDIF
+
+
+
+
+
+//===============================================
+//Mx Dummy insertion when Mx Dummy touching INDMY
+//===============================================
+
+EXTENT_MT_INDMY_1   = SHRINK (SIZE EXTENT_MT_0 BY 0.889) RIGHT BY 0.889 TOP BY 0.889 LEFT BY 1.333
+
+
+//MxDUM rectangles produce regulation when Mx Dummy touching INDMY
+//Notice:Some dummy patterns will ignore 1 grid X-Shift in order to guarantee the speed of filling dummy patterns
+INDMY_DOWN_M = SIZE INDMY BY -0.6
+DUMM_OFF_INDMY_0 =  (RECTANGLES 0.3 0.3 0.589 1.922 OFFSET 0 0.444 INSIDE OF LAYER EXTENT_MT_0) INSIDE INDMY_DOWN_M
+DUMM_OFF_INDMY_1 = ((RECTANGLES 0.3 0.3 0.589 1.922 OFFSET 0 0.444 INSIDE OF LAYER EXTENT_MT_INDMY_1) INSIDE EXTENT_MT_0) INSIDE INDMY_DOWN_M
+
+
+//M1DUM rectangles when M1 Dummy touching INDMY
+DUMM1_INDMY_0 = DUMM_OFF_INDMY_0 NOT INTERACT M1D_BK_C
+DUMM1_INDMY_1 = DUMM_OFF_INDMY_1 NOT INTERACT M1D_BK_C
+DUMM1_INDMY_ALL = (DUMM1_INDMY_0 OR DUMM1_INDMY_1) INSIDE DUM_INSERT_AREA_M1
+DUMM1_INDMY_ALL_datetype_1 = DUMM1_INDMY_ALL NOT INTERACT M1_UP
+DUMM1_INDMY_ALL_datetype_7 = DUMM1_INDMY_ALL NOT DUMM1_INDMY_ALL_datetype_1 
+
+//M2DUM rectangles when M2 Dummy touching INDMY
+DUMM2_INDMY_0 = DUMM_OFF_INDMY_0 NOT INTERACT M2D_BK_C
+DUMM2_INDMY_1 = DUMM_OFF_INDMY_1 NOT INTERACT M2D_BK_C
+DUMM2_INDMY_ALL = (DUMM2_INDMY_0 OR DUMM2_INDMY_1) INSIDE DUM_INSERT_AREA_M2
+DUMM2_INDMY_ALL_datetype_1 = DUMM2_INDMY_ALL NOT INTERACT M2_UP
+DUMM2_INDMY_ALL_datetype_7 = DUMM2_INDMY_ALL NOT DUMM2_INDMY_ALL_datetype_1
+
+//M3DUM rectangles when M3 Dummy touching INDMY
+DUMM3_INDMY_0 = DUMM_OFF_INDMY_0 NOT INTERACT M3D_BK_C
+DUMM3_INDMY_1 = DUMM_OFF_INDMY_1 NOT INTERACT M3D_BK_C
+DUMM3_INDMY_ALL = (DUMM3_INDMY_0 OR DUMM3_INDMY_1) INSIDE DUM_INSERT_AREA_M3
+DUMM3_INDMY_ALL_datetype_1 = DUMM3_INDMY_ALL NOT INTERACT M3_UP
+DUMM3_INDMY_ALL_datetype_7 = DUMM3_INDMY_ALL NOT DUMM3_INDMY_ALL_datetype_1
+
+//M4DUM rectangles when M4 Dummy touching INDMY
+DUMM4_INDMY_0 = DUMM_OFF_INDMY_0 NOT INTERACT M4D_BK_C
+DUMM4_INDMY_1 = DUMM_OFF_INDMY_1 NOT INTERACT M4D_BK_C
+DUMM4_INDMY_ALL = (DUMM4_INDMY_0 OR DUMM4_INDMY_1) INSIDE DUM_INSERT_AREA_M4
+DUMM4_INDMY_ALL_datetype_1 = DUMM4_INDMY_ALL NOT INTERACT M4_UP
+DUMM4_INDMY_ALL_datetype_7 = DUMM4_INDMY_ALL NOT DUMM4_INDMY_ALL_datetype_1
+
+//M5DUM rectangles when M5 Dummy touching INDMY
+DUMM5_INDMY_0 = DUMM_OFF_INDMY_0 NOT INTERACT M5D_BK_C
+DUMM5_INDMY_1 = DUMM_OFF_INDMY_1 NOT INTERACT M5D_BK_C
+DUMM5_INDMY_ALL = (DUMM5_INDMY_0 OR DUMM5_INDMY_1) INSIDE DUM_INSERT_AREA_M5
+DUMM5_INDMY_ALL_datetype_1 = DUMM5_INDMY_ALL NOT INTERACT M5_UP
+DUMM5_INDMY_ALL_datetype_7 = DUMM5_INDMY_ALL NOT DUMM5_INDMY_ALL_datetype_1
+
+//M6DUM rectangles when M6 Dummy touching INDMY
+DUMM6_INDMY_0 = DUMM_OFF_INDMY_0 NOT INTERACT M6D_BK_C
+DUMM6_INDMY_1 = DUMM_OFF_INDMY_1 NOT INTERACT M6D_BK_C
+DUMM6_INDMY_ALL = (DUMM6_INDMY_0 OR DUMM6_INDMY_1) INSIDE DUM_INSERT_AREA_M6
+DUMM6_INDMY_ALL_datetype_1 = DUMM6_INDMY_ALL NOT INTERACT M6_UP
+DUMM6_INDMY_ALL_datetype_7 = DUMM6_INDMY_ALL NOT DUMM6_INDMY_ALL_datetype_1
+
+//M7DUM rectangles when M7 Dummy touching INDMY
+DUMM7_INDMY_0 = DUMM_OFF_INDMY_0 NOT INTERACT M7D_BK_C
+DUMM7_INDMY_1 = DUMM_OFF_INDMY_1 NOT INTERACT M7D_BK_C
+DUMM7_INDMY_ALL = (DUMM7_INDMY_0 OR DUMM7_INDMY_1) INSIDE DUM_INSERT_AREA_M7
+DUMM7_INDMY_ALL_datetype_1 = DUMM7_INDMY_ALL NOT INTERACT M7_UP
+DUMM7_INDMY_ALL_datetype_7 = DUMM7_INDMY_ALL NOT DUMM7_INDMY_ALL_datetype_1
+
+//M8DUM rectangles when M8 Dummy touching INDMY 
+DUMM8_INDMY_0 = DUMM_OFF_INDMY_0 NOT INTERACT M8D_BK_C
+DUMM8_INDMY_1 = DUMM_OFF_INDMY_1 NOT INTERACT M8D_BK_C
+DUMM8_INDMY_ALL = (DUMM8_INDMY_0 OR DUMM8_INDMY_1) INSIDE DUM_INSERT_AREA_M8
+DUMM8_INDMY_ALL_datetype_1 = DUMM8_INDMY_ALL NOT INTERACT M8_UP
+DUMM8_INDMY_ALL_datetype_7 = DUMM8_INDMY_ALL NOT DUMM8_INDMY_ALL_datetype_1
+
+
+//Output results of MxDUM insertion when Mx Dummy touching INDMY
+
+#IFDEF M1_insert YES
+DUMM1_INDMY_ALL_OUT_datetype_1 { COPY DUMM1_INDMY_ALL_datetype_1 }
+DRC CHECK MAP DUMM1_INDMY_ALL_OUT_datetype_1 GDSII 61 1 AUTOREF
+DUMM1_INDMY_ALL_OUT_datetype_7 { COPY DUMM1_INDMY_ALL_datetype_7 }
+DRC CHECK MAP DUMM1_INDMY_ALL_OUT_datetype_7 GDSII 61 7 AUTOREF
+#ENDIF
+
+#IFDEF M2_insert YES
+DUMM2_INDMY_ALL_OUT_datetype_1 { COPY DUMM2_INDMY_ALL_datetype_1 }
+DRC CHECK MAP DUMM2_INDMY_ALL_OUT_datetype_1 GDSII 62 1 AUTOREF
+DUMM2_INDMY_ALL_OUT_datetype_7 { COPY DUMM2_INDMY_ALL_datetype_7 }
+DRC CHECK MAP DUMM2_INDMY_ALL_OUT_datetype_7 GDSII 62 7 AUTOREF
+#ENDIF
+
+#IFDEF M3_insert YES
+DUMM3_INDMY_ALL_OUT_datetype_1 { COPY DUMM3_INDMY_ALL_datetype_1 }
+DRC CHECK MAP DUMM3_INDMY_ALL_OUT_datetype_1 GDSII 63 1 AUTOREF
+DUMM3_INDMY_ALL_OUT_datetype_7 { COPY DUMM3_INDMY_ALL_datetype_7 }
+DRC CHECK MAP DUMM3_INDMY_ALL_OUT_datetype_7 GDSII 63 7 AUTOREF
+#ENDIF
+
+#IFDEF M4_insert YES
+DUMM4_INDMY_ALL_OUT_datetype_1 { COPY DUMM4_INDMY_ALL_datetype_1 }
+DRC CHECK MAP DUMM4_INDMY_ALL_OUT_datetype_1 GDSII 64 1 AUTOREF
+DUMM4_INDMY_ALL_OUT_datetype_7 { COPY DUMM4_INDMY_ALL_datetype_7 }
+DRC CHECK MAP DUMM4_INDMY_ALL_OUT_datetype_7 GDSII 64 7 AUTOREF
+#ENDIF
+
+#IFDEF M5_insert YES
+DUMM5_INDMY_ALL_OUT_datetype_1 { COPY DUMM5_INDMY_ALL_datetype_1 }
+DRC CHECK MAP DUMM5_INDMY_ALL_OUT_datetype_1 GDSII 65 1 AUTOREF
+DUMM5_INDMY_ALL_OUT_datetype_7 { COPY DUMM5_INDMY_ALL_datetype_7 }
+DRC CHECK MAP DUMM5_INDMY_ALL_OUT_datetype_7 GDSII 65 7 AUTOREF
+#ENDIF
+
+#IFDEF M6_insert YES
+DUMM6_INDMY_ALL_OUT_datetype_1 { COPY DUMM6_INDMY_ALL_datetype_1 }
+DRC CHECK MAP DUMM6_INDMY_ALL_OUT_datetype_1 GDSII 66 1 AUTOREF
+DUMM6_INDMY_ALL_OUT_datetype_7 { COPY DUMM6_INDMY_ALL_datetype_7 }
+DRC CHECK MAP DUMM6_INDMY_ALL_OUT_datetype_7 GDSII 66 7 AUTOREF
+#ENDIF
+
+#IFDEF M7_insert YES
+DUMM7_INDMY_ALL_OUT_datetype_1 { COPY DUMM7_INDMY_ALL_datetype_1 }
+DRC CHECK MAP DUMM7_INDMY_ALL_OUT_datetype_1 GDSII 67 1 AUTOREF
+DUMM7_INDMY_ALL_OUT_datetype_7 { COPY DUMM7_INDMY_ALL_datetype_7 }
+DRC CHECK MAP DUMM7_INDMY_ALL_OUT_datetype_7 GDSII 67 7 AUTOREF
+#ENDIF
+
+#IFDEF M8_insert YES
+DUMM8_INDMY_ALL_OUT_datetype_1 { COPY DUMM8_INDMY_ALL_datetype_1 }
+DRC CHECK MAP DUMM8_INDMY_ALL_OUT_datetype_1 GDSII 68 1 AUTOREF
+DUMM8_INDMY_ALL_OUT_datetype_7 { COPY DUMM8_INDMY_ALL_datetype_7 }
+DRC CHECK MAP DUMM8_INDMY_ALL_OUT_datetype_7 GDSII 68 7 AUTOREF
+#ENDIF
+
+
+
+
+//=================================================
+//TM Dummy insertion when TM Dummy NOT touching INDMY
+//=================================================
+
+
+EXTENT_TM_1   = SHRINK (SIZE EXTENT_MT_0 BY 5.333) RIGHT BY 5.333 TOP BY 5.333 LEFT BY 7.111
+EXTENT_TM_2   = SHRINK (SIZE EXTENT_TM_1 BY 5.333) RIGHT BY 5.333 TOP BY 5.333 LEFT BY 7.111
+
+//TMxDUM rectangles constrains
+INDMY_TM_UP = SIZE INDMY BY 0.6
+INDMY_MTT2_UP = SIZE INDMY BY 1.778
+TM1D_BK    = (SIZE (TM1DUB OR MD_BK) BY 1.778) OR (SIZE TM1 BY 0.6)
+TM2D_BK    = (SIZE (TM2DUB OR MD_BK) BY 1.778) OR (SIZE TM2 BY 0.6)
+MTT2D_BK    = SIZE ((MTT2DB OR MTT2) OR MD_BK) BY 1.778
+
+//TMxDUM rectangles produce regulation when TMx Dummy NOT touching INDMY
+//Notice:Some dummy patterns will ignore 1 grid X-Shift in order to guarantee the speed of filling dummy patterns
+DUMTM_OFF_0 =  RECTANGLES 3.555 3.555 1.778 14.222 OFFSET 0 1.778 INSIDE OF LAYER EXTENT_MT_0
+DUMTM_OFF_1 = (RECTANGLES 3.555 3.555 1.778 14.222 OFFSET 0 1.778 INSIDE OF LAYER EXTENT_TM_1) INSIDE EXTENT_MT_0
+DUMTM_OFF_2 = (RECTANGLES 3.555 3.555 1.778 14.222 OFFSET 0 1.778 INSIDE OF LAYER EXTENT_TM_2) INSIDE EXTENT_MT_0
+
+
+
+//TM1DUM rectangles when TM1 Dummy NOT touching INDMY
+DUMTM1_0 = DUMTM_OFF_0 NOT INTERACT TM1D_BK
+DUMTM1_1 = DUMTM_OFF_1 NOT INTERACT TM1D_BK
+DUMTM1_2 = DUMTM_OFF_2 NOT INTERACT TM1D_BK
+DUMTM1_ALL = (((DUMTM1_0 OR DUMTM1_1) OR DUMTM1_2) NOT INTERACT INDMY_TM_UP) INSIDE DUM_INSERT_AREA_TM1
+
+//TM2DUM rectangles when TM2 Dummy NOT touching INDMY
+DUMTM2_0 = DUMTM_OFF_0 NOT INTERACT TM2D_BK
+DUMTM2_1 = DUMTM_OFF_1 NOT INTERACT TM2D_BK
+DUMTM2_2 = DUMTM_OFF_2 NOT INTERACT TM2D_BK
+DUMTM2_ALL = (((DUMTM2_0 OR DUMTM2_1) OR DUMTM2_2) NOT INTERACT INDMY_TM_UP) INSIDE DUM_INSERT_AREA_TM2
+
+//MTT2DM rectangles when MTT2 Dummy NOT touching INDMY
+DUMMTT2_0 = DUMTM_OFF_0 NOT INTERACT MTT2D_BK
+DUMMTT2_1 = DUMTM_OFF_1 NOT INTERACT MTT2D_BK
+DUMMTT2_2 = DUMTM_OFF_2 NOT INTERACT MTT2D_BK
+DUMMTT2_ALL = (((DUMMTT2_0 OR DUMMTT2_1) OR DUMMTT2_2) NOT INTERACT INDMY_MTT2_UP) INSIDE DUM_INSERT_AREA_MTT2
+
+
+//Output results of TMxDUM insertion when TMx Dummy NOT touching INDMY
+
+#IFDEF TM1_insert YES
+DUMTM1_ALL_OUT { COPY DUMTM1_ALL }
+DRC CHECK MAP DUMTM1_ALL_OUT GDSII 120 1 AUTOREF
+#ENDIF
+
+#IFDEF TM2_insert YES
+DUMTM2_ALL_OUT { COPY DUMTM2_ALL }
+DRC CHECK MAP DUMTM2_ALL_OUT GDSII 122 1 AUTOREF
+#ENDIF
+
+#IFDEF MTT2_insert YES
+DUMMTT2_ALL_OUT { COPY DUMMTT2_ALL }
+DRC CHECK MAP DUMMTT2_ALL_OUT GDSII 231 1 AUTOREF
+#ENDIF
+
+
+//=================================================
+//TM Dummy insertion when TM Dummy touching INDMY
+//=================================================
+
+
+EXTENT_TM_INDMY_1   = SHRINK (SIZE EXTENT_MT_0 BY 7.111) RIGHT BY 7.111 TOP BY 7.111 LEFT BY 10.667
+
+//TMxDUM rectangles produce regulation when TMx Dummy touching INDMY
+//Notice:Some dummy patterns will ignore 1 grid X-Shift in order to guarantee the speed of filling dummy patterns
+INDMY_DOWN_TM = SIZE INDMY BY -1.778
+DUMTM_OFF_INDMY_0 =  (RECTANGLES 2.4 2.4 4.711 15.378 OFFSET 0 3.556 INSIDE OF LAYER EXTENT_MT_0) INSIDE INDMY_DOWN_TM
+DUMTM_OFF_INDMY_1 = ((RECTANGLES 2.4 2.4 4.711 15.378 OFFSET 0 3.556 INSIDE OF LAYER EXTENT_TM_INDMY_1) INSIDE EXTENT_MT_0) INSIDE INDMY_DOWN_TM
+
+
+//TM1DUM rectangles when TM1 Dummy touching INDMY
+DUMTM1_INDMY_0 = DUMTM_OFF_INDMY_0 NOT INTERACT TM1D_BK
+DUMTM1_INDMY_1 = DUMTM_OFF_INDMY_1 NOT INTERACT TM1D_BK
+DUMTM1_INDMY_ALL = (DUMTM1_INDMY_0 OR DUMTM1_INDMY_1) INSIDE DUM_INSERT_AREA_TM1
+
+//TM2DUM rectangles when TM2 Dummy touching INDMY
+DUMTM2_INDMY_0 = DUMTM_OFF_INDMY_0 NOT INTERACT TM2D_BK
+DUMTM2_INDMY_1 = DUMTM_OFF_INDMY_1 NOT INTERACT TM2D_BK
+DUMTM2_INDMY_ALL = (DUMTM2_INDMY_0 OR DUMTM2_INDMY_1) INSIDE DUM_INSERT_AREA_TM2
+
+//MTT2DM rectangles when MTT2DM Dummy touching INDMY
+DUMMTT2_INDMY_0 = DUMTM_OFF_INDMY_0 NOT INTERACT MTT2D_BK
+DUMMTT2_INDMY_1 = DUMTM_OFF_INDMY_1 NOT INTERACT MTT2D_BK
+DUMMTT2_INDMY_ALL = (DUMMTT2_INDMY_0 OR DUMMTT2_INDMY_1) INSIDE DUM_INSERT_AREA_MTT2
+
+
+//Output results of TMxDUM insertion when TMx Dummy touching INDMY
+
+#IFDEF TM1_insert YES
+DUMTM1_INDMY_ALL_OUT { COPY DUMTM1_INDMY_ALL }
+DRC CHECK MAP DUMTM1_INDMY_ALL_OUT GDSII 120 1 AUTOREF
+#ENDIF
+
+#IFDEF TM2_insert YES
+DUMTM2_INDMY_ALL_OUT { COPY DUMTM2_INDMY_ALL }
+DRC CHECK MAP DUMTM2_INDMY_ALL_OUT GDSII 122 1 AUTOREF
+#ENDIF
+
+#IFDEF MTT2_insert YES
+DUMMTT2_INDMY_ALL_OUT { COPY DUMMTT2_INDMY_ALL }
+DRC CHECK MAP DUMMTT2_INDMY_ALL_OUT GDSII 231 1 AUTOREF
+#ENDIF
+
+
+//=====================
+//ALPA Dummy insertion 
+//=====================
+
+
+EXTENT_ALPA_1   = SHRINK (SIZE EXTENT_MT_0 BY 10.665) RIGHT BY 10.665 TOP BY 10.665 LEFT BY 14.221
+EXTENT_ALPA_2   = SHRINK (SIZE EXTENT_ALPA_1 BY 10.665) RIGHT BY 10.665 TOP BY 10.665 LEFT BY 14.221
+
+//ALDUM rectangles constrains
+ALD_BK   = SIZE (((ALDUB OR ALPA) OR INDMY) OR MD_BK) BY 2.844
+
+//ALDUM rectangles produce regulation
+//Notice:Some dummy patterns will ignore 3 grid X-Shift in order to guarantee the speed of filling dummy patterns
+DUMAL_OFF_0 =  RECTANGLES 7.110 7.110 3.555 28.441 OFFSET 0 3.556 INSIDE OF LAYER EXTENT_MT_0
+DUMAL_OFF_1 = (RECTANGLES 7.110 7.110 3.555 28.441 OFFSET 0 3.556 INSIDE OF LAYER EXTENT_ALPA_1) INSIDE EXTENT_MT_0
+DUMAL_OFF_2 = (RECTANGLES 7.110 7.110 3.555 28.441 OFFSET 0 3.556 INSIDE OF LAYER EXTENT_ALPA_2) INSIDE EXTENT_MT_0
+
+//ALDUM rectangles
+DUMAL_0 = DUMAL_OFF_0 NOT INTERACT ALD_BK
+DUMAL_1 = DUMAL_OFF_1 NOT INTERACT ALD_BK
+DUMAL_2 = DUMAL_OFF_2 NOT INTERACT ALD_BK
+DUMAL_ALL = ((DUMAL_0 OR DUMAL_1) OR DUMAL_2) INSIDE DUM_INSERT_AREA_ALPA
+
+
+
+//Output results of ALDUM insertion
+
+#IFDEF ALPA_insert YES
+DUMAL_ALL_OUT { COPY DUMAL_ALL }
+DRC CHECK MAP DUMAL_ALL_OUT GDSII 83 11 AUTOREF
+#ENDIF
+
+
+//=====================
+//Via Dummy insertion 
+//=====================
+
+}
+
+set timestamp [clock format [clock seconds] -gmt false -format "%Y%m%d%H%M%S"]
+
+
+foreach via_inner_j { 1 2 3 4 5 6 7 } {
+  if { $via_inner_j == 1 } {
+VERBATIM {
+#IFDEF M1_insert YES
+#IFDEF M2_insert YES
+#IFDEF V1_insert YES
+}
+  }
+  if { $via_inner_j == 2 } {
+VERBATIM {
+#IFDEF M2_insert YES
+#IFDEF M3_insert YES
+#IFDEF V2_insert YES
+}
+  }
+  if { $via_inner_j == 3 } {
+VERBATIM {
+#IFDEF M3_insert YES
+#IFDEF M4_insert YES
+#IFDEF V3_insert YES
+}
+  }
+  if { $via_inner_j == 4 } {
+VERBATIM {
+#IFDEF M4_insert YES
+#IFDEF M5_insert YES
+#IFDEF V4_insert YES
+}
+  }
+  if { $via_inner_j == 5 } {
+VERBATIM {
+#IFDEF M5_insert YES
+#IFDEF M6_insert YES
+#IFDEF V5_insert YES
+}
+  }
+  if { $via_inner_j == 6 } {
+VERBATIM {
+#IFDEF M6_insert YES
+#IFDEF M7_insert YES
+#IFDEF V6_insert YES
+}
+  }
+  if { $via_inner_j == 7 } {
+VERBATIM {
+#IFDEF M7_insert YES
+#IFDEF M8_insert YES
+#IFDEF V7_insert YES
+}
+  }
+
+SETLAYER DUMV${via_inner_j}A_ALL = (SIZE (DUMM${via_inner_j}A_ALL AND DUMM[expr $via_inner_j +1]A_ALL) BY -0.072) NOT INTERACT V${via_inner_j}D_BK
+RULECHECK DUMV${via_inner_j}A_OUT { FLATTEN DUMV${via_inner_j}A_ALL }
+
+DRC CHECK MAP DUMV${via_inner_j}A_OUT GDSII [expr $via_inner_j +69] 1 AREF DUMV${via_inner_j}A_OUT_CELL_$timestamp 0.3 0.3 1 \
+ SUBSTITUTE 0     0       0.077  0       0.077  0.077    0     0.077    0     0 \
+ SUBSTITUTE 0.221 0       0.298  0       0.298  0.077    0.221 0.077    0.221 0 \
+ SUBSTITUTE 0     0.221   0.077  0.221   0.077  0.298    0     0.298    0     0.221 \
+ SUBSTITUTE 0.221 0.221   0.298  0.221   0.298  0.298    0.221 0.298    0.221 0.221
+
+
+VERBATIM {
+#ENDIF
+#ENDIF
+#ENDIF
+}
+
+}
