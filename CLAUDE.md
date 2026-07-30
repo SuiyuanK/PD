@@ -4,139 +4,108 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Repository purpose
 
-This is a Tcl- and shell-driven digital IC physical-design reference flow for an SMIC process. It connects Synopsys Design Compiler, Formality, IC Compiler II, PrimeTime/StarRC, Siemens EDA (Mentor) Calibre, and Ansys/Apache RedHawk. It is not a conventional software package: there is no root build system, CI workflow, automated test suite, or lint command. Validate a change by running the smallest relevant EDA stage or corner and reviewing its reports and logs.
+This repository is a Tcl- and shell-driven digital IC physical-design (digital backend) reference flow, built from an embedded-systems competition project and refined across subsequent projects. It contains project-specific examples for Synopsys Design Compiler, Formality, IC Compiler II (ICC2), PrimeTime, StarRC, Siemens EDA (Mentor) Calibre, and Ansys/Apache RedHawk.
 
-Most commands assume they are launched from the stage directory because scripts use relative paths. They target a licensed Linux/Unix EDA environment: the Bash/C-shell wrappers, `tee`, background jobs, and proprietary tool binaries are not native PowerShell commands even when the repository is checked out on Windows. PDK, standard-cell/memory libraries, RTL, and large/generated design artifacts may be absent, ignored, or machine-local. Adapt machine-specific library, technology, RTL, netlist, and rule-deck paths before running a flow; do not treat checked-in hard-coded paths as portable defaults.
+It is not a conventional software package: there is no root build system, CI workflow, lint command, or automated test suite. Validate changes using the smallest affected EDA stage or corner, then inspect the real tool log, reports, database state, and expected artifacts.
 
-Interpret the repository's Tcl as Synopsys EDA Tcl, not generic Tcl. `.vscode/settings.json` selects the `synopsys-eda-tcl` dialect.
+Scripts target a licensed Linux/Unix EDA environment. Bash/C shell wrappers, `tee`, background jobs, and proprietary tool binaries are not directly runnable in Windows PowerShell. Most scripts require execution from their own stage directory because they use relative paths. PDKs, libraries, RTL, rule decks, and generated artifacts can be absent, ignored, proprietary, or machine-local.
 
-## Flow architecture
+Interpret repository Tcl as Synopsys EDA Tcl, not generic Tcl. `.vscode/settings.json` uses the `synopsys-eda-tcl` dialect.
 
-The numbered top-level directories encode the nominal dependency order:
+For detailed Chinese user-facing workflow guidance, use [README.md](README.md). Keep this file focused on agent execution constraints and high-risk checks.
 
-1. `00_dc/` — RTL synthesis. `run_dc.sh` exports design switches and invokes `scripts/dc.tcl`, which reads RTL file lists, applies constraints, compiles, and writes netlist, SDC, DDC, SVF, reports, and logs.
-2. `01_fm_post_dc/` — RTL-to-synthesized-netlist equivalence. Its Formality Tcl reads RTL file lists, the DC netlist, and DC's SVF before matching and verifying.
-3. `02_pr/` — ICC2 physical implementation. `00_common_design_settings.tcl` is shared configuration sourced by the numbered stages; the executable flow is `01_import_netlist.tcl` through `09_chipfinish.tcl`. The stages cover import, floorplan, power routing, place optimization, CTS, post-CTS optimization, routing, route optimization, and chip finishing. Each stage persists state in a stage-named NDM library consumed by the next stage. Scenario scripts define MCMM timing views. `scripts/teacher/` and other reference directories are alternate material, not stages to mix into the main sequence without checking their assumptions.
-4. `03_fm_post_pr/` — post-layout logical equivalence between DC and PR netlists.
-5. `04_pt/` — StarRC extraction followed by multi-corner PrimeTime STA. Corner subdirectories carry their own run/setup files rather than sharing one root configuration.
-6. `05_pv/` — physical verification inputs and flows for GDS merge, DRC/antenna, LVS, and dummy-related processing. Rule decks and PDK inputs are partly external; `dummy/` contains process material rather than a complete Dummy Fill runner.
-7. `06_power/` — RedHawk static/dynamic power and signal-EM analysis, with PrimeTime timing export as an input-preparation step.
-8. `07_signoff_check/` — interactive Tcl snippets for net-length repair/reporting, VT-ratio reporting, and decap/ECO-cap GUI selection; there is no wrapper runner or complete automated signoff suite.
+## Architecture and configuration boundaries
 
-`eco/` is a separate `image_icb` late-stage ICC2 repair path, not a continuation of the checked-in `soc_pad_wrapper` PR defaults. It expects an existing base NDM library and provides timing/DRC/hold/setup fixes followed by chip finishing. `others/` contains utilities and library-generation/reference material rather than a normal production stage.
+The numbered directories express a nominal dependency order:
 
-Data moves between stages through conventional `data/`, `outputs/`, `rpts/`/`reports/`, `logs/`, and tool-work directories. Treat the numbered directories as a reference architecture, not a ready-to-run end-to-end configuration: checked-in defaults mix example designs (`CNN` in DC/post-DC FM, `soc_pad_wrapper` in PR, `conv` in post-PR FM, and `image_icb` in ECO/STA/PV/power). Align the top-module name, netlist/SDC/SVF filenames, corner/scenario names, libraries, and producer/consumer paths before crossing stages.
+1. `00_dc/` — RTL synthesis; produces netlist, SDC, DDC, SVF, reports, and logs.
+2. `01_fm_post_dc/` — RTL-to-synthesized-netlist Formality verification.
+3. `02_pr/` — ICC2 physical implementation; `01_import_netlist.tcl` through `09_chipfinish.tcl` use stage NDM databases.
+4. `03_fm_post_pr/` — synthesized-versus-PR-netlist Formality verification.
+5. `04_pt/` — StarRC extraction and PrimeTime STA.
+6. `05_pv/` — GDS merge, DRC/Antenna, LVS, and Dummy Fill-related material.
+7. `06_power/` — APL-DI preparation plus RedHawk power-integrity and signal-EM analysis.
+8. `07_signoff_check/` — loaded-session ICC2/PrimeTime helper snippets, not an automated signoff suite.
 
-## Stage commands and caveats
+Do **not** assume those directories form one currently runnable design. Checked-in project configurations include:
 
-### Synthesis
+| Areas | Current example/configuration | Required handling |
+| --- | --- | --- |
+| `00_dc/`, `01_fm_post_dc/` | `CNN` | Default RTL directory, lists, netlist, and SVF are not included. |
+| `02_pr/` | `soc_pad_wrapper` | `01_import_netlist.tcl` expects project inputs such as `data/soc_pad_wrapper.v`, which are not checked in. |
+| `03_fm_post_pr/` | `conv` | Synchronize design name, producer paths, compressed-netlist handling, and `TOPDIR`/`topDir` before use. |
+| `eco/`, `04_pt/`, `05_pv/`, `06_power/` | largely `image_icb` | These are later-project/ECO configurations, not automatic consumers of `02_pr` output. |
+
+Treat all project names, absolute paths, libraries, corners, rule decks, and output paths as project configuration—not portable defaults. Before crossing a stage boundary, reconcile the top module, netlist/SDC/SVF/DEF/GDS/SPEF names, standard-cell/I/O/macro libraries, power nets, PVT and RC corners, MCMM scenarios, and output consumers.
+
+## High-value commands and stage rules
+
+### DC and Formality
 
 ```bash
 cd 00_dc
 ./run_dc.sh
-```
 
-Edit the variables at the top of `00_dc/run_dc.sh` first, especially `rtlDir`, `TOP_MODULE`, and the RTL/compile/area/power/hold switches. The wrapper invokes `dc_shell-xg-t -f ./scripts/dc.tcl` in either RTL-read or full-compile mode.
-
-Generate RTL file lists with `00_dc/scripts/find_rtl.py`. The helper scans **its own directory tree**, not the caller's current directory, and writes both lists beside itself. Place/copy it at the RTL source root or adapt `script_dir`, then run:
-
-```bash
-cd <RTL source root containing find_rtl.py>
-python find_rtl.py
-```
-
-It writes `rtl_verilog.list` and `rtl_sverilog.list`; they must be under the directory named by `rtlDir`, because `dc.tcl` reads `$rtlDir/rtl_verilog.list` and `$rtlDir/rtl_sverilog.list`.
-
-`00_dc/clean.sh` removes generated work, log, report, and output data. Inspect and preserve prior results before running it.
-
-### Formal equivalence
-
-```bash
-cd 01_fm_post_dc
-./run_fm.sh
-
-cd ../03_fm_post_pr
+cd ../01_fm_post_dc
 ./run_fm.sh
 ```
 
-Before each run, set the top module and input directories in that stage's `run_fm.sh`, and update library paths in `scripts/run_fm.tcl`. Both wrappers delete or recreate previous log/work directories.
+`00_dc/run_dc.sh` invokes `scripts/dc.tcl`; adapt `rtlDir`, `TOP_MODULE`, library paths, and compile switches first. `scripts/find_rtl.py` scans the directory containing the script and writes `rtl_verilog.list` and `rtl_sverilog.list` beside it. The full-compile default also needs its expected prior project artifacts.
 
-The checked-in post-PR flow is not runnable as-is: `run_fm.sh` points `post_pr_Dir` at `../02_pr/data`, while chip finishing writes compressed `.v.gz` netlists to `../02_pr/outputs`; its default module does not match PR; and `scripts/run_fm.tcl` defines `TOPDIR` but later references `${topDir}`. Correct these together rather than changing only one path.
+Formality wrappers clear/recreate logs and temporary work. Check Formality's final `verify` result and unresolved references, not the wrapper status alone.
+
+The checked-in post-PR Formality wrapper is blocked until its `conv` configuration, `post_pr_Dir`, `.v.gz` handling, DC/PR naming, and Tcl `TOPDIR`/`topDir` mismatch are adapted together.
 
 ### ICC2 physical implementation
 
 ```bash
 cd 02_pr
 icc2_shell -f scripts/01_import_netlist.tcl
-# After each successful stage, run 02_floorplan.tcl through 09_chipfinish.tcl in order.
 ```
 
-`00_common_design_settings.tcl` only defines shared variables and is sourced by each numbered stage; running it alone does not import or implement the design. Running one numbered Tcl file is the closest equivalent to running a single stage/test, but it requires the previous stage's saved NDM library and external technology inputs.
+`00_common_design_settings.tcl` is sourced shared configuration, not an executable flow entry. The numbered scripts are dependency order, **not** a batch to run blindly from `01` to `09`.
 
-Each numbered stage copies the preceding NDM library to a stage-named destination and force-deletes any existing destination. Several stages also recreate report directories. `09_chipfinish.tcl` deletes and recreates `02_pr/outputs/` before writing compressed GDS/netlists and other final deliverables. Preserve needed results before rerunning a stage.
+After import, iterate on `02_floorplan.tcl` and `03_power_routing.tcl` for the actual design. Check utilization, macro placement, I/O/Pad planning, supply topology, metal stack, IR drop, EM, congestion, and timing after each iteration. Advance to placement, CTS, routing, route optimization, and chip finish only after the physical foundation is stable.
 
-### StarRC and PrimeTime
+A later numbered stage requires the preceding NDM database. Several stages force-delete their target NDM database/report directories. `09_chipfinish.tcl` recreates `02_pr/outputs/`; preserve needed results, and verify actual LEF/TLEF output artifacts instead of assuming every declared path was written.
 
-Extraction must complete before STA consumes its parasitics:
+### StarRC, PrimeTime, PV, and ECO
+
+Run extraction before STA:
 
 ```bash
 cd 04_pt/starrc
 ./run_starrc.sh
+# Wait for every background corner and inspect extraction outputs.
 
-cd ../sta
-./run_pt.sh
-```
-
-`run_starrc.sh` launches multiple corner `.run` files in the background and contains no `wait`; the wrapper can return while extraction is still running. Wait for every process and verify every extraction log and expected parasitic artifact before starting PrimeTime.
-
-`run_pt.sh` sequentially visits configured corners and runs `pt_shell -f run_pt.tcl`, but it has no fail-fast behavior or aggregated status. Inspect every corner's log and report. The checked-in corner scripts consume `image_icb` netlists/constraints and hard-coded external library paths rather than the main PR example.
-
-To validate one adapted STA corner:
-
-```bash
-cd 04_pt/sta/<corner-directory>
+cd ../sta/<adapted-corner>
 pt_shell -f run_pt.tcl
 ```
 
-### Physical verification
+`run_starrc.sh` starts configured corners in the background without `wait`; `run_pt.sh` has no fail-fast or aggregate status. Current extraction/STA settings consume `image_icb` ECO NDM state, not the `02_pr` default output.
 
-From `05_pv/drc/`:
+`05_pv/merge/icw/run_icw.csh`, `merge/Calibredrv/merge.tcl`, DRC/Antenna runsets, and LVS scripts are separate paths that do not automatically connect. They contain destructive local cleanup, external/machine paths, and stale `04_pv`/`image_icb` references. `dummy/` is process material; `merge_dummy.tcl` only merges an externally generated `Dummy.gds`.
 
-```bash
-./run_drc.sh
-```
+`eco/` is a feedback path after PT/PV reports timing, hold, setup, DRC, or related violations. Use a recoverable existing implementation database. `eco/scripts/fix_drc.tcl`, `fix_hold.tcl`, and `fix_stup.tcl` write/overwrite `eco/scripts/fix_ecotiming.tcl`; `eco/scripts/09_chipfinish.tcl` modifies design state and rebuilds ECO outputs/reports. Re-run affected PT/PV/Power checks after ECO.
 
-This runs both Calibre DRC and antenna decks. Run one check directly when only that deck is affected:
+### APL-DI and RedHawk
 
-```bash
-calibre -hier -drc -turbo 4 -hyper -64 ./drc.cmd | tee drc.log
-calibre -hier -drc -turbo 4 -hyper -64 ./ant.cmd | tee ant.log
-```
-
-GDS merge is launched from `05_pv/merge/icw/` with `./run_icw.csh`. Despite the `.csh` name, it has no shebang and uses Unix commands. It force-deletes `05_pv/merge/data/pr_outputs` and its local log directory before copying PR outputs.
-
-The merge/DRC/LVS runsets contain Linux mount paths and `image_icb` names from the separate ECO example; they do not automatically consume `02_pr`'s `soc_pad_wrapper` outputs. In particular, `05_pv/merge/Calibredrv/merge.tcl` refers to a stale `04_pv` path although the actual stage is `05_pv`, and `05_pv/lvs/gen_spi.sh` contains an environment-specific absolute netlist path. `05_pv/dummy/` has process files and documentation but no complete Dummy Fill launcher; `merge/Calibredrv/merge_dummy.tcl` only merges an externally produced `Dummy.gds`.
-
-### Power and signoff
-
-The RedHawk Tcl inputs are under `06_power/ele_static_power/`, `ele_dynamic_power/`, and `ele_signal_em/`. A typical invocation is:
+Before RedHawk design analysis, create matching APL-DI (design-independent) library artifacts. `06_power/apldi/{hvt,lvt,rvt}/` holds example `apldi.conf` and `apldi.cmd` files. Adapt LEF, CDL/SPICE, Liberty, device models, VDD/VSS, simulator, PVT corner, cell lists, work paths, and job count. The current scripts run `apldi`/`aplmerge` and produce `.cdev`, `.pwcdev`, and `.spiprof` only for their configured FF/SS corners.
 
 ```bash
-cd 06_power/ele_static_power
+cd 06_power/apldi/hvt
+sh apldi.cmd
+
+cd ../../ele_static_power
 redhawk -f run_static_power.tcl
 ```
 
-Confirm the executable and batch flags against the installed RedHawk version rather than assuming this example is universal. The scripts import `image_icb.gsr`; those GSR files consume the separate ECO design's `../../eco/outputs/image_icb.def.gz` and contain stale `../../03_pt/starrc/...` references even though extraction is under `04_pt/starrc/`. They cannot directly consume the main `soc_pad_wrapper` PR outputs without coordinated edits.
-
-`06_power/write_timing_file.tcl` is a PrimeTime-side preparation script with an absolute Ansys installation path, `image_icb` output names, and stale timing-session paths. Adapt all of them before use.
-
-Source an individual `07_signoff_check/*.tcl` only in an appropriate loaded ICC2/PrimeTime design session. These are not standalone generic-Tcl programs. `01_check_net_length.tcl` mutates the design by inserting route buffers before appending overlength-net reports, and `check_dcap_ecocap.tcl` changes GUI selections.
+The RedHawk executable/flags are installation-dependent. Current GSR files depend on `image_icb` ECO outputs and stale `03_pt` parasitic paths, and may enable options that tolerate library/DEF mismatches. Do not use them unchanged for `soc_pad_wrapper` or let tolerant options mask input incompatibility.
 
 ## Validation and editing boundaries
 
-- There is no repository-wide build, lint, or test command. Validate the smallest affected EDA stage or corner, then inspect tool exit status, complete logs, reports, and expected output artifacts.
-- Shell wrappers often pipe through `tee`; do not assume the wrapper's status proves the EDA command succeeded. Check for tool errors, unresolved references, unconstrained paths, failed equivalence, timing violations, DRC/LVS/antenna violations, and extraction short/open results as applicable.
-- Flow scripts are coupled through top-module names, filenames, scenario/corner names, library sets, and relative artifact paths. When changing one stage's output naming, search downstream Formality, ICC2, PrimeTime/StarRC, PV, ECO, and power scripts for consumers.
-- Preserve machine-local PDK/path customizations and unrelated generated files. The working tree may intentionally contain untracked or ignored EDA inputs and outputs.
-- Check `.gitignore` and `git status` before adding outputs. Do not commit PDK libraries (`.db`, LEF, NDM, technology files), GDS/OASIS, extracted databases, or large generated netlists.
-- Before invoking `00_dc/clean.sh`, either Formality wrapper, a numbered ICC2 stage, or merge/setup scripts, inspect the directories they delete or recreate and preserve any required results.
+- Validate the smallest affected stage/corner. Inspect actual tool exit status, full logs, reports, NDM/output artifacts, Formality equivalence, timing constraints/violations, PV results, and RedHawk input consistency. Shell completion, `tee`, or a created log file alone does not prove success.
+- When changing names, paths, corners, libraries, or output filenames, search all downstream Formality, ICC2, StarRC/PrimeTime, PV, ECO, and RedHawk consumers.
+- Preserve local PDK/path customization and unrelated generated data. Check `.gitignore` and `git status` before adding artifacts.
+- Before `00_dc/clean.sh`, a Formality wrapper, a numbered ICC2/ECO stage, or a PV merge/setup script, inspect the targets it deletes or recreates and preserve results required by the requested work.
+- Do not commit PDK files, `.db`, LEF/technology libraries, NDM databases, GDS/OASIS, extraction databases, large generated netlists, or other proprietary/generated deliverables.
