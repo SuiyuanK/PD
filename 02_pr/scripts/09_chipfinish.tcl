@@ -91,7 +91,7 @@ create_frame -block_all auto -hierarchical true -merge_metal_blockage true
 write_lef -design ${design}.frame $lef_file -include cell 
 
 set techlef_file "${output_dir}/${design}.tlef"
-write_lef -design ${design}.frame $lef_file -include tech 
+write_lef -design ${design}.frame $techlef_file -include tech 
 
 
 ### reports
